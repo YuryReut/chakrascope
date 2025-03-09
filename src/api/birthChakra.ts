@@ -1,26 +1,23 @@
-import * as solarData from "./solar.json";
-import * as lunarData from "./lunar.json";
-import * as chakrasData from "./chakras.json";
-
-// Функция для конвертации "YYYY-MM-DD" → "YYYY-DDD"
-function convertToJulian(date: string): string {
-    const parsedDate = new Date(date);
-    const startOfYear = new Date(parsedDate.getFullYear(), 0, 0);
-    const diff = parsedDate.getTime() - startOfYear.getTime();
-    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-    return `${parsedDate.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
-}
+import chakrasData from "./chakras.json";
+import solarData from "./solar.json";
+import lunarData from "./lunar.json";
 
 export function getBirthChakra(dateOfBirth: string) {
-    let debugLogs = [];
+    let debugLogs: string[] = [];
 
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
-    const julianDate = convertToJulian(dateOfBirth);
-    debugLogs.push(`📅 Преобразованная дата для поиска: ${julianDate}`);
+    // Преобразуем дату в формат YYYY-DOY (где DOY — день в году)
+    const birthDate = new Date(dateOfBirth);
+    const year = birthDate.getFullYear();
+    const startOfYear = new Date(year, 0, 0);
+    const dayOfYear = Math.floor((birthDate.getTime() - startOfYear.getTime()) / 86400000);
+    const formattedDate = `${year}-${String(dayOfYear).padStart(3, "0")}`;
 
-    const solarEntry = solarData.find(entry => entry.Date === julianDate);
-    const lunarEntry = lunarData.find(entry => entry.Date === julianDate);
+    debugLogs.push(`📅 Преобразованная дата для поиска: ${formattedDate}`);
+
+    const solarEntry = solarData.find(entry => entry.Date === formattedDate);
+    const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
     debugLogs.push(`🌞 Найденная запись для Солнца: ${solarEntry ? JSON.stringify(solarEntry) : "❌ Дата не найдена"}`);
     debugLogs.push(`🌙 Найденная запись для Луны: ${lunarEntry ? JSON.stringify(lunarEntry) : "❌ Дата не найдена"}`);
@@ -33,30 +30,38 @@ export function getBirthChakra(dateOfBirth: string) {
         };
     }
 
-    // Определяем чакру по градусам
-    const getChakraInfo = (degree: number) => {
-        const chakraIndex = Math.floor(degree / 51.42) % 7; // 360° / 7 чакр
-        const phaseIndex = Math.floor((degree % 51.42) / (51.42 / 4)); // Разделение на 4 фазы
+    const sunDegree = solarEntry.Solar_Longitude;
+    const moonDegree = lunarEntry.Lunar_Longitude;
 
-        const chakraData = chakrasData[chakraIndex];
+    // Определяем чакру по Солнцу и фазу по Луне (7 чакр равномерно по 360 градусам)
+    const chakraId = Math.floor((sunDegree / 360) * 7) + 1;
+    const phaseId = Math.floor((moonDegree / 360) * 4) + 1;
+
+    const chakra = chakrasData.chakras.find(c => c.id === chakraId);
+    const phase = chakra?.phases.find(p => p.id === phaseId);
+
+    if (!chakra || !phase) {
+        debugLogs.push("🚨 Ошибка: Не удалось определить чакру или фазу!");
         return {
-            chakra: chakraData.name,
-            title: chakraData.title,
-            phase: phaseIndex + 1, // Фаза от 1 до 4
-            description: chakraData.phases[phaseIndex]
+            result: "Ошибка расчёта",
+            logs: debugLogs
         };
-    };
+    }
 
-    const sunChakra = getChakraInfo(solarEntry.Solar_Longitude);
-    const moonChakra = getChakraInfo(lunarEntry.Lunar_Longitude);
-
-    debugLogs.push(`✅ Итог: Чакра Солнца – ${sunChakra.chakra} (${sunChakra.title}), фаза ${sunChakra.phase}`);
-    debugLogs.push(`✅ Итог: Чакра Луны – ${moonChakra.chakra} (${moonChakra.title}), фаза ${moonChakra.phase}`);
+    debugLogs.push(`✅ Итог: Чакра ${chakraId} (${chakra.name} - ${chakra.title}), Фаза ${phaseId}`);
+    debugLogs.push(`🌀 Внутреннее ощущение: ${phase.inner}`);
+    debugLogs.push(`🌍 Внешнее проявление: ${phase.outer}`);
+    debugLogs.push(`❤️ Отношения: ${phase.relationship}`);
 
     return {
         result: {
-            sun: sunChakra,
-            moon: moonChakra
+            chakra: chakraId,
+            name: chakra.name,
+            title: chakra.title,
+            phase: phaseId,
+            inner: phase.inner,
+            outer: phase.outer,
+            relationship: phase.relationship
         },
         logs: debugLogs
     };
