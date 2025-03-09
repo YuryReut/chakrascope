@@ -20,8 +20,11 @@ function App() {
             justifyContent: "center",
             alignItems: "center",
             height: "100vh",
+            width: "100vw",
             textAlign: "center",
-            fontFamily: "inherit"
+            fontFamily: "inherit",
+            padding: "20px",
+            boxSizing: "border-box"
         }}>
             <h1>Чакроскоп</h1>
 
@@ -54,12 +57,17 @@ function App() {
             {birthChakra && (
                 <pre style={{
                     display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
                     maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "10px",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
-                    marginTop: "20px"
+                    background: "#f8f8f8",
+                    borderRadius: "8px"
                 }}>
                     {birthChakra}
                 </pre>
