@@ -2,24 +2,24 @@ import solarData from "./solar.json";
 import lunarData from "./lunar.json";
 
 interface ChakraEntry {
-    date: string;
-    degrees: number;
-    chakra: string;
+    Date: string; // В исходных данных дата указана с большой буквы
+    Solar_Longitude?: number;
+    Lunar_Longitude?: number;
 }
 
 // Функция для нахождения ближайшей даты в данных
-function findChakraData(date: string, data: ChakraEntry[]): string {
-    const entry = data.find((row) => row.date === date);
-    return entry ? entry.chakra : "Дата вне диапазона данных";
+function findChakraData(date: string, data: ChakraEntry[], key: "Solar_Longitude" | "Lunar_Longitude"): number | null {
+    const entry = data.find((row) => row.Date === date);
+    return entry ? entry[key] ?? null : null;
 }
 
 // Основная функция для определения чакры рождения
 export function getBirthChakra(dateOfBirth: string) {
-    const sunChakra = findChakraData(dateOfBirth, solarData as ChakraEntry[]);
-    const moonChakra = findChakraData(dateOfBirth, lunarData as ChakraEntry[]);
+    const sunDegree = findChakraData(dateOfBirth, solarData as ChakraEntry[], "Solar_Longitude");
+    const moonDegree = findChakraData(dateOfBirth, lunarData as ChakraEntry[], "Lunar_Longitude");
 
     return {
-        sunChakra,
-        moonChakra
+        sunDegree: sunDegree !== null ? `${sunDegree}°` : "Дата вне диапазона данных",
+        moonDegree: moonDegree !== null ? `${moonDegree}°` : "Дата вне диапазона данных",
     };
 }
