@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "https://cdn.skypack.dev/axios";
 
 const cityCoordinates: Record<string, { lat: number, lon: number }> = {
     "Москва": { lat: 55.7558, lon: 37.6173 },
