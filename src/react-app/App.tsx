@@ -2,10 +2,9 @@ import { useState } from "react";
 import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
-    const [birthDate, setBirthDate] = useState<string>("");
-    const [birthChakra, setBirthChakra] = useState<string | null>(null);
+    const [birthDate, setBirthDate] = useState("");
 
-    // Преобразование даты в формат YYYY-DDD
+    // Функция форматирования даты в YYYY-DDD
     const formatDateToYearDay = (dateString: string): string => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -13,7 +12,7 @@ function App() {
         const diff = date.getTime() - startOfYear.getTime();
         const oneDay = 1000 * 60 * 60 * 24;
         const dayOfYear = Math.floor(diff / oneDay);
-        return `${year}-${dayOfYear}`;
+        return `${year}-${String(dayOfYear).padStart(3, "0")}`;
     };
 
     const handleCheckChakra = () => {
@@ -22,11 +21,8 @@ function App() {
         const formattedDate = formatDateToYearDay(birthDate);
         const todayFormatted = formatDateToYearDay(new Date().toISOString().split("T")[0]);
 
-        // Передаем текущую дату как число (время в миллисекундах)
-        const currentTimestamp = Date.now();
-
-        const result = getBirthChakra(formattedDate, todayFormatted, currentTimestamp, birthDate);
-        setBirthChakra(JSON.stringify(result, null, 2));
+        const result = getBirthChakra(formattedDate, todayFormatted);
+        console.log(result);
     };
 
     return (
@@ -42,23 +38,24 @@ function App() {
         }}>
             <h1>Чакроскоп</h1>
 
-            <label style={{ marginBottom: "10px", fontSize: "inherit" }}>
+            <label style={{ fontSize: "inherit", marginBottom: "10px" }}>
                 Введите дату рождения:
             </label>
 
-            <input 
+            <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
                 style={{
                     padding: "8px",
+                    fontSize: "inherit",
                     marginBottom: "15px",
-                    fontSize: "inherit"
-                }} 
+                    textAlign: "center"
+                }}
             />
 
-            <button 
-                onClick={handleCheckChakra} 
+            <button
+                onClick={handleCheckChakra}
                 style={{
                     padding: "8px 20px",
                     cursor: "pointer",
@@ -67,19 +64,6 @@ function App() {
             >
                 Рассчитать
             </button>
-
-            {birthChakra && (
-                <pre style={{
-                    textAlign: "left",
-                    maxWidth: "600px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    marginTop: "20px",
-                    fontSize: "inherit"
-                }}>
-                    {birthChakra}
-                </pre>
-            )}
 
             <footer style={{ marginTop: "30px", fontSize: "inherit" }}>
                 © 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
