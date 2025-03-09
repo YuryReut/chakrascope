@@ -1,22 +1,11 @@
-// src/App.tsx
+import { getDailyChakra } from "../api/dailyChakra"; // Указываем путь к файлу
 
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import getChakraOfTheDay from './dailyChakra'; // Импортируем утилиту для определения чакры дня
-
-const App: React.FC = () => {
-  const [chakra, setChakra] = useState<string>('');
-
-  useEffect(() => {
-    const chakraOfTheDay = getChakraOfTheDay(); // Получаем чакру дня
-    setChakra(chakraOfTheDay);
-  }, []);
-
-  return (
-    <div className="App">
-      <h1>Сегодняшняя чакра дня: {chakra}</h1> {/* Отображаем чакру дня */}
-    </div>
-  );
+function App() {
+    return (
+        <div>
+            <h1>Сегодня день {getDailyChakra()}</h1>
+        </div>
+    );
 }
 
 export default App;
