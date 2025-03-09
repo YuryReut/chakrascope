@@ -9,7 +9,19 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = async () => {
-        const chakra = await getBirthChakra(birthDate, birthTime, birthCity);
+        if (!birthDate) {
+            alert("Введите дату рождения");
+            return;
+        }
+
+        const [year, month, day] = birthDate.split("-").map(Number);
+
+        if (!year || !month || !day) {
+            alert("Неверный формат даты");
+            return;
+        }
+
+        const chakra = getBirthChakra(day, month, year);
         setBirthChakra(chakra);
     };
 
