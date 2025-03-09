@@ -3,13 +3,19 @@ import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
+        if (!birthDate) return;
+        
+        // Преобразуем дату из "DD-MM-YYYY" в "YYYY-MM-DD" для корректной обработки
+        const [day, month, year] = birthDate.split("-");
+        const formattedDate = `${year}-${month}-${day}`;
+
         const today = new Date().toISOString().split("T")[0];
         const sunDegree = Math.random() * 360; // Заменить на реальные данные
         const moonDegree = Math.random() * 360; // Заменить на реальные данные
-        const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+        const result = getBirthChakra(formattedDate, today, sunDegree, moonDegree);
+
         setBirthChakra(result.result);
     };
 
@@ -29,18 +35,21 @@ function App() {
                 Введите дату рождения:
             </label>
 
-            <input 
-                type="date" 
-                value={birthDate} 
-                onChange={(e) => setBirthDate(e.target.value)} 
+            {/* Поле ввода даты с форматом DD-MM-YYYY */}
+            <input
+                type="text"
+                placeholder="ДД-ММ-ГГГГ"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
                 style={{
                     padding: "8px",
-                    marginBottom: "15px"
-                }} 
+                    marginBottom: "15px",
+                    textAlign: "center"
+                }}
             />
 
-            <button 
-                onClick={handleCheckChakra} 
+            <button
+                onClick={handleCheckChakra}
                 style={{
                     padding: "10px 20px",
                     cursor: "pointer"
