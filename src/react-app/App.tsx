@@ -22,7 +22,8 @@ function App() {
         const formattedDate = formatDateToYearDay(birthDate);
         const todayFormatted = formatDateToYearDay(new Date().toISOString().split("T")[0]);
 
-        const result = getBirthChakra(formattedDate, todayFormatted);
+        // Передаем 4 аргумента в getBirthChakra
+        const result = getBirthChakra(formattedDate, todayFormatted, new Date(), birthDate);
         setBirthChakra(JSON.stringify(result, null, 2));
     };
 
