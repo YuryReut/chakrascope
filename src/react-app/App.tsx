@@ -3,26 +3,13 @@ import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-
-    // Функция форматирования даты в YYYY-DDD
-    const formatDateToYearDay = (dateString: string): string => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const startOfYear = new Date(year, 0, 0);
-        const diff = date.getTime() - startOfYear.getTime();
-        const oneDay = 1000 * 60 * 60 * 24;
-        const dayOfYear = Math.floor(diff / oneDay);
-        return `${year}-${String(dayOfYear).padStart(3, "0")}`;
-    };
+    const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
         if (!birthDate) return;
 
-        const formattedDate = formatDateToYearDay(birthDate);
-        const todayFormatted = formatDateToYearDay(new Date().toISOString().split("T")[0]);
-
-        const result = getBirthChakra(formattedDate, todayFormatted);
-        console.log(result);
+        const result = getBirthChakra(birthDate);
+        setBirthChakra(result);
     };
 
     return (
@@ -64,6 +51,12 @@ function App() {
             >
                 Рассчитать
             </button>
+
+            {birthChakra && (
+                <div style={{ marginTop: "20px", fontSize: "inherit" }}>
+                    {birthChakra}
+                </div>
+            )}
 
             <footer style={{ marginTop: "30px", fontSize: "inherit" }}>
                 © 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
