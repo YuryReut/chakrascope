@@ -23,28 +23,28 @@ function App() {
             textAlign: "center",
             fontFamily: "Arial, sans-serif"
         }}>
-            <h1>Чакроскоп</h1>
-            
-            <label style={{ fontSize: "18px", marginBottom: "10px" }}>
-                Введите Дату Рождения:
+            <h1 style={{ fontSize: "28px" }}>Чакроскоп</h1>
+
+            <label style={{ fontSize: "22px", marginBottom: "10px" }}>
+                Введите дату рождения:
             </label>
-            
+
             <input 
                 type="date" 
                 value={birthDate} 
                 onChange={(e) => setBirthDate(e.target.value)} 
                 style={{
-                    fontSize: "18px",
+                    fontSize: "22px",
                     padding: "10px",
                     marginBottom: "15px"
                 }} 
             />
-            
+
             <button 
                 onClick={handleCheckChakra} 
                 style={{
-                    fontSize: "20px",
-                    padding: "10px 20px",
+                    fontSize: "22px",
+                    padding: "12px 25px",
                     cursor: "pointer"
                 }}
             >
@@ -57,11 +57,18 @@ function App() {
                     maxWidth: "600px",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
-                    marginTop: "20px"
+                    marginTop: "20px",
+                    fontSize: "22px"
                 }}>
                     {birthChakra}
                 </pre>
             )}
+
+            <footer style={{ marginTop: "30px", fontSize: "18px" }}>
+                (с) 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
+                    IG nowyoucanseelove
+                </a>
+            </footer>
         </div>
     );
 }
