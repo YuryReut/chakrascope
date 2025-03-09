@@ -51,7 +51,7 @@ function App() {
         }}>
             <h1>Чакроскоп</h1>
 
-            <label style={{ marginBottom: "10px", fontSize: "1.2em" }}>
+            <label style={{ marginBottom: "10px", fontSize: "1em" }}>
                 Введите дату рождения:
             </label>
 
@@ -60,8 +60,8 @@ function App() {
                 value={birthDate} 
                 onChange={(e) => setBirthDate(e.target.value)} 
                 style={{
-                    padding: "10px",
-                    fontSize: "1.2em",
+                    padding: "8px",
+                    fontSize: "1em",
                     marginBottom: "15px"
                 }} 
             />
@@ -69,8 +69,8 @@ function App() {
             <button 
                 onClick={handleCheckChakra} 
                 style={{
-                    padding: "12px 24px",
-                    fontSize: "1.2em",
+                    padding: "10px 20px",
+                    fontSize: "1em",
                     cursor: "pointer"
                 }}
             >
@@ -78,7 +78,7 @@ function App() {
             </button>
 
             {birthChakra && (
-                <pre style={{
+                <div style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -88,15 +88,13 @@ function App() {
                     margin: "20px auto",
                     padding: "10px",
                     whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    background: "#f8f8f8",
-                    borderRadius: "8px"
+                    wordBreak: "break-word"
                 }}>
                     {birthChakra}
-                </pre>
+                </div>
             )}
 
-            <footer style={{ marginTop: "30px", fontSize: "1.2em" }}>
+            <footer style={{ marginTop: "30px", fontSize: "1em" }}>
                 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
                     This is the way
                 </a>
