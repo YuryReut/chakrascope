@@ -3,29 +3,13 @@ import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<string | null>(null);
+    const [birthChakra, setBirthChakra] = useState<any>(null);
     const [debugLogs, setDebugLogs] = useState<string[]>([]);
 
     const handleCheckChakra = () => {
-        console.log("Запущен расчет чакры для даты:", birthDate); // ✅ Проверка
         const result = getBirthChakra(birthDate);
-
-        console.log("Результат вызова getBirthChakra:", result); // ✅ Логируем что вернулось
-
-        if (!result || !result.result) {
-            console.log("❌ Ошибка: Пустой результат!");
-            setBirthChakra("Не удалось определить чакру.");
-            setDebugLogs(["Ошибка: пустой результат из getBirthChakra."]);
-            return;
-        }
-
-        if (typeof result.result === "string") {
-            setBirthChakra(result.result);
-        } else {
-            setBirthChakra(JSON.stringify(result.result, null, 2));
-        }
-
-        setDebugLogs(result.logs || []);
+        setBirthChakra(result.result);
+        setDebugLogs(result.logs);
     };
 
     return (
@@ -39,22 +23,33 @@ function App() {
             <button onClick={handleCheckChakra}>Проверить чакру</button>
 
             {birthChakra && (
-                <div style={{ marginTop: "20px", padding: "10px", background: "#f4f4f4", borderRadius: "5px" }}>
-                    <p><strong>Чакра рождения:</strong></p>
-                    <pre style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>{birthChakra}</pre>
-                </div>
-            )}
-
-            {debugLogs.length > 0 && (
-                <div style={{ marginTop: "20px", padding: "10px", background: "#fff3cd", borderRadius: "5px" }}>
-                    <h3>Отладочные сообщения:</h3>
+                <div style={{ marginTop: "20px", textAlign: "left", display: "inline-block" }}>
+                    <h3>🌞 Чакра Солнца</h3>
+                    <p><strong>{birthChakra.sun.chakra} – {birthChakra.sun.title}</strong></p>
+                    <p>Фаза {birthChakra.sun.phase}: {birthChakra.sun.description.inner}</p>
                     <ul>
-                        {debugLogs.map((log, index) => (
-                            <li key={index}>{log}</li>
-                        ))}
+                        <li><strong>Внутренне:</strong> {birthChakra.sun.description.inner}</li>
+                        <li><strong>Внешне:</strong> {birthChakra.sun.description.outer}</li>
+                        <li><strong>В отношениях:</strong> {birthChakra.sun.description.relationship}</li>
+                    </ul>
+
+                    <h3>🌙 Чакра Луны</h3>
+                    <p><strong>{birthChakra.moon.chakra} – {birthChakra.moon.title}</strong></p>
+                    <p>Фаза {birthChakra.moon.phase}: {birthChakra.moon.description.inner}</p>
+                    <ul>
+                        <li><strong>Внутренне:</strong> {birthChakra.moon.description.inner}</li>
+                        <li><strong>Внешне:</strong> {birthChakra.moon.description.outer}</li>
+                        <li><strong>В отношениях:</strong> {birthChakra.moon.description.relationship}</li>
                     </ul>
                 </div>
             )}
+
+            <h3>Отладочные сообщения:</h3>
+            <ul style={{ textAlign: "left", display: "inline-block" }}>
+                {debugLogs.map((log, index) => (
+                    <li key={index}>{log}</li>
+                ))}
+            </ul>
         </div>
     );
 }
