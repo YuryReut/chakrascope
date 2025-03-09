@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { getDailyChakra } from "../api/dailyChakra";
 import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<{ sunDegree: string; moonDegree: string } | null>(null);
+    const [birthChakra, setBirthChakra] = useState("");
+    const [debugLogs, setDebugLogs] = useState<string[]>([]);
 
-    const handleCheckChakra = async () => {
-        const chakra = getBirthChakra(birthDate);
-        setBirthChakra(chakra);
+    const handleCheckChakra = () => {
+        const result = getBirthChakra(birthDate);
+        setBirthChakra(result.result);
+        setDebugLogs(result.logs);
     };
 
     return (
         <div style={{ textAlign: "center", padding: "20px" }}>
             <h1>Чакроскоп</h1>
-            <p>Сегодня день: <strong>{getDailyChakra()}</strong></p>
 
             <h2>Определение чакры по натальной карте</h2>
             <label>Дата рождения:</label>
@@ -22,12 +22,14 @@ function App() {
 
             <button onClick={handleCheckChakra}>Проверить чакру</button>
 
-            {birthChakra && (
-                <p>
-                    <strong>Градусы Солнца:</strong> {birthChakra.sunDegree} <br />
-                    <strong>Градусы Луны:</strong> {birthChakra.moonDegree}
-                </p>
-            )}
+            {birthChakra && <p>Чакра рождения: <strong>{JSON.stringify(birthChakra)}</strong></p>}
+
+            <h3>Отладочные сообщения:</h3>
+            <ul>
+                {debugLogs.map((log, index) => (
+                    <li key={index}>{log}</li>
+                ))}
+            </ul>
         </div>
     );
 }
