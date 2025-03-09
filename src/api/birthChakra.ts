@@ -1,24 +1,23 @@
-import solarDataRaw from "./solar.json";
-import lunarDataRaw from "./lunar.json";
-
-// Определение типов
-interface ChakraEntry {
-    Date: string;
-    Solar_Longitude?: number;
-    Lunar_Longitude?: number;
+function convertDateToJulian(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const start = new Date(year, 0, 0);
+    const diff = date.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    return `${year}-${String(dayOfYear).padStart(3, "0")}`;
 }
 
-// Преобразуем данные в массив (если вдруг импортируется объект)
-const solarData: ChakraEntry[] = Array.isArray(solarDataRaw) ? solarDataRaw : Object.values(solarDataRaw);
-const lunarData: ChakraEntry[] = Array.isArray(lunarDataRaw) ? lunarDataRaw : Object.values(lunarDataRaw);
-
 export function getBirthChakra(dateOfBirth: string) {
-    let debugLogs: string[] = [];
+    let debugLogs = [];
 
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
-    const solarEntry = solarData.find(entry => entry.Date === dateOfBirth);
-    const lunarEntry = lunarData.find(entry => entry.Date === dateOfBirth);
+    const searchDate = convertDateToJulian(dateOfBirth);
+    debugLogs.push(`📅 Преобразованная дата для поиска: ${searchDate}`);
+
+    const solarEntry = solarData.find(entry => entry.Date === searchDate);
+    const lunarEntry = lunarData.find(entry => entry.Date === searchDate);
 
     debugLogs.push(`🌞 Найденная запись для Солнца: ${solarEntry ? JSON.stringify(solarEntry) : "❌ Дата не найдена"}`);
     debugLogs.push(`🌙 Найденная запись для Луны: ${lunarEntry ? JSON.stringify(lunarEntry) : "❌ Дата не найдена"}`);
@@ -31,15 +30,12 @@ export function getBirthChakra(dateOfBirth: string) {
         };
     }
 
-    const sunDegree = solarEntry.Solar_Longitude ?? "❌ Нет данных";
-    const moonDegree = lunarEntry.Lunar_Longitude ?? "❌ Нет данных";
-
-    debugLogs.push(`✅ Итог: Градусы Солнца: ${sunDegree} | Градусы Луны: ${moonDegree}`);
+    debugLogs.push(`✅ Итог: Градусы Солнца: ${solarEntry.Solar_Longitude} | Градусы Луны: ${lunarEntry.Lunar_Longitude}`);
 
     return {
         result: {
-            sunDegree,
-            moonDegree
+            sunDegree: solarEntry.Solar_Longitude,
+            moonDegree: lunarEntry.Lunar_Longitude
         },
         logs: debugLogs
     };
