@@ -1,45 +1,55 @@
-import solarData from "./solar.json";
-import lunarData from "./lunar.json";
-
-function convertDateToJulian(dateString: string): string {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const start = new Date(year, 0, 0);
-    const diff = date.getTime() - start.getTime();
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    return `${year}-${String(dayOfYear).padStart(3, "0")}`;
-}
+import chakrasData from "../api/chakras.json";
+import solarData from "../api/solar.json";
+import lunarData from "../api/lunar.json";
 
 export function getBirthChakra(dateOfBirth: string) {
-    let debugLogs = [];
-
+    let debugLogs: string[] = [];
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
-    const searchDate = convertDateToJulian(dateOfBirth);
-    debugLogs.push(`📅 Преобразованная дата для поиска: ${searchDate}`);
-
-    const solarEntry = solarData.find((entry: { Date: string }) => entry.Date === searchDate);
-    const lunarEntry = lunarData.find((entry: { Date: string }) => entry.Date === searchDate);
-
-    debugLogs.push(`🌞 Найденная запись для Солнца: ${solarEntry ? JSON.stringify(solarEntry) : "❌ Дата не найдена"}`);
-    debugLogs.push(`🌙 Найденная запись для Луны: ${lunarEntry ? JSON.stringify(lunarEntry) : "❌ Дата не найдена"}`);
+    // Ищем данные в solar.json и lunar.json
+    const solarEntry = solarData.find(entry => entry.Date === dateOfBirth);
+    const lunarEntry = lunarData.find(entry => entry.Date === dateOfBirth);
 
     if (!solarEntry || !lunarEntry) {
         debugLogs.push("🚨 Ошибка: Дата вне диапазона данных!");
-        return {
-            result: "Дата вне диапазона данных",
-            logs: debugLogs
-        };
+        return { result: "Дата вне диапазона данных", logs: debugLogs };
     }
 
-    debugLogs.push(`✅ Итог: Градусы Солнца: ${solarEntry.Solar_Longitude} | Градусы Луны: ${lunarEntry.Lunar_Longitude}`);
+    debugLogs.push(`🌞 Градусы Солнца: ${solarEntry.Solar_Longitude}`);
+    debugLogs.push(`🌙 Градусы Луны: ${lunarEntry.Lunar_Longitude}`);
+
+    // Определяем чакры и фазы
+    const sunChakra = getChakraAndPhase(solarEntry.Solar_Longitude);
+    const moonChakra = getChakraAndPhase(lunarEntry.Lunar_Longitude);
+
+    debugLogs.push(`✅ Чакра Солнца: ${sunChakra.chakra}, фаза ${sunChakra.phase}`);
+    debugLogs.push(`✅ Чакра Луны: ${moonChakra.chakra}, фаза ${moonChakra.phase}`);
 
     return {
         result: {
-            sunDegree: solarEntry.Solar_Longitude,
-            moonDegree: lunarEntry.Lunar_Longitude
+            sun: sunChakra,
+            moon: moonChakra
         },
         logs: debugLogs
+    };
+}
+
+// Функция для вычисления чакры и фазы
+function getChakraAndPhase(degree: number) {
+    const chakraIndex = Math.floor(degree / 51.4286); // 360° / 7 чакр
+    const padaIndex = Math.floor((degree % 51.4286) / (51.4286 / 4)); // 4 пады
+
+    const chakra = chakrasData.chakras[chakraIndex]; // Берём чакру по индексу
+    const phase = chakra.phases[padaIndex]; // Фаза по паде
+
+    return {
+        chakra: chakra.name,
+        title: chakra.title,
+        phase: padaIndex + 1,
+        description: {
+            inner: phase.inner,
+            outer: phase.outer,
+            relationship: phase.relationship
+        }
     };
 }
