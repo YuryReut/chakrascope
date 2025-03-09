@@ -1,3 +1,6 @@
+import solarData from "./solar.json";
+import lunarData from "./lunar.json";
+
 function convertDateToJulian(dateString: string): string {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -16,8 +19,8 @@ export function getBirthChakra(dateOfBirth: string) {
     const searchDate = convertDateToJulian(dateOfBirth);
     debugLogs.push(`📅 Преобразованная дата для поиска: ${searchDate}`);
 
-    const solarEntry = solarData.find(entry => entry.Date === searchDate);
-    const lunarEntry = lunarData.find(entry => entry.Date === searchDate);
+    const solarEntry = solarData.find((entry: { Date: string }) => entry.Date === searchDate);
+    const lunarEntry = lunarData.find((entry: { Date: string }) => entry.Date === searchDate);
 
     debugLogs.push(`🌞 Найденная запись для Солнца: ${solarEntry ? JSON.stringify(solarEntry) : "❌ Дата не найдена"}`);
     debugLogs.push(`🌙 Найденная запись для Луны: ${lunarEntry ? JSON.stringify(lunarEntry) : "❌ Дата не найдена"}`);
