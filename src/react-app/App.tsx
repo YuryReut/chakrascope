@@ -3,11 +3,12 @@ import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
+    const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
-        const today = new Date().toISOString().split("T")[0];
-        const result = getBirthChakra(birthDate, today);
-        setBirthChakra(result.result);
+        const today = new Date().toISOString().split("T")[0]; 
+        const result = getBirthChakra(birthDate, today, "solar", "lunar"); // Добавлены все 4 аргумента
+        setBirthChakra(result);
     };
 
     return (
