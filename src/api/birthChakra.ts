@@ -35,4 +35,16 @@ export function getBirthChakra(birthDate: string, currentDate: string, sunDegree
 
     ☀️ Энергия изменений в ${chakraOfDay.emoji} ${chakraOfDay.id}-ой Чакре (${chakraOfDay.name}) – ${chakraOfDay.title}
 
-    🌙 Энергия существования в ${lunarChakra.emoji} ${lunarChakra.id}-ой Ч
+    🌙 Энергия существования в ${lunarChakra.emoji} ${lunarChakra.id}-ой Чакре (${lunarChakra.name}) – ${lunarChakra.title}
+
+    🔆 Энергия, которая движет тебя вперед в ${solarChakra.emoji} ${solarChakra.id}-ой Чакре (${solarChakra.name}) – ${solarChakra.title}
+    \t- 🌀 Внутреннее ощущение: ${solarChakra.phases[0].inner}
+    \t- 🌍 Внешнее проявление: ${solarChakra.phases[0].outer}
+    \t- ❤️ Отношения: ${solarChakra.phases[0].relationship}
+
+    🌙 Ты живешь из ${lunarChakra.emoji} ${lunarChakra.id}-ой Чакры (${lunarChakra.name}) – ${lunarChakra.title}
+    \t- 🌀 Внутреннее ощущение: ${lunarChakra.phases[0].inner}
+    \t- 🌍 Внешнее проявление: ${lunarChakra.phases[0].outer}
+    \t- ❤️ Отношения: ${lunarChakra.phases[0].relationship}
+    `;
+}
