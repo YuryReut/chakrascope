@@ -6,15 +6,23 @@ function App() {
 
     const handleCheckChakra = () => {
         if (!birthDate) return;
-        
-        // Преобразуем дату из "DD-MM-YYYY" в "YYYY-MM-DD" для корректной обработки
-        const [day, month, year] = birthDate.split("-");
-        const formattedDate = `${year}-${month}-${day}`;
+
+        // Разбираем дату в формате DD-MM-YYYY
+        const [day, month, year] = birthDate.split("-").map(Number);
+        const formattedDate = new Date(year, month - 1, day);
+
+        // Преобразуем в формат YYYY-DDD (год + порядковый день в году)
+        const startOfYear = new Date(year, 0, 0);
+        const diff = formattedDate.getTime() - startOfYear.getTime();
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+
+        const formattedBirthDate = `${year}-${dayOfYear}`;
 
         const today = new Date().toISOString().split("T")[0];
         const sunDegree = Math.random() * 360; // Заменить на реальные данные
         const moonDegree = Math.random() * 360; // Заменить на реальные данные
-        const result = getBirthChakra(formattedDate, today, sunDegree, moonDegree);
+        const result = getBirthChakra(formattedBirthDate, today, sunDegree, moonDegree);
 
         setBirthChakra(result.result);
     };
@@ -35,21 +43,20 @@ function App() {
                 Введите дату рождения:
             </label>
 
-            {/* Поле ввода даты с форматом DD-MM-YYYY */}
-            <input
+            <input 
                 type="text"
-                placeholder="ДД-ММ-ГГГГ"
+                placeholder="DD-MM-YYYY"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
                 style={{
                     padding: "8px",
                     marginBottom: "15px",
                     textAlign: "center"
-                }}
+                }} 
             />
 
-            <button
-                onClick={handleCheckChakra}
+            <button 
+                onClick={handleCheckChakra} 
                 style={{
                     padding: "10px 20px",
                     cursor: "pointer"
