@@ -2,13 +2,28 @@ import { useState } from "react";
 import { getBirthChakra } from "../api/birthChakra";
 
 function App() {
-    const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState("");
+    const [birthDate, setBirthDate] = useState<string>("");
+    const [birthChakra, setBirthChakra] = useState<string | null>(null);
+
+    // Функция для преобразования даты в формат YYYY-DDD
+    const formatDateToYearDay = (dateString: string): string => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const startOfYear = new Date(year, 0, 0);
+        const diff = date.getTime() - startOfYear.getTime();
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+        return `${year}-${dayOfYear}`;
+    };
 
     const handleCheckChakra = () => {
-        const today = new Date().toISOString().split("T")[0]; 
-        const result = getBirthChakra(birthDate, today, "solar", "lunar"); // Добавлены все 4 аргумента
-        setBirthChakra(result);
+        if (!birthDate) return;
+
+        const formattedDate = formatDateToYearDay(birthDate);
+        const todayFormatted = formatDateToYearDay(new Date().toISOString().split("T")[0]);
+
+        const result = getBirthChakra(formattedDate, todayFormatted);
+        setBirthChakra(JSON.stringify(result, null, 2));
     };
 
     return (
@@ -24,7 +39,7 @@ function App() {
         }}>
             <h1>Чакроскоп</h1>
 
-            <label style={{ marginBottom: "10px" }}>
+            <label style={{ marginBottom: "10px", fontSize: "inherit" }}>
                 Введите дату рождения:
             </label>
 
