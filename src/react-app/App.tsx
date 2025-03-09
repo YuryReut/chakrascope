@@ -15,39 +15,26 @@ function App() {
     return (
         <div style={{ textAlign: "center", padding: "20px" }}>
             <h1>Чакроскоп</h1>
-
             <h2>Определение чакры по натальной карте</h2>
             <label>Дата рождения:</label>
             <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
-
             <button onClick={handleCheckChakra}>Проверить чакру</button>
 
-            {birthChakra && birthChakra.sun && birthChakra.moon ? (
-                <div style={{ marginTop: "20px", textAlign: "left", display: "inline-block" }}>
-                    <h3>🌞 Чакра Солнца</h3>
-                    <p><strong>{birthChakra.sun.chakra} – {birthChakra.sun.title}</strong></p>
-                    <p>Фаза {birthChakra.sun.phase}: {birthChakra.sun.description.inner}</p>
-                    <ul>
-                        <li><strong>Внутренне:</strong> {birthChakra.sun.description.inner}</li>
-                        <li><strong>Внешне:</strong> {birthChakra.sun.description.outer}</li>
-                        <li><strong>В отношениях:</strong> {birthChakra.sun.description.relationship}</li>
-                    </ul>
-
-                    <h3>🌙 Чакра Луны</h3>
-                    <p><strong>{birthChakra.moon.chakra} – {birthChakra.moon.title}</strong></p>
-                    <p>Фаза {birthChakra.moon.phase}: {birthChakra.moon.description.inner}</p>
-                    <ul>
-                        <li><strong>Внутренне:</strong> {birthChakra.moon.description.inner}</li>
-                        <li><strong>Внешне:</strong> {birthChakra.moon.description.outer}</li>
-                        <li><strong>В отношениях:</strong> {birthChakra.moon.description.relationship}</li>
-                    </ul>
+            {birthChakra && typeof birthChakra === "object" ? (
+                <div>
+                    <h3>Результат</h3>
+                    <p><strong>Чакра:</strong> {birthChakra.chakra} - {birthChakra.name} ({birthChakra.title})</p>
+                    <p><strong>Фаза:</strong> {birthChakra.phase}</p>
+                    <p><strong>Внутреннее ощущение:</strong> {birthChakra.inner}</p>
+                    <p><strong>Внешнее проявление:</strong> {birthChakra.outer}</p>
+                    <p><strong>Отношения:</strong> {birthChakra.relationship}</p>
                 </div>
             ) : (
-                <p>❌ Ошибка: Чакра не найдена! Проверьте дату рождения.</p>
+                <p>{birthChakra}</p>
             )}
 
             <h3>Отладочные сообщения:</h3>
-            <ul style={{ textAlign: "left", display: "inline-block" }}>
+            <ul>
                 {debugLogs.map((log, index) => (
                     <li key={index}>{log}</li>
                 ))}
