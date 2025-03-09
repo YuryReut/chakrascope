@@ -1,20 +1,16 @@
-// src/api/dailyChakra.ts
-
-const getChakraOfTheDay = (): string => {
-  const daysOfWeek = [
-    "Муладхара",   // Понедельник
-    "Свадхистхана", // Вторник
-    "Манипура",     // Среда
-    "Анахата",      // Четверг
-    "Вишудха",      // Пятница
-    "Аджна",        // Суббота
-    "Сахасрара"     // Воскресенье
-  ];
-
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // Метод getDay() возвращает день недели (0 - воскресенье, 1 - понедельник и т.д.)
-
-  return daysOfWeek[dayOfWeek];
-};
-
-export default getChakraOfTheDay;
+export function getDailyChakra(): string {
+    const chakras = [
+        "Муладхара",
+        "Свадхистхана",
+        "Манипура",
+        "Анахата",
+        "Вишудха",
+        "Аджна",
+        "Сахасрара"
+    ];
+    const today = new Date();
+    const dayIndex = today.getDay(); // 0 = воскресенье, 1 = понедельник и т.д.
+    
+    // Приводим 0 (воскресенье) к 7 (чтобы начиналось с Муладхары)
+    return chakras[(dayIndex === 0 ? 6 : dayIndex - 1)];
+}
