@@ -3,19 +3,29 @@ import { getBirthChakra } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
+function convertToJulianDate(dateString: string): string {
+    const date = new Date(dateString);
+    const start = new Date(date.getFullYear(), 0, 0);
+    const diff = date.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
+}
+
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
+        const formattedDate = convertToJulianDate(birthDate); // Преобразуем в YYYY-DDD
 
-        // Поиск данных по дате рождения
-        const solarEntry = solarData.find(entry => entry.Date === birthDate);
-        const lunarEntry = lunarData.find(entry => entry.Date === birthDate);
+        // Поиск данных по новой дате
+        const solarEntry = solarData.find(entry => entry.Date === formattedDate);
+        const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
         if (!solarEntry || !lunarEntry) {
-            setBirthChakra("Ошибка: Дата вне диапазона данных!");
+            setBirthChakra("❌ Ошибка: Дата вне диапазона данных!");
             return;
         }
 
