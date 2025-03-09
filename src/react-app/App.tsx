@@ -5,7 +5,7 @@ function App() {
     const [birthDate, setBirthDate] = useState<string>("");
     const [birthChakra, setBirthChakra] = useState<string | null>(null);
 
-    // Функция для преобразования даты в формат YYYY-DDD
+    // Преобразование даты в формат YYYY-DDD
     const formatDateToYearDay = (dateString: string): string => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -22,8 +22,10 @@ function App() {
         const formattedDate = formatDateToYearDay(birthDate);
         const todayFormatted = formatDateToYearDay(new Date().toISOString().split("T")[0]);
 
-        // Передаем 4 аргумента в getBirthChakra
-        const result = getBirthChakra(formattedDate, todayFormatted, new Date(), birthDate);
+        // Передаем текущую дату как число (время в миллисекундах)
+        const currentTimestamp = Date.now();
+
+        const result = getBirthChakra(formattedDate, todayFormatted, currentTimestamp, birthDate);
         setBirthChakra(JSON.stringify(result, null, 2));
     };
 
