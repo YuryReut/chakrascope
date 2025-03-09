@@ -22,7 +22,7 @@ function App() {
 
             <button onClick={handleCheckChakra}>Проверить чакру</button>
 
-            {birthChakra && (
+            {birthChakra && birthChakra.sun && birthChakra.moon ? (
                 <div style={{ marginTop: "20px", textAlign: "left", display: "inline-block" }}>
                     <h3>🌞 Чакра Солнца</h3>
                     <p><strong>{birthChakra.sun.chakra} – {birthChakra.sun.title}</strong></p>
@@ -42,6 +42,8 @@ function App() {
                         <li><strong>В отношениях:</strong> {birthChakra.moon.description.relationship}</li>
                     </ul>
                 </div>
+            ) : (
+                <p>❌ Ошибка: Чакра не найдена! Проверьте дату рождения.</p>
             )}
 
             <h3>Отладочные сообщения:</h3>
