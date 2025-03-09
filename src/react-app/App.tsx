@@ -7,14 +7,24 @@ function App() {
     const [debugLogs, setDebugLogs] = useState<string[]>([]);
 
     const handleCheckChakra = () => {
+        console.log("Запущен расчет чакры для даты:", birthDate); // ✅ Проверка
         const result = getBirthChakra(birthDate);
+
+        console.log("Результат вызова getBirthChakra:", result); // ✅ Логируем что вернулось
+
+        if (!result || !result.result) {
+            console.log("❌ Ошибка: Пустой результат!");
+            setBirthChakra("Не удалось определить чакру.");
+            setDebugLogs(["Ошибка: пустой результат из getBirthChakra."]);
+            return;
+        }
 
         if (typeof result.result === "string") {
             setBirthChakra(result.result);
         } else {
             setBirthChakra(JSON.stringify(result.result, null, 2));
         }
-        
+
         setDebugLogs(result.logs || []);
     };
 
