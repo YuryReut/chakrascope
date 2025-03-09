@@ -21,11 +21,11 @@ function App() {
             alignItems: "center",
             height: "100vh",
             textAlign: "center",
-            fontFamily: "Arial, sans-serif"
+            fontFamily: "inherit"
         }}>
-            <h1 style={{ fontSize: "28px" }}>Чакроскоп</h1>
+            <h1>Чакроскоп</h1>
 
-            <label style={{ fontSize: "22px", marginBottom: "10px" }}>
+            <label style={{ marginBottom: "10px" }}>
                 Введите дату рождения:
             </label>
 
@@ -34,8 +34,7 @@ function App() {
                 value={birthDate} 
                 onChange={(e) => setBirthDate(e.target.value)} 
                 style={{
-                    fontSize: "22px",
-                    padding: "10px",
+                    padding: "8px",
                     marginBottom: "15px"
                 }} 
             />
@@ -43,8 +42,7 @@ function App() {
             <button 
                 onClick={handleCheckChakra} 
                 style={{
-                    fontSize: "22px",
-                    padding: "12px 25px",
+                    padding: "10px 20px",
                     cursor: "pointer"
                 }}
             >
@@ -57,16 +55,15 @@ function App() {
                     maxWidth: "600px",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
-                    marginTop: "20px",
-                    fontSize: "22px"
+                    marginTop: "20px"
                 }}>
                     {birthChakra}
                 </pre>
             )}
 
-            <footer style={{ marginTop: "30px", fontSize: "18px" }}>
-                (с) 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
-                    IG nowyoucanseelove
+            <footer style={{ marginTop: "30px" }}>
+                <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
+                    This is the way
                 </a>
             </footer>
         </div>
