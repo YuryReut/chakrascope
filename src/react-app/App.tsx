@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { getBirthChakra } from "../api/birthChakra";
+import solarData from "../api/solar.json";
+import lunarData from "../api/lunar.json";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
@@ -7,8 +9,19 @@ function App() {
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
-        const sunDegree = Math.random() * 360; // Заменить на реальные данные
-        const moonDegree = Math.random() * 360; // Заменить на реальные данные
+
+        // Поиск данных по дате рождения
+        const solarEntry = solarData.find(entry => entry.Date === birthDate);
+        const lunarEntry = lunarData.find(entry => entry.Date === birthDate);
+
+        if (!solarEntry || !lunarEntry) {
+            setBirthChakra("Ошибка: Дата вне диапазона данных!");
+            return;
+        }
+
+        const sunDegree = solarEntry.Solar_Longitude;
+        const moonDegree = lunarEntry.Lunar_Longitude;
+
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
     };
