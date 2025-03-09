@@ -6,10 +6,11 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
-        if (!birthDate) return;
-
-        const result = getBirthChakra(birthDate);
-        setBirthChakra(result);
+        const today = new Date().toISOString().split("T")[0];
+        const sunDegree = Math.random() * 360; // Заменить на реальные данные
+        const moonDegree = Math.random() * 360; // Заменить на реальные данные
+        const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+        setBirthChakra(result.result);
     };
 
     return (
@@ -20,46 +21,51 @@ function App() {
             alignItems: "center",
             height: "100vh",
             textAlign: "center",
-            fontFamily: "Arial, sans-serif",
-            padding: "0 20px"
+            fontFamily: "Arial, sans-serif"
         }}>
-            <h1>Чакроскоп</h1>
+            <h1 style={{ fontSize: "28px" }}>Чакроскоп</h1>
 
-            <label style={{ fontSize: "inherit", marginBottom: "10px" }}>
+            <label style={{ fontSize: "22px", marginBottom: "10px" }}>
                 Введите дату рождения:
             </label>
 
-            <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
+            <input 
+                type="date" 
+                value={birthDate} 
+                onChange={(e) => setBirthDate(e.target.value)} 
                 style={{
-                    padding: "8px",
-                    fontSize: "inherit",
-                    marginBottom: "15px",
-                    textAlign: "center"
-                }}
+                    fontSize: "22px",
+                    padding: "10px",
+                    marginBottom: "15px"
+                }} 
             />
 
-            <button
-                onClick={handleCheckChakra}
+            <button 
+                onClick={handleCheckChakra} 
                 style={{
-                    padding: "8px 20px",
-                    cursor: "pointer",
-                    fontSize: "inherit"
+                    fontSize: "22px",
+                    padding: "12px 25px",
+                    cursor: "pointer"
                 }}
             >
                 Рассчитать
             </button>
 
             {birthChakra && (
-                <div style={{ marginTop: "20px", fontSize: "inherit" }}>
+                <pre style={{
+                    textAlign: "left",
+                    maxWidth: "600px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    marginTop: "20px",
+                    fontSize: "22px"
+                }}>
                     {birthChakra}
-                </div>
+                </pre>
             )}
 
-            <footer style={{ marginTop: "30px", fontSize: "inherit" }}>
-                © 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
+            <footer style={{ marginTop: "30px", fontSize: "18px" }}>
+                (с) 2025 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
                     IG nowyoucanseelove
                 </a>
             </footer>
