@@ -12,34 +12,20 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
-function formatDisplayDate(isoDate: string): string {
-    if (!isoDate) return "";
-    const [year, month, day] = isoDate.split("-");
-    return `${day}.${month}.${year}`; // Преобразуем в DD.MM.YYYY
-}
-
-function parseDisplayDate(displayDate: string): string {
-    if (!displayDate) return "";
-    const [day, month, year] = displayDate.split(".");
-    return `${month}-${day}-${year}`; // Преобразуем обратно в MM-DD-YYYY
-}
-
 function App() {
     const [birthDate, setBirthDate] = useState("");
-
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBirthDate(parseDisplayDate(e.target.value)); // Храним в MM-DD-YYYY
-    };
+    const [birthChakra, setBirthChakra] = useState("");
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate); // Преобразуем в YYYY-DDD
 
+        // Поиск данных по новой дате
         const solarEntry = solarData.find(entry => entry.Date === formattedDate);
         const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
         if (!solarEntry || !lunarEntry) {
-            alert("❌ Ошибка: Дата вне диапазона данных!");
+            setBirthChakra("❌ Ошибка: Дата вне диапазона данных!");
             return;
         }
 
@@ -47,7 +33,7 @@ function App() {
         const moonDegree = lunarEntry.Lunar_Longitude;
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
-        alert(result.result);
+        setBirthChakra(result.result);
     };
 
     return (
@@ -70,16 +56,14 @@ function App() {
             </label>
 
             <input 
-                type="text"
-                value={formatDisplayDate(birthDate)} 
-                onChange={handleDateChange} 
-                placeholder="ДД.ММ.ГГГГ"
+                type="date" 
+                value={birthDate} 
+                onChange={(e) => setBirthDate(e.target.value)} 
                 style={{
                     padding: "8px",
                     fontSize: "1em",
                     marginBottom: "15px",
-                    backgroundColor: "#ffffff",
-                    textAlign: "center"
+                    backgroundColor: "#ffffff"
                 }} 
             />
 
@@ -93,6 +77,23 @@ function App() {
             >
                 Рассчитать
             </button>
+
+            {birthChakra && (
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "10px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word"
+                }}>
+                    {birthChakra}
+                </div>
+            )}
 
             <footer style={{ marginTop: "30px", fontSize: "1em" }}>
                 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
