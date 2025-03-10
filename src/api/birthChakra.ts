@@ -34,7 +34,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     // Чакра года (по году рождения)
     const yearChakra = getChakraFromYear(dateOfBirth);
 
-    // Чакра дня (расчёт отдельно, исправлено!)
+    // Чакра дня (исправлено!)
     const dayChakra = getChakraFromDay(currentDate);
 
     // 52-дневный цикл
@@ -46,28 +46,4 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
     // Чакры по Солнцу и Луне
     const solarChakra = getChakraFromTithi(Math.floor(sunDegree / 12) + 1);
-    const chakraSun = chakrasData.chakras[solarChakra - 1];
-    const chakraMoon = chakrasData.chakras[lunarChakra - 1];
-
-    return {
-        result: `
-        Сейчас день ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) в год ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
-
-        Прямо сейчас твоя:
-        ⚡ Энергия изменений: ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-я Чакра (${chakrasData.chakras[cycleChakra - 1].name})  
-        🌙 Энергия существования: ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-я Чакра (${chakrasData.chakras[lunarChakra - 1].name})  
-
-        От рождения у тебя:
-        🔆 Энергия, которая движет тебя вперед в ${chakraSun.emoji} ${solarChakra}-й Чакре (${chakraSun.name})  
-        \t- 🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
-        \t- 🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
-        \t- ❤️ Отношения: ${chakraSun.phases[0].relationship}  
-
-        🌙 Ты живешь из ${chakraMoon.emoji} ${lunarChakra}-й Чакры (${chakraMoon.name})  
-        \t- 🌀 Внутреннее ощущение: ${chakraMoon.phases[0].inner}  
-        \t- 🌍 Внешнее проявление: ${chakraMoon.phases[0].outer}  
-        \t- ❤️ Отношения: ${chakraMoon.phases[0].relationship}  
-        `,
-        logs: debugLogs
-    };
-}
+    const chakraSun = chakrasData.chak
