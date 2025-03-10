@@ -62,7 +62,8 @@ function App() {
                 style={{
                     padding: "8px",
                     fontSize: "1em",
-                    marginBottom: "15px"
+                    marginBottom: "15px",
+                    backgroundColor: "#ffffff"
                 }} 
             />
 
