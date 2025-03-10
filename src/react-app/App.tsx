@@ -18,7 +18,7 @@ function App() {
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
-        const formattedDate = convertToJulianDate(birthDate); // Преобразуем в YYYY-DDD
+        const formattedDate = convertToJulianDate(birthDate);
 
         // Поиск данных по новой дате
         const solarEntry = solarData.find(entry => entry.Date === formattedDate);
@@ -89,7 +89,8 @@ function App() {
                     margin: "20px auto",
                     padding: "10px",
                     whiteSpace: "pre-wrap",
-                    wordBreak: "break-word"
+                    wordBreak: "break-word",
+                    fontSize: "1.1em"
                 }}>
                     {birthChakra}
                 </div>
@@ -97,7 +98,7 @@ function App() {
 
             <footer style={{ marginTop: "30px", fontSize: "1em" }}>
                 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
-                    Now You Can See Love
+                    This is the way
                 </a>
             </footer>
         </div>
