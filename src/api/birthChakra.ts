@@ -51,22 +51,18 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
     return {
         result: `
-        Сейчас день ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) в год ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
-
-        Прямо сейчас твоя:
-        ⚡ Энергия изменений: ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-я Чакра (${chakrasData.chakras[cycleChakra - 1].name})  
-        🌙 Энергия существования: ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-я Чакра (${chakrasData.chakras[lunarChakra - 1].name})  
-
-        От рождения у тебя:
-        🔆 Энергия, которая движет тебя вперед в ${chakraSun.emoji} ${solarChakra}-й Чакре (${chakraSun.name})  
+        
+        🔆 Твоя основная чакра (по Солнцу в момент рождения): ${chakraSun.emoji} ${solarChakra}-й Чакре (${chakraSun.name})  
         \t- 🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         \t- 🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
         \t- ❤️ Отношения: ${chakraSun.phases[0].relationship}  
+        Сейчас ты проходишь через энергию (по 52-дневному циклу): ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-я Чакра (${chakrasData.chakras[cycleChakra - 1].name})  
+       
+        Лунная энергия (в момент рождения): ${chakraMoon.emoji} ${lunarChakra}-й Чакры (${chakraMoon.name})  
+        Сейчас лунная энергия (по циклу Титхи):: ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-я Чакра (${chakrasData.chakras[lunarChakra - 1].name})  
 
-        🌙 Ты живешь из ${chakraMoon.emoji} ${lunarChakra}-й Чакры (${chakraMoon.name})  
-        \t- 🌀 Внутреннее ощущение: ${chakraMoon.phases[0].inner}  
-        \t- 🌍 Внешнее проявление: ${chakraMoon.phases[0].outer}  
-        \t- ❤️ Отношения: ${chakraMoon.phases[0].relationship}  
+        Сейчас день ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) в год ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
+ 
         `,
         logs: debugLogs
     };
