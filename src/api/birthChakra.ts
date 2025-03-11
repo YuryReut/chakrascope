@@ -60,7 +60,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         
         ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
-        🔄 Прямо сейчас (по 52-дневному циклу) твоя энергия Солнца в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name}) – ${chakrasData.chakras[cycleChakra - 1].title}.  
+        🔄 Прямо сейчас (по 52-дневному циклу) энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакре (${chakrasData.chakras[cycleChakra - 1].name}) – ${chakrasData.chakras[cycleChakra - 1].title}.  
        
         🌙 Лунная энергия:  
         То, как ты понимаешь и принимаешь реальность, определяется лунной энергией.  
