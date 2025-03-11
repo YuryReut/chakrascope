@@ -53,11 +53,8 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         result: `
         🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й Чакры (${chakraSun.name}) – ${chakraSun.title}.
         Это твоя основная чакра, энергия Солнца в момент рождения раскрывает в тебе:
-        
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
-        
         🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
-        
         ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
         🔄 Прямо сейчас, по 52-дневному циклу, энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${chakrasData.chakras[cycleChakra - 1].title}, ${cycleChakra}-я Чакра, ${chakrasData.chakras[cycleChakra - 1].name}.  
