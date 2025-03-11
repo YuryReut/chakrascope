@@ -51,20 +51,19 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
     return {
         result: `
-        🔆 Твоя основная чакра (Энергия Солнца в момент рождения):
-        ${chakraSun.emoji} ${solarChakra}-й Чакра (${chakraSun.name}) 
+        🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й Чакры (${chakraSun.name}) 
+        Это твоя основная чакра (Энергия Солнца в момент рождения) дает тебе:
         
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         
         🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
         
-        ❤️ Отношения: ${chakraSun.phases[0].relationship}  
+        ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
-        Сейчас энергия Солнца (по 52-дневному циклу): в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name})  
+        Прямо сейчас (по 52-дневному циклу) ты в фазе, когда энергия в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name})  
        
-        Лунная энергия: 
-        - В момент рождения в ${chakraMoon.emoji} ${lunarChakra}-й Чакре (${chakraMoon.name}),
-        - Сейчас (по циклу Титхи) в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-й Чакре (${chakrasData.chakras[lunarChakra - 1].name})  
+        То как ты понимаешь и принимаешь реальность определяется Лунной энергией. В момент рождения она была в ${chakraMoon.emoji} ${lunarChakra}-й Чакре (${chakraMoon.name}),
+        а сейчас (по циклу Титхи) она в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-й Чакре (${chakrasData.chakras[lunarChakra - 1].name})  
 
         Энергия дня:  ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) 
         Энергия года:  ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
