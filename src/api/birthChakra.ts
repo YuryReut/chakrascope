@@ -51,8 +51,9 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
     return {
         result: `
-        🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й Чакры (${chakraSun.name}) 
-        Это твоя основная чакра (Энергия Солнца в момент рождения) дает тебе:
+result: `
+        🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й Чакры (${chakraSun.name}) – ${chakraSun.title}.
+        Это твоя основная чакра, энергия Солнца в момент рождения, которая раскрывает в тебе:
         
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         
@@ -60,14 +61,21 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         
         ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
-        Прямо сейчас (по 52-дневному циклу) ты в фазе, когда энергия в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name})  
+        🔄 **Текущий энергетический цикл:**  
+        Прямо сейчас (по 52-дневному циклу) твоя активная энергия в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name}) – ${chakrasData.chakras[cycleChakra - 1].title}.  
        
-        То как ты понимаешь и принимаешь реальность определяется Лунной энергией. В момент рождения она была в ${chakraMoon.emoji} ${lunarChakra}-й Чакре (${chakraMoon.name}),
-        а сейчас (по циклу Титхи) она в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-й Чакре (${chakrasData.chakras[lunarChakra - 1].name})  
+        🌙 **Лунная энергия:**  
+        То, как ты понимаешь и принимаешь реальность, определяется лунной энергией.  
+        В момент рождения она была в ${chakraMoon.emoji} ${lunarChakra}-й Чакре (${chakraMoon.name}) – ${chakraMoon.title}.  
+        Сейчас (по циклу Титхи) она в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-й Чакре (${chakrasData.chakras[lunarChakra - 1].name}) – ${chakrasData.chakras[lunarChakra - 1].title}.  
 
-        Энергия дня:  ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) 
-        Энергия года:  ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
+        📅 **Энергия дня:**  
+        Сегодня доминирует энергия ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) – ${chakrasData.chakras[dayChakra - 1].title}.  
+
+        📆 **Энергия года:**  
+        В этом году для тебя актуальна ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-я Чакра (${chakrasData.chakras[yearChakra - 1].name}) – ${chakrasData.chakras[yearChakra - 1].title}.
         `,
         logs: debugLogs
+
     };
 }
