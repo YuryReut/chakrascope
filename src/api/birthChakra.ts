@@ -70,7 +70,6 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
         Сейчас у тебя день ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры (${chakrasData.chakras[dayChakra - 1].name}) 
         В твой год ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры (${chakrasData.chakras[yearChakra - 1].name})
- 
         `,
         logs: debugLogs
     };
