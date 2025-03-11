@@ -51,7 +51,6 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
     return {
         result: `
-result: `
         🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й Чакры (${chakraSun.name}) – ${chakraSun.title}.
         Это твоя основная чакра, энергия Солнца в момент рождения, которая раскрывает в тебе:
         
