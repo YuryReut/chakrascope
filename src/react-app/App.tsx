@@ -63,7 +63,7 @@ function App() {
                     padding: "8px",
                     fontSize: "1em",
                     marginBottom: "15px",
-                    backgroundColor: "#ffffff"
+                    backgroundColor: "#cccccc"
                 }} 
             />
 
@@ -98,7 +98,7 @@ function App() {
 
             <footer style={{ marginTop: "30px", fontSize: "1em" }}>
                 <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
-                    This is the way
+                    Now You Can See Love
                 </a>
             </footer>
         </div>
