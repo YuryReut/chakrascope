@@ -66,11 +66,9 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         С рождения ты понимаешь реальность как ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${chakraMoon.title}, (${lunarChakra}-й, ${chakraMoon.name})
         Сейчас, по циклу Титхи, она воспринимается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${chakrasData.chakras[lunarChakra - 1].title}, ${lunarChakra}-я Чакре, ${chakrasData.chakras[lunarChakra - 1].name}.  
 
-        📅 Сегодня в фокусе ${chakrasData.chakras[dayChakra - 1].desc} 
-     из ${chakrasData.chakras[dayChakra - 1].emoji} ${chakrasData.chakras[dayChakra - 1].title}, ${dayChakra}-я Чакра, ${chakrasData.chakras[dayChakra - 1].name}.  
+        📅 Сегодня в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${chakrasData.chakras[dayChakra - 1].title}, ${dayChakra}-я Чакра, ${chakrasData.chakras[dayChakra - 1].name}.  
 
-        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc}
-     из ${chakrasData.chakras[yearChakra - 1].emoji} ${chakrasData.chakras[yearChakra - 1].title}, ${yearChakra}-я Чакра, ${chakrasData.chakras[yearChakra - 1].name}.
+        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${chakrasData.chakras[yearChakra - 1].title}, ${yearChakra}-я Чакра, ${chakrasData.chakras[yearChakra - 1].name}.
         `,
         logs: debugLogs
 
