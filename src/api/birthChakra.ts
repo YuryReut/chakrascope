@@ -60,7 +60,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         
         ❤️ Отношения: ${chakraSun.phases[0].relationship}  
         
-        Сейчас энергия Солнца проходит (по 52-дневному циклу): в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name})  
+        Сейчас энергия Солнца (по 52-дневному циклу): в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре (${chakrasData.chakras[cycleChakra - 1].name})  
        
         Лунная энергия (в момент рождения) в ${chakraMoon.emoji} ${lunarChakra}-й Чакре (${chakraMoon.name}),
         а сейчас (по циклу Титхи) в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-й Чакре (${chakrasData.chakras[lunarChakra - 1].name})  
