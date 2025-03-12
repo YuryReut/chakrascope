@@ -60,8 +60,8 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         🔄 Прямо сейчас, по 52-дневному циклу, энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${chakrasData.chakras[cycleChakra - 1].title}, ${cycleChakra}-я Чакра, ${chakrasData.chakras[cycleChakra - 1].name}.  
        
         🌙 Лунная энергия:  
-        С рождения ты понимаешь реальность как ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${chakraMoon.title}, (${lunarChakra}-й, ${chakraMoon.name})
-        Сейчас, по циклу Титхи, она воспринимается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${chakrasData.chakras[lunarChakra - 1].title}, ${lunarChakra}-я Чакре, ${chakrasData.chakras[lunarChakra - 1].name}.  
+        Твое восприятие реальности — это ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${chakraMoon.title}, (${lunarChakra}-й, ${chakraMoon.name})
+        Сейчас, согласно циклу Титхи, реальность ощущается как  ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${chakrasData.chakras[lunarChakra - 1].title}, ${lunarChakra}-я Чакре, ${chakrasData.chakras[lunarChakra - 1].name}.  
 
         📅 Сегодня в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${chakrasData.chakras[dayChakra - 1].title}, ${dayChakra}-я Чакра, ${chakrasData.chakras[dayChakra - 1].name}.  
 
