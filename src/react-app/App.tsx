@@ -16,8 +16,8 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [answers, setAnswers] = useState(Array(7).fill(null));
-    const [analysisResult, setAnalysisResult] = useState(null);
+    const [answers, setAnswers] = useState<boolean[]>(Array(7).fill(null));
+    const [analysisResult, setAnalysisResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string[] } | null>(null);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -45,7 +45,7 @@ function App() {
     };
 
     const handleAnalyzeQuery = () => {
-        const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null);
+        const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null) as number[];
         const result = analyzeQuery(queryQuarters);
         setAnalysisResult(result);
     };
