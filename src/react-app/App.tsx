@@ -58,6 +58,11 @@ function App() {
         setQueryResult("");
     };
 
+    const confirmQuestion = () => {
+        setQuestionConfirmed(true);
+        setCurrentQuestion(0); // Показываем первый вопрос
+    };
+
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
         if (currentQuestion !== null) {
@@ -68,8 +73,13 @@ function App() {
         if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
+            // После последнего вопроса отображаем анализ запроса
             setCurrentQuestion(null);
-            setQueryResult(`🔍 Анализ вашего запроса: ${JSON.stringify(newAnswers)}`);
+            setQueryResult(`
+                📜 Интерпретация: Влияние вашего запроса на вашу текущую энергию.
+                🔄 Вектор развития: Насколько этот вопрос движет вас вперед или удерживает.
+                🌱 Органика запроса: Как естественно этот запрос встраивается в вашу жизнь.
+            `);
         }
     };
 
@@ -136,7 +146,7 @@ function App() {
                     {!questionConfirmed ? (
                         <>
                             <p>Сформулируйте свой вопрос.</p>
-                            <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
+                            <button onClick={confirmQuestion} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
                         </>
                     ) : currentQuestion !== null ? (
                         <>
@@ -147,7 +157,6 @@ function App() {
                         </>
                     ) : (
                         <>
-                            <p>📜 Ваш анализ запроса:</p>
                             <p>{queryResult}</p>
                             <button onClick={() => setShowQuestions(false)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Закрыть</button>
                         </>
