@@ -12,6 +12,16 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
+const QUESTIONS = [
+    "Этот вопрос связан с материальной стабильностью и безопасностью?",
+    "Этот вопрос касается эмоций и желаний?",
+    "Этот вопрос затрагивает цели, силу воли и достижения?",
+    "Этот вопрос связан с чувствами, любовью и принятием?",
+    "Этот вопрос касается выражения себя и творчества?",
+    "Этот вопрос связан с интуицией и видением будущего?",
+    "Этот вопрос касается осознания и глубинного понимания?"
+];
+
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
@@ -126,11 +136,11 @@ function App() {
                 }}>
                     <div style={{ background: "white", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
                         <h2>Ответьте на 7 вопросов</h2>
-                        {answers.map((answer, idx) => (
+                        {QUESTIONS.map((question, idx) => (
                             <div key={idx}>
-                                <p>Вопрос {idx + 1}</p>
-                                <button onClick={() => handleAnswerChange(idx, true)} disabled={answer !== null}>Да</button>
-                                <button onClick={() => handleAnswerChange(idx, false)} disabled={answer !== null}>Нет</button>
+                                <p>{question}</p>
+                                <button onClick={() => handleAnswerChange(idx, true)} disabled={answers[idx] !== null}>Да</button>
+                                <button onClick={() => handleAnswerChange(idx, false)} disabled={answers[idx] !== null}>Нет</button>
                             </div>
                         ))}
                         <button onClick={handleAnalyzeQuery} style={{ marginTop: "15px" }} disabled={answers.includes(null)}>
