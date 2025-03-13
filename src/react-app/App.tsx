@@ -31,7 +31,7 @@ function App() {
     const [queryResult, setQueryResult] = useState<null | {
         interpretation: string;
         growthVector: string;
-        queryOrganicity: string[];
+        queryOrganicity: string;
     }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
@@ -107,68 +107,31 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    fontSize: "1.1em",
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}>
+                <div style={{ textAlign: "left", maxWidth: "600px", backgroundColor: "#f9f9f9", padding: "15px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
                     {birthChakra}
                 </div>
             )}
 
-            {birthChakra && !showQuestions && !queryResult && (
-                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
-            )}
-
             {showQuestions && (
-                <div style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "white",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                    zIndex: 1000,
-                    textAlign: "center"
-                }}>
-                    {!questionConfirmed ? (
-                        <>
-                            <p>Сформулируйте свой вопрос.</p>
-                            <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
-                        </>
-                    ) : currentQuestion !== null ? (
-                        <>
-                            <p>Опишите свой вопрос:</p>
-                            <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
-                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
-                        </>
-                    ) : !showAnalysis ? (
-                        <>
-                            <p>Ваш вопрос описан.</p>
-                            <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
-                        </>
-                    ) : queryResult ? (
-                        <div style={{ textAlign: "left" }}>
-                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
-                            <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
-                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
-                            <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
+                <div style={{ textAlign: "left", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", zIndex: 1000 }}>
+                    {!showAnalysis ? (
+                        currentQuestion !== null ? (
+                            <>
+                                <p>{QUESTIONS[currentQuestion]}</p>
+                                <button onClick={() => handleAnswer(true)}>Да</button>
+                                <button onClick={() => handleAnswer(false)}>Нет</button>
+                            </>
+                        ) : (
+                            <button onClick={handleGetAnswer}>Получить ответ</button>
+                        )
+                    ) : (
+                        <div>
+                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult?.interpretation}</p>
+                            <p>🔄 <b>Этот вопрос про:</b> {queryResult?.growthVector}</p>
+                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult?.queryOrganicity}</p>
+                            <button onClick={() => setShowQuestions(false)}>Закрыть</button>
                         </div>
-                    ) : null}
+                    )}
                 </div>
             )}
         </div>
