@@ -27,7 +27,7 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
     const [queryResult, setQueryResult] = useState("");
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
 
@@ -52,25 +52,23 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(true);
-        setCurrentQuestion(0);
+        setQuestionConfirmed(false);
+        setCurrentQuestion(null);
+        setAnswers(Array(QUESTIONS.length).fill(null));
+        setQueryResult("");
     };
 
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
-        newAnswers[currentQuestion] = answer;
-        setAnswers(newAnswers);
+        if (currentQuestion !== null) {
+            newAnswers[currentQuestion] = answer;
+            setAnswers(newAnswers);
+        }
 
-        if (currentQuestion < QUESTIONS.length - 1) {
+        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
-            setQueryResult(`📜 Интерпретация: ...
-🔄 Вектор: ...
-🌱 Органика: ...`);
-            setCurrentQuestion(0);
-        } {
-            setCurrentQuestion(currentQuestion + 1);
-        } else {
+            setCurrentQuestion(null);
             setQueryResult(`🔍 Анализ вашего запроса: ${JSON.stringify(newAnswers)}`);
         }
     };
@@ -148,7 +146,11 @@ function App() {
                             <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
                         </>
                     ) : (
-                        <p>{queryResult}</p>
+                        <>
+                            <p>📜 Ваш анализ запроса:</p>
+                            <p>{queryResult}</p>
+                            <button onClick={() => setShowQuestions(false)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Закрыть</button>
+                        </>
                     )}
                 </div>
             )}
