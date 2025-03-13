@@ -26,8 +26,6 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
     const [analysisResult, setAnalysisResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string[] } | null>(null);
 
     const handleCheckChakra = () => {
@@ -47,26 +45,6 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
-    };
-
-    const handleAnswerChange = (answer: boolean) => {
-        const newAnswers = [...answers];
-        newAnswers[currentQuestionIndex] = answer;
-        setAnswers(newAnswers);
-        
-        if (currentQuestionIndex < QUESTIONS.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            handleAnalyzeQuery();
-        }
-    };
-
-    const handleAnalyzeQuery = () => {
-        if (answers.includes(null)) return;
-        const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null) as number[];
-        const result = analyzeQuery(queryQuarters);
-        setAnalysisResult(result);
-        setShowQuestions(false);
     };
 
     return (
