@@ -28,7 +28,7 @@ function App() {
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState("");
+    const [queryResult, setQueryResult] = useState<string>("");
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showFinalResult, setShowFinalResult] = useState(false);
 
@@ -54,45 +54,31 @@ function App() {
     const startQuestionnaire = () => {
         setShowQuestions(true);
         setQuestionConfirmed(false);
-        setCurrentQuestion(null);
-        setAnswers(Array(QUESTIONS.length).fill(null));
-        setQueryResult("");
-        setShowFinalResult(false);
-    };
-
-    const confirmQuestion = () => {
-        setQuestionConfirmed(true);
-        setCurrentQuestion(0); // Начинаем опрос с первого вопроса
+        setCurrentQuestion(0);
     };
 
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
-        if (currentQuestion !== null) {
-            newAnswers[currentQuestion] = answer;
-            setAnswers(newAnswers);
-        }
+        newAnswers[currentQuestion!] = answer;
+        setAnswers(newAnswers);
 
-        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
+        if (currentQuestion! < QUESTIONS.length - 1) {
+            setCurrentQuestion(currentQuestion! + 1);
         } else {
-            // Все 7 вопросов заданы, показываем кнопку "Получить ответ"
-            setCurrentQuestion(null);
             setShowFinalResult(true);
         }
     };
 
     const handleGetAnswer = () => {
-    const result = analyzeQuery(answers);
-    const formattedResult = `
-        📜 Вы понимаете сам вопрос как: ${result.interpretation}
-        🔄 Этот вопрос про: ${result.growthVector}
-        🌱 Для вас этот вопрос: ${result.queryOrganicity.join(", ")}
-    `;
-    setQueryResult(formattedResult);
-    setShowFinalResult(false);
-};
-
-    
+        const result = analyzeQuery(answers);
+        const formattedResult = `
+            📜 Вы понимаете сам вопрос как: ${result.interpretation}
+            🔄 Этот вопрос про: ${result.growthVector}
+            🌱 Для вас этот вопрос: ${result.queryOrganicity.join(", ")}
+        `;
+        setQueryResult(formattedResult);
+        setShowFinalResult(false);
+    };
 
     return (
         <div style={{
@@ -141,44 +127,14 @@ function App() {
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
-            {showQuestions && (
-                <div style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "white",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                    zIndex: 1000,
-                    textAlign: "center"
-                }}>
-                    {!questionConfirmed ? (
-                        <>
-                            <p>Сформулируйте свой вопрос.</p>
-                            <button onClick={confirmQuestion} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
-                        </>
-                    ) : currentQuestion !== null ? (
-                        <>
-                            <p>Опишите свой вопрос:</p>
-                            <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
-                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
-                        </>
-                    ) : showFinalResult ? (
-                        <>
-                            <p>Ваш вопрос описан.</p>
-                            <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
-                        </>
-                    ) : (
-                        <>
-                            <p>{queryResult}</p>
-                            <button onClick={() => setShowQuestions(false)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Закрыть</button>
-                        </>
-                    )}
+            {showFinalResult ? (
+                <div>
+                    <p>Ваш вопрос описан.</p>
+                    <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
                 </div>
-            )}
+            ) : queryResult ? (
+                <div>{queryResult}</div>
+            ) : null}
         </div>
     );
 }
