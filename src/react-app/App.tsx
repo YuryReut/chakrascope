@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
+import { getBirthChakra } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -29,7 +29,8 @@ function App() {
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
     const [queryResult, setQueryResult] = useState<string | null>(null);
-    
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -51,6 +52,7 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
+        setQuestionConfirmed(true);
         setCurrentQuestion(0);
     };
 
@@ -59,12 +61,10 @@ function App() {
         newAnswers[currentQuestion as number] = answer;
         setAnswers(newAnswers);
 
-        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
+        if ((currentQuestion as number) < QUESTIONS.length - 1) {
+            setCurrentQuestion((currentQuestion as number) + 1);
         } else {
-            const analysis = analyzeQuery(answers);
-            setQueryResult(analysis);
-            setCurrentQuestion(null);
+            setQueryResult("📜 Вы понимаете сам вопрос как: " + (newAnswers.includes(true) ? "Ваш вопрос затрагивает важные аспекты вашей жизни." : "Ваш вопрос пока не имеет четкого направления."));
         }
     };
 
@@ -128,7 +128,7 @@ function App() {
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
-                    {currentQuestion !== null ? (
+                    {currentQuestion !== null && currentQuestion < QUESTIONS.length ? (
                         <>
                             <p>{QUESTIONS[currentQuestion]}</p>
                             <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
