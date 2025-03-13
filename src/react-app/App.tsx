@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -26,10 +26,15 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string; } | null>(null);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
+    const [queryResult, setQueryResult] = useState<null | {
+        interpretation: string;
+        growthVector: string;
+        queryOrganicity: string[];
+    }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -52,8 +57,11 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(true);
+        setQuestionConfirmed(false);
         setCurrentQuestion(0);
+        setAnswers(Array(QUESTIONS.length).fill(null));
+        setShowAnalysis(false);
+        setQueryResult(null);
     };
 
     const handleAnswer = (answer: boolean) => {
@@ -61,13 +69,19 @@ function App() {
         if (currentQuestion !== null) {
             newAnswers[currentQuestion] = answer;
             setAnswers(newAnswers);
-        }
 
-        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-        } else {
-            setCurrentQuestion(null);
+            if (currentQuestion < QUESTIONS.length - 1) {
+                setCurrentQuestion(currentQuestion + 1);
+            } else {
+                setCurrentQuestion(null); // Все вопросы заданы, теперь показываем кнопку "Получить ответ"
+            }
         }
+    };
+
+    const handleGetAnswer = () => {
+        const analysis = analyzeQuery(answers);
+        setQueryResult(analysis);
+        setShowAnalysis(true);
     };
 
     return (
@@ -113,7 +127,7 @@ function App() {
                 </div>
             )}
 
-            {birthChakra && !showQuestions && (
+            {birthChakra && !showQuestions && !queryResult && (
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
@@ -130,16 +144,31 @@ function App() {
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
-                    {currentQuestion !== null ? (
+                    {!questionConfirmed ? (
+                        <>
+                            <p>Сформулируйте свой вопрос.</p>
+                            <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
+                        </>
+                    ) : currentQuestion !== null ? (
                         <>
                             <p>Опишите свой вопрос:</p>
                             <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)}>Да</button>
-                            <button onClick={() => handleAnswer(false)}>Нет</button>
+                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
+                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
                         </>
-                    ) : (
-                        <p>Ваш запрос обработан.</p>
-                    )}
+                    ) : !showAnalysis ? (
+                        <>
+                            <p>Ваш вопрос описан.</p>
+                            <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
+                        </>
+                    ) : queryResult ? (
+                        <div style={{ textAlign: "left" }}>
+                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
+                            <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
+                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
+                            <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
+                        </div>
+                    ) : null}
                 </div>
             )}
         </div>
