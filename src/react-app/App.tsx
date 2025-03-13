@@ -12,10 +12,23 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
+const QUESTIONS = [
+    "Этот вопрос связан с материальной стороной жизни?",
+    "Он касается ваших эмоций и желаний?",
+    "Этот вопрос про силу воли и достижение целей?",
+    "Он связан с отношениями и сердечными чувствами?",
+    "Этот вопрос касается самовыражения и творчества?",
+    "Он затрагивает интуицию и внутреннее видение?",
+    "Этот вопрос про глубокое понимание и осознание?"
+];
+
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [queryResult, setQueryResult] = useState("");
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -34,6 +47,20 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
+    };
+
+    const handleAnswer = (answer: boolean) => {
+        const newAnswers = [...answers];
+        newAnswers[currentQuestion] = answer;
+        setAnswers(newAnswers);
+
+        if (currentQuestion < QUESTIONS.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+        } else {
+            setShowQuestions(false);
+            setQueryResult(`📜 Ваш анализ запроса: ${JSON.stringify(newAnswers)}`);
+            setCurrentQuestion(0);
+        }
     };
 
     return (
@@ -79,7 +106,7 @@ function App() {
                 </div>
             )}
 
-            {birthChakra && !showQuestions && (
+            {birthChakra && !showQuestions && !queryResult && (
                 <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
@@ -96,8 +123,31 @@ function App() {
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
-                    <p>Формулируйте вопрос, затем нажмите кнопку:</p>
-                    <button onClick={() => setShowQuestions(false)} style={{ marginTop: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Закрыть</button>
+                    <p>Сформулируйте вопрос, затем нажмите кнопку:</p>
+                    <p>{QUESTIONS[currentQuestion]}</p>
+                    <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
+                    <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                </div>
+            )}
+
+            {queryResult && (
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    fontSize: "1.1em",
+                    backgroundColor: "#e3f2fd",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+                }}>
+                    {queryResult}
                 </div>
             )}
         </div>
