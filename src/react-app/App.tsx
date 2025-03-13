@@ -27,9 +27,8 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
     const [queryResult, setQueryResult] = useState<string>("");
-    const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showFinalResult, setShowFinalResult] = useState(false);
 
     const handleCheckChakra = () => {
@@ -53,7 +52,6 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(false);
         setCurrentQuestion(0);
     };
 
