@@ -94,7 +94,7 @@ function App() {
             width: "100vw",
             textAlign: "center",
             fontFamily: "inherit",
-            color: black,
+            color: "black",
             padding: "20px",
             boxSizing: "border-box",
             backgroundColor: "#ffffff"
