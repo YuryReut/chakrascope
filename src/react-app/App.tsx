@@ -25,7 +25,6 @@ const QUESTIONS = [
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
-    const [showQuestionPrompt, setShowQuestionPrompt] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
@@ -85,7 +84,14 @@ function App() {
 
             {showQuestions && (
                 <div>
-                    <p>{QUESTIONS[currentQuestionIndex]}</p>
+                    <p>Сформулируйте свой вопрос, затем нажмите "Получить ответ".</p>
+                    <button onClick={() => setCurrentQuestionIndex(0)}>Получить ответ</button>
+                </div>
+            )}
+
+            {currentQuestionIndex > 0 && currentQuestionIndex <= QUESTIONS.length && (
+                <div>
+                    <p>{QUESTIONS[currentQuestionIndex - 1]}</p>
                     <button onClick={() => handleAnswerChange(true)}>Да</button>
                     <button onClick={() => handleAnswerChange(false)}>Нет</button>
                 </div>
@@ -98,7 +104,6 @@ function App() {
                     <p>{analysisResult.growthVector}</p>
                     <button onClick={() => {
                         setShowQuestions(false);
-                        setShowQuestionPrompt(false);
                         setAnalysisResult(null);
                         setAnswers(Array(7).fill(null));
                         setCurrentQuestionIndex(0);
