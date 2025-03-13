@@ -1,6 +1,6 @@
 import chakrasData from "./chakras.json";
 
-// Функция для вычисления Титхи (Лунного дня)
+// Определение Титхи (Лунного дня)
 function getCurrentTithi(lunarLongitude: number): number {
     return Math.floor(lunarLongitude / 12) + 1;
 }
@@ -18,7 +18,7 @@ function getChakra52Cycle(birthDate: string, currentDate: string): number {
     return Math.floor((daysPassed % 52) / 7.43) + 1;
 }
 
-// Чакра года (цикл 7 лет)
+// Чакра года (по году рождения)
 function getChakraFromYear(date: string): number {
     const year = new Date(date).getFullYear();
     return ((year - 1950) % 7) + 1;
@@ -30,8 +30,8 @@ function getChakraFromWeekday(date: string): number {
     return (weekday % 7) + 1;
 }
 
-// 🔥 Новый метод расчета Чакры дня (персонализированный)
-function getPersonalChakraDay(birthDate: string, currentDate: string, sunDegree: number, moonDegree: number): number {
+// **🔥 Обновленный персонализированный метод расчета Чакры дня**
+function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
     // Чакра года (долгосрочный вектор развития)
     const yearChakra = getChakraFromYear(birthDate);
 
@@ -48,7 +48,7 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, sunDegree:
     // Чакра по Луне (подсознательное влияние)
     const chakraMoon = getChakraFromTithi(Math.floor(moonDegree / 12) + 1);
 
-    // 🔥 Персонализированный расчет Чакры дня
+    // 🔥 Новый расчет Чакры дня
     const chakraDay = Math.round(
         (yearChakra * 0.3) +  // Чакра года (30%)
         (cycleChakra * 0.3) + // Чакра 52-дневного цикла (30%)
@@ -57,10 +57,10 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, sunDegree:
         (chakraMoon * 0.1) // Чакра по Луне (10%)
     );
 
-    return chakraDay > 7 ? 7 : chakraDay; // Коррекция, чтобы не выйти за пределы 1-7
+    return chakraDay > 7 ? 7 : chakraDay; // Ограничение в диапазоне 1-7
 }
 
-// 🔥 Основная функция получения Чакроскопа с учетом персональной Чакры дня
+// **🔥 Основная функция Чакроскопа**
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
 
@@ -72,7 +72,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     // 52-дневный цикл
     const cycleChakra = getChakra52Cycle(dateOfBirth, currentDate);
 
-    // Чакра по Титхи (лунному циклу)
+    // Чакра по Титхи (Лунному циклу)
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
 
@@ -81,8 +81,8 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const chakraSun = chakrasData.chakras[solarChakra - 1];
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
 
-    // 🔥 Персонализированная Чакра дня
-    const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, sunDegree, moonDegree);
+    // 🔥 **Персонализированная Чакра дня**
+    const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
     return {
         result: `
