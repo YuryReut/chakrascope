@@ -26,6 +26,7 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
     const [analysisResult, setAnalysisResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string[] } | null>(null);
 
@@ -48,17 +49,24 @@ function App() {
         setBirthChakra(result.result);
     };
 
-    const handleAnswerChange = (index: number, answer: boolean) => {
+    const handleAnswerChange = (answer: boolean) => {
         const newAnswers = [...answers];
-        newAnswers[index] = answer;
+        newAnswers[currentQuestionIndex] = answer;
         setAnswers(newAnswers);
+        
+        if (currentQuestionIndex < 6) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            handleAnalyzeQuery();
+        }
     };
 
     const handleAnalyzeQuery = () => {
-        if (answers.includes(null)) return; // Блокируем кнопку, пока не даны все ответы
+        if (answers.includes(null)) return;
         const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null) as number[];
         const result = analyzeQuery(queryQuarters);
         setAnalysisResult(result);
+        setShowQuestions(false);
     };
 
     return (
@@ -135,17 +143,10 @@ function App() {
                     display: "flex", justifyContent: "center", alignItems: "center"
                 }}>
                     <div style={{ background: "white", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
-                        <h2>Ответьте на 7 вопросов</h2>
-                        {QUESTIONS.map((question, idx) => (
-                            <div key={idx}>
-                                <p>{question}</p>
-                                <button onClick={() => handleAnswerChange(idx, true)} disabled={answers[idx] !== null}>Да</button>
-                                <button onClick={() => handleAnswerChange(idx, false)} disabled={answers[idx] !== null}>Нет</button>
-                            </div>
-                        ))}
-                        <button onClick={handleAnalyzeQuery} style={{ marginTop: "15px" }} disabled={answers.includes(null)}>
-                            Получить ответ
-                        </button>
+                        <h2>Ответьте на вопрос</h2>
+                        <p>{QUESTIONS[currentQuestionIndex]}</p>
+                        <button onClick={() => handleAnswerChange(true)}>Да</button>
+                        <button onClick={() => handleAnswerChange(false)}>Нет</button>
                     </div>
                 </div>
             )}
