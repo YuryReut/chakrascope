@@ -28,7 +28,7 @@ function App() {
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState<string | null>(null);
+    const [queryResult, setQueryResult] = useState(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
 
     const handleCheckChakra = () => {
@@ -58,13 +58,18 @@ function App() {
 
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
-        newAnswers[currentQuestion as number] = answer;
+        newAnswers[currentQuestion!] = answer;
         setAnswers(newAnswers);
 
-        if ((currentQuestion as number) < QUESTIONS.length - 1) {
-            setCurrentQuestion((currentQuestion as number) + 1);
+        if (currentQuestion! < QUESTIONS.length - 1) {
+            setCurrentQuestion(currentQuestion! + 1);
         } else {
-            setQueryResult("📜 Вы понимаете сам вопрос как: " + (newAnswers.includes(true) ? "Ваш вопрос затрагивает важные аспекты вашей жизни." : "Ваш вопрос пока не имеет четкого направления."));
+            setQueryResult({
+                interpretation: "Вы понимаете сам вопрос как: ...",
+                growthVector: "Этот вопрос про: ...",
+                queryOrganicity: "Для вас этот вопрос: ..."
+            });
+            setCurrentQuestion(null);
         }
     };
 
@@ -91,22 +96,7 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    fontSize: "1.1em",
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}>
+                <div style={{ maxWidth: "600px", padding: "15px", backgroundColor: "#f9f9f9", borderRadius: "10px" }}>
                     {birthChakra}
                 </div>
             )}
@@ -116,26 +106,23 @@ function App() {
             )}
 
             {showQuestions && (
-                <div style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "white",
-                    padding: "20px",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                    zIndex: 1000,
-                    textAlign: "center"
-                }}>
-                    {currentQuestion !== null && currentQuestion < QUESTIONS.length ? (
+                <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", zIndex: 1000 }}>
+                    {currentQuestion !== null ? (
                         <>
+                            <p>Опишите свой вопрос:</p>
                             <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
-                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px" }}>Да</button>
+                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px" }}>Нет</button>
                         </>
                     ) : (
-                        <p>{queryResult}</p>
+                        queryResult && (
+                            <>
+                                <p>📜 {queryResult.interpretation}</p>
+                                <p>🔄 {queryResult.growthVector}</p>
+                                <p>🌱 {queryResult.queryOrganicity}</p>
+                                <button onClick={() => setShowQuestions(false)} style={{ marginTop: "10px" }}>Закрыть</button>
+                            </>
+                        )
                     )}
                 </div>
             )}
