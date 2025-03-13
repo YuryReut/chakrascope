@@ -16,18 +16,8 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
-    const [queryResult, setQueryResult] = useState<any>(null);
-
-    const questions = [
-        "Этот вопрос связан с материальной стабильностью и безопасностью?",
-        "Этот вопрос касается эмоций, желаний или привязанностей?",
-        "Этот вопрос касается достижений, контроля или силы воли?",
-        "Этот вопрос касается любви, принятия и отношений?",
-        "Этот вопрос касается выражения себя и создания чего-то нового?",
-        "Этот вопрос связан с интуицией, видением или стратегией?",
-        "Этот вопрос касается осознания, духовного пути или глобального смысла?"
-    ];
+    const [answers, setAnswers] = useState(Array(7).fill(null));
+    const [analysisResult, setAnalysisResult] = useState(null);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -48,19 +38,16 @@ function App() {
         setBirthChakra(result.result);
     };
 
-    const handleAnswer = (index: number, answer: boolean) => {
-        const updatedAnswers = [...answers];
-        updatedAnswers[index] = answer;
-        setAnswers(updatedAnswers);
+    const handleAnswerChange = (index: number, answer: boolean) => {
+        const newAnswers = [...answers];
+        newAnswers[index] = answer;
+        setAnswers(newAnswers);
     };
 
-    const analyzeRequest = () => {
-        const queryQuarters = answers
-            .map((answer, index) => answer ? Math.ceil((index + 1) / 2) : null)
-            .filter((q) => q !== null) as number[];
-
+    const handleAnalyzeQuery = () => {
+        const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null);
         const result = analyzeQuery(queryQuarters);
-        setQueryResult(result);
+        setAnalysisResult(result);
     };
 
     return (
@@ -96,7 +83,11 @@ function App() {
 
             <button 
                 onClick={handleCheckChakra} 
-                style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}
+                style={{
+                    padding: "10px 20px",
+                    fontSize: "1em",
+                    cursor: "pointer"
+                }}
             >
                 Рассчитать
             </button>
@@ -119,43 +110,42 @@ function App() {
                 </div>
             )}
 
-            <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px" }}>Задать вопрос</button>
+            {birthChakra && !showQuestions && (
+                <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px" }}>
+                    Задать вопрос
+                </button>
+            )}
 
             {showQuestions && (
-                <div>
-                    {questions.map((q, index) => (
-                        <div key={index}>
-                            <p>{q}</p>
-                            <button onClick={() => handleAnswer(index, true)}>Да</button>
-                            <button onClick={() => handleAnswer(index, false)}>Нет</button>
-                        </div>
-                    ))}
-                    <button onClick={analyzeRequest} disabled={answers.includes(null)}>Получить ответ</button>
-                </div>
-            )}
-
-            {queryResult && (
-                <div className="query-results">
-                    <h3>🔍 Интерпретация:</h3>
-                    <p>{queryResult.interpretation}</p>
-
-                    <h3>📈 Вектор развития:</h3>
-                    <p>{queryResult.growthVector}</p>
-
-                    <h3>🌱 Органика запроса:</h3>
-                    <ul>
-                        {queryResult.queryOrganicity.map((text: string, index: number) => (
-                            <li key={index}>{text}</li>
+                <div style={{
+                    position: "fixed", 
+                    top: 0, left: 0, width: "100vw", height: "100vh", 
+                    backgroundColor: "rgba(0,0,0,0.7)",
+                    display: "flex", justifyContent: "center", alignItems: "center"
+                }}>
+                    <div style={{ background: "white", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
+                        <h2>Ответьте на 7 вопросов</h2>
+                        {answers.map((_, idx) => (
+                            <div key={idx}>
+                                <p>Вопрос {idx + 1}</p>
+                                <button onClick={() => handleAnswerChange(idx, true)}>Да</button>
+                                <button onClick={() => handleAnswerChange(idx, false)}>Нет</button>
+                            </div>
                         ))}
-                    </ul>
+                        <button onClick={handleAnalyzeQuery} style={{ marginTop: "15px" }}>
+                            Получить ответ
+                        </button>
+                    </div>
                 </div>
             )}
 
-            <footer style={{ marginTop: "30px", fontSize: "1em" }}>
-                <a href="https://instagram.com/nowyoucanseelove" target="_blank" rel="noopener noreferrer">
-                    Now You Can See Love
-                </a>
-            </footer>
+            {analysisResult && (
+                <div style={{ marginTop: "20px", textAlign: "center" }}>
+                    <h3>Результат анализа</h3>
+                    <p>{analysisResult.interpretation}</p>
+                    <p>{analysisResult.growthVector}</p>
+                </div>
+            )}
         </div>
     );
 }
