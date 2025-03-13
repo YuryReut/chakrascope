@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
+import { getBirthChakra } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -27,14 +27,9 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
-    const [queryResult, setQueryResult] = useState<null | {
-        interpretation: string;
-        growthVector: string;
-        queryOrganicity: string;
-    }>(null);
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
+    const [queryResult, setQueryResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string; } | null>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
-    const [showAnalysis, setShowAnalysis] = useState(false);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -57,11 +52,8 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(false);
+        setQuestionConfirmed(true);
         setCurrentQuestion(0);
-        setAnswers(Array(QUESTIONS.length).fill(null));
-        setShowAnalysis(false);
-        setQueryResult(null);
     };
 
     const handleAnswer = (answer: boolean) => {
@@ -69,19 +61,18 @@ function App() {
         if (currentQuestion !== null) {
             newAnswers[currentQuestion] = answer;
             setAnswers(newAnswers);
-
-            if (currentQuestion < QUESTIONS.length - 1) {
-                setCurrentQuestion(currentQuestion + 1);
-            } else {
-                setCurrentQuestion(null); // Все вопросы заданы, теперь показываем кнопку "Получить ответ"
-            }
         }
-    };
 
-    const handleGetAnswer = () => {
-        const analysis = analyzeQuery(answers);
-        setQueryResult(analysis);
-        setShowAnalysis(true);
+        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+        } else {
+            setQueryResult({
+                interpretation: "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.",
+                growthVector: "Этот запрос может быть важен, но он уводит вас в сторону.",
+                queryOrganicity: "Этот вопрос естественно встроен в вашу жизнь."
+            });
+            setCurrentQuestion(null);
+        }
     };
 
     return (
@@ -107,31 +98,35 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{ textAlign: "left", maxWidth: "600px", backgroundColor: "#f9f9f9", padding: "15px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    fontSize: "1.1em",
+                    backgroundColor: "#f9f9f9",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+                }}>
                     {birthChakra}
                 </div>
             )}
 
-            {showQuestions && (
-                <div style={{ textAlign: "left", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", zIndex: 1000 }}>
-                    {!showAnalysis ? (
-                        currentQuestion !== null ? (
-                            <>
-                                <p>{QUESTIONS[currentQuestion]}</p>
-                                <button onClick={() => handleAnswer(true)}>Да</button>
-                                <button onClick={() => handleAnswer(false)}>Нет</button>
-                            </>
-                        ) : (
-                            <button onClick={handleGetAnswer}>Получить ответ</button>
-                        )
-                    ) : (
-                        <div>
-                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult?.interpretation}</p>
-                            <p>🔄 <b>Этот вопрос про:</b> {queryResult?.growthVector}</p>
-                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult?.queryOrganicity}</p>
-                            <button onClick={() => setShowQuestions(false)}>Закрыть</button>
-                        </div>
-                    )}
+            {birthChakra && !showQuestions && !queryResult && (
+                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
+            )}
+
+            {queryResult && (
+                <div style={{ marginTop: "20px", textAlign: "left", maxWidth: "600px" }}>
+                    <p>📜 Вы понимаете сам вопрос как: {queryResult.interpretation}</p>
+                    <p>🔄 Этот вопрос про: {queryResult.growthVector}</p>
+                    <p>🌱 Для вас этот вопрос: {queryResult.queryOrganicity}</p>
                 </div>
             )}
         </div>
