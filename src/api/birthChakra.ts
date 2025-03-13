@@ -50,13 +50,6 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
-function getUserChakras() {
-    return {
-        birthSunQuarter: 2,
-        birthMoonQuarter: 4
-    };
-}
-
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
 
@@ -94,8 +87,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
 export function analyzeQuery(queryQuarters: number[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
-    const { birthSunQuarter, birthMoonQuarter } = getUserChakras();
-
+    
     let interpretation = "";
     let growthVector = "";
     let queryOrganicity: string[] = [];
