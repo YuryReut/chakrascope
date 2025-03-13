@@ -50,24 +50,12 @@ function App() {
         setBirthChakra(result.result);
     };
 
-    const startQuestionProcess = () => {
-        setShowQuestionPrompt(true);
-    };
-
-    const handleStartQuestions = () => {
-        setShowQuestionPrompt(false);
-        setShowQuestions(true);
-        setCurrentQuestionIndex(0);
-        setAnswers(Array(7).fill(null));
-        setAnalysisResult(null);
-    };
-
     const handleAnswerChange = (answer: boolean) => {
         const newAnswers = [...answers];
         newAnswers[currentQuestionIndex] = answer;
         setAnswers(newAnswers);
         
-        if (currentQuestionIndex < 6) {
+        if (currentQuestionIndex < QUESTIONS.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
             handleAnalyzeQuery();
@@ -83,84 +71,38 @@ function App() {
     };
 
     return (
-        <div style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            width: "100vw",
-            textAlign: "center",
-            fontFamily: "inherit",
-            padding: "20px",
-            boxSizing: "border-box"
-        }}>
+        <div style={{ textAlign: "center", padding: "20px" }}>
             <h1>Чакроскоп</h1>
+            <label>Введите дату рождения:</label>
+            <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+            <button onClick={handleCheckChakra}>Рассчитать</button>
 
-            <label style={{ marginBottom: "10px", fontSize: "1em" }}>
-                Введите дату рождения:
-            </label>
+            {birthChakra && <p>{birthChakra}</p>}
 
-            <input 
-                type="date" 
-                value={birthDate} 
-                onChange={(e) => setBirthDate(e.target.value)} 
-                style={{
-                    padding: "8px",
-                    fontSize: "1em",
-                    marginBottom: "15px",
-                    backgroundColor: "#cccccc"
-                }} 
-            />
-
-            <button 
-                onClick={handleCheckChakra} 
-                style={{
-                    padding: "10px 20px",
-                    fontSize: "1em",
-                    cursor: "pointer"
-                }}
-            >
-                Рассчитать
-            </button>
-
-            {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "10px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    fontSize: "1.1em"
-                }}>
-                    {birthChakra}
-                </div>
+            {birthChakra && !showQuestions && !analysisResult && (
+                <button onClick={() => setShowQuestions(true)}>Задать вопрос</button>
             )}
 
-            {birthChakra && !showQuestionPrompt && !showQuestions && !analysisResult && (
-                <button onClick={startQuestionProcess} style={{ marginTop: "20px" }}>
-                    Задать вопрос
-                </button>
-            )}
-
-            {showQuestionPrompt && (
-                <div style={{ textAlign: "center", marginTop: "20px" }}>
-                    <p>Сформулируйте свой вопрос для себя</p>
-                    <button onClick={handleStartQuestions}>Получить ответ</button>
+            {showQuestions && (
+                <div>
+                    <p>{QUESTIONS[currentQuestionIndex]}</p>
+                    <button onClick={() => handleAnswerChange(true)}>Да</button>
+                    <button onClick={() => handleAnswerChange(false)}>Нет</button>
                 </div>
             )}
 
             {analysisResult && (
-                <div style={{ marginTop: "20px", textAlign: "center" }}>
+                <div>
                     <h3>Результат анализа</h3>
                     <p>{analysisResult.interpretation}</p>
                     <p>{analysisResult.growthVector}</p>
-                    <button onClick={startQuestionProcess} style={{ marginTop: "15px" }}>Задать новый вопрос</button>
+                    <button onClick={() => {
+                        setShowQuestions(false);
+                        setShowQuestionPrompt(false);
+                        setAnalysisResult(null);
+                        setAnswers(Array(7).fill(null));
+                        setCurrentQuestionIndex(0);
+                    }}>Задать новый вопрос</button>
                 </div>
             )}
         </div>
