@@ -84,3 +84,32 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         logs: debugLogs
     };
 }
+
+export function analyzeQuery(queryQuarters: number[]) {
+    const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
+    const { birthSunQuarter, birthMoonQuarter } = getUserChakras();
+
+    let interpretation = "";
+    let growthVector = "";
+    let queryOrganicity: string[] = [];
+
+    if (queryQuarters.length === 1) {
+        interpretation = "Сегодняшний день поддерживает вас в этом направлении.";
+    } else {
+        interpretation = "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.";
+    }
+
+    queryQuarters.forEach((quarter) => {
+        if (quarter === yearQuarter) {
+            growthVector = "Этот запрос полностью соответствует вашему текущему пути.";
+        } else if (quarter === yearQuarter + 1) {
+            growthVector = "Этот запрос ведет вас вперед по пути развития.";
+        } else if (quarter === yearQuarter - 1) {
+            growthVector = "Этот запрос возвращает вас к прошлым энергиям.";
+        } else {
+            growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
+        }
+    });
+
+    return { interpretation, growthVector, queryOrganicity };
+}
