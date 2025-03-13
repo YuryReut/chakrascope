@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -30,6 +30,7 @@ function App() {
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
     const [queryResult, setQueryResult] = useState("");
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showFinalResult, setShowFinalResult] = useState(false);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -56,11 +57,12 @@ function App() {
         setCurrentQuestion(null);
         setAnswers(Array(QUESTIONS.length).fill(null));
         setQueryResult("");
+        setShowFinalResult(false);
     };
 
     const confirmQuestion = () => {
         setQuestionConfirmed(true);
-        setCurrentQuestion(0); // Показываем первый вопрос
+        setCurrentQuestion(0); // Начинаем опрос с первого вопроса
     };
 
     const handleAnswer = (answer: boolean) => {
@@ -73,14 +75,16 @@ function App() {
         if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
-            // После последнего вопроса отображаем анализ запроса
+            // Все 7 вопросов заданы, показываем кнопку "Получить ответ"
             setCurrentQuestion(null);
-            setQueryResult(`
-                📜 Интерпретация: Влияние вашего запроса на вашу текущую энергию.
-                🔄 Вектор развития: Насколько этот вопрос движет вас вперед или удерживает.
-                🌱 Органика запроса: Как естественно этот запрос встраивается в вашу жизнь.
-            `);
+            setShowFinalResult(true);
         }
+    };
+
+    const handleGetAnswer = () => {
+        const result = analyzeQuery(answers);
+        setQueryResult(result);
+        setShowFinalResult(false);
     };
 
     return (
@@ -154,6 +158,11 @@ function App() {
                             <p>{QUESTIONS[currentQuestion]}</p>
                             <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
                             <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                        </>
+                    ) : showFinalResult ? (
+                        <>
+                            <p>Ваш вопрос описан.</p>
+                            <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
                         </>
                     ) : (
                         <>
