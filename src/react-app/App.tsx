@@ -28,7 +28,11 @@ function App() {
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
-    const [queryResult, setQueryResult] = useState("");
+    const [queryResult, setQueryResult] = useState<null | {
+        interpretation: string;
+        growthVector: string;
+        queryOrganicity: string[];
+    }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
 
@@ -57,7 +61,7 @@ function App() {
         setCurrentQuestion(0);
         setAnswers(Array(QUESTIONS.length).fill(null));
         setShowAnalysis(false);
-        setQueryResult("");
+        setQueryResult(null);
     };
 
     const handleAnswer = (answer: boolean) => {
