@@ -27,10 +27,9 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
-    const [queryResult, setQueryResult] = useState<{ interpretation: string, growthVector: string, queryOrganicity: string } | null>(null);
-    const [questionConfirmed, setQuestionConfirmed] = useState(false);
-
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
+    const [queryResult, setQueryResult] = useState<null | { interpretation: string; growthVector: string; queryOrganicity: string }>(null);
+    
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -52,25 +51,28 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(true);
         setCurrentQuestion(0);
     };
 
     const handleAnswer = (answer: boolean) => {
+        if (currentQuestion === null) return;
         const newAnswers = [...answers];
-        newAnswers[currentQuestion!] = answer;
+        newAnswers[currentQuestion] = answer;
         setAnswers(newAnswers);
 
-        if (currentQuestion! < QUESTIONS.length - 1) {
-            setCurrentQuestion(currentQuestion! + 1);
+        if (currentQuestion < QUESTIONS.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
         } else {
             setCurrentQuestion(null);
-            setQueryResult({
-                interpretation: "Вы понимаете сам вопрос как...",
-                growthVector: "Этот вопрос про...",
-                queryOrganicity: "Для вас этот вопрос..."
-            });
         }
+    };
+
+    const analyzeQuery = () => {
+        setQueryResult({
+            interpretation: "Вы понимаете сам вопрос как осознание важности вашего текущего состояния.",
+            growthVector: "Этот вопрос помогает вам двигаться в направлении вашего развития.",
+            queryOrganicity: "Этот вопрос является естественной частью вашей жизни."
+        });
     };
 
     return (
@@ -105,8 +107,6 @@ function App() {
                     maxWidth: "600px",
                     margin: "20px auto",
                     padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
                     fontSize: "1.1em",
                     backgroundColor: "#f9f9f9",
                     borderRadius: "10px",
@@ -116,23 +116,15 @@ function App() {
                 </div>
             )}
 
-            {showQuestions && (
-                <div>
-                    {currentQuestion !== null ? (
-                        <>
-                            <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)}>Да</button>
-                            <button onClick={() => handleAnswer(false)}>Нет</button>
-                        </>
-                    ) : (
-                        queryResult && (
-                            <>
-                                <p>📜 {queryResult.interpretation}</p>
-                                <p>🔄 {queryResult.growthVector}</p>
-                                <p>🌱 {queryResult.queryOrganicity}</p>
-                            </>
-                        )
-                    )}
+            {birthChakra && !showQuestions && !queryResult && (
+                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
+            )}
+
+            {queryResult && (
+                <div style={{ marginTop: "20px", textAlign: "left" }}>
+                    <p>📜 {queryResult.interpretation}</p>
+                    <p>🔄 {queryResult.growthVector}</p>
+                    <p>🌱 {queryResult.queryOrganicity}</p>
                 </div>
             )}
         </div>
