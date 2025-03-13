@@ -161,14 +161,14 @@ function App() {
                             <p>Ваш вопрос описан.</p>
                             <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
                         </>
-                    ) : (
+                    ) : queryResult ? (
                         <div style={{ textAlign: "left" }}>
                             <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
                             <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
                             <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
                             <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
                         </div>
-                    )}
+                    ) : null}
                 </div>
             )}
         </div>
