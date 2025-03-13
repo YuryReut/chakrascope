@@ -82,10 +82,17 @@ function App() {
     };
 
     const handleGetAnswer = () => {
-        const result = analyzeQuery(answers);
-        setQueryResult(result);
-        setShowFinalResult(false);
-    };
+    const result = analyzeQuery(answers);
+    const formattedResult = `
+        📜 Вы понимаете сам вопрос как: ${result.interpretation}
+        🔄 Этот вопрос про: ${result.growthVector}
+        🌱 Для вас этот вопрос: ${result.queryOrganicity.join(", ")}
+    `;
+    setQueryResult(formattedResult);
+    setShowFinalResult(false);
+};
+
+    
 
     return (
         <div style={{
