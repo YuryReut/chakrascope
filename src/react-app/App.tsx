@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -15,12 +15,24 @@ function convertToJulianDate(dateString: string): string {
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
+    const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
+    const [queryResult, setQueryResult] = useState<any>(null);
+
+    const questions = [
+        "Этот вопрос связан с материальной стабильностью и безопасностью?",
+        "Этот вопрос касается эмоций, желаний или привязанностей?",
+        "Этот вопрос касается достижений, контроля или силы воли?",
+        "Этот вопрос касается любви, принятия и отношений?",
+        "Этот вопрос касается выражения себя и создания чего-то нового?",
+        "Этот вопрос связан с интуицией, видением или стратегией?",
+        "Этот вопрос касается осознания, духовного пути или глобального смысла?"
+    ];
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
 
-        // Поиск данных по новой дате
         const solarEntry = solarData.find(entry => entry.Date === formattedDate);
         const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
@@ -34,6 +46,21 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
+    };
+
+    const handleAnswer = (index: number, answer: boolean) => {
+        const updatedAnswers = [...answers];
+        updatedAnswers[index] = answer;
+        setAnswers(updatedAnswers);
+    };
+
+    const analyzeRequest = () => {
+        const queryQuarters = answers
+            .map((answer, index) => answer ? Math.ceil((index + 1) / 2) : null)
+            .filter((q) => q !== null) as number[];
+
+        const result = analyzeQuery(queryQuarters);
+        setQueryResult(result);
     };
 
     return (
@@ -69,11 +96,7 @@ function App() {
 
             <button 
                 onClick={handleCheckChakra} 
-                style={{
-                    padding: "10px 20px",
-                    fontSize: "1em",
-                    cursor: "pointer"
-                }}
+                style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}
             >
                 Рассчитать
             </button>
@@ -93,6 +116,38 @@ function App() {
                     fontSize: "1.1em"
                 }}>
                     {birthChakra}
+                </div>
+            )}
+
+            <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px" }}>Задать вопрос</button>
+
+            {showQuestions && (
+                <div>
+                    {questions.map((q, index) => (
+                        <div key={index}>
+                            <p>{q}</p>
+                            <button onClick={() => handleAnswer(index, true)}>Да</button>
+                            <button onClick={() => handleAnswer(index, false)}>Нет</button>
+                        </div>
+                    ))}
+                    <button onClick={analyzeRequest} disabled={answers.includes(null)}>Получить ответ</button>
+                </div>
+            )}
+
+            {queryResult && (
+                <div className="query-results">
+                    <h3>🔍 Интерпретация:</h3>
+                    <p>{queryResult.interpretation}</p>
+
+                    <h3>📈 Вектор развития:</h3>
+                    <p>{queryResult.growthVector}</p>
+
+                    <h3>🌱 Органика запроса:</h3>
+                    <ul>
+                        {queryResult.queryOrganicity.map((text: string, index: number) => (
+                            <li key={index}>{text}</li>
+                        ))}
+                    </ul>
                 </div>
             )}
 
