@@ -94,6 +94,7 @@ function App() {
             width: "100vw",
             textAlign: "center",
             fontFamily: "inherit",
+            color: black,
             padding: "20px",
             boxSizing: "border-box",
             backgroundColor: "#ffffff"
@@ -102,7 +103,7 @@ function App() {
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
                 <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
-                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", backgroundColor: "#cccccc" }} />
+                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", backgroundColor: "#ffffff" }} />
                 <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
             </div>
 
