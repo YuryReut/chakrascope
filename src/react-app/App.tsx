@@ -42,13 +42,13 @@ function App() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            height: "100vh",
+            minHeight: "100vh",
             width: "100vw",
             textAlign: "center",
             fontFamily: "inherit",
             padding: "20px",
             boxSizing: "border-box",
-            backgroundColor: "#f4f4f4"
+            backgroundColor: "#ffffff"
         }}>
             <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
 
@@ -65,11 +65,11 @@ function App() {
                     textAlign: "center",
                     maxWidth: "600px",
                     margin: "20px auto",
-                    padding: "10px",
+                    padding: "15px",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
                     fontSize: "1.1em",
-                    backgroundColor: "white",
+                    backgroundColor: "#f9f9f9",
                     borderRadius: "10px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
                 }}>
