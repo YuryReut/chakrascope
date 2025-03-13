@@ -106,34 +106,43 @@ export function analyzeQuery(answers: boolean[]) {
     }
 
     let chakraMatches = 0;
+    let movementDescriptions: string[] = [];
+    
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
-            growthVector = "Этот запрос полностью соответствует вашему текущему пути.";
+            movementDescriptions.push("полностью соответствует вашему текущему пути");
             chakraMatches++;
         } else if (chakra === yearQuarter + 1) {
-            growthVector = "Этот запрос ведет вас вперед по пути развития.";
+            movementDescriptions.push("ведет вас вперед по пути развития");
             chakraMatches++;
         } else if (chakra === yearQuarter - 1) {
-            growthVector = "Этот запрос возвращает вас к прошлым энергиям.";
+            movementDescriptions.push("возвращает вас к прошлым энергиям");
+        } else {
+            movementDescriptions.push("не соответствует вашему текущему пути");
         }
     });
 
-    if (chakraMatches === 0) {
+    if (movementDescriptions.length > 0) {
+        growthVector = `Этот вопрос ${movementDescriptions.join(", ")}.`;
+    } else {
         growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
     }
 
-    // Заполняем queryOrganicity
+    // Заполняем queryOrganicity без дублирования одинаковых фраз
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
-            queryOrganicity.push("Этот вопрос для вас естественный и актуальный.");
+            queryOrganicity.push("естественный и актуальный");
         } else if (chakra === yearQuarter + 1) {
-            queryOrganicity.push("Этот вопрос помогает вам развиваться.");
+            queryOrganicity.push("помогает вам развиваться");
         } else if (chakra === yearQuarter - 1) {
-            queryOrganicity.push("Этот вопрос связан с прошлым опытом.");
+            queryOrganicity.push("связан с прошлым опытом");
         } else {
-            queryOrganicity.push("Этот вопрос не имеет прямого отношения к вашему текущему пути.");
+            queryOrganicity.push("не имеет прямого отношения к вашему текущему пути");
         }
     });
+
+    // Убираем дубли
+    queryOrganicity = [...new Set(queryOrganicity)];
 
     return { interpretation, growthVector, queryOrganicity };
 }
