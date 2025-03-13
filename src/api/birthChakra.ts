@@ -85,28 +85,53 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     };
 }
 
-export function analyzeQuery(queryQuarters: number[]) {
+export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
-    
+
     let interpretation = "";
     let growthVector = "";
     let queryOrganicity: string[] = [];
 
-    if (queryQuarters.length === 1) {
+    // Определяем, какие чакры выбраны пользователем
+    const selectedChakras = answers
+        .map((answer, index) => (answer ? index + 1 : null))
+        .filter((index) => index !== null) as number[];
+
+    if (selectedChakras.length === 1) {
         interpretation = "Сегодняшний день поддерживает вас в этом направлении.";
+    } else if (selectedChakras.length === 0) {
+        interpretation = "Вы не выбрали ни одного направления, сложно сделать вывод.";
     } else {
         interpretation = "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.";
     }
 
-    queryQuarters.forEach((quarter) => {
-        if (quarter === yearQuarter) {
+    let chakraMatches = 0;
+    selectedChakras.forEach((chakra) => {
+        if (chakra === yearQuarter) {
             growthVector = "Этот запрос полностью соответствует вашему текущему пути.";
-        } else if (quarter === yearQuarter + 1) {
+            chakraMatches++;
+        } else if (chakra === yearQuarter + 1) {
             growthVector = "Этот запрос ведет вас вперед по пути развития.";
-        } else if (quarter === yearQuarter - 1) {
+            chakraMatches++;
+        } else if (chakra === yearQuarter - 1) {
             growthVector = "Этот запрос возвращает вас к прошлым энергиям.";
+        }
+    });
+
+    if (chakraMatches === 0) {
+        growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
+    }
+
+    // Заполняем queryOrganicity
+    selectedChakras.forEach((chakra) => {
+        if (chakra === yearQuarter) {
+            queryOrganicity.push("Этот вопрос для вас естественный и актуальный.");
+        } else if (chakra === yearQuarter + 1) {
+            queryOrganicity.push("Этот вопрос помогает вам развиваться.");
+        } else if (chakra === yearQuarter - 1) {
+            queryOrganicity.push("Этот вопрос связан с прошлым опытом.");
         } else {
-            growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
+            queryOrganicity.push("Этот вопрос не имеет прямого отношения к вашему текущему пути.");
         }
     });
 
