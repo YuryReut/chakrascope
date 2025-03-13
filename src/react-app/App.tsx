@@ -16,7 +16,7 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [answers, setAnswers] = useState<boolean[]>(Array(7).fill(null));
+    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
     const [analysisResult, setAnalysisResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string[] } | null>(null);
 
     const handleCheckChakra = () => {
@@ -45,6 +45,7 @@ function App() {
     };
 
     const handleAnalyzeQuery = () => {
+        if (answers.includes(null)) return; // Блокируем кнопку, пока не даны все ответы
         const queryQuarters = answers.map((ans, idx) => (ans ? idx + 1 : null)).filter(q => q !== null) as number[];
         const result = analyzeQuery(queryQuarters);
         setAnalysisResult(result);
@@ -125,14 +126,14 @@ function App() {
                 }}>
                     <div style={{ background: "white", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
                         <h2>Ответьте на 7 вопросов</h2>
-                        {answers.map((_, idx) => (
+                        {answers.map((answer, idx) => (
                             <div key={idx}>
                                 <p>Вопрос {idx + 1}</p>
-                                <button onClick={() => handleAnswerChange(idx, true)}>Да</button>
-                                <button onClick={() => handleAnswerChange(idx, false)}>Нет</button>
+                                <button onClick={() => handleAnswerChange(idx, true)} disabled={answer !== null}>Да</button>
+                                <button onClick={() => handleAnswerChange(idx, false)} disabled={answer !== null}>Нет</button>
                             </div>
                         ))}
-                        <button onClick={handleAnalyzeQuery} style={{ marginTop: "15px" }}>
+                        <button onClick={handleAnalyzeQuery} style={{ marginTop: "15px" }} disabled={answers.includes(null)}>
                             Получить ответ
                         </button>
                     </div>
