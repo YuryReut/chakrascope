@@ -25,6 +25,7 @@ const QUESTIONS = [
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
+    const [showQuestionPrompt, setShowQuestionPrompt] = useState(false);
     const [showQuestions, setShowQuestions] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(boolean | null)[]>(Array(7).fill(null));
@@ -47,6 +48,18 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
+    };
+
+    const startQuestionProcess = () => {
+        setShowQuestionPrompt(true);
+    };
+
+    const handleStartQuestions = () => {
+        setShowQuestionPrompt(false);
+        setShowQuestions(true);
+        setCurrentQuestionIndex(0);
+        setAnswers(Array(7).fill(null));
+        setAnalysisResult(null);
     };
 
     const handleAnswerChange = (answer: boolean) => {
@@ -129,25 +142,16 @@ function App() {
                 </div>
             )}
 
-            {birthChakra && !showQuestions && (
-                <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px" }}>
+            {birthChakra && !showQuestionPrompt && !showQuestions && !analysisResult && (
+                <button onClick={startQuestionProcess} style={{ marginTop: "20px" }}>
                     Задать вопрос
                 </button>
             )}
 
-            {showQuestions && (
-                <div style={{
-                    position: "fixed", 
-                    top: 0, left: 0, width: "100vw", height: "100vh", 
-                    backgroundColor: "rgba(0,0,0,0.7)",
-                    display: "flex", justifyContent: "center", alignItems: "center"
-                }}>
-                    <div style={{ background: "white", padding: "20px", borderRadius: "10px", textAlign: "center" }}>
-                        <h2>Ответьте на вопрос</h2>
-                        <p>{QUESTIONS[currentQuestionIndex]}</p>
-                        <button onClick={() => handleAnswerChange(true)}>Да</button>
-                        <button onClick={() => handleAnswerChange(false)}>Нет</button>
-                    </div>
+            {showQuestionPrompt && (
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                    <p>Сформулируйте свой вопрос для себя</p>
+                    <button onClick={handleStartQuestions}>Получить ответ</button>
                 </div>
             )}
 
@@ -156,6 +160,7 @@ function App() {
                     <h3>Результат анализа</h3>
                     <p>{analysisResult.interpretation}</p>
                     <p>{analysisResult.growthVector}</p>
+                    <button onClick={startQuestionProcess} style={{ marginTop: "15px" }}>Задать новый вопрос</button>
                 </div>
             )}
         </div>
