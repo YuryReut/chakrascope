@@ -73,7 +73,7 @@ function App() {
             if (currentQuestion < QUESTIONS.length - 1) {
                 setCurrentQuestion(currentQuestion + 1);
             } else {
-                setCurrentQuestion(null);
+                setCurrentQuestion(null); // Все вопросы заданы, теперь показываем кнопку "Получить ответ"
             }
         }
     };
