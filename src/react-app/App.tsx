@@ -26,10 +26,11 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
-    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [answers, setAnswers] = useState<(boolean | null)[]>(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState<null | { interpretation: string; growthVector: string; queryOrganicity: string }>(null);
-    
+    const [queryResult, setQueryResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string; } | null>(null);
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -51,28 +52,22 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
+        setQuestionConfirmed(true);
         setCurrentQuestion(0);
     };
 
     const handleAnswer = (answer: boolean) => {
-        if (currentQuestion === null) return;
         const newAnswers = [...answers];
-        newAnswers[currentQuestion] = answer;
-        setAnswers(newAnswers);
+        if (currentQuestion !== null) {
+            newAnswers[currentQuestion] = answer;
+            setAnswers(newAnswers);
+        }
 
-        if (currentQuestion < QUESTIONS.length - 1) {
+        if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
             setCurrentQuestion(null);
         }
-    };
-
-    const analyzeQuery = () => {
-        setQueryResult({
-            interpretation: "Вы понимаете сам вопрос как осознание важности вашего текущего состояния.",
-            growthVector: "Этот вопрос помогает вам двигаться в направлении вашего развития.",
-            queryOrganicity: "Этот вопрос является естественной частью вашей жизни."
-        });
     };
 
     return (
@@ -107,6 +102,8 @@ function App() {
                     maxWidth: "600px",
                     margin: "20px auto",
                     padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
                     fontSize: "1.1em",
                     backgroundColor: "#f9f9f9",
                     borderRadius: "10px",
@@ -116,15 +113,33 @@ function App() {
                 </div>
             )}
 
-            {birthChakra && !showQuestions && !queryResult && (
+            {birthChakra && !showQuestions && (
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
-            {queryResult && (
-                <div style={{ marginTop: "20px", textAlign: "left" }}>
-                    <p>📜 {queryResult.interpretation}</p>
-                    <p>🔄 {queryResult.growthVector}</p>
-                    <p>🌱 {queryResult.queryOrganicity}</p>
+            {showQuestions && (
+                <div style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "white",
+                    padding: "20px",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
+                    zIndex: 1000,
+                    textAlign: "center"
+                }}>
+                    {currentQuestion !== null ? (
+                        <>
+                            <p>Опишите свой вопрос:</p>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)}>Да</button>
+                            <button onClick={() => handleAnswer(false)}>Нет</button>
+                        </>
+                    ) : (
+                        <p>Ваш запрос обработан.</p>
+                    )}
                 </div>
             )}
         </div>
