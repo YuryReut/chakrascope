@@ -27,8 +27,8 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState(null);
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
+    const [queryResult, setQueryResult] = useState<{ interpretation: string, growthVector: string, queryOrganicity: string } | null>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
 
     const handleCheckChakra = () => {
@@ -64,12 +64,12 @@ function App() {
         if (currentQuestion! < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion! + 1);
         } else {
-            setQueryResult({
-                interpretation: "Вы понимаете сам вопрос как: ...",
-                growthVector: "Этот вопрос про: ...",
-                queryOrganicity: "Для вас этот вопрос: ..."
-            });
             setCurrentQuestion(null);
+            setQueryResult({
+                interpretation: "Вы понимаете сам вопрос как...",
+                growthVector: "Этот вопрос про...",
+                queryOrganicity: "Для вас этот вопрос..."
+            });
         }
     };
 
@@ -96,23 +96,33 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{ maxWidth: "600px", padding: "15px", backgroundColor: "#f9f9f9", borderRadius: "10px" }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    fontSize: "1.1em",
+                    backgroundColor: "#f9f9f9",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+                }}>
                     {birthChakra}
                 </div>
             )}
 
-            {birthChakra && !showQuestions && !queryResult && (
-                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
-            )}
-
             {showQuestions && (
-                <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)", zIndex: 1000 }}>
+                <div>
                     {currentQuestion !== null ? (
                         <>
-                            <p>Опишите свой вопрос:</p>
                             <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px" }}>Да</button>
-                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px" }}>Нет</button>
+                            <button onClick={() => handleAnswer(true)}>Да</button>
+                            <button onClick={() => handleAnswer(false)}>Нет</button>
                         </>
                     ) : (
                         queryResult && (
@@ -120,7 +130,6 @@ function App() {
                                 <p>📜 {queryResult.interpretation}</p>
                                 <p>🔄 {queryResult.growthVector}</p>
                                 <p>🌱 {queryResult.queryOrganicity}</p>
-                                <button onClick={() => setShowQuestions(false)} style={{ marginTop: "10px" }}>Закрыть</button>
                             </>
                         )
                     )}
