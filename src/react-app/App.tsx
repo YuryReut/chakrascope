@@ -27,8 +27,9 @@ function App() {
     const [birthChakra, setBirthChakra] = useState("");
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState(null);
     const [queryResult, setQueryResult] = useState("");
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -49,6 +50,12 @@ function App() {
         setBirthChakra(result.result);
     };
 
+    const startQuestionnaire = () => {
+        setShowQuestions(true);
+        setQuestionConfirmed(true);
+        setCurrentQuestion(0);
+    };
+
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
         newAnswers[currentQuestion] = answer;
@@ -57,9 +64,7 @@ function App() {
         if (currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
-            setShowQuestions(false);
-            setQueryResult(`📜 Ваш анализ запроса: ${JSON.stringify(newAnswers)}`);
-            setCurrentQuestion(0);
+            setQueryResult(`🔍 Анализ вашего запроса: ${JSON.stringify(newAnswers)}`);
         }
     };
 
@@ -107,7 +112,7 @@ function App() {
             )}
 
             {birthChakra && !showQuestions && !queryResult && (
-                <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
+                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
             {showQuestions && (
@@ -123,31 +128,21 @@ function App() {
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
-                    <p>Сформулируйте вопрос, затем нажмите кнопку:</p>
-                    <p>{QUESTIONS[currentQuestion]}</p>
-                    <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
-                    <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
-                </div>
-            )}
-
-            {queryResult && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    fontSize: "1.1em",
-                    backgroundColor: "#e3f2fd",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}>
-                    {queryResult}
+                    {!questionConfirmed ? (
+                        <>
+                            <p>Сформулируйте свой вопрос.</p>
+                            <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
+                        </>
+                    ) : currentQuestion !== null ? (
+                        <>
+                            <p>Опишите свой вопрос:</p>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
+                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                        </>
+                    ) : (
+                        <p>{queryResult}</p>
+                    )}
                 </div>
             )}
         </div>
