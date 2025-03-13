@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 
@@ -28,9 +28,8 @@ function App() {
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(null);
-    const [queryResult, setQueryResult] = useState<{ interpretation: string; growthVector: string; queryOrganicity: string; } | null>(null);
-    const [questionConfirmed, setQuestionConfirmed] = useState(false);
-
+    const [queryResult, setQueryResult] = useState<string | null>(null);
+    
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -52,25 +51,19 @@ function App() {
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(true);
         setCurrentQuestion(0);
     };
 
     const handleAnswer = (answer: boolean) => {
         const newAnswers = [...answers];
-        if (currentQuestion !== null) {
-            newAnswers[currentQuestion] = answer;
-            setAnswers(newAnswers);
-        }
+        newAnswers[currentQuestion as number] = answer;
+        setAnswers(newAnswers);
 
         if (currentQuestion !== null && currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
-            setQueryResult({
-                interpretation: "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.",
-                growthVector: "Этот запрос может быть важен, но он уводит вас в сторону.",
-                queryOrganicity: "Этот вопрос естественно встроен в вашу жизнь."
-            });
+            const analysis = analyzeQuery(answers);
+            setQueryResult(analysis);
             setCurrentQuestion(null);
         }
     };
@@ -122,11 +115,28 @@ function App() {
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
-            {queryResult && (
-                <div style={{ marginTop: "20px", textAlign: "left", maxWidth: "600px" }}>
-                    <p>📜 Вы понимаете сам вопрос как: {queryResult.interpretation}</p>
-                    <p>🔄 Этот вопрос про: {queryResult.growthVector}</p>
-                    <p>🌱 Для вас этот вопрос: {queryResult.queryOrganicity}</p>
+            {showQuestions && (
+                <div style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "white",
+                    padding: "20px",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
+                    zIndex: 1000,
+                    textAlign: "center"
+                }}>
+                    {currentQuestion !== null ? (
+                        <>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
+                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                        </>
+                    ) : (
+                        <p>{queryResult}</p>
+                    )}
                 </div>
             )}
         </div>
