@@ -52,9 +52,11 @@ function App() {
         }}>
             <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
 
-            <label style={{ marginBottom: "10px", fontSize: "1em" }}>Введите дату рождения:</label>
-            <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", marginBottom: "15px", backgroundColor: "#cccccc" }} />
-            <button onClick={handleCheckChakra} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
+                <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
+                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", backgroundColor: "#cccccc" }} />
+                <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
+            </div>
 
             {birthChakra && (
                 <div style={{
@@ -79,6 +81,24 @@ function App() {
 
             {birthChakra && !showQuestions && (
                 <button onClick={() => setShowQuestions(true)} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
+            )}
+
+            {showQuestions && (
+                <div style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "white",
+                    padding: "20px",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
+                    zIndex: 1000,
+                    textAlign: "center"
+                }}>
+                    <p>Формулируйте вопрос, затем нажмите кнопку:</p>
+                    <button onClick={() => setShowQuestions(false)} style={{ marginTop: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Закрыть</button>
+                </div>
             )}
         </div>
     );
