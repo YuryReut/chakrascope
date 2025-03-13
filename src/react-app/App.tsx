@@ -73,7 +73,7 @@ function App() {
             if (currentQuestion < QUESTIONS.length - 1) {
                 setCurrentQuestion(currentQuestion + 1);
             } else {
-                setCurrentQuestion(null); // Все вопросы заданы, теперь показываем кнопку "Получить ответ"
+                setCurrentQuestion(null);
             }
         }
     };
@@ -106,31 +106,6 @@ function App() {
                 <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
             </div>
 
-            {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    fontSize: "1.1em",
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}>
-                    {birthChakra}
-                </div>
-            )}
-
-            {birthChakra && !showQuestions && !queryResult && (
-                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
-            )}
-
             {showQuestions && (
                 <div style={{
                     position: "fixed",
@@ -138,12 +113,14 @@ function App() {
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                     backgroundColor: "white",
+                    color: "black",
                     padding: "20px",
                     borderRadius: "10px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
+                    <h2 style={{ color: "red" }}>Тестовый режим</h2>
                     {!questionConfirmed ? (
                         <>
                             <p>Сформулируйте свой вопрос.</p>
@@ -166,7 +143,6 @@ function App() {
                             <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
                             <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
                             <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
-                            <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
                         </div>
                     ) : null}
                 </div>
