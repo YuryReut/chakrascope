@@ -50,6 +50,13 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
+function getUserChakras() {
+    return {
+        birthSunQuarter: 2,
+        birthMoonQuarter: 4
+    };
+}
+
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
 
