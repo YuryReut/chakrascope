@@ -64,6 +64,13 @@ function App() {
         if (currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
+            setQueryResult(`📜 Интерпретация: ...
+🔄 Вектор: ...
+🌱 Органика: ...`);
+            setCurrentQuestion(0);
+        } {
+            setCurrentQuestion(currentQuestion + 1);
+        } else {
             setQueryResult(`🔍 Анализ вашего запроса: ${JSON.stringify(newAnswers)}`);
         }
     };
