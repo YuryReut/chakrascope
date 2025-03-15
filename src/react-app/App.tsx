@@ -17,7 +17,7 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showEQTest, setShowEQTest] = useState(false);
-    const [answers, setAnswers] = useState<{ [key: string]: keyof typeof dayEQ7Data.chakras.states }>({});
+    const [answers, setAnswers] = useState<{ [key: string]: keyof typeof dayEQ7Data.chakras["Муладхара"].states }>({});
     const [eqResult, setEQResult] = useState<{ action: string; perception: string } | null>(null);
 
     const handleCheckChakra = () => {
@@ -49,10 +49,10 @@ function App() {
     };
 
     const processEQResult = () => {
-        const sunChakra = answers["Солнечная"];
-        const moonChakra = answers["Лунная"];
-        const action = dayEQ7Data.chakras[sunChakra]?.sun_recommendations[sunChakra] || "Нет данных";
-        const perception = dayEQ7Data.chakras[moonChakra]?.moon_recommendations[moonChakra] || "Нет данных";
+        const sunChakra = answers["Солнечная"] as keyof typeof dayEQ7Data.chakras;
+        const moonChakra = answers["Лунная"] as keyof typeof dayEQ7Data.chakras;
+        const action = dayEQ7Data.chakras[sunChakra]?.sun_recommendations[answers[sunChakra]] || "Нет данных";
+        const perception = dayEQ7Data.chakras[moonChakra]?.moon_recommendations[answers[moonChakra]] || "Нет данных";
         setEQResult({ action, perception });
     };
 
@@ -73,8 +73,7 @@ function App() {
             {showEQTest && (
                 <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
                     <h2>Как ты ощущаешь сегодняшний день?</h2>
-                    <button onClick={() => processEQResult()}>Начать опрос</button>
-
+                    <button onClick={processEQResult}>Начать опрос</button>
                     {Object.keys(dayEQ7Data.chakras).map((chakra) => (
                         <div key={chakra}>
                             <h3>{chakra}</h3>
