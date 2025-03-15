@@ -6,10 +6,10 @@ function getCurrentTithi(lunarLongitude: number): number {
     return Math.floor(lunarLongitude / 12) + 1;
 }
 
-// Определение Чакры по Титхи (разбиваем 30 Титхи на 7 Чакр)
+// Определение Чакры по Титхи
 function getChakraFromTithi(tithi: number): string {
-    const chakraIndex = Math.floor((tithi - 1) / 4.29);
-    return Object.keys(chakrasData.chakras)[chakraIndex] || "Муладхара"; // Дефолтное значение
+    const chakraKeys = Object.keys(chakrasData.chakras);
+    return chakraKeys[Math.floor((tithi - 1) / 4.29)] || chakraKeys[0];
 }
 
 // Чакра по 52-дневному биоритму
@@ -17,23 +17,25 @@ function getChakra52Cycle(birthDate: string, currentDate: string): string {
     const birth = new Date(birthDate);
     const now = new Date(currentDate);
     const daysPassed = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-    const chakraIndex = Math.floor((daysPassed % 52) / 7.43);
-    return Object.keys(chakrasData.chakras)[chakraIndex] || "Муладхара";
+    const chakraKeys = Object.keys(chakrasData.chakras);
+    return chakraKeys[Math.floor((daysPassed % 52) / 7.43)] || chakraKeys[0];
 }
 
-// Чакра года (по году рождения)
+// Чакра года
 function getChakraFromYear(date: string): string {
     const year = new Date(date).getFullYear();
-    return Object.keys(chakrasData.chakras)[(year - 1950) % 7] || "Муладхара";
+    const chakraKeys = Object.keys(chakrasData.chakras);
+    return chakraKeys[(year - 1950) % chakraKeys.length];
 }
 
-// Чакра по дню недели (Вара)
+// Чакра по дню недели
 function getChakraFromWeekday(date: string): string {
-    const weekday = new Date(date).getDay(); // 0 = воскресенье, 6 = суббота
-    return Object.keys(chakrasData.chakras)[weekday % 7] || "Муладхара";
+    const weekday = new Date(date).getDay();
+    const chakraKeys = Object.keys(chakrasData.chakras);
+    return chakraKeys[weekday % chakraKeys.length];
 }
 
-// **🔥 Определение Чакры дня**
+// Получение Чакры дня
 function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): string {
     const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
@@ -41,28 +43,23 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
     const chakraTitthi = getChakraFromTithi(tithi);
     const chakraWeekday = getChakraFromWeekday(currentDate);
     const chakraMoon = getChakraFromTithi(Math.floor(moonDegree / 12) + 1);
-
-    const chakraOptions = [yearChakra, cycleChakra, chakraTitthi, chakraWeekday, chakraMoon];
-    return chakraOptions[Math.floor(Math.random() * chakraOptions.length)]; // Выбираем случайную чакру из рассчитанных
+    
+    return chakraTitthi; // Основная чакра дня
 }
 
-// **🔥 Получение состояния чакры дня**
-export function getDayChakraState(sunChakra: string, moonChakra: string, sunState: string, moonState: string) {
-    const sunDesc = dayEQ7Data.chakras[sunChakra]?.states[sunState] || "Описание отсутствует";
-    const moonDesc = dayEQ7Data.chakras[moonChakra]?.states[moonState] || "Описание отсутствует";
-
+// Определение состояния чакры дня
+export function getDayChakraState(sunChakra: string, moonChakra: string, sunState: keyof typeof dayEQ7Data.chakras["Муладхара"].states, moonState: keyof typeof dayEQ7Data.chakras["Муладхара"].states) {
     return {
         actions: `Твои действия: ${dayEQ7Data.chakras[sunChakra]?.sun_recommendations[sunState] || "Нет рекомендаций"}`,
         understanding: `Твое понимание: ${dayEQ7Data.chakras[moonChakra]?.moon_recommendations[moonState] || "Нет рекомендаций"}`,
-        sunDescription: sunDesc,
-        moonDescription: moonDesc,
+        sunDescription: dayEQ7Data.chakras[sunChakra]?.states[sunState] || "Описание отсутствует",
+        moonDescription: dayEQ7Data.chakras[moonChakra]?.states[moonState] || "Описание отсутствует",
     };
 }
 
-// **🔥 Основная функция Чакроскопа**
+// Основная функция Чакроскопа
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs: string[] = [];
-
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
     const yearChakra = getChakraFromYear(dateOfBirth);
