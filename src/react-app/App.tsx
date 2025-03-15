@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { getBirthChakra, analyzeEQ7Responses } from "../api/birthChakra";
-import solarData from "../api/solar.json";
-import lunarData from "../api/lunar.json";
+import { getBirthChakra, analyzeEQ7Responses, EQ7Response } from "../api/birthChakra";
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
@@ -36,4 +34,8 @@ function App() {
             setEQ7Result(result);
         }
     };
+
+    return <div>Чакроскоп</div>;
 }
+
+export default App;
