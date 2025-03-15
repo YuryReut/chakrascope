@@ -17,7 +17,7 @@ function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
     const [showEQTest, setShowEQTest] = useState(false);
-    const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+    const [answers, setAnswers] = useState<{ [key: string]: keyof typeof dayEQ7Data.chakras.states }>({});
     const [eqResult, setEQResult] = useState<{ action: string; perception: string } | null>(null);
 
     const handleCheckChakra = () => {
@@ -44,15 +44,15 @@ function App() {
         setEQResult(null);
     };
 
-    const handleAnswer = (chakra: keyof typeof dayEQ7Data.chakras, state: string) => {
+    const handleAnswer = (chakra: keyof typeof dayEQ7Data.chakras, state: keyof typeof dayEQ7Data.chakras["Муладхара"].states) => {
         setAnswers(prev => ({ ...prev, [chakra]: state }));
     };
 
     const processEQResult = () => {
-        const sunChakra = answers["Солнечная"] as keyof typeof dayEQ7Data.chakras;
-        const moonChakra = answers["Лунная"] as keyof typeof dayEQ7Data.chakras;
-        const action = dayEQ7Data.chakras[sunChakra]?.sun_recommendations[answers[sunChakra]] || "Нет данных";
-        const perception = dayEQ7Data.chakras[moonChakra]?.moon_recommendations[answers[moonChakra]] || "Нет данных";
+        const sunChakra = answers["Солнечная"];
+        const moonChakra = answers["Лунная"];
+        const action = dayEQ7Data.chakras[sunChakra]?.sun_recommendations[sunChakra] || "Нет данных";
+        const perception = dayEQ7Data.chakras[moonChakra]?.moon_recommendations[moonChakra] || "Нет данных";
         setEQResult({ action, perception });
     };
 
@@ -79,8 +79,8 @@ function App() {
                         <div key={chakra}>
                             <h3>{chakra}</h3>
                             {Object.keys(dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states).map((state) => (
-                                <button key={state} onClick={() => handleAnswer(chakra as keyof typeof dayEQ7Data.chakras, state)}>
-                                    {dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states[state]}
+                                <button key={state} onClick={() => handleAnswer(chakra as keyof typeof dayEQ7Data.chakras, state as keyof typeof dayEQ7Data.chakras["Муладхара"].states)}>
+                                    {dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states[state as keyof typeof dayEQ7Data.chakras["Муладхара"].states]}
                                 </button>
                             ))}
                         </div>
