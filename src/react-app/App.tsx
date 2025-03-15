@@ -44,15 +44,15 @@ function App() {
         setEQResult(null);
     };
 
-    const handleAnswer = (chakra: string, state: string) => {
+    const handleAnswer = (chakra: keyof typeof dayEQ7Data.chakras, state: string) => {
         setAnswers(prev => ({ ...prev, [chakra]: state }));
     };
 
     const processEQResult = () => {
-        const sunChakra = answers["Солнечная"];
-        const moonChakra = answers["Лунная"];
-        const action = dayEQ7Data.chakras[sunChakra].sun_recommendations[answers[sunChakra]];
-        const perception = dayEQ7Data.chakras[moonChakra].moon_recommendations[answers[moonChakra]];
+        const sunChakra = answers["Солнечная"] as keyof typeof dayEQ7Data.chakras;
+        const moonChakra = answers["Лунная"] as keyof typeof dayEQ7Data.chakras;
+        const action = dayEQ7Data.chakras[sunChakra]?.sun_recommendations[answers[sunChakra]] || "Нет данных";
+        const perception = dayEQ7Data.chakras[moonChakra]?.moon_recommendations[answers[moonChakra]] || "Нет данных";
         setEQResult({ action, perception });
     };
 
@@ -78,8 +78,10 @@ function App() {
                     {Object.keys(dayEQ7Data.chakras).map((chakra) => (
                         <div key={chakra}>
                             <h3>{chakra}</h3>
-                            {Object.keys(dayEQ7Data.chakras[chakra].states).map((state) => (
-                                <button key={state} onClick={() => handleAnswer(chakra, state)}>{dayEQ7Data.chakras[chakra].states[state]}</button>
+                            {Object.keys(dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states).map((state) => (
+                                <button key={state} onClick={() => handleAnswer(chakra as keyof typeof dayEQ7Data.chakras, state)}>
+                                    {dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states[state]}
+                                </button>
                             ))}
                         </div>
                     ))}
