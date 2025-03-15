@@ -80,7 +80,9 @@ export function getBirthChakra(dateOfBirth, currentDate, sunDegree, moonDegree) 
         Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}). 
         С эмоциональной точки зрения, реальность ощущается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
         `,
-        logs: debugLogs
+        logs: debugLogs,
+        solarChakra,
+        lunarChakra
     };
 }
 
