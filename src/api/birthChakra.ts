@@ -1,4 +1,5 @@
 import chakrasData from "./chakras.json";
+import dayEQ7Data from "./dayEQ7_data.json";
 
 // Определение Титхи (Лунного дня)
 function getCurrentTithi(lunarLongitude: number): number {
@@ -30,7 +31,7 @@ function getChakraFromWeekday(date: string): number {
     return (weekday % 7) + 1;
 }
 
-// **🔥 Обновленный персонализированный метод расчета Чакры дня**
+// **🔥 Персонализированный метод расчета Чакры дня**
 function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
     const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
@@ -51,10 +52,6 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
 }
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
-    let debugLogs = [];
-
-    debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
-
     const yearChakra = getChakraFromYear(dateOfBirth);
     const cycleChakra = getChakra52Cycle(dateOfBirth, currentDate);
     const tithi = getCurrentTithi(moonDegree);
@@ -65,84 +62,36 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
     return {
+        solarChakra,
+        lunarChakra,
         result: `
         🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
         ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
-        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
-        🔄 Прямо сейчас, по 52-дневному циклу, энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).  
+        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title}.
+        🔄 По 52-дневному циклу, энергия Солнца сейчас в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре ${chakrasData.chakras[cycleChakra - 1].title}.
        
         🌙 Лунная энергия:  
-        Твое восприятие реальности — это ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
+        Твое восприятие реальности — ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title}.
         
         📅 Сегодня:
-        Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}). 
-        С эмоциональной точки зрения, реальность ощущается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
-        `,
-        logs: debugLogs
+        Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title}.
+        `
     };
 }
 
-export function analyzeQuery(answers: boolean[]) {
-    const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
-
-    let interpretation = "";
-    let growthVector = "";
-    let queryOrganicity: string[] = [];
-
-    // Определяем, какие чакры выбраны пользователем
-    const selectedChakras = answers
-        .map((answer, index) => (answer ? index + 1 : null))
-        .filter((index) => index !== null) as number[];
-
-    if (selectedChakras.length === 1) {
-        interpretation = "Сегодняшний день поддерживает вас в этом направлении.";
-    } else if (selectedChakras.length === 0) {
-        interpretation = "Вы не выбрали ни одного направления, сложно сделать вывод.";
-    } else {
-        interpretation = "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.";
-    }
-
-    let chakraMatches = 0;
-    let movementDescriptions: string[] = [];
+// **Функция для получения рекомендаций по состоянию дня**
+export function getDayEQ7Recommendations(solarChakra: number, lunarChakra: number, solarState: string, lunarState: string) {
+    const solarChakraName = Object.keys(dayEQ7Data.chakras)[solarChakra - 1];
+    const lunarChakraName = Object.keys(dayEQ7Data.chakras)[lunarChakra - 1];
     
-    selectedChakras.forEach((chakra) => {
-        if (chakra === yearQuarter) {
-            movementDescriptions.push("полностью соответствует вашему текущему пути");
-            chakraMatches++;
-        } else if (chakra === yearQuarter + 1) {
-            movementDescriptions.push("ведет вас вперед по пути развития");
-            chakraMatches++;
-        } else if (chakra === yearQuarter - 1) {
-            movementDescriptions.push("возвращает вас к прошлым энергиям");
-        } else {
-            movementDescriptions.push("не соответствует вашему текущему пути");
-        }
-    });
+    const solarRecommendation = dayEQ7Data.chakras[solarChakraName]?.sun_recommendations?.[solarState] || "Нет данных";
+    const lunarRecommendation = dayEQ7Data.chakras[lunarChakraName]?.moon_recommendations?.[lunarState] || "Нет данных";
 
-    if (movementDescriptions.length > 0) {
-        growthVector = `Этот вопрос ${movementDescriptions.join(", ")}.`;
-    } else {
-        growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
-    }
-
-    // Заполняем queryOrganicity без дублирования одинаковых фраз
-    selectedChakras.forEach((chakra) => {
-        if (chakra === yearQuarter) {
-            queryOrganicity.push("естественный и актуальный");
-        } else if (chakra === yearQuarter + 1) {
-            queryOrganicity.push("помогает вам развиваться");
-        } else if (chakra === yearQuarter - 1) {
-            queryOrganicity.push("связан с прошлым опытом");
-        } else {
-            queryOrganicity.push("не имеет прямого отношения к вашему текущему пути");
-        }
-    });
-
-    // Убираем дубли
-    queryOrganicity = [...new Set(queryOrganicity)];
-
-    return { interpretation, growthVector, queryOrganicity };
+    return {
+        actions: solarRecommendation,
+        understanding: lunarRecommendation
+    };
 }
