@@ -1,41 +1,136 @@
 import { useState } from "react";
-import { getBirthChakra, analyzeEQ7Responses, EQ7Response } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
+import solarData from "../api/solar.json";
+import lunarData from "../api/lunar.json";
+
+function convertToJulianDate(dateString: string): string {
+    const date = new Date(dateString);
+    const start = new Date(date.getFullYear(), 0, 0);
+    const diff = date.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
+}
+
+const QUESTIONS = [
+    "Этот вопрос связан с материальной стороной жизни?",
+    "Он касается ваших эмоций и желаний?",
+    "Этот вопрос про силу воли и достижение целей?",
+    "Он связан с отношениями и сердечными чувствами?",
+    "Этот вопрос касается самовыражения и творчества?",
+    "Он затрагивает интуицию и внутреннее видение?",
+    "Этот вопрос про глубокое понимание и осознание?"
+];
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<{ result: string, solarChakra: number, lunarChakra: number } | null>(null);
-    const [showEQ7, setShowEQ7] = useState(false);
-    const [eq7Answers, setEQ7Answers] = useState(Array(6).fill(null));
-    const [eq7Step, setEQ7Step] = useState(0);
-    const [eq7Result, setEQ7Result] = useState<EQ7Response | null>(null);
+    const [birthChakra, setBirthChakra] = useState("");
+    const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
+    const [queryResult, setQueryResult] = useState<null | {
+        interpretation: string;
+        growthVector: string;
+        queryOrganicity: string[];
+    }>(null);
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
-        const result = getBirthChakra(birthDate, today, 180, 120);
-        setBirthChakra(result);
-    };
+        const formattedDate = convertToJulianDate(birthDate);
 
-    const startEQ7 = () => {
-        setShowEQ7(true);
-        setEQ7Step(0);
-        setEQ7Answers(Array(6).fill(null));
-        setEQ7Result(null);
-    };
+        const solarEntry = solarData.find(entry => entry.Date === formattedDate);
+        const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
-    const handleEQ7Answer = (answer: boolean) => {
-        const newAnswers = [...eq7Answers];
-        newAnswers[eq7Step] = answer;
-        setEQ7Answers(newAnswers);
-
-        if (eq7Step < 5) {
-            setEQ7Step(eq7Step + 1);
-        } else if (birthChakra) {
-            const result = analyzeEQ7Responses(birthChakra.solarChakra, birthChakra.lunarChakra, newAnswers);
-            setEQ7Result(result);
+        if (!solarEntry || !lunarEntry) {
+            setBirthChakra("❌ Ошибка: Дата вне диапазона данных!");
+            return;
         }
+
+        const sunDegree = solarEntry.Solar_Longitude;
+        const moonDegree = lunarEntry.Lunar_Longitude;
+
+        const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+        setBirthChakra(result.result);
     };
 
-    return <div>Чакроскоп</div>;
+    const startQuestionnaire = () => {
+        setShowQuestions(true);
+        setQuestionConfirmed(false);
+        setCurrentQuestion(0);
+        setAnswers(Array(QUESTIONS.length).fill(null));
+        setShowAnalysis(false);
+        setQueryResult(null);
+    };
+
+    return (
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            width: "100vw",
+            textAlign: "center",
+            fontFamily: "inherit",
+            color: "black",
+            padding: "20px",
+            boxSizing: "border-box",
+            backgroundColor: "#ffffff"
+        }}>
+            <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
+                <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
+                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", backgroundColor: "#ffffff" }} />
+                <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
+            </div>
+
+            {birthChakra && (
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    color: "black",
+                    fontSize: "1.1em",
+                    backgroundColor: "#f9f9f9",
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+                }}>
+                    {birthChakra}
+                </div>
+            )}
+
+            {birthChakra && (
+                <button 
+                    style={{
+                        marginTop: "10px",
+                        padding: "10px 20px",
+                        fontSize: "1em",
+                        cursor: "pointer",
+                        backgroundColor: "#f0f0f0",
+                        border: "none",
+                        borderRadius: "5px",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)"
+                    }}
+                >
+                    Твои эмоции дня
+                </button>
+            )}
+
+            {birthChakra && !showQuestions && !queryResult && (
+                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
+            )}
+        </div>
+    );
 }
 
 export default App;
