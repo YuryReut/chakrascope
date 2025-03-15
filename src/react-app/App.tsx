@@ -73,7 +73,6 @@ function App() {
             {showEQTest && (
                 <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
                     <h2>Как ты ощущаешь сегодняшний день?</h2>
-                    <button onClick={processEQResult}>Начать опрос</button>
                     {Object.keys(dayEQ7Data.chakras).map((chakra) => (
                         <div key={chakra}>
                             <h3>{chakra}</h3>
@@ -84,6 +83,7 @@ function App() {
                             ))}
                         </div>
                     ))}
+                    <button onClick={processEQResult}>Завершить тест</button>
                 </div>
             )}
 
@@ -91,7 +91,7 @@ function App() {
                 <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
                     <h2>Твой день</h2>
                     <p><strong>Твои действия:</strong> {eqResult.action}</p>
-                    <p><strong>Твоё понимание:</strong> {eqResult.perception}</p>
+                    <p><strong>Твоё восприятие:</strong> {eqResult.perception}</p>
                     <button onClick={() => setShowEQTest(false)}>Закрыть</button>
                 </div>
             )}
