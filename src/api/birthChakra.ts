@@ -31,7 +31,18 @@ function getChakraFromWeekday(date: string): number {
     return (weekday % 7) + 1;
 }
 
-// **🔥 Персонализированный метод расчета Чакры дня**
+// **🔥 Функция расчета состояния дня пользователя на основе ответов**
+export function getDayEQ7Recommendations(sunChakra: string, moonChakra: string, sunState: string, moonState: string) {
+    const sunData = dayEQ7Data.chakras[sunChakra as keyof typeof dayEQ7Data.chakras];
+    const moonData = dayEQ7Data.chakras[moonChakra as keyof typeof dayEQ7Data.chakras];
+
+    return {
+        actions: sunData?.sun_recommendations[sunState] || "",
+        understanding: moonData?.moon_recommendations[moonState] || ""
+    };
+}
+
+// **🔥 Обновленный персонализированный метод расчета Чакры дня**
 function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
     const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
@@ -52,6 +63,10 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
 }
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
+    let debugLogs = [];
+
+    debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
+
     const yearChakra = getChakraFromYear(dateOfBirth);
     const cycleChakra = getChakra52Cycle(dateOfBirth, currentDate);
     const tithi = getCurrentTithi(moonDegree);
@@ -62,36 +77,24 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
     return {
-        solarChakra,
-        lunarChakra,
         result: `
         🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
         ❤️ В отношениях: ${chakraSun.phases[0].relationship}  
         
-        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title}.
-        🔄 По 52-дневному циклу, энергия Солнца сейчас в ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-й Чакре ${chakrasData.chakras[cycleChakra - 1].title}.
+        📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
+        🔄 Прямо сейчас, по 52-дневному циклу, энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).  
        
         🌙 Лунная энергия:  
-        Твое восприятие реальности — ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title}.
+        Твое восприятие реальности — это ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
         
         📅 Сегодня:
-        Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title}.
-        `
-    };
-}
-
-// **Функция для получения рекомендаций по состоянию дня**
-export function getDayEQ7Recommendations(solarChakra: number, lunarChakra: number, solarState: string, lunarState: string) {
-    const solarChakraName = Object.keys(dayEQ7Data.chakras)[solarChakra - 1];
-    const lunarChakraName = Object.keys(dayEQ7Data.chakras)[lunarChakra - 1];
-    
-    const solarRecommendation = dayEQ7Data.chakras[solarChakraName]?.sun_recommendations?.[solarState] || "Нет данных";
-    const lunarRecommendation = dayEQ7Data.chakras[lunarChakraName]?.moon_recommendations?.[lunarState] || "Нет данных";
-
-    return {
-        actions: solarRecommendation,
-        understanding: lunarRecommendation
+        Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}). 
+        С эмоциональной точки зрения, реальность ощущается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
+        `,
+        logs: debugLogs,
+        sunChakra: chakraSun.title,
+        moonChakra: chakraMoon.title
     };
 }
