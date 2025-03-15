@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { getBirthChakra } from "../api/birthChakra";
+import { getBirthChakra, analyzeQuery, analyzeEQ7Responses } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
-import dayEQ7Data from "../api/dayEQ7_data.json";
 
-function convertToJulianDate(dateString: string): string {
+function convertToJulianDate(dateString) {
     const date = new Date(dateString);
     const start = new Date(date.getFullYear(), 0, 0);
     const diff = date.getTime() - start.getTime();
@@ -13,12 +12,38 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
+const QUESTIONS = [
+    "Этот вопрос связан с материальной стороной жизни?",
+    "Он касается ваших эмоций и желаний?",
+    "Этот вопрос про силу воли и достижение целей?",
+    "Он связан с отношениями и сердечными чувствами?",
+    "Этот вопрос касается самовыражения и творчества?",
+    "Он затрагивает интуицию и внутреннее видение?",
+    "Этот вопрос про глубокое понимание и осознание?"
+];
+
+const EQ7_QUESTIONS = [
+    "Ты чувствуешь уверенность и стабильность сегодня?",
+    "Ты ощущаешь напряжение и контроль?",
+    "Ты испытываешь тревогу и страх?",
+    "Ты открыт миру и общению сегодня?",
+    "Ты слишком зависим от мнения окружающих?",
+    "Ты ощущаешь эмоциональную закрытость?"
+];
+
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState("");
-    const [showEQTest, setShowEQTest] = useState(false);
-    const [answers, setAnswers] = useState<{ [key: string]: string }>({});
-    const [eqResult, setEQResult] = useState<{ action: string; perception: string } | null>(null);
+    const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [queryResult, setQueryResult] = useState(null);
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
+    const [showEQ7, setShowEQ7] = useState(false);
+    const [eq7Answers, setEQ7Answers] = useState(Array(6).fill(null));
+    const [eq7Step, setEQ7Step] = useState(0);
+    const [eq7Result, setEQ7Result] = useState(null);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -34,65 +59,81 @@ function App() {
 
         const sunDegree = solarEntry.Solar_Longitude;
         const moonDegree = lunarEntry.Lunar_Longitude;
+
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
     };
 
-    const startEQTest = () => {
-        setShowEQTest(true);
-        setAnswers({});
-        setEQResult(null);
+    const startEQ7 = () => {
+        setShowEQ7(true);
+        setEQ7Step(0);
+        setEQ7Answers(Array(6).fill(null));
+        setEQ7Result(null);
     };
 
-    const handleAnswer = (chakra: string, state: string) => {
-        setAnswers(prev => ({ ...prev, [chakra]: state }));
-    };
+    const handleEQ7Answer = (answer) => {
+        const newAnswers = [...eq7Answers];
+        newAnswers[eq7Step] = answer;
+        setEQ7Answers(newAnswers);
 
-    const processEQResult = () => {
-        const sunChakra = answers["Солнечная"];
-        const moonChakra = answers["Лунная"];
-        const action = dayEQ7Data.chakras[sunChakra as keyof typeof dayEQ7Data.chakras]?.sun_recommendations[answers[sunChakra as keyof typeof dayEQ7Data.chakras]] || "Нет данных";
-        const perception = dayEQ7Data.chakras[moonChakra as keyof typeof dayEQ7Data.chakras]?.moon_recommendations[answers[moonChakra as keyof typeof dayEQ7Data.chakras]] || "Нет данных";
-        setEQResult({ action, perception });
+        if (eq7Step < 5) {
+            setEQ7Step(eq7Step + 1);
+        } else {
+            const result = analyzeEQ7Responses(birthChakra.solarChakra, birthChakra.lunarChakra, newAnswers);
+            setEQ7Result(result);
+        }
     };
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div>
             <h1>Чакроскоп</h1>
-            <label>Введите дату рождения:</label>
             <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
             <button onClick={handleCheckChakra}>Рассчитать</button>
-
             {birthChakra && (
                 <div>
                     <p>{birthChakra}</p>
-                    <button onClick={startEQTest}>Твой день</button>
+                    <button onClick={startEQ7}>Твой день</button>
+                    <button onClick={() => setShowQuestions(true)}>Задать вопрос</button>
                 </div>
             )}
 
-            {showEQTest && (
-                <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
-                    <h2>Как ты ощущаешь сегодняшний день?</h2>
-                    {Object.keys(dayEQ7Data.chakras).map((chakra) => (
-                        <div key={chakra}>
-                            <h3>{chakra}</h3>
-                            {Object.keys(dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states).map((state) => (
-                                <button key={state} onClick={() => handleAnswer(chakra, state)}>
-                                    {dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states[state as keyof typeof dayEQ7Data.chakras[chakra as keyof typeof dayEQ7Data.chakras].states]}
-                                </button>
-                            ))}
-                        </div>
-                    ))}
-                    <button onClick={processEQResult}>Завершить тест</button>
+            {showEQ7 && !eq7Result && (
+                <div>
+                    <p>Как ты ощущаешь сегодняшний день?</p>
+                    <p>{EQ7_QUESTIONS[eq7Step]}</p>
+                    <button onClick={() => handleEQ7Answer(true)}>Да</button>
+                    <button onClick={() => handleEQ7Answer(false)}>Нет</button>
                 </div>
             )}
 
-            {eqResult && (
-                <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
-                    <h2>Твой день</h2>
-                    <p><strong>Твои действия:</strong> {eqResult.action}</p>
-                    <p><strong>Твоё восприятие:</strong> {eqResult.perception}</p>
-                    <button onClick={() => setShowEQTest(false)}>Закрыть</button>
+            {eq7Result && (
+                <div>
+                    <p>Твои действия: {eq7Result.solarAction}</p>
+                    <p>Твое понимание: {eq7Result.lunarPerception}</p>
+                    <button onClick={() => setShowEQ7(false)}>Закрыть</button>
+                </div>
+            )}
+
+            {showQuestions && (
+                <div>
+                    {!questionConfirmed ? (
+                        <>
+                            <p>Тестовый режим. Сформулируйте свой вопрос.</p>
+                            <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
+                        </>
+                    ) : currentQuestion !== null ? (
+                        <>
+                            <p>Опишите свой вопрос:</p>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)}>Да</button>
+                            <button onClick={() => handleAnswer(false)}>Нет</button>
+                        </>
+                    ) : (
+                        <>
+                            <p>Ваш вопрос обработан.</p>
+                            <button onClick={() => setShowQuestions(false)}>Закрыть</button>
+                        </>
+                    )}
                 </div>
             )}
         </div>
