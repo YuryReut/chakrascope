@@ -3,7 +3,8 @@ import dayEQ7Data from "./dayEQ7_data.json";
 
 // Определение типов
 type ChakraState = "balance" | "excess" | "block";
-type EQ7Response = {
+
+export type EQ7Response = {
     solarAction: string;
     lunarPerception: string;
 };
@@ -26,12 +27,6 @@ function getChakra52Cycle(birthDate: string, currentDate: string): number {
     return Math.floor((daysPassed % 52) / 7.43) + 1;
 }
 
-// Чакра года (по году рождения)
-function getChakraFromYear(date: string): number {
-    const year = new Date(date).getFullYear();
-    return ((year - 1950) % 7) + 1;
-}
-
 // Чакра по дню недели
 function getChakraFromWeekday(date: string): number {
     const weekday = new Date(date).getDay();
@@ -40,7 +35,6 @@ function getChakraFromWeekday(date: string): number {
 
 // Определение персональной Чакры дня
 function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
-    const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
     const tithi = getCurrentTithi(moonDegree);
     const chakraTitthi = getChakraFromTithi(tithi);
@@ -48,7 +42,6 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
     const chakraMoon = getChakraFromTithi(Math.floor(moonDegree / 12) + 1);
 
     const chakraDay = Math.round(
-        (yearChakra * 0.3) +
         (cycleChakra * 0.3) +
         (chakraTitthi * 0.2) +
         (chakraWeekday * 0.1) +
@@ -59,7 +52,6 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
 }
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
-    const yearChakra = getChakraFromYear(dateOfBirth);
     const cycleChakra = getChakra52Cycle(dateOfBirth, currentDate);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
@@ -77,7 +69,11 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     };
 }
 
+// ** Исправленный анализ ответов EQ7 **
 export function analyzeEQ7Responses(solarChakra: number, lunarChakra: number, responses: boolean[]): EQ7Response {
+    const solarKey = Object.keys(dayEQ7Data.chakras)[solarChakra - 1];
+    const lunarKey = Object.keys(dayEQ7Data.chakras)[lunarChakra - 1];
+
     const solarState: ChakraState = responses.slice(0, 3).includes(true)
         ? (responses[0] ? "balance" : responses[1] ? "excess" : "block")
         : "balance";
@@ -87,7 +83,7 @@ export function analyzeEQ7Responses(solarChakra: number, lunarChakra: number, re
         : "balance";
 
     return {
-        solarAction: dayEQ7Data.chakras[solarChakra - 1].sun_recommendations[solarState] || "Нет данных",
-        lunarPerception: dayEQ7Data.chakras[lunarChakra - 1].moon_recommendations[lunarState] || "Нет данных"
+        solarAction: dayEQ7Data.chakras[solarKey]?.sun_recommendations[solarState] || "Нет данных",
+        lunarPerception: dayEQ7Data.chakras[lunarKey]?.moon_recommendations[lunarState] || "Нет данных"
     };
 }
