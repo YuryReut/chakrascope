@@ -107,9 +107,9 @@ function App() {
         target="_blank" 
         rel="noopener noreferrer"
         style={{ color: "#007bff", textDecoration: "none" }}
-    >
-        как
-    </a>в тебе течёт энергия.
+                     >
+                     как
+                 </a> в тебе течёт энергия.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
                 <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
