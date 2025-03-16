@@ -48,7 +48,7 @@ function App() {
         const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
         if (!solarEntry || !lunarEntry) {
-            setBirthChakra("❌ Ошибка: Дата вне диапазона данных!");
+           setBirthChakra({ birth: "❌ Ошибка", currentPath: "Дата вне диапазона данных!", today: "" });
             return;
         }
 
