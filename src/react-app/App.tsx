@@ -135,56 +135,62 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    width: "100%"
-                }}>
-                    {/* Блок 1 - Ты сформирован от рождения как */}
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        width: "90%",
-                        maxWidth: "600px",
-                        textAlign: "left"
-                    }}>
-                        <h4>Ты сформирован от рождения как:</h4>
-                        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
-                    </div>
+               <div style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    maxWidth: "700px",
+    margin: "20px auto",
+    padding: "20px",
+    backgroundColor: "#f5f5f5",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    width: "100%"
+}}>
+    {/* Блок 1 - Ты сформирован от рождения как */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        marginBottom: "15px", // Увеличил отступ между блоками
+        width: "90%", // Центрирование белых блоков
+        textAlign: "left"
+    }}>
+        <h4>🔹 Ты сформирован от рождения как:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
+    </div>
 
-                    {/* Блок 2 - Твой путь сейчас */}
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        width: "90%",
-                        maxWidth: "600px",
-                        textAlign: "left"
-                    }}>
-                        <h4>Твой путь сейчас:</h4>
-                        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
-                    </div>
+    {/* Блок 2 - Твой путь сейчас */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        marginBottom: "15px", // Добавил отступ
+        width: "90%", // Центрирование
+        textAlign: "left"
+    }}>
+        <h4>🛤️ Твой путь сейчас:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
+    </div>
 
-                    {/* Блок 3 - Сегодня */}
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        width: "90%",
-                        maxWidth: "600px",
-                        textAlign: "left"
-                    }}>
-                        <h4>Сегодня, день определяет тебя как:</h4>
-                        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
-                    </div>
-                </div>
+    {/* Блок 3 - Сегодня */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        width: "90%", // Центрирование
+        textAlign: "left"
+    }}>
+        <h4>📅 Сегодня, день определяет тебя как:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
+    </div>
+</div>
+
             )}
         </div>
     </div>
