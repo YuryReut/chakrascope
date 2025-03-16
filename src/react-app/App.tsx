@@ -73,7 +73,7 @@ function App() {
             if (currentQuestion < QUESTIONS.length - 1) {
                 setCurrentQuestion(currentQuestion + 1);
             } else {
-                setCurrentQuestion(null);
+                setCurrentQuestion(null); // Все вопросы заданы, теперь показываем кнопку "Получить ответ"
             }
         }
     };
@@ -97,21 +97,16 @@ function App() {
             color: "black",
             padding: "20px",
             boxSizing: "border-box",
-            backgroundColor: "#f5f5f5"
+            backgroundColor: "#ffffff"
         }}>
-            <h1 style={{ fontSize: "2em", marginBottom: "5px" }}>Чакроскоп</h1>
+            <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
             <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
-                Это как гороскоп, только твой персональный. Он рассказывает о том, как в тебе течёт энергия.
+                Это как гороскоп, только твой персональный. Он рассказывает о том, <a href="https://www.instagram.com/reel/DG_9shMhIVk/" target=_blank>как</a> в тебе течёт энергия.
             </p>
-
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
                 <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
-                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)}
-                    style={{ padding: "8px", fontSize: "1em", backgroundColor: "#ffffff", border: "1px solid #ccc", borderRadius: "5px" }} />
-                <button onClick={handleCheckChakra}
-                    style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer", border: "none", backgroundColor: "#4CAF50", color: "white", borderRadius: "5px" }}>
-                    Рассчитать
-                </button>
+                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} style={{ padding: "8px", fontSize: "1em", backgroundColor: "#ffffff" }} />
+                <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
             </div>
 
             {birthChakra && (
@@ -123,35 +118,21 @@ function App() {
                     textAlign: "center",
                     maxWidth: "600px",
                     margin: "20px auto",
-                    padding: "20px",
+                    padding: "15px",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
                     color: "black",
                     fontSize: "1.1em",
-                    backgroundColor: "#ffffff",
+                    backgroundColor: "#f9f9f9",
                     borderRadius: "10px",
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
                 }}>
-                    <h3>Ты сформирован от рождения как:</h3>
-                    <div style={{ backgroundColor: "#fff", padding: "15px", borderRadius: "8px", width: "100%", textAlign: "left", border: "1px solid #ddd", marginBottom: "10px" }}>
-                        {birthChakra.split("📆")[0]}
-                    </div>
-
-                    <h3>Твой путь сейчас:</h3>
-                    <div style={{ backgroundColor: "#fff", padding: "15px", borderRadius: "8px", width: "100%", textAlign: "left", border: "1px solid #ddd", marginBottom: "10px" }}>
-                        {birthChakra.split("📆")[1]?.split("🌙")[0]}
-                    </div>
-
-                    <h3>Сегодня, день определяет тебя как:</h3>
-                    <div style={{ backgroundColor: "#fff", padding: "15px", borderRadius: "8px", width: "100%", textAlign: "left", border: "1px solid #ddd" }}>
-                        {birthChakra.split("🌙")[1]}
-                    </div>
+                    {birthChakra}
                 </div>
             )}
 
-            {birthChakra && !showQuestions && (
-                <button onClick={startQuestionnaire}
-                    style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>
-                    Задать вопрос
-                </button>
+            {birthChakra && !showQuestions && !queryResult && (
+                <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
 
             {showQuestions && (
@@ -168,15 +149,33 @@ function App() {
                     zIndex: 1000,
                     textAlign: "center"
                 }}>
-                    {currentQuestion !== null ? (
+                    {!questionConfirmed ? (
                         <>
-                            <p>{QUESTIONS[currentQuestion]}</p>
-                            <button onClick={() => handleAnswer(true)}>Да</button>
-                            <button onClick={() => handleAnswer(false)}>Нет</button>
+                            <p>Тестовый режим. Сформулируйте свой вопрос.</p>
+                            <p>Здесь ты можешь узнать, насколько твои мысли и планы совпадают с твоим естественным путем..</p>
+                            <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
                         </>
-                    ) : (
-                        <button onClick={handleGetAnswer}>Получить ответ</button>
-                    )}
+                    ) : currentQuestion !== null ? (
+                        <>
+                            <p>Опишите свой вопрос:</p>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
+                            <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
+                        </>
+                    ) : !showAnalysis ? (
+                        <>
+                            <p>Ваш вопрос описан.</p>
+                            <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
+                        </>
+                    ) : queryResult ? (
+                        <div style={{ textAlign: "left" }}>
+                            Тестовый режим.
+                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
+                            <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
+                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
+                            <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
+                        </div>
+                    ) : null}
                 </div>
             )}
         </div>
