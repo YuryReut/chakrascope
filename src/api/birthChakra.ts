@@ -64,8 +64,9 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
-    return {
-        result: `
+return {
+    result: {
+        birth: `
         🔆 Ты действуешь из ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         🌍 Внешнее проявление: ${chakraSun.phases[0].outer}  
@@ -73,20 +74,19 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
  
         🌙 Лунная энергия:  
         Твое восприятие реальности — это ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
-        </div>
-        <div>
+        `,
+        currentPath: `
         📆 Для тебя это год про ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
         🔄 Прямо сейчас, по 52-дневному циклу, энергия Солнца дает тебе ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).  
-       </div>
-        <div>
+        `,
+        today: `
         📅 Сегодня:
         Твои решения в фокусе ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}). 
         С эмоциональной точки зрения, реальность ощущается как ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
-        `,
-        </div>
-        logs: debugLogs
-    };
-}
+        `
+    },
+    logs: debugLogs
+};}
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
