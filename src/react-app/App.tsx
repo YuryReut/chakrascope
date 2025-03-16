@@ -101,7 +101,15 @@ function App() {
         }}>
             <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
             <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
-                Это как гороскоп, только твой персональный. Он рассказывает о том, <a href="https://www.instagram.com/reel/DG_9shMhIVk/" target=_blank>как</a> в тебе течёт энергия.
+                Это как гороскоп, только твой персональный. Он рассказывает о том, 
+                 <a 
+        href="https://www.instagram.com/reel/DG_9shMhIVk/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        style={{ color: "#007bff", textDecoration: "none" }}
+    >
+        как
+    </a>в тебе течёт энергия.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
                 <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
