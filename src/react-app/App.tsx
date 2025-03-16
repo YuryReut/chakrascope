@@ -108,7 +108,6 @@ function App() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
             textAlign: "center",
             maxWidth: "700px",
             margin: "20px auto",
@@ -136,19 +135,40 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{ width: "100%" }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "100%"
+                }}>
                     {/* Блок 1 - Ты сформирован от рождения как */}
                     <div style={{
                         backgroundColor: "white",
                         padding: "15px",
                         borderRadius: "8px",
                         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "10px",
-                        width: "100%",
+                        marginBottom: "15px",
+                        width: "90%",
+                        maxWidth: "600px",
                         textAlign: "left"
                     }}>
                         <h4>Ты сформирован от рождения как:</h4>
                         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
+                    </div>
+
+                    {/* Блок 2 - Твой путь сейчас */}
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "15px",
+                        borderRadius: "8px",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                        marginBottom: "15px",
+                        width: "90%",
+                        maxWidth: "600px",
+                        textAlign: "left"
+                    }}>
+                        <h4>Твой путь сейчас:</h4>
+                        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
                     </div>
 
                     {/* Блок 3 - Сегодня */}
@@ -157,77 +177,16 @@ function App() {
                         padding: "15px",
                         borderRadius: "8px",
                         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        width: "100%",
+                        width: "90%",
+                        maxWidth: "600px",
                         textAlign: "left"
                     }}>
                         <h4>Сегодня, день определяет тебя как:</h4>
                         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
                     </div>
-                    
-                    {/* Блок 2 - Твой путь сейчас */}
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "10px",
-                        width: "100%",
-                        textAlign: "left"
-                    }}>
-                        <h4>Твой путь сейчас:</h4>
-                        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
-                    </div>
                 </div>
             )}
         </div>
-
-        {birthChakra && !showQuestions && !queryResult && (
-            <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
-        )}
-
-        {showQuestions && (
-            <div style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                backgroundColor: "white",
-                padding: "20px",
-                color: "black",
-                borderRadius: "10px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                zIndex: 1000,
-                textAlign: "center"
-            }}>
-                {!questionConfirmed ? (
-                    <>
-                        <p>Тестовый режим. Сформулируйте свой вопрос.</p>
-                        <p>Здесь ты можешь узнать, насколько твои мысли и планы совпадают с твоим естественным путем..</p>
-                        <button onClick={() => setQuestionConfirmed(true)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Готово</button>
-                    </>
-                ) : currentQuestion !== null ? (
-                    <>
-                        <p>Опишите свой вопрос:</p>
-                        <p>{QUESTIONS[currentQuestion]}</p>
-                        <button onClick={() => handleAnswer(true)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Да</button>
-                        <button onClick={() => handleAnswer(false)} style={{ margin: "10px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Нет</button>
-                    </>
-                ) : !showAnalysis ? (
-                    <>
-                        <p>Ваш вопрос описан.</p>
-                        <button onClick={handleGetAnswer} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Получить ответ</button>
-                    </>
-                ) : queryResult ? (
-                    <div style={{ textAlign: "left" }}>
-                        Тестовый режим.
-                        <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
-                        <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
-                        <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
-                        <button onClick={() => setShowQuestions(false)} style={{ padding: "10px 20px", fontSize: "1em", cursor: "pointer", marginTop: "10px" }}>Закрыть</button>
-                    </div>
-                ) : null}
-            </div>
-        )}
     </div>
 );
 
