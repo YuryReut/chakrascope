@@ -117,28 +117,76 @@ function App() {
                 <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
             </div>
 
-            {birthChakra && (
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                    color: "black",
-                    fontSize: "1.1em",
-                    backgroundColor: "#f9f9f9",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-                }}>
-                    {birthChakra}
-                </div>
-            )}
+           {birthChakra && (
+    <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        maxWidth: "700px",
+        margin: "20px auto",
+        padding: "20px",
+        backgroundColor: "#f5f5f5",
+        borderRadius: "10px",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+    }}>
+        <h2>Чакроскоп</h2>
+        <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
+            Это как гороскоп, только твой персональный. Он рассказывает о том, 
+            <a 
+                href="https://www.instagram.com/reel/DG_9shMhIVk/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: "#007bff", textDecoration: "none" }}
+            >
+                как
+            </a> 
+            в тебе течёт энергия.
+        </p>
 
+        {/* Блок 1 - Ты сформирован от рождения как */}
+        <div style={{
+            backgroundColor: "white",
+            padding: "15px",
+            borderRadius: "8px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            marginBottom: "10px",
+            width: "100%",
+            textAlign: "left"
+        }}>
+            <h3>🔹 Ты сформирован от рождения как:</h3>
+            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
+        </div>
+
+        {/* Блок 2 - Твой путь сейчас */}
+        <div style={{
+            backgroundColor: "white",
+            padding: "15px",
+            borderRadius: "8px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            marginBottom: "10px",
+            width: "100%",
+            textAlign: "left"
+        }}>
+            <h3>🛤️ Твой путь сейчас:</h3>
+            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
+        </div>
+
+        {/* Блок 3 - Сегодня */}
+        <div style={{
+            backgroundColor: "white",
+            padding: "15px",
+            borderRadius: "8px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            width: "100%",
+            textAlign: "left"
+        }}>
+            <h3>📅 Сегодня, день определяет тебя как:</h3>
+            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
+        </div>
+    </div>
+)}
             {birthChakra && !showQuestions && !queryResult && (
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
             )}
