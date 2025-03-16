@@ -135,20 +135,6 @@ function App() {
         borderRadius: "10px",
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
     }}>
-        <h2>Чакроскоп</h2>
-        <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
-            Это как гороскоп, только твой персональный. Он рассказывает о том, 
-            <a 
-                href="https://www.instagram.com/reel/DG_9shMhIVk/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                style={{ color: "#007bff", textDecoration: "none" }}
-            >
-                как
-            </a> 
-            в тебе течёт энергия.
-        </p>
-
         {/* Блок 1 - Ты сформирован от рождения как */}
         <div style={{
             backgroundColor: "white",
@@ -159,22 +145,8 @@ function App() {
             width: "100%",
             textAlign: "left"
         }}>
-            <h3>🔹 Ты сформирован от рождения как:</h3>
+            <h4>Ты сформирован от рождения как:</h4>
             <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
-        </div>
-
-        {/* Блок 2 - Твой путь сейчас */}
-        <div style={{
-            backgroundColor: "white",
-            padding: "15px",
-            borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            marginBottom: "10px",
-            width: "100%",
-            textAlign: "left"
-        }}>
-            <h3>🛤️ Твой путь сейчас:</h3>
-            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
         </div>
 
         {/* Блок 3 - Сегодня */}
@@ -186,9 +158,24 @@ function App() {
             width: "100%",
             textAlign: "left"
         }}>
-            <h3>📅 Сегодня, день определяет тебя как:</h3>
+            <h4>Сегодня, день определяет тебя как:</h4>
             <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
         </div>
+        
+        {/* Блок 2 - Твой путь сейчас */}
+        <div style={{
+            backgroundColor: "white",
+            padding: "15px",
+            borderRadius: "8px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            marginBottom: "10px",
+            width: "100%",
+            textAlign: "left"
+        }}>
+            <h4>Твой путь сейчас:</h4>
+            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
+        </div>
+
     </div>
 )}
             {birthChakra && !showQuestions && !queryResult && (
