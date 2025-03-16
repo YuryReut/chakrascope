@@ -103,6 +103,20 @@ function App() {
             boxSizing: "border-box",
             backgroundColor: "#ffffff"
         }}>
+         <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        maxWidth: "700px",
+        margin: "20px auto",
+        padding: "20px",
+        backgroundColor: "#f5f5f5",
+        borderRadius: "10px",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+    }}>
+   
             <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
             <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
                 Это как гороскоп, только твой персональный. Он рассказывает о том, 
@@ -122,20 +136,7 @@ function App() {
             </div>
 
            {birthChakra && (
-    <div style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        maxWidth: "700px",
-        margin: "20px auto",
-        padding: "20px",
-        backgroundColor: "#f5f5f5",
-        borderRadius: "10px",
-        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
-    }}>
-        {/* Блок 1 - Ты сформирован от рождения как */}
+   {/* Блок 1 - Ты сформирован от рождения как */}
         <div style={{
             backgroundColor: "white",
             padding: "15px",
@@ -175,8 +176,6 @@ function App() {
             <h4>Твой путь сейчас:</h4>
             <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
         </div>
-
-    </div>
 )}
             {birthChakra && !showQuestions && !queryResult && (
                 <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
@@ -226,6 +225,7 @@ function App() {
                 </div>
             )}
         </div>
+    </div>
     );
 }
 
