@@ -143,20 +143,41 @@ function App() {
             {birthChakra && (
                 <div>
                     {/* Блок 1 - С чем ты пришел в мир */}
-                    <div>
+                    <div style={{
+                            backgroundColor: "#f5f5f5",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
                         <h4>🔆 С чем ты пришел в этот мир:</h4>
                         <p>{birthChakra.birth}</p>
                     </div>
 
                     {/* Блок 2 - Сегодня */}
-                    <div>
+                    <div style={{
+                            backgroundColor: "#f5f5f5",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
                         <h4>📅 Сегодня твой день про это:</h4>
                         <p>{birthChakra.today}</p>
                         <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                     </div>
 
                     {/* Блок 3 - Твой путь сейчас */}
-                    <div>
+                    <div style={{
+                            backgroundColor: "#f5f5f5",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
                         <h4>🛤️ Твой путь сейчас:</h4>
                         <p>{birthChakra.currentPath}</p>
                         <button onClick={startQuestionnaire}>Задать вопрос</button>
