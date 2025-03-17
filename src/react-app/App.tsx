@@ -187,7 +187,23 @@ function App() {
             </div>    
             {/* 🔹 Диалог "Твое восприятие сегодня" */}
             {showEmotionDialog && (
-                <div>
+                 <div style={{
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        textAlign: "center"
+                    }}>
                     <p>Уточни, как ты ощущаешь себя:</p>
                     <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
                     <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
@@ -195,6 +211,7 @@ function App() {
                     {selectedEmotion && <p>{emotionAnalysis}</p>}
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
+              </div>
             )}
 
             {/* 🔹 Диалог "Задать вопрос" */}
