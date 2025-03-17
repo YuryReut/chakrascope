@@ -135,8 +135,8 @@ function App() {
                 <button onClick={handleCheckChakra} style={{ padding: "8px 16px", fontSize: "1em", cursor: "pointer" }}>Рассчитать</button>
             </div>
 
-{birthChakra && (
-    <div style={{
+            {birthChakra && (
+               <div style={{
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -150,48 +150,50 @@ function App() {
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
     width: "100%"
 }}>
-    {/* Блок 1 - С чем ты пришел в этот мир */}
-        <div style={{
-            backgroundColor: "white",
-            padding: "15px",
-            borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            marginBottom: "15px", 
-            width: "90%", 
-            textAlign: "left"
-        }}>
-            <h4>С чем ты пришел в этот мир:</h4>
-            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
-        </div>
-
-        {/* Блок 2 - Твой путь сейчас */}
-        <div style={{
-            backgroundColor: "white",
-            padding: "15px",
-            borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            marginBottom: "15px",
-            width: "90%",
-            textAlign: "left"
-        }}>
-            <h4>🛤️ Твой путь сейчас:</h4>
-            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
-        </div>
-
-        {/* Блок 3 - Сегодня */}
-        <div style={{
-            backgroundColor: "white",
-            padding: "15px",
-            borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            width: "90%",
-            textAlign: "left"
-        }}>
-            <h4>📅 Сегодня твой день про это:</h4>
-            <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
-        </div>
+    {/* Блок 1 - Ты сформирован от рождения как */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        marginBottom: "15px", // Увеличил отступ между блоками
+        width: "90%", // Центрирование белых блоков
+        textAlign: "left"
+    }}>
+        <h4>🔹 Ты сформирован от рождения как:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
     </div>
-)}
+
+    {/* Блок 2 - Твой путь сейчас */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        marginBottom: "15px", // Добавил отступ
+        width: "90%", // Центрирование
+        textAlign: "left"
+    }}>
+        <h4>🛤️ Твой путь сейчас:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
+    </div>
+
+    {/* Блок 3 - Сегодня */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        width: "90%", // Центрирование
+        textAlign: "left"
+    }}>
+        <h4>📅 Сегодня, день определяет тебя как:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
+    </div>
+</div>
+
+            )}
+        </div>
 
         {birthChakra && !showQuestions && !queryResult && (
             <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
