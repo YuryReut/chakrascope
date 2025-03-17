@@ -136,7 +136,7 @@ function App() {
             </div>
 
 {birthChakra && (
-    <>
+    <div>
         {/* Блок 1 - С чем ты пришел в этот мир */}
         <div style={{
             backgroundColor: "white",
@@ -177,7 +177,7 @@ function App() {
             <h4>📅 Сегодня твой день про это:</h4>
             <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
         </div>
-    </>
+    </div>
 )}
 
         {birthChakra && !showQuestions && !queryResult && (
