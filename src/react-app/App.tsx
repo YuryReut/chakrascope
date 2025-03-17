@@ -144,7 +144,6 @@ function App() {
         borderRadius: "8px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         marginBottom: "15px", // Увеличил отступ между блоками
-        width: "100%", // Центрирование белых блоков
         textAlign: "left"
     }}>
         <h4>🔆С чем ты пришел в этот мир:</h4>
@@ -158,7 +157,6 @@ function App() {
         borderRadius: "8px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         marginBottom: "15px", // Добавил отступ
-        width: "100%", // Центрирование
         textAlign: "left"
     }}>
         <h4>🛤️ Твой путь сейчас:</h4>
@@ -171,7 +169,6 @@ function App() {
         padding: "15px",
         borderRadius: "8px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-        width: "100%", // Центрирование
         textAlign: "left"
     }}>
         <h4>📅 Сегодня твой день про это:</h4>
