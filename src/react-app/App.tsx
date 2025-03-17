@@ -107,9 +107,34 @@ function App() {
         setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
     };
 
-    return (
-        <div>
-            <div>
+    return 
+        (<div style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        width: "100vw",
+        textAlign: "center",
+        fontFamily: "inherit",
+        color: "black",
+        padding: "20px",
+        boxSizing: "border-box",
+        backgroundColor: "#ffffff"
+    }}>
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            maxWidth: "700px",
+            margin: "20px auto",
+            padding: "20px",
+            backgroundColor: "#f5f5f5",
+            borderRadius: "10px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+        }}>
                 <h1>Чакроскоп</h1>
                 <p>Чакроскоп — это твой уникальный энергетический портрет. Он показывает, как движется твоя внутренняя энергия и какие силы влияют на тебя прямо сейчас.</p>
                 <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
