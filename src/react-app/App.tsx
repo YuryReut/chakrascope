@@ -136,9 +136,7 @@ function App() {
             </div>
 
             {birthChakra && (
-               <div style={{
-    display: "flex"
-}}>
+               <div>
     {/* Блок 1 - Ты сформирован от рождения как */}
     <div style={{
         backgroundColor: "white",
