@@ -119,7 +119,7 @@ function App() {
         }}>
             <h1 style={{ fontSize: "2em", marginBottom: "10px" }}>Чакроскоп</h1>
             <p style={{ fontSize: "1em", color: "#666", marginBottom: "20px" }}>
-                Это как гороскоп, только твой персональный. Он рассказывает о том, 
+                Чакроскоп — это твой уникальный энергетический портрет. Он показывает,  
                 <a 
                     href="https://www.instagram.com/reel/DG_9shMhIVk/" 
                     target="_blank" 
@@ -127,7 +127,7 @@ function App() {
                     style={{ color: "#007bff", textDecoration: "none" }}
                 >
                     как
-                </a> в тебе течёт энергия.
+                </a>  движется твоя внутренняя энергия и какие силы влияют на тебя прямо сейчас.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
                 <label style={{ fontSize: "1em" }}>Введите дату рождения:</label>
