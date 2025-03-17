@@ -161,6 +161,23 @@ function App() {
     }}>
         <h4>🛤️ Твой путь сейчас:</h4>
         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.currentPath}</p>
+         {/* Перенос кнопки внутрь блока */}
+    {!showQuestions && !queryResult && (
+        <button onClick={startQuestionnaire} 
+            style={{ 
+                marginTop: "15px", 
+                padding: "10px 20px", 
+                fontSize: "1em", 
+                cursor: "pointer", 
+                width: "100%", 
+                backgroundColor: "#007bff", 
+                color: "white", 
+                border: "none", 
+                borderRadius: "5px" 
+            }}>
+            Задать вопрос
+        </button>
+    )}
     </div>
 
     {/* Блок 3 - Сегодня */}
@@ -178,10 +195,6 @@ function App() {
 
             )}
         </div>
-
-        {birthChakra && !showQuestions && !queryResult && (
-            <button onClick={startQuestionnaire} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "1em", cursor: "pointer" }}>Задать вопрос</button>
-        )}
 
         {showQuestions && (
             <div style={{
