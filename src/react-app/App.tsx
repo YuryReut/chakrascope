@@ -12,6 +12,16 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
+const QUESTIONS = [
+    "Этот вопрос связан с материальной стороной жизни?",
+    "Он касается ваших эмоций и желаний?",
+    "Этот вопрос про силу воли и достижение целей?",
+    "Он связан с отношениями и сердечными чувствами?",
+    "Этот вопрос касается самовыражения и творчества?",
+    "Он затрагивает интуицию и внутреннее видение?",
+    "Этот вопрос про глубокое понимание и осознание?"
+];
+
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState<{
@@ -21,6 +31,17 @@ function App() {
     } | null>(null);
 
     const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
+    const [queryResult, setQueryResult] = useState<null | {
+        interpretation: string;
+        growthVector: string;
+        queryOrganicity: string[];
+    }>(null);
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
+
+    // 🔹 Состояния для диалога про эмоции дня
     const [showEmotionDialog, setShowEmotionDialog] = useState(false);
     const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
     const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
@@ -44,12 +65,43 @@ function App() {
         setBirthChakra(result.result);
     };
 
+    const startQuestionnaire = () => {
+        setShowQuestions(true);
+        setQuestionConfirmed(false);
+        setCurrentQuestion(0);
+        setAnswers(Array(QUESTIONS.length).fill(null));
+        setShowAnalysis(false);
+        setQueryResult(null);
+    };
+
+    const handleAnswer = (answer: boolean) => {
+        if (currentQuestion !== null) {
+            const newAnswers = [...answers];
+            newAnswers[currentQuestion] = answer;
+            setAnswers(newAnswers);
+
+            if (currentQuestion < QUESTIONS.length - 1) {
+                setCurrentQuestion(currentQuestion + 1);
+            } else {
+                setCurrentQuestion(null);
+            }
+        }
+    };
+
+    const handleGetAnswer = () => {
+        const analysis = analyzeQuery(answers);
+        setQueryResult(analysis);
+        setShowAnalysis(true);
+    };
+
+    // 🔹 Запуск диалога про эмоции дня
     const startEmotionDialog = () => {
         setShowEmotionDialog(true);
         setSelectedEmotion(null);
         setEmotionAnalysis(null);
     };
 
+    // 🔹 Обработка выбора эмоции
     const handleEmotionSelect = (emotion: string) => {
         setSelectedEmotion(emotion);
         setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
@@ -68,22 +120,8 @@ function App() {
             color: "black",
             padding: "20px",
             boxSizing: "border-box",
-            backgroundColor: "#ffffff",
-            position: "relative"
+            backgroundColor: "#ffffff"
         }}>
-            {/** Затемнение экрана при открытии диалога **/}
-            {(showQuestions || showEmotionDialog) && (
-                <div style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    zIndex: 1000
-                }} />
-            )}
-
             <div style={{
                 display: "flex",
                 flexDirection: "column",
@@ -104,67 +142,53 @@ function App() {
             </div>
 
             {birthChakra && (
-                <div style={{ maxWidth: "700px", width: "100%" }}>
-                    <div style={{
-                        backgroundColor: "#f5f5f5",
-                        padding: "15px",
-                        borderRadius: "10px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                    }}>
-                        <h4>🔆 С чем ты пришел в этот мир:</h4>
-                        <p>{birthChakra.birth}</p>
-                    </div>
-
-                    <div style={{
-                        backgroundColor: "#f5f5f5",
-                        padding: "15px",
-                        borderRadius: "10px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                    }}>
-                        <h4>📅 Сегодня твой день про это:</h4>
-                        <p>{birthChakra.today}</p>
-                        <button onClick={startEmotionDialog} style={{ marginTop: "10px" }}>Твое восприятие сегодня</button>
-                    </div>
-
-                    <div style={{
-                        backgroundColor: "#f5f5f5",
-                        padding: "15px",
-                        borderRadius: "10px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        textAlign: "left"
-                    }}>
-                        <h4>🛤️ Твой путь сейчас:</h4>
-                        <p>{birthChakra.currentPath}</p>
-                        <button onClick={() => setShowQuestions(true)} style={{ marginTop: "10px" }}>Задать вопрос</button>
-                    </div>
+                <div>
+                    {[birthChakra.birth, birthChakra.today, birthChakra.currentPath].map((content, index) => (
+                        <div key={index} style={{
+                            backgroundColor: "#f5f5f5",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                            <h4>{index === 0 ? "🔆 С чем ты пришел в этот мир:" : index === 1 ? "📅 Сегодня твой день про это:" : "🛤️ Твой путь сейчас:"}</h4>
+                            <p>{content}</p>
+                            {index === 1 && <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>}
+                            {index === 2 && <button onClick={startQuestionnaire}>Задать вопрос</button>}
+                        </div>
+                    ))}
                 </div>
             )}
 
-            {/** 🔹 Диалог "Твое восприятие сегодня" **/}
-            {showEmotionDialog && (
+            {(showEmotionDialog || showQuestions) && (
                 <div style={{
                     position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "white",
-                    padding: "20px",
-                    color: "black",
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                    zIndex: 1001,
-                    textAlign: "center"
+                    top: "0",
+                    left: "0",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
                 }}>
-                    <p>Уточни, как ты ощущаешь себя:</p>
-                    <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
-                    <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
-                    <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
-                    {selectedEmotion && <p>{emotionAnalysis}</p>}
-                    <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        textAlign: "center"
+                    }}>
+                        {showEmotionDialog ? (
+                            <>
+                                <p>Уточни, как ты ощущаешь себя:</p>
+                                <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
+                                <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
+                                <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
+                                <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+                            </>
+                        ) : null}
+                    </div>
                 </div>
             )}
         </div>
