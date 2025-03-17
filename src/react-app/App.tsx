@@ -137,18 +137,7 @@ function App() {
 
             {birthChakra && (
                <div style={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    maxWidth: "700px",
-    margin: "20px auto",
-    padding: "20px",
-    backgroundColor: "#f5f5f5",
-    borderRadius: "10px",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-    width: "100%"
+    display: "flex"
 }}>
     {/* Блок 1 - Ты сформирован от рождения как */}
     <div style={{
@@ -160,7 +149,7 @@ function App() {
         width: "90%", // Центрирование белых блоков
         textAlign: "left"
     }}>
-        <h4>🔹 Ты сформирован от рождения как:</h4>
+        <h4>🔆С чем ты пришел в этот мир:</h4>
         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
     </div>
 
@@ -187,7 +176,7 @@ function App() {
         width: "90%", // Центрирование
         textAlign: "left"
     }}>
-        <h4>📅 Сегодня, день определяет тебя как:</h4>
+        <h4>📅 Сегодня твой день про это:</h4>
         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
     </div>
 </div>
