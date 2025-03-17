@@ -144,7 +144,7 @@ function App() {
                 <div>
                     {/* Блок 1 - С чем ты пришел в мир */}
                     <div style={{
-                            backgroundColor: "#f5f5f5",
+                            backgroundColor: "#ffffff",
                             padding: "15px",
                             borderRadius: "8px",
                             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -157,7 +157,7 @@ function App() {
 
                     {/* Блок 2 - Сегодня */}
                     <div style={{
-                            backgroundColor: "#f5f5f5",
+                            backgroundColor: "#ffffff",
                             padding: "15px",
                             borderRadius: "8px",
                             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -171,7 +171,7 @@ function App() {
 
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
-                            backgroundColor: "#f5f5f5",
+                            backgroundColor: "#ffffff",
                             padding: "15px",
                             borderRadius: "8px",
                             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -199,7 +199,23 @@ function App() {
 
             {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
-                <div>
+                <div style={{
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        textAlign: "center"
+                    }}>
                     {!questionConfirmed ? (
                         <>
                             <p>Тестовый режим. Сформулируйте свой вопрос.</p>
@@ -225,6 +241,7 @@ function App() {
                         </div>
                     ) : null}
                 </div>
+              </div>
             )}
         </div>
     );
