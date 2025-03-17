@@ -107,8 +107,8 @@ function App() {
         setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
     };
 
-    return 
-        (<div style={{
+    return (
+    <div style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
