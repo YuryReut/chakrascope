@@ -150,7 +150,19 @@ function App() {
         <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.birth}</p>
     </div>
 
-    {/* Блок 2 - Твой путь сейчас */}
+    {/* Блок 2 - Сегодня */}
+    <div style={{
+        backgroundColor: "white",
+        padding: "15px",
+        borderRadius: "8px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        textAlign: "left"
+    }}>
+        <h4>📅 Сегодня твой день про это:</h4>
+        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
+    </div>
+
+    {/* Блок 3 - Твой путь сейчас */}
     <div style={{
         backgroundColor: "white",
         padding: "15px",
@@ -180,17 +192,6 @@ function App() {
     )}
     </div>
 
-    {/* Блок 3 - Сегодня */}
-    <div style={{
-        backgroundColor: "white",
-        padding: "15px",
-        borderRadius: "8px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-        textAlign: "left"
-    }}>
-        <h4>📅 Сегодня твой день про это:</h4>
-        <p style={{ whiteSpace: "pre-wrap" }}>{birthChakra.today}</p>
-    </div>
 </div>
 
             )}
