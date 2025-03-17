@@ -29,7 +29,7 @@ function App() {
         currentPath: string;
         today: string;
     } | null>(null);
-
+    
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
@@ -62,20 +62,6 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
-    };
-
-    const startQuestionnaire = () => {
-        setShowQuestions(true);
-        setQuestionConfirmed(false);
-        setCurrentQuestion(0);
-        setAnswers(Array(QUESTIONS.length).fill(null));
-        setShowAnalysis(false);
-        setQueryResult(null);
-    };
-
-    const handleEmotionSelect = (emotion: string) => {
-        setSelectedEmotion(emotion);
-        setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
     };
 
     return (
@@ -136,7 +122,7 @@ function App() {
                     <div style={{ backgroundColor: "white", padding: "15px", borderRadius: "8px", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)" }}>
                         <h4>🛤️ Твой путь сейчас:</h4>
                         <p>{birthChakra.currentPath}</p>
-                        <button onClick={startQuestionnaire} style={{ marginTop: "10px" }}>Задать вопрос</button>
+                        <button onClick={() => setShowQuestions(true)} style={{ marginTop: "10px" }}>Задать вопрос</button>
                     </div>
                 </div>
             )}
@@ -153,10 +139,10 @@ function App() {
                     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)"
                 }}>
                     <p>Уточни, как ты ощущаешь себя:</p>
-                    <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
-                    <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
-                    <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
-                    {selectedEmotion && <p>{emotionAnalysis}</p>}
+                    <button onClick={() => setSelectedEmotion("спокойствие")}>Спокойствие</button>
+                    <button onClick={() => setSelectedEmotion("радость")}>Радость</button>
+                    <button onClick={() => setSelectedEmotion("вдохновение")}>Вдохновение</button>
+                    {selectedEmotion && <p>🔥 Действия как {selectedEmotion}. 💡 Понимание как {selectedEmotion}.</p>}
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
             )}
