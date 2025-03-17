@@ -29,7 +29,7 @@ function App() {
         currentPath: string;
         today: string;
     } | null>(null);
-    
+
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
@@ -38,11 +38,10 @@ function App() {
         growthVector: string;
         queryOrganicity: string[];
     }>(null);
-    
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
 
-    // 🔹 Состояния для нового диалога про эмоции дня
+    // 🔹 Состояния для диалога про эмоции дня
     const [showEmotionDialog, setShowEmotionDialog] = useState(false);
     const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
     const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
@@ -75,6 +74,26 @@ function App() {
         setQueryResult(null);
     };
 
+    const handleAnswer = (answer: boolean) => {
+        if (currentQuestion !== null) {
+            const newAnswers = [...answers];
+            newAnswers[currentQuestion] = answer;
+            setAnswers(newAnswers);
+
+            if (currentQuestion < QUESTIONS.length - 1) {
+                setCurrentQuestion(currentQuestion + 1);
+            } else {
+                setCurrentQuestion(null);
+            }
+        }
+    };
+
+    const handleGetAnswer = () => {
+        const analysis = analyzeQuery(answers);
+        setQueryResult(analysis);
+        setShowAnalysis(true);
+    };
+
     // 🔹 Запуск диалога про эмоции дня
     const startEmotionDialog = () => {
         setShowEmotionDialog(true);
@@ -82,7 +101,7 @@ function App() {
         setEmotionAnalysis(null);
     };
 
-    // 🔹 Обработка выбора эмоции (заглушки)
+    // 🔹 Обработка выбора эмоции
     const handleEmotionSelect = (emotion: string) => {
         setSelectedEmotion(emotion);
         setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
@@ -121,6 +140,7 @@ function App() {
                 </div>
             )}
 
+            {/* 🔹 Диалог "Твое восприятие сегодня" */}
             {showEmotionDialog && (
                 <div>
                     <p>Уточни, как ты ощущаешь себя:</p>
@@ -132,17 +152,16 @@ function App() {
                 </div>
             )}
 
+            {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
                 <div>
                     {!questionConfirmed ? (
                         <>
                             <p>Тестовый режим. Сформулируйте свой вопрос.</p>
-                            <p>Здесь ты можешь узнать, насколько твои мысли и планы совпадают с твоим естественным путем.</p>
                             <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
                         </>
                     ) : currentQuestion !== null ? (
                         <>
-                            <p>Опишите свой вопрос:</p>
                             <p>{QUESTIONS[currentQuestion]}</p>
                             <button onClick={() => handleAnswer(true)}>Да</button>
                             <button onClick={() => handleAnswer(false)}>Нет</button>
