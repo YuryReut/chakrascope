@@ -204,7 +204,7 @@ function App() {
                         borderRadius: "10px",
                         textAlign: "center"
                     }}>
-                    <p>Уточни, как ты ощущаешь себя:</p>
+                    <p>Тестовый режим. Уточни, как ты ощущаешь себя:</p>
                     <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
                     <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
                     <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
