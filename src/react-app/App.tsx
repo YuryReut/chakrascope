@@ -136,8 +136,21 @@ function App() {
             </div>
 
 {birthChakra && (
-    <div>
-        {/* Блок 1 - С чем ты пришел в этот мир */}
+    <div style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    maxWidth: "700px",
+    margin: "20px auto",
+    padding: "20px",
+    backgroundColor: "#f5f5f5",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    width: "100%"
+}}>
+    {/* Блок 1 - С чем ты пришел в этот мир */}
         <div style={{
             backgroundColor: "white",
             padding: "15px",
