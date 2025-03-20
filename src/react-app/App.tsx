@@ -184,11 +184,19 @@ function App() {
                         }}>
                         <h4>🔆 С чем ты пришел в этот мир:</h4>
                         <p>
-                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}).<br />
+                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} <a 
+                              href={birthChakra.birth.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              style={{ color: "inherit", textDecoration: "none" }}
+                            >
+                              {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle}
+                            </a>
+                            ({birthChakra.birth.chakraName}).<br />
                           🌀 Внутреннее ощущение: {birthChakra.birth.inner}<br />
                           🌍 Как это проявляется в жизни: {birthChakra.birth.outer}<br />
                           ❤️ В любви и отношениях: <a 
-                              href={birthChakra.birth.link} 
+                              href={birthChakra.birth.lovelink} 
                               target="_blank" 
                               rel="noopener noreferrer"
                               style={{ color: "inherit", textDecoration: "none" }}
