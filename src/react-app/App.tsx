@@ -265,13 +265,16 @@ function App() {
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
             </div>
-            <p>2025 © R&D проект Юры Реута <a 
-                              href="https://www.instagram.com/nowyoucanseelove/" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              style={{ color: "inherit", textDecoration: "none" }}
-                            >Now you can see love
-            </a>
+            <p>
+              2025 © R&D проект Юры Реута{' '}
+              <a
+                href="https://www.instagram.com/nowyoucanseelove/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'inherit', textDecoration: 'none' }}
+              >
+                Now you can see love
+              </a>
             </p>
             )}
 
