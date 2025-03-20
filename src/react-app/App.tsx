@@ -235,6 +235,17 @@ function App() {
                         <p>{birthChakra.currentPath}</p>
                         <button onClick={startQuestionnaire}>Задать вопрос</button>
                     </div>
+                <p>
+              2025 © R&D проект Юры Реута{' '}
+              <a
+                href="https://www.instagram.com/nowyoucanseelove/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'inherit', textDecoration: 'none' }}
+              >
+                Now you can see love
+              </a>
+            </p>
                 </div>
             )}
             </div>    
@@ -264,17 +275,6 @@ function App() {
                     {selectedEmotion && <p>{emotionAnalysis}</p>}
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
-            <p>
-              2025 © R&D проект Юры Реута{' '}
-              <a
-                href="https://www.instagram.com/nowyoucanseelove/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'inherit', textDecoration: 'none' }}
-              >
-                Now you can see love
-              </a>
-            </p>
             </div>
             )}
 
