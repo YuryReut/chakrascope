@@ -34,6 +34,7 @@ function App() {
         outer: string;
         relationship: string;
         link: string;
+        lovelink: string;
         lunarDescription: string;
         lunarEmoji: string;
         lunarNumber: number;
@@ -77,6 +78,7 @@ function App() {
                     outer: "Дата вне диапазона",
                     relationship: "Нет данных",
                     link: "#",
+                    lovelink: "#",
                     lunarDescription: "Нет данных",
                     lunarEmoji: "❌",
                     lunarNumber: 0,
