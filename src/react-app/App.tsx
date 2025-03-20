@@ -168,11 +168,7 @@ function App() {
                 borderRadius: "10px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
-                <h2 style={{
-            font-weight: "100",
-            margin-bottom: "0",
-                line-height: "1" }}>
-                Чакроскоп</h2>
+                <h1>Чакроскоп</h1>
                 <p>Солнце. Луна. Правда</p>
                 <p><br/>Чакроскоп — это твой уникальный энергетический портрет. Он показывает, как движется твоя внутренняя энергия и какие силы влияют на тебя прямо сейчас.</p>
                 <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /> <button onClick={handleCheckChakra}>Рассчитать</button>
