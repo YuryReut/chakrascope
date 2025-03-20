@@ -22,22 +22,19 @@ const QUESTIONS = [
     "Этот вопрос про глубокое понимание и осознание?"
 ];
 
-// Обновляемый формат birthChakra
-type BirthChakraType = {
-    birth: {
-        text: string;
-        inner: string;
-        outer: string;
-        relationship: { text: string; linkText: string; url: string };
-        moon: string;
-    };
-    currentPath: string;
-    today: string;
-};
-
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<BirthChakraType | null>(null);
+    const [birthChakra, setBirthChakra] = useState<{
+        birth: string | {
+            text: string;
+            inner: string;
+            outer: string;
+            relationship?: { text: string; linkText: string; url: string };
+            moon: string;
+        };
+        currentPath: string;
+        today: string;
+    } | null>(null);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -48,13 +45,7 @@ function App() {
 
         if (!solarEntry || !lunarEntry) {
             setBirthChakra({
-                birth: {
-                    text: "❌ Ошибка",
-                    inner: "Дата вне диапазона данных!",
-                    outer: "",
-                    relationship: { text: "", linkText: "", url: "" },
-                    moon: ""
-                },
+                birth: "❌ Ошибка: Дата вне диапазона данных!",
                 currentPath: "Дата вне диапазона данных!",
                 today: ""
             });
@@ -101,58 +92,66 @@ function App() {
                 <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
                 <button onClick={handleCheckChakra}>Рассчитать</button>
 
-            {birthChakra && (
-                <div>
-                    {/* Блок 1 - С чем ты пришел в мир */}
-                    <div style={{
-                        backgroundColor: "#ffffff",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                    }}>
-                        <h4>🔆 С чем ты пришел в этот мир:</h4>
-                        <p>{birthChakra.birth.text}</p>
-                        <p>{birthChakra.birth.inner}</p>
-                        <p>{birthChakra.birth.outer}</p>
-                        <p>
-                            {birthChakra.birth.relationship.text}
-                            <a href={birthChakra.birth.relationship.url} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-                                {birthChakra.birth.relationship.linkText}
-                            </a>
-                        </p>
-                        <p>{birthChakra.birth.moon}</p>
-                    </div>
+                {birthChakra && (
+                    <div>
+                        {/* Блок 1 - С чем ты пришел в мир */}
+                        <div style={{
+                            backgroundColor: "#ffffff",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                            <h4>🔆 С чем ты пришел в этот мир:</h4>
+                            {typeof birthChakra.birth === "string" ? (
+                                <p>{birthChakra.birth}</p>
+                            ) : (
+                                <>
+                                    <p>{birthChakra.birth.text}</p>
+                                    <p>{birthChakra.birth.inner}</p>
+                                    <p>{birthChakra.birth.outer}</p>
+                                    {birthChakra.birth.relationship && (
+                                        <p>
+                                            {birthChakra.birth.relationship.text}
+                                            <a href={birthChakra.birth.relationship.url} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                                                {birthChakra.birth.relationship.linkText}
+                                            </a>
+                                        </p>
+                                    )}
+                                    <p>{birthChakra.birth.moon}</p>
+                                </>
+                            )}
+                        </div>
 
-                    {/* Блок 2 - Сегодня */}
-                    <div style={{
-                        backgroundColor: "#ffffff",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                    }}>
-                        <h4>📅 Сегодня твой день про это:</h4>
-                        <p>{birthChakra.today}</p>
-                    </div>
+                        {/* Блок 2 - Сегодня */}
+                        <div style={{
+                            backgroundColor: "#ffffff",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                            <h4>📅 Сегодня твой день про это:</h4>
+                            <p>{birthChakra.today}</p>
+                        </div>
 
-                    {/* Блок 3 - Твой путь сейчас */}
-                    <div style={{
-                        backgroundColor: "#ffffff",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                    }}>
-                        <h4>🛤️ Твой путь сейчас:</h4>
-                        <p>{birthChakra.currentPath}</p>
+                        {/* Блок 3 - Твой путь сейчас */}
+                        <div style={{
+                            backgroundColor: "#ffffff",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                            <h4>🛤️ Твой путь сейчас:</h4>
+                            <p>{birthChakra.currentPath}</p>
+                        </div>
                     </div>
-                </div>
-            )}
-            </div>    
+                )}
+            </div>
         </div>
     );
 }
