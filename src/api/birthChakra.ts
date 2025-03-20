@@ -30,7 +30,7 @@ function getChakraFromWeekday(date: string): number {
     return (weekday % 7) + 1;
 }
 
-// 🔥 Персонализированный метод расчета Чакры дня
+// **🔥 Обновленный персонализированный метод расчета Чакры дня**
 function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
     const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
@@ -52,6 +52,7 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
+
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
     const yearChakra = getChakraFromYear(dateOfBirth);
@@ -63,27 +64,41 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
-    return {
-        result: {
-            birth: `🔆Твой главный ресурс — ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
-            🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
-            🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
-            ❤️ В любви и отношениях: <a href="${chakraSun.link}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">${chakraSun.phases[0].relationship}</a>  
-            🌙 Тонкое восприятие мира — через ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).`,
-            currentPath: `💫 Главные энергии года: ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).`,
-            today: `🔥 Ты сегодня — это ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}).`
-        },
-        logs: debugLogs
-    };
-}
+return {
+    result: {
+        birth: `🔆Твой главный ресурс — ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
+        🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
+        🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
+        ❤️ В любви и отношениях:
+        <a 
+        href="${chakraSun.link}" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        style="color: inherit; text-decoration: none;"
+    >
+        ${chakraSun.phases[0].relationship}
+    </a>  
+ 
+        🌙 Тонкое восприятие мира — через ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
+        `,
+        currentPath: `💫 Главные энергии года:  ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
+        🔄 А прямо сейчас в 52-дневном цикле ты живешь через ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).  
+        `,
+        today: `🔥 Ты сегодня — это ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}).
+        💫 Эмоции дня — ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
+        `
+    },
+    logs: debugLogs
+};}
 
-// 🔥 ВЕРНУЛ analyzeQuery
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
+
     let interpretation = "";
     let growthVector = "";
     let queryOrganicity: string[] = [];
 
+    // Определяем, какие чакры выбраны пользователем
     const selectedChakras = answers
         .map((answer, index) => (answer ? index + 1 : null))
         .filter((index) => index !== null) as number[];
@@ -98,7 +113,7 @@ export function analyzeQuery(answers: boolean[]) {
 
     let chakraMatches = 0;
     let movementDescriptions: string[] = [];
-
+    
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
             movementDescriptions.push("полностью соответствует вашему текущему пути");
@@ -119,6 +134,7 @@ export function analyzeQuery(answers: boolean[]) {
         growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
     }
 
+    // Заполняем queryOrganicity без дублирования одинаковых фраз
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
             queryOrganicity.push("естественный и актуальный");
@@ -131,6 +147,7 @@ export function analyzeQuery(answers: boolean[]) {
         }
     });
 
+    // Убираем дубли
     queryOrganicity = [...new Set(queryOrganicity)];
 
     return { interpretation, growthVector, queryOrganicity };
