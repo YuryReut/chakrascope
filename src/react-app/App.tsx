@@ -152,9 +152,21 @@ function App() {
                             textAlign: "left"
                         }}>
                         <h4>🔆 С чем ты пришел в этот мир:</h4>
-                        <p>{birthChakra.birth}</p>
+                        <p>
+                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}).<br />
+                          🌀 Внутреннее ощущение: {birthChakra.birth.inner}<br />
+                          🌍 Как это проявляется в жизни: {birthChakra.birth.outer}<br />
+                          ❤️ В любви и отношениях: <a 
+                              href={birthChakra.birth.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              style={{ color: "inherit", textDecoration: "none" }}
+                              dangerouslySetInnerHTML={{ __html: birthChakra.birth.relationship }}
+                            />
+                          <br />
+                          🌙 Тонкое восприятие мира — через {birthChakra.birth.lunarDescription} благодаря {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакре {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
+                        </p>
                     </div>
-
                     {/* Блок 2 - Сегодня */}
                     <div style={{
                             backgroundColor: "#ffffff",
