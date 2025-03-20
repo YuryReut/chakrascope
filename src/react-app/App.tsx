@@ -186,24 +186,24 @@ function App() {
                         }}>
                         <h4>🔆 С чем ты пришел в этот мир:</h4>
                         <p>
-                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} <a 
+                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} <a 
                               href={birthChakra.birth.link} 
                               target="_blank" 
                               rel="noopener noreferrer"
                               style={{ color: "inherit", textDecoration: "none" }}
                             >
-                              {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle}
+                              Подробнее
                             </a>
                             ({birthChakra.birth.chakraName}).<br />
                           🌀 Внутреннее ощущение: {birthChakra.birth.inner}<br />
                           🌍 Как это проявляется в жизни: {birthChakra.birth.outer}<br />
-                          ❤️ В любви и отношениях: <a 
+                          ❤️ В любви и отношениях: {birthChakra.birth.relationship} <a 
                               href={birthChakra.birth.lovelink} 
                               target="_blank" 
                               rel="noopener noreferrer"
                               style={{ color: "inherit", textDecoration: "none" }}
                             >
-                              {birthChakra.birth.relationship}
+                              Подробнее
                             </a>
                           <br />
                           🌙 Тонкое восприятие мира — через {birthChakra.birth.lunarDescription} благодаря {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакре {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
