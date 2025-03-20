@@ -71,10 +71,10 @@ return {
         🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
         ❤️ В любви и отношениях:
         <a 
-                href=${chakraSun.link} 
+                href=${{chakraSun.link}} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                style=${{ color: "inherit", textDecoration: "none" }}
+                style={{ color: "inherit", textDecoration: "none" }}
             >
                 ${chakraSun.phases[0].relationship}
             </a>
