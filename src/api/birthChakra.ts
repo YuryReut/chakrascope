@@ -69,8 +69,15 @@ return {
         birth: `🔆Твой главный ресурс — ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
         🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
         🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
-        ❤️ В любви и отношениях: <a href={chakraSun.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{chakraSun.phases[0].relationship}</a> 
- 
+        ❤️ В любви и отношениях:
+        <a 
+                href={chakraSun.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: "inherit", textDecoration: "none" }}
+            >
+                {chakraSun.phases[0].relationship}
+            </a>
         🌙 Тонкое восприятие мира — через ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
         `,
         currentPath: `💫 Главные энергии года:  ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
