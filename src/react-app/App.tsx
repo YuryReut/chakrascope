@@ -67,7 +67,25 @@ function App() {
         const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
         if (!solarEntry || !lunarEntry) {
-            setBirthChakra({ birth: "❌ Ошибка", currentPath: "Дата вне диапазона данных!", today: "" });
+            setBirthChakra({ 
+                  birth: {
+                    chakraNumber: 0,
+                    chakraEmoji: "❌",
+                    chakraTitle: "Ошибка",
+                    chakraName: "Ошибка данных",
+                    inner: "Ошибка даты",
+                    outer: "Дата вне диапазона",
+                    relationship: "Нет данных",
+                    link: "#",
+                    lunarDescription: "Нет данных",
+                    lunarEmoji: "❌",
+                    lunarNumber: 0,
+                    lunarTitle: "Ошибка",
+                    lunarName: "Ошибка данных"
+                  }, 
+                  currentPath: "Дата вне диапазона данных!", 
+                  today: "" 
+                });
             return;
         }
 
