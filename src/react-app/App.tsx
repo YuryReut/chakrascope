@@ -264,8 +264,15 @@ function App() {
                     {selectedEmotion && <p>{emotionAnalysis}</p>}
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
-            <p>2025 © R&D проект Юры Реута Now you can see love</p>  
             </div>
+            <p>2025 © R&D проект Юры Реута <a 
+                              href="https://www.instagram.com/nowyoucanseelove/" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              style={{ color: "inherit", textDecoration: "none" }}
+                            >Now you can see love
+            </a>
+            </p>
             )}
 
             {/* 🔹 Диалог "Задать вопрос" */}
