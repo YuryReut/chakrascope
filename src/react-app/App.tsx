@@ -186,7 +186,7 @@ function App() {
                         }}>
                         <h4>🔆 С чем ты пришел в этот мир:</h4>
                         <p>
-                          🔆 Твой главный ресурс — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} <a 
+                          🔆 Твоя основная чакра — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) → <a 
                               href={birthChakra.birth.link} 
                               target="_blank" 
                               rel="noopener noreferrer"
@@ -194,10 +194,10 @@ function App() {
                             >
                               Подробнее
                             </a>
-                            ({birthChakra.birth.chakraName}).<br />
+                            <br />
                           🌀 Внутреннее ощущение: {birthChakra.birth.inner}<br />
                           🌍 Как это проявляется в жизни: {birthChakra.birth.outer}<br />
-                          ❤️ В любви и отношениях: {birthChakra.birth.relationship} <a 
+                          ❤️ В любви и отношениях: {birthChakra.birth.relationship} → <a 
                               href={birthChakra.birth.lovelink} 
                               target="_blank" 
                               rel="noopener noreferrer"
@@ -205,8 +205,8 @@ function App() {
                             >
                               Подробнее
                             </a>
-                          <br />
-                          🌙 Тонкое восприятие мира — через {birthChakra.birth.lunarDescription} благодаря {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакре {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
+                          <br /><br />
+                          🌙 Твое восприятие мира — {birthChakra.birth.lunarDescription} из {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакры {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
                         </p>
                     </div>
                     {/* Блок 2 - Сегодня */}
@@ -218,7 +218,7 @@ function App() {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>📅 Сегодня твой день про это:</h4>
+                        <h4>📅 Сегодня твой день:</h4>
                         <p>{birthChakra.today}</p>
                         <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                     </div>
