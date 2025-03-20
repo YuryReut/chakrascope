@@ -25,11 +25,24 @@ const QUESTIONS = [
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState<{
-        birth: string;
-        currentPath: string;
-        today: string;
-    } | null>(null);
-
+    birth: {
+        chakraNumber: number;
+        chakraEmoji: string;
+        chakraTitle: string;
+        chakraName: string;
+        inner: string;
+        outer: string;
+        relationship: string;
+        link: string;
+        lunarDescription: string;
+        lunarEmoji: string;
+        lunarNumber: number;
+        lunarTitle: string;
+        lunarName: string;
+    };
+    currentPath: string;
+    today: string;
+} | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
@@ -161,8 +174,9 @@ function App() {
                               target="_blank" 
                               rel="noopener noreferrer"
                               style={{ color: "inherit", textDecoration: "none" }}
-                              dangerouslySetInnerHTML={{ __html: birthChakra.birth.relationship }}
-                            />
+                            >
+                              {birthChakra.birth.relationship}
+                            </a>
                           <br />
                           🌙 Тонкое восприятие мира — через {birthChakra.birth.lunarDescription} благодаря {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакре {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
                         </p>
