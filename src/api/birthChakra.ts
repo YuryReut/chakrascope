@@ -85,3 +85,64 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         logs: debugLogs
     };
 }
+export function analyzeQuery(answers: boolean[]) {
+    const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
+
+    let interpretation = "";
+    let growthVector = "";
+    let queryOrganicity: string[] = [];
+
+    // Определяем, какие чакры выбраны пользователем
+    const selectedChakras = answers
+        .map((answer, index) => (answer ? index + 1 : null))
+        .filter((index) => index !== null) as number[];
+
+    if (selectedChakras.length === 1) {
+        interpretation = "Сегодняшний день поддерживает вас в этом направлении.";
+    } else if (selectedChakras.length === 0) {
+        interpretation = "Вы не выбрали ни одного направления, сложно сделать вывод.";
+    } else {
+        interpretation = "Ваш запрос сочетает несколько направлений, что делает его сложнее для анализа.";
+    }
+
+    let chakraMatches = 0;
+    let movementDescriptions: string[] = [];
+    
+    selectedChakras.forEach((chakra) => {
+        if (chakra === yearQuarter) {
+            movementDescriptions.push("полностью соответствует вашему текущему пути");
+            chakraMatches++;
+        } else if (chakra === yearQuarter + 1) {
+            movementDescriptions.push("ведет вас вперед по пути развития");
+            chakraMatches++;
+        } else if (chakra === yearQuarter - 1) {
+            movementDescriptions.push("возвращает вас к прошлым энергиям");
+        } else {
+            movementDescriptions.push("не соответствует вашему текущему пути");
+        }
+    });
+
+    if (movementDescriptions.length > 0) {
+        growthVector = `Этот вопрос ${movementDescriptions.join(", ")}.`;
+    } else {
+        growthVector = "Этот запрос может быть важен, но он уводит вас в сторону.";
+    }
+
+    // Заполняем queryOrganicity без дублирования одинаковых фраз
+    selectedChakras.forEach((chakra) => {
+        if (chakra === yearQuarter) {
+            queryOrganicity.push("естественный и актуальный");
+        } else if (chakra === yearQuarter + 1) {
+            queryOrganicity.push("помогает вам развиваться");
+        } else if (chakra === yearQuarter - 1) {
+            queryOrganicity.push("связан с прошлым опытом");
+        } else {
+            queryOrganicity.push("не имеет прямого отношения к вашему текущему пути");
+        }
+    });
+
+    // Убираем дубли
+    queryOrganicity = [...new Set(queryOrganicity)];
+
+    return { interpretation, growthVector, queryOrganicity };
+}
