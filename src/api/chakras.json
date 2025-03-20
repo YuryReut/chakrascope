@@ -7,6 +7,7 @@
             "title": "стабильности",
             "desc": "Твёрдая опора, безопасность, уверенность",
             "link": "https://www.instagram.com/p/DHArEP7Ria9/",
+            "lovelink": "https://www.instagram.com/p/DHArEP7Ria9/",
             "phases": [
                 { "id": 1, "inner": "Чувство безопасности", "outer": "Спокойствие", "relationship": "Надежность" },
                 { "id": 2, "inner": "Опора на прошлое", "outer": "Традиционность", "relationship": "Приверженность" },
@@ -35,6 +36,7 @@
             "title": "воли",
             "desc": "Амбиции, уверенность, лидерство",
             "link": "https://www.instagram.com/p/DHAqlQURy3c/",
+            "lovelink": "https://www.instagram.com/p/DHAqlQURy3c/",
             "phases": [
                 { "id": 1, "inner": "Появление внутренней силы", "outer": "Активность", "relationship": "Инициативность" },
                 { "id": 2, "inner": "Доминантность", "outer": "Уверенность", "relationship": "Желание контролировать" },
@@ -49,6 +51,7 @@
             "title": "любви",
             "desc": "Глубокая привязанность, сердечность, забота",
             "link": "https://www.instagram.com/p/DHApP-yR4Wv/",
+            "lovelink": "https://www.instagram.com/p/DHApP-yR4Wv/",
             "phases": [
                 { "id": 1, "inner": "Чувство привязанности", "outer": "Теплота", "relationship": "Забота" },
                 { "id": 2, "inner": "Сердечное расширение", "outer": "Открытость", "relationship": "Щедрость" },
@@ -63,6 +66,7 @@
             "title": "выражения",
             "desc": "Честность, самовыражение, вдохновение",
             "link": "https://www.instagram.com/p/DHApALARdlc/",
+            "lovelink": "https://www.instagram.com/p/DHApALARdlc/",
             "phases": [
                 { "id": 1, "inner": "Глубокое понимание слов", "outer": "Самовыражение", "relationship": "Честность" },
                 { "id": 2, "inner": "Желание говорить", "outer": "Ораторство", "relationship": "Вдохновение" },
@@ -77,6 +81,7 @@
             "title": "интуиции",
             "desc": "Предчувствие, осознание, мудрость",
             "link": "https://www.instagram.com/p/DHAo1r3xcYi/",
+            "lovelink": "https://www.instagram.com/p/DHAo1r3xcYi/",
             "phases": [
                 { "id": 1, "inner": "Расширение сознания", "outer": "Проницательность", "relationship": "Осознание" },
                 { "id": 2, "inner": "Глубокие инсайты", "outer": "Мудрость", "relationship": "Видение" },
@@ -91,6 +96,7 @@
             "title": "единства",
             "desc": "Гармония, осознанность, высшее знание",
             "link": "https://www.instagram.com/p/DHAorfcR2la/",
+            "lovelink": "https://www.instagram.com/p/DHAorfcR2la/",
             "phases": [
                 { "id": 1, "inner": "Ощущение связи с миром", "outer": "Спокойствие", "relationship": "Духовная гармония" },
                 { "id": 2, "inner": "Глубокое знание", "outer": "Просветление", "relationship": "Чистая любовь" },
