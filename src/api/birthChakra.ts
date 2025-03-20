@@ -50,7 +50,9 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
-export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
+// Исходный код полностью сохранён
+
+export function getBirthChakra(dateOfBirth, currentDate, sunDegree, moonDegree) {
     let debugLogs = [];
 
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
@@ -64,32 +66,33 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
-return {
-    result: {
-        birth: `🔆Твой главный ресурс — ${chakraSun.emoji} ${solarChakra}-й чакры ${chakraSun.title} (${chakraSun.name}).
-        🌀 Внутреннее ощущение: ${chakraSun.phases[0].inner}  
-        🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
-        ❤️ В любви и отношениях:
-        <a 
-        href="${chakraSun.link}" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style="color: inherit; text-decoration: none;"
-    >
-        ${chakraSun.phases[0].relationship}
-    </a>  
- 
-        🌙 Тонкое восприятие мира — через ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
-        `,
-        currentPath: `💫 Главные энергии года:  ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
-        🔄 А прямо сейчас в 52-дневном цикле ты живешь через ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).  
-        `,
-        today: `🔥 Ты сегодня — это ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}).
-        💫 Эмоции дня — ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).
-        `
-    },
-    logs: debugLogs
-};}
+    return {
+        result: {
+            birth: {
+                chakraNumber: solarChakra,
+                chakraEmoji: chakraSun.emoji,
+                chakraTitle: chakraSun.title,
+                chakraName: chakraSun.name,
+                inner: chakraSun.phases[0].inner,
+                outer: chakraSun.phases[0].outer,
+                relationship: chakraSun.phases[0].relationship,
+                link: chakraSun.link,
+                lunarDescription: chakraMoon.desc,
+                lunarEmoji: chakraMoon.emoji,
+                lunarNumber: lunarChakra,
+                lunarTitle: chakraMoon.title,
+                lunarName: chakraMoon.name
+            },
+
+            currentPath: `💫 Главные энергии года:  ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
+        🔄 А прямо сейчас в 52-дневном цикле ты живешь через ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).`,
+
+            today: `🔥 Ты сегодня — это ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}).
+        💫 Эмоции дня — ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).`
+        },
+        logs: debugLogs
+    };
+}
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
