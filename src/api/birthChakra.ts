@@ -52,7 +52,7 @@ function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree
 
 // Исходный код полностью сохранён
 
-export function getBirthChakra(dateOfBirth, currentDate, sunDegree, moonDegree) {
+export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
 
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
