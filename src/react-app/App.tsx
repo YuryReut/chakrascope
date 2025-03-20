@@ -25,16 +25,26 @@ const QUESTIONS = [
 function App() {
     const [birthDate, setBirthDate] = useState("");
     const [birthChakra, setBirthChakra] = useState<{
-        birth: string | {
-            text: string;
-            inner: string;
-            outer: string;
-            relationship?: { text: string; linkText: string; url: string };
-            moon: string;
-        };
+        birth: string;
         currentPath: string;
         today: string;
     } | null>(null);
+
+    const [showQuestions, setShowQuestions] = useState(false);
+    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
+    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
+    const [queryResult, setQueryResult] = useState<null | {
+        interpretation: string;
+        growthVector: string;
+        queryOrganicity: string[];
+    }>(null);
+    const [questionConfirmed, setQuestionConfirmed] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
+
+    // 🔹 Состояния для диалога про эмоции дня
+    const [showEmotionDialog, setShowEmotionDialog] = useState(false);
+    const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+    const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
 
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -44,11 +54,7 @@ function App() {
         const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
         if (!solarEntry || !lunarEntry) {
-            setBirthChakra({
-                birth: "❌ Ошибка: Дата вне диапазона данных!",
-                currentPath: "Дата вне диапазона данных!",
-                today: ""
-            });
+            setBirthChakra({ birth: "❌ Ошибка", currentPath: "Дата вне диапазона данных!", today: "" });
             return;
         }
 
@@ -57,6 +63,48 @@ function App() {
 
         const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
         setBirthChakra(result.result);
+    };
+
+    const startQuestionnaire = () => {
+        setShowQuestions(true);
+        setQuestionConfirmed(false);
+        setCurrentQuestion(0);
+        setAnswers(Array(QUESTIONS.length).fill(null));
+        setShowAnalysis(false);
+        setQueryResult(null);
+    };
+
+    const handleAnswer = (answer: boolean) => {
+        if (currentQuestion !== null) {
+            const newAnswers = [...answers];
+            newAnswers[currentQuestion] = answer;
+            setAnswers(newAnswers);
+
+            if (currentQuestion < QUESTIONS.length - 1) {
+                setCurrentQuestion(currentQuestion + 1);
+            } else {
+                setCurrentQuestion(null);
+            }
+        }
+    };
+
+    const handleGetAnswer = () => {
+        const analysis = analyzeQuery(answers);
+        setQueryResult(analysis);
+        setShowAnalysis(true);
+    };
+
+    // 🔹 Запуск диалога про эмоции дня
+    const startEmotionDialog = () => {
+        setShowEmotionDialog(true);
+        setSelectedEmotion(null);
+        setEmotionAnalysis(null);
+    };
+
+    // 🔹 Обработка выбора эмоции
+    const handleEmotionSelect = (emotion: string) => {
+        setSelectedEmotion(emotion);
+        setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
     };
 
     return (
@@ -92,10 +140,10 @@ function App() {
                 <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
                 <button onClick={handleCheckChakra}>Рассчитать</button>
 
-                {birthChakra && (
-                    <div>
-                        {/* Блок 1 - С чем ты пришел в мир */}
-                        <div style={{
+            {birthChakra && (
+                <div>
+                    {/* Блок 1 - С чем ты пришел в мир */}
+                    <div style={{
                             backgroundColor: "#ffffff",
                             padding: "15px",
                             borderRadius: "8px",
@@ -103,55 +151,115 @@ function App() {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                            <h4>🔆 С чем ты пришел в этот мир:</h4>
-                            {typeof birthChakra.birth === "string" ? (
-                                <p>{birthChakra.birth}</p>
-                            ) : (
-                                <>
-                                    <p>{birthChakra.birth.text}</p>
-                                    <p>{birthChakra.birth.inner}</p>
-                                    <p>{birthChakra.birth.outer}</p>
-                                    {birthChakra.birth.relationship && (
-                                        <p>
-                                            {birthChakra.birth.relationship.text}
-                                            <a href={birthChakra.birth.relationship.url} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-                                                {birthChakra.birth.relationship.linkText}
-                                            </a>
-                                        </p>
-                                    )}
-                                    <p>{birthChakra.birth.moon}</p>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Блок 2 - Сегодня */}
-                        <div style={{
-                            backgroundColor: "#ffffff",
-                            padding: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                            marginBottom: "15px",
-                            textAlign: "left"
-                        }}>
-                            <h4>📅 Сегодня твой день про это:</h4>
-                            <p>{birthChakra.today}</p>
-                        </div>
-
-                        {/* Блок 3 - Твой путь сейчас */}
-                        <div style={{
-                            backgroundColor: "#ffffff",
-                            padding: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                            marginBottom: "15px",
-                            textAlign: "left"
-                        }}>
-                            <h4>🛤️ Твой путь сейчас:</h4>
-                            <p>{birthChakra.currentPath}</p>
-                        </div>
+                        <h4>🔆 С чем ты пришел в этот мир:</h4>
+                        <p>{birthChakra.birth}</p>
                     </div>
-                )}
-            </div>
+
+                    {/* Блок 2 - Сегодня */}
+                    <div style={{
+                            backgroundColor: "#ffffff",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                        <h4>📅 Сегодня твой день про это:</h4>
+                        <p>{birthChakra.today}</p>
+                        <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+                    </div>
+
+                    {/* Блок 3 - Твой путь сейчас */}
+                    <div style={{
+                            backgroundColor: "#ffffff",
+                            padding: "15px",
+                            borderRadius: "8px",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "15px",
+                            textAlign: "left"
+                        }}>
+                        <h4>🛤️ Твой путь сейчас:</h4>
+                        <p>{birthChakra.currentPath}</p>
+                        <button onClick={startQuestionnaire}>Задать вопрос</button>
+                    </div>
+                </div>
+            )}
+            </div>    
+            {/* 🔹 Диалог "Твое восприятие сегодня" */}
+            {showEmotionDialog && (
+                 <div style={{
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        textAlign: "center"
+                    }}>
+                    <p>Тестовый режим. Уточни, как ты ощущаешь себя:</p>
+                    <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
+                    <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
+                    <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
+                    {selectedEmotion && <p>{emotionAnalysis}</p>}
+                    <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+                </div>
+              </div>
+            )}
+
+            {/* 🔹 Диалог "Задать вопрос" */}
+            {showQuestions && (
+                <div style={{
+                    position: "fixed",
+                    top: "0",
+                    left: "0",
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <div style={{
+                        backgroundColor: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        textAlign: "center"
+                    }}>
+                    {!questionConfirmed ? (
+                        <>
+                            <p>Тестовый режим. Сформулируйте свой вопрос.</p>
+                            <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
+                        </>
+                    ) : currentQuestion !== null ? (
+                        <>
+                            <p>{QUESTIONS[currentQuestion]}</p>
+                            <button onClick={() => handleAnswer(true)}>Да</button>
+                            <button onClick={() => handleAnswer(false)}>Нет</button>
+                        </>
+                    ) : !showAnalysis ? (
+                        <>
+                            <p>Ваш вопрос описан.</p>
+                            <button onClick={handleGetAnswer}>Получить ответ</button>
+                        </>
+                    ) : queryResult ? (
+                        <div>
+                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
+                            <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
+                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
+                            <button onClick={() => setShowQuestions(false)}>Закрыть</button>
+                        </div>
+                    ) : null}
+                </div>
+              </div>
+            )}
         </div>
     );
 }
