@@ -264,7 +264,6 @@ function App() {
                     {selectedEmotion && <p>{emotionAnalysis}</p>}
                     <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
                 </div>
-            </div>
             <p>
               2025 © R&D проект Юры Реута{' '}
               <a
@@ -276,6 +275,7 @@ function App() {
                 Now you can see love
               </a>
             </p>
+            </div>
             )}
 
             {/* 🔹 Диалог "Задать вопрос" */}
