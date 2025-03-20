@@ -71,12 +71,12 @@ return {
         🌍 Как это проявляется в жизни: ${chakraSun.phases[0].outer}  
         ❤️ В любви и отношениях:
         <a 
-                href={chakraSun.link} 
+                href=${chakraSun.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                style={{ color: "inherit", textDecoration: "none" }}
+                style=${{ color: "inherit", textDecoration: "none" }}
             >
-                {chakraSun.phases[0].relationship}
+                ${chakraSun.phases[0].relationship}
             </a>
         🌙 Тонкое восприятие мира — через ${chakraMoon.desc} благодаря ${chakraMoon.emoji} ${lunarChakra}-й Чакре ${chakraMoon.title} (${chakraMoon.name}).
         `,
