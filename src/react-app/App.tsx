@@ -422,20 +422,20 @@ const startEmotionDialog = () => {
       {/* Этап 1 — состояние по Солнцу */}
       {currentStep === 'sun' && chakraNameSun && day_EQ7.chakras[chakraNameSun] && (
         <>
-          <p>Что больше описывает твои <b>действия</b> сегодня? ({chakraNameSun})</p>
-          <button onClick={() => handleStateSelect("balance")}>✅ {day_EQ7.chakras[chakraNameSun].states.balance}</button>
-          <button onClick={() => handleStateSelect("excess")}>🌊 {day_EQ7.chakras[chakraNameSun].states.excess}</button>
-          <button onClick={() => handleStateSelect("block")}>⛔️ {day_EQ7.chakras[chakraNameSun].states.block}</button>
+          <p>Что больше описывает твои <b>действия</b> сегодня?</p>
+          <button onClick={() => handleStateSelect("balance")}>🙂 {day_EQ7.chakras[chakraNameSun].states.balance}</button>
+          <button onClick={() => handleStateSelect("excess")}>😵 {day_EQ7.chakras[chakraNameSun].states.excess}</button>
+          <button onClick={() => handleStateSelect("block")}>😶 {day_EQ7.chakras[chakraNameSun].states.block}</button>
         </>
       )}
 
       {/* Этап 2 — состояние по Луне */}
       {currentStep === 'moon' && chakraNameMoon && day_EQ7.chakras[chakraNameMoon] && (
         <>
-          <p>Что лучше описывает твои <b>эмоции</b> сегодня? ({chakraNameMoon})</p>
-          <button onClick={() => handleStateSelect("balance")}>✅ {day_EQ7.chakras[chakraNameMoon].states.balance}</button>
-          <button onClick={() => handleStateSelect("excess")}>🌊 {day_EQ7.chakras[chakraNameMoon].states.excess}</button>
-          <button onClick={() => handleStateSelect("block")}>⛔️ {day_EQ7.chakras[chakraNameMoon].states.block}</button>
+          <p>Что лучше описывает твои <b>эмоции</b> сегодня?</p>
+          <button onClick={() => handleStateSelect("balance")}>🙂 {day_EQ7.chakras[chakraNameMoon].states.balance}</button>
+          <button onClick={() => handleStateSelect("excess")}>😵 {day_EQ7.chakras[chakraNameMoon].states.excess}</button>
+          <button onClick={() => handleStateSelect("block")}>😶 {day_EQ7.chakras[chakraNameMoon].states.block}</button>
         </>
       )}
 
