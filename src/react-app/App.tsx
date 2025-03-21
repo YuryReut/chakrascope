@@ -34,25 +34,24 @@ const QUESTIONS = [
 function App() {
     const [birthDate, setBirthDate] = useState("");
    const [birthChakra, setBirthChakra] = useState<{
-      birth: {
-        chakraNumber: number;
-        chakraEmoji: string;
-        chakraTitle: string;
-        chakraName: string;
-        inner: string;
-        outer: string;
-        relationship: string;
-        link: string;
-        lovelink: string;
-        lunarDescription: string;
-        lunarEmoji: string;
-        lunarNumber: number;
-        lunarTitle: string;
-        lunarName: string;
-      };
-      currentPath: string;
-      today: string;
-    } | null>(null);
+    birth: {
+      chakraNumber: number;
+      chakraEmoji: string;
+      chakraTitle: string;
+      chakraName: string;
+      inner: string;
+      outer: string;
+      relationship: string;
+      link: string;
+      lovelink: string;
+      lunarDescription: string;
+      lunarEmoji: string;
+      lunarNumber: number;
+      lunarTitle: string;
+      lunarName: string;
+    };
+    chakraNameSun: string;
+    chakraNameMoon: string;
     currentPath: string;
     today: string;
 } | null>(null);
