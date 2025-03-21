@@ -155,7 +155,8 @@ const startEmotionDialog = () => {
                 lunarName: "Ошибка данных"
               }, 
               currentPath: "Дата вне диапазона данных!", 
-              today: "" 
+              today: "",
+              todayText: ""
             });
         return;
     }
