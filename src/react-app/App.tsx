@@ -75,19 +75,16 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-        const chakraName = (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName;
-        const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
-console.log("birthChakra.birth.chakraName =", birthChakra?.birth.chakraName);
-console.log("chakraName =", (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName);
-console.log("chakraInfo =", day_EQ7.chakras[(birthChakra?.birth.chakraName || 'Муладхара') as ChakraName]);
+const chakraNameSun = birthChakra?.today.split(' и ')[0] as ChakraName;
+const chakraNameMoon = birthChakra?.today.split(' и ')[1] as ChakraName;
 
-        if (chakraInfo) {
-            setEmotionAnalysis(
-                `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
-            );
-        } else {
-            setEmotionAnalysis("⚠️ Нет данных о чакре для текущего имени.");
-        }
+const chakraInfoSun = day_EQ7.chakras[chakraNameSun];
+const chakraInfoMoon = day_EQ7.chakras[chakraNameMoon];
+
+setEmotionAnalysis(
+  `☀️ По Солнцу (${chakraNameSun}): ${chakraInfoSun.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraNameMoon}): ${chakraInfoMoon.moon_recommendations[state]}`
+);
+
     }
 };
 
