@@ -87,7 +87,7 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-        const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
+        const chakraName = birthChakra?.birth.chakraName as keyof typeof day_EQ7.chakras || 'Муладхара';
         const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
         
         setEmotionAnalysis(
