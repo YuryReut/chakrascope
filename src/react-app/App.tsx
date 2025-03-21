@@ -113,8 +113,8 @@ const startEmotionDialog = () => {
     if (birthChakra?.today) {
         const chakrasToday = birthChakra.today.split(" и ");
         if (chakrasToday.length === 2) {
-            setChakraNameSun(chakrasToday[0] as ChakraName);
-            setChakraNameMoon(chakrasToday[1] as ChakraName);
+            setChakraNameSun(chakrasToday[0].trim() as ChakraName);
+            setChakraNameMoon(chakrasToday[1].trim() as ChakraName);
         }
     }
 
@@ -127,6 +127,7 @@ const startEmotionDialog = () => {
     setSunState(null);
     setMoonState(null);
 };
+
 
   const handleCheckChakra = () => {
     const today = new Date().toISOString().split("T")[0];
