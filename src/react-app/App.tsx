@@ -33,8 +33,8 @@ const QUESTIONS = [
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<{
-    birth: {
+   const [birthChakra, setBirthChakra] = useState<{
+      birth: {
         chakraNumber: number;
         chakraEmoji: string;
         chakraTitle: string;
@@ -49,7 +49,10 @@ function App() {
         lunarNumber: number;
         lunarTitle: string;
         lunarName: string;
-    };
+      };
+      currentPath: string;
+      today: string;
+    } | null>(null);
     currentPath: string;
     today: string;
 } | null>(null);
