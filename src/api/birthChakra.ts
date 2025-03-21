@@ -58,7 +58,6 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
 
     const yearChakra = getChakraFromYear(dateOfBirth);
-    const cycleChakra = getChakra52Cycle(dateOfBirth, currentDate);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
     const solarChakra = getChakraFromTithi(Math.floor(sunDegree / 12) + 1);
