@@ -304,24 +304,43 @@ const startEmotionDialog = () => {
                         }}>
                         <h4>🛤️ Твой путь сейчас:</h4>
                         <p>{birthChakra.currentPath}</p>
-                        <button
-                          onClick={() => {
-                            if (isEmotionStepCompleted) {
-                              startQuestionnaire();
-                            } else {
-                              setShowEmotionReminder(true);
-                            }
-                          }}
-                          disabled={!isEmotionStepCompleted}
-                          style={{
-                            opacity: isEmotionStepCompleted ? 1 : 0.5,
-                            pointerEvents: 'auto',
-                            cursor: isEmotionStepCompleted ? 'pointer' : 'not-allowed',
-                            marginTop: "10px"
-                          }}
-                        >
-                          Задать вопрос
-                        </button>
+                        <div style={{ position: "relative", display: "inline-block", marginTop: "10px" }}>
+                          <button
+                            onClick={() => {
+                              if (isEmotionStepCompleted) {
+                                startQuestionnaire();
+                              } else {
+                                setShowEmotionReminder(true);
+                              }
+                            }}
+                            style={{
+                              opacity: isEmotionStepCompleted ? 1 : 0.5,
+                              pointerEvents: 'auto',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Задать вопрос
+                          </button>
+                        
+                          {!isEmotionStepCompleted && (
+                            <div style={{
+                              position: "absolute",
+                              top: "110%",
+                              left: "50%",
+                              transform: "translateX(-50%)",
+                              backgroundColor: "#222",
+                              color: "#fff",
+                              padding: "6px 10px",
+                              borderRadius: "6px",
+                              fontSize: "12px",
+                              whiteSpace: "nowrap",
+                              opacity: 0.9,
+                              zIndex: 10
+                            }}>
+                              Чтобы задать вопрос, сначала уточните своё состояние дня
+                            </div>
+                          )}
+                        </div>
                     </div>
                 <p>
               2025 © Non Profit R&D by Yury Reut{' '}
