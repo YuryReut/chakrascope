@@ -59,16 +59,6 @@ function App() {
     const [showEmotionDialog, setShowEmotionDialog] = useState(false);
     const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
         
-    // 🔹 Запуск диалога про эмоции дня
-const startEmotionDialog = () => {
-    setShowEmotionDialog(true);
-    setSelectedEmotion(null);
-    setEmotionAnalysis(null);
-    setCurrentStep('sun');
-    setSunState(null);
-    setMoonState(null);
-};
-
 // 🔹 Новые состояния для шагов и состояний чакр
 const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun');
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
@@ -84,7 +74,7 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setCurrentStep('result');
 
         const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
-        const chakraInfo = (day_EQ7 as any).chakras[chakraName]; 
+        const chakraInfo = (day_EQ7 as any).chakras[chakraName] as any;
         
         setEmotionAnalysis(
           `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
