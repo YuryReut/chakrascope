@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
-import day_EQ7 from "../api/day_EQ7_data.json";
+import day_EQ7 from "../api/dayEQ7_data.json";
 
 function convertToJulianDate(dateString: string): string {
     const date = new Date(dateString);
