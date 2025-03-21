@@ -64,6 +64,8 @@ const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
 const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun');
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
+const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
+const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);
 console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
     
 // 🔹 Обработка выбора состояния чакры
@@ -99,6 +101,14 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 };
 
 const startEmotionDialog = () => {
+    if (birthChakra?.today) {
+        const chakrasToday = birthChakra.today.split(" и ");
+        if (chakrasToday.length === 2) {
+            setChakraNameSun(chakrasToday[0] as ChakraName);
+            setChakraNameMoon(chakrasToday[1] as ChakraName);
+        }
+    }
+
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
     setEmotionAnalysis(null);
@@ -106,6 +116,7 @@ const startEmotionDialog = () => {
     setSunState(null);
     setMoonState(null);
 };
+
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -305,36 +316,36 @@ const startEmotionDialog = () => {
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
       color: "#000"
     }}>
-      {currentStep === 'sun' && birthChakra.birth.chakraName && day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras] && (
+      {currentStep === 'sun' && chakraNameSun && day_EQ7.chakras[chakraNameSun] && (
         <>
           <p>
-            Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> ({birthChakra.birth.chakraName}) прямо сейчас?
+            Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> ({chakraNameSun}) прямо сейчас?
           </p>
           <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.balance}</small>
+            ✅ В балансе<br /><small>{day_EQ7.chakras[chakraNameSun].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.excess}</small>
+            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[chakraNameSun].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.block}</small>
+            ⛔️ В блоке<br /><small>{day_EQ7.chakras[chakraNameSun].states.block}</small>
           </button>
         </>
       )}
 
-      {currentStep === 'moon' && birthChakra.birth.chakraName && day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras] && (
+      {currentStep === 'moon' && chakraNameMoon && day_EQ7.chakras[chakraNameMoon] && (
         <>
           <p>
-            Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> ({birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras}) прямо сейчас?
+            Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> ({chakraNameMoon}) прямо сейчас?
           </p>
           <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.balance}</small>
+            ✅ В балансе<br /><small>{day_EQ7.chakras[chakraNameMoon].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.excess}</small>
+            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[chakraNameMoon].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras].states.block}</small>
+            ⛔️ В блоке<br /><small>{day_EQ7.chakras[chakraNameMoon].states.block}</small>
           </button>
         </>
       )}
@@ -346,16 +357,16 @@ const startEmotionDialog = () => {
         </>
       )}
 
-      {/* Если по каким-то причинам данные не загрузились */}
-      {(!birthChakra.birth.chakraName || !day_EQ7.chakras[birthChakra.birth.chakraName as keyof typeof day_EQ7.chakras]) && (
+      {(!chakraNameSun || !chakraNameMoon || !day_EQ7.chakras[chakraNameSun] || !day_EQ7.chakras[chakraNameMoon]) && (
         <>
-          <p>⚠️ Данные о чакре не загружены корректно.</p>
+          <p>⚠️ Данные о чакрах дня не загружены корректно.</p>
           <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
         </>
       )}
     </div>
   </div>
 )}
+
 {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
                 <div style={{
