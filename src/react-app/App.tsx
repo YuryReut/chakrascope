@@ -4,6 +4,21 @@ import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 
+type ChakraStates = 'balance' | 'excess' | 'block';
+
+interface ChakraInfo {
+  emotions: string[];
+  states: Record<ChakraStates, string>;
+  sun_recommendations: Record<ChakraStates, string>;
+  moon_recommendations: Record<ChakraStates, string>;
+}
+
+interface DayEQ7Data {
+  chakras: Record<string, ChakraInfo>;
+}
+
+const dayData = day_EQ7 as DayEQ7Data;
+
 function convertToJulianDate(dateString: string): string {
     const date = new Date(dateString);
     const start = new Date(date.getFullYear(), 0, 0);
@@ -79,20 +94,33 @@ const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null
     console.log(selectedEmotion, moonState);
     
 // 🔹 Обработка выбора состояния чакры
-const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
-    if (currentStep === 'sun') {
-        setSunState(state);
-        setCurrentStep('moon');
-    } else if (currentStep === 'moon') {
-        setMoonState(state);
-        setCurrentStep('result');
+const handleStateSelect = (state: ChakraStates) => {
+  if (!birthChakra?.birth?.chakraName) {
+    setEmotionAnalysis("⚠️ Данные о чакре отсутствуют.");
+    setCurrentStep('result');
+    return;
+  }
 
-        const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
-        const chakraInfo = (day_EQ7 as any).chakras[chakraName]; 
-        setEmotionAnalysis(
-          `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
-        );
-    }
+  const chakraName = birthChakra.birth.chakraName;
+  const chakraInfo = dayData.chakras[chakraName];
+
+  if (!chakraInfo) {
+    setEmotionAnalysis("⚠️ Данные о чакре не найдены в базе.");
+    setCurrentStep('result');
+    return;
+  }
+
+  if (currentStep === 'sun') {
+    setSunState(state);
+    setCurrentStep('moon');
+  } else if (currentStep === 'moon') {
+    setMoonState(state);
+    setCurrentStep('result');
+
+    setEmotionAnalysis(
+      `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
+    );
+  }
 };
 
     const handleCheckChakra = () => {
