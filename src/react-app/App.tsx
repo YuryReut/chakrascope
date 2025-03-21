@@ -88,11 +88,12 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setCurrentStep('result');
 
         const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
-        const chakraInfo = (day_EQ7 as any).chakras[chakraName];
+        const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
 
         setEmotionAnalysis(`☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`);
     }
 };
+
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
