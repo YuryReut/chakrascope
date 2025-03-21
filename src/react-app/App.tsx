@@ -384,7 +384,8 @@ const startEmotionDialog = () => {
     backgroundColor: "rgba(0,0,0,0.5)",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: 999
   }}>
     <div style={{
       backgroundColor: "#ffffff",
@@ -396,47 +397,56 @@ const startEmotionDialog = () => {
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
       color: "#000"
     }}>
+
+      {/* Этап 0 — вступительный текст */}
+      {currentStep === 'intro' && (
+        <>
+          <p style={{ marginBottom: "20px", whiteSpace: "pre-line" }}>
+            Твое восприятие может быть чистым только в медитации.
+            Ты практически постоянно находишься в состоянии аффекта.
+            Солнце и Луна задают в определенном уровне твое восприятие того,
+            что происходит вокруг, и ты воспринимаешь свое внутреннее состояние
+            и мир вокруг через энергетические центры.
+
+            Уточни свое состояние и получи рекомендацию —
+            как относиться к миру и к своему состоянию сегодня.
+          </p>
+          <button onClick={() => setCurrentStep('sun')}>
+            Уточнить состояние
+          </button>
+        </>
+      )}
+
+      {/* Этап 1 — состояние по Солнцу */}
       {currentStep === 'sun' && chakraNameSun && day_EQ7.chakras[chakraNameSun] && (
         <>
-          <p>
-            Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> ({chakraNameSun}) прямо сейчас?
-          </p>
-          <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{day_EQ7.chakras[chakraNameSun].states.balance}</small>
-          </button>
-          <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[chakraNameSun].states.excess}</small>
-          </button>
-          <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{day_EQ7.chakras[chakraNameSun].states.block}</small>
-          </button>
+          <p>Что больше описывает твои <b>действия</b> сегодня? ({chakraNameSun})</p>
+          <button onClick={() => handleStateSelect("balance")}>✅ {day_EQ7.chakras[chakraNameSun].states.balance}</button>
+          <button onClick={() => handleStateSelect("excess")}>🌊 {day_EQ7.chakras[chakraNameSun].states.excess}</button>
+          <button onClick={() => handleStateSelect("block")}>⛔️ {day_EQ7.chakras[chakraNameSun].states.block}</button>
         </>
       )}
 
+      {/* Этап 2 — состояние по Луне */}
       {currentStep === 'moon' && chakraNameMoon && day_EQ7.chakras[chakraNameMoon] && (
         <>
-          <p>
-            Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> ({chakraNameMoon}) прямо сейчас?
-          </p>
-          <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{day_EQ7.chakras[chakraNameMoon].states.balance}</small>
-          </button>
-          <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[chakraNameMoon].states.excess}</small>
-          </button>
-          <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{day_EQ7.chakras[chakraNameMoon].states.block}</small>
-          </button>
+          <p>Что лучше описывает твои <b>эмоции</b> сегодня? ({chakraNameMoon})</p>
+          <button onClick={() => handleStateSelect("balance")}>✅ {day_EQ7.chakras[chakraNameMoon].states.balance}</button>
+          <button onClick={() => handleStateSelect("excess")}>🌊 {day_EQ7.chakras[chakraNameMoon].states.excess}</button>
+          <button onClick={() => handleStateSelect("block")}>⛔️ {day_EQ7.chakras[chakraNameMoon].states.block}</button>
         </>
       )}
 
+      {/* Этап 3 — результат */}
       {currentStep === 'result' && emotionAnalysis && (
         <>
+          <p><b>Рекомендации:</b></p>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
           <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
         </>
       )}
 
+      {/* Ошибка — если данных нет */}
       {(!chakraNameSun || !chakraNameMoon || !day_EQ7.chakras[chakraNameSun] || !day_EQ7.chakras[chakraNameMoon]) && (
         <>
           <p>⚠️ Данные о чакрах дня не загружены корректно.</p>
@@ -446,7 +456,6 @@ const startEmotionDialog = () => {
     </div>
   </div>
 )}
-
 {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
                 <div style={{
