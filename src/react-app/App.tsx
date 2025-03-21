@@ -34,24 +34,25 @@ const QUESTIONS = [
 function App() {
   const [birthDate, setBirthDate] = useState("");
   const [birthChakra, setBirthChakra] = useState<{
-    birth: {
-        chakraNumber: number;
-        chakraEmoji: string;
-        chakraTitle: string;
-        chakraName: string;
-        inner: string;
-        outer: string;
-        relationship: string;
-        link: string;
-        lovelink: string;
-        lunarDescription: string;
-        lunarEmoji: string;
-        lunarNumber: number;
-        lunarTitle: string;
-        lunarName: string;
-    };
-    currentPath: string;
-    today: string;
+   birth: {
+  chakraNumber: number;
+  chakraEmoji: string;
+  chakraTitle: string;
+  chakraName: string;
+  inner: string;
+  outer: string;
+  relationship: string;
+  link: string;
+  lovelink: string;
+  lunarDescription: string;
+  lunarEmoji: string;
+  lunarNumber: number;
+  lunarTitle: string;
+  lunarName: string;
+};
+currentPath: string;
+todayEmoji: string;
+todayText: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
@@ -290,8 +291,8 @@ const startEmotionDialog = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>📅 Сегодня твой день:</h4>
-                        <p>{birthChakra.today}</p>
+                        <h4>📅 Сегодня:</h4>
+                        <p>{birthChakra.todayEmoji} {birthChakra.todayText}</p>
                         <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                     </div>
 
@@ -304,7 +305,7 @@ const startEmotionDialog = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>🛤️ Твой путь сейчас:</h4>
+                        <h4>🛤️ Твой путь:</h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
                           onClick={() => {
