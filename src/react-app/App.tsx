@@ -66,7 +66,6 @@ const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
     
-    
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
     if (currentStep === 'sun') {
@@ -76,14 +75,19 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-       const chakraName = (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName;
-        const chakraInfo = (day_EQ7 as any).chakras[chakraName] || {};
-        
-        setEmotionAnalysis(
-          `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
-        );
+        const chakraName = (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName;
+        const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
+
+        if (chakraInfo) {
+            setEmotionAnalysis(
+                `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
+            );
+        } else {
+            setEmotionAnalysis("⚠️ Нет данных о чакре для текущего имени.");
+        }
     }
 };
+
 const startEmotionDialog = () => {
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
