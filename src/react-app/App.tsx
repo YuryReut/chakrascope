@@ -33,25 +33,23 @@ const QUESTIONS = [
 
 function App() {
     const [birthDate, setBirthDate] = useState("");
-   const [birthChakra, setBirthChakra] = useState<{
+    const [birthChakra, setBirthChakra] = useState<{
     birth: {
-      chakraNumber: number;
-      chakraEmoji: string;
-      chakraTitle: string;
-      chakraName: string;
-      inner: string;
-      outer: string;
-      relationship: string;
-      link: string;
-      lovelink: string;
-      lunarDescription: string;
-      lunarEmoji: string;
-      lunarNumber: number;
-      lunarTitle: string;
-      lunarName: string;
+        chakraNumber: number;
+        chakraEmoji: string;
+        chakraTitle: string;
+        chakraName: string;
+        inner: string;
+        outer: string;
+        relationship: string;
+        link: string;
+        lovelink: string;
+        lunarDescription: string;
+        lunarEmoji: string;
+        lunarNumber: number;
+        lunarTitle: string;
+        lunarName: string;
     };
-    chakraNameSun: string;
-    chakraNameMoon: string;
     currentPath: string;
     today: string;
 } | null>(null);
@@ -112,22 +110,23 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 };
 
 const startEmotionDialog = () => {
-    if (birthChakra?.chakraNameSun && birthChakra?.chakraNameMoon) {
-        setChakraNameSun(birthChakra.chakraNameSun as ChakraName);
-        setChakraNameMoon(birthChakra.chakraNameMoon as ChakraName);
-    } else {
-        setChakraNameSun(null);
-        setChakraNameMoon(null);
+    if (birthChakra?.today) {
+        const chakrasToday = birthChakra.today.split(" и ");
+        if (chakrasToday.length === 2) {
+            setChakraNameSun(chakrasToday[0] as ChakraName);
+            setChakraNameMoon(chakrasToday[1] as ChakraName);
+        }
     }
 
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
     setEmotionAnalysis(null);
-    setCurrentStep('sun');
+
+    // 🔁 теперь по умолчанию начинается с intro
+    setCurrentStep('intro');
     setSunState(null);
     setMoonState(null);
 };
-
 
   const handleCheckChakra = () => {
     const today = new Date().toISOString().split("T")[0];
