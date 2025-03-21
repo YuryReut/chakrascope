@@ -89,8 +89,10 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 
         const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
         const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
-
-        setEmotionAnalysis(`☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`);
+        
+        setEmotionAnalysis(
+          `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
+        );
     }
 };
 
