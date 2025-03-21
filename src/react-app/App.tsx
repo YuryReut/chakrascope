@@ -59,8 +59,10 @@ function App() {
     const [showEmotionDialog, setShowEmotionDialog] = useState(false);
     const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
     const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
-
-
+    
+    // Временный лог, чтобы убрать предупреждения о неиспользованных переменных:
+    console.log(selectedEmotion, moonState);
+    
     // 🔹 Запуск диалога про эмоции дня
 const startEmotionDialog = () => {
     setShowEmotionDialog(true);
