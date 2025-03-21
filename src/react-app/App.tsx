@@ -65,7 +65,7 @@ const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun')
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
-const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);
+const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
 console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
     
 // 🔹 Обработка выбора состояния чакры
@@ -117,43 +117,61 @@ const startEmotionDialog = () => {
     setMoonState(null);
 };
 
-    const handleCheckChakra = () => {
-        const today = new Date().toISOString().split("T")[0];
-        const formattedDate = convertToJulianDate(birthDate);
+  const handleCheckChakra = () => {
+    const today = new Date().toISOString().split("T")[0];
+    const formattedDate = convertToJulianDate(birthDate);
 
-        const solarEntry = solarData.find(entry => entry.Date === formattedDate);
-        const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
+    const solarEntry = solarData.find(entry => entry.Date === formattedDate);
+    const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
-        if (!solarEntry || !lunarEntry) {
-            setBirthChakra({ 
-                  birth: {
-                    chakraNumber: 0,
-                    chakraEmoji: "❌",
-                    chakraTitle: "Ошибка",
-                    chakraName: "Ошибка данных",
-                    inner: "Ошибка даты",
-                    outer: "Дата вне диапазона",
-                    relationship: "Нет данных",
-                    link: "#",
-                    lovelink: "#",
-                    lunarDescription: "Нет данных",
-                    lunarEmoji: "❌",
-                    lunarNumber: 0,
-                    lunarTitle: "Ошибка",
-                    lunarName: "Ошибка данных"
-                  }, 
-                  currentPath: "Дата вне диапазона данных!", 
-                  today: "" 
-                });
-            return;
-        }
+    if (!solarEntry || !lunarEntry) {
+        setBirthChakra({ 
+              birth: {
+                chakraNumber: 0,
+                chakraEmoji: "❌",
+                chakraTitle: "Ошибка",
+                chakraName: "Ошибка данных",
+                inner: "Ошибка даты",
+                outer: "Дата вне диапазона",
+                relationship: "Нет данных",
+                link: "#",
+                lovelink: "#",
+                lunarDescription: "Нет данных",
+                lunarEmoji: "❌",
+                lunarNumber: 0,
+                lunarTitle: "Ошибка",
+                lunarName: "Ошибка данных"
+              }, 
+              currentPath: "Дата вне диапазона данных!", 
+              today: "" 
+            });
+        return;
+    }
 
-        const sunDegree = solarEntry.Solar_Longitude;
-        const moonDegree = lunarEntry.Lunar_Longitude;
+    const sunDegree = solarEntry.Solar_Longitude;
+    const moonDegree = lunarEntry.Lunar_Longitude;
 
-        const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
-        setBirthChakra(result.result);
+    const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+    setBirthChakra(result.result);
+
+    // 🔹 Добавляем расчет чакр по солнцу и луне
+    const chakraNameMap = {
+        1: "Муладхара",
+        2: "Свадхистхана",
+        3: "Манипура",
+        4: "Анахата",
+        5: "Вишудха",
+        6: "Аджна",
+        7: "Сахасрара"
     };
+
+    const chakraNumberSun = getPersonalChakraDay(birthDate, today, moonDegree);
+    const chakraNumberMoon = getChakraFromTithi(getCurrentTithi(moonDegree));
+
+    setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
+    setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
+};
+
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
