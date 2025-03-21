@@ -77,6 +77,9 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 
         const chakraName = (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName;
         const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
+console.log("birthChakra.birth.chakraName =", birthChakra?.birth.chakraName);
+console.log("chakraName =", (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName);
+console.log("chakraInfo =", day_EQ7.chakras[(birthChakra?.birth.chakraName || 'Муладхара') as ChakraName]);
 
         if (chakraInfo) {
             setEmotionAnalysis(
