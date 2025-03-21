@@ -269,73 +269,81 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
                 </div>
             )}
             </div>    
-   {/* 🔹 Диалог "Твое восприятие сегодня" */}
+{/* 🔹 Диалог "Твое восприятие сегодня" */}
 {showEmotionDialog && birthChakra && (
   <div style={{
     position: "fixed",
-    top: "0",
-    left: "0",
+    top: 0,
+    left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0,0,0,0.5)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
   }}>
     <div style={{
-      backgroundColor: "white",
+      backgroundColor: "#ffffff",
       padding: "20px",
       borderRadius: "10px",
+      maxWidth: "90%",
+      width: "500px",
       textAlign: "center",
-      maxWidth: "500px"
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+      color: "#000"
     }}>
-      {currentStep === 'sun' && (
+      {currentStep === 'sun' && birthChakra.birth.chakraName && day_EQ7.chakras[birthChakra.birth.chakraName] && (
         <>
           <p>
             Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> ({birthChakra.birth.chakraName}) прямо сейчас?
           </p>
           <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.balance}</small>
+            ✅ В балансе<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.excess}</small>
+            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.block}</small>
+            ⛔️ В блоке<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.block}</small>
           </button>
         </>
       )}
 
-      {currentStep === 'moon' && (
+      {currentStep === 'moon' && birthChakra.birth.chakraName && day_EQ7.chakras[birthChakra.birth.chakraName] && (
         <>
           <p>
             Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> ({birthChakra.birth.chakraName}) прямо сейчас?
           </p>
           <button onClick={() => handleStateSelect("balance")}>
-            ✅ В балансе<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.balance}</small>
+            ✅ В балансе<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🌊 В потоке (избыток)<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.excess}</small>
+            🌊 В потоке (избыток)<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            ⛔️ В блоке<br /><small>{(day_EQ7 as any).chakras[birthChakra.birth.chakraName].states.block}</small>
+            ⛔️ В блоке<br /><small>{day_EQ7.chakras[birthChakra.birth.chakraName].states.block}</small>
           </button>
         </>
       )}
 
-      {currentStep === 'result' && (
+      {currentStep === 'result' && emotionAnalysis && (
         <>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
+          <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+        </>
+      )}
+
+      {/* Если по каким-то причинам данные не загрузились */}
+      {(!birthChakra.birth.chakraName || !day_EQ7.chakras[birthChakra.birth.chakraName]) && (
+        <>
+          <p>⚠️ Данные о чакре не загружены корректно.</p>
           <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
         </>
       )}
     </div>
   </div>
 )}
-
-
-
-            {/* 🔹 Диалог "Задать вопрос" */}
+{/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
                 <div style={{
                     position: "fixed",
