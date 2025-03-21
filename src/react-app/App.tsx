@@ -121,7 +121,9 @@ const startEmotionDialog = () => {
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
     setEmotionAnalysis(null);
-    setCurrentStep('sun');
+
+    // 🔁 теперь по умолчанию начинается с intro
+    setCurrentStep('intro');
     setSunState(null);
     setMoonState(null);
 };
