@@ -32,8 +32,8 @@ const QUESTIONS = [
 ];
 
 function App() {
-    const [birthDate, setBirthDate] = useState("");
-    const [birthChakra, setBirthChakra] = useState<{
+  const [birthDate, setBirthDate] = useState("");
+  const [birthChakra, setBirthChakra] = useState<{
     birth: {
         chakraNumber: number;
         chakraEmoji: string;
@@ -52,6 +52,7 @@ function App() {
     };
     currentPath: string;
     today: string;
+    todayText: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
