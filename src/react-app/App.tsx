@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { getBirthChakra, analyzeQuery } from "../api/birthChakra";
-import solarData from "../api/solar.json";
-import lunarData from "../api/lunar.json";
-import day_EQ7 from "../api/dayEQ7_data.json";
 import {
   getBirthChakra,
   analyzeQuery,
@@ -10,6 +6,9 @@ import {
   getCurrentTithi,
   getChakraFromTithi
 } from "../api/birthChakra";
+import solarData from "../api/solar.json";
+import lunarData from "../api/lunar.json";
+import day_EQ7 from "../api/dayEQ7_data.json";
 
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
