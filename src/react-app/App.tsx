@@ -73,6 +73,9 @@ const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null
 const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
 const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
 console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
+
+const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
+const [showEmotionReminder, setShowEmotionReminder] = useState(false);
     
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -100,6 +103,9 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
             `☀️ По Солнцу (${chakraNameSun}): ${chakraInfoSun.sun_recommendations[sunState!]}\n` +
             `🌙 По Луне (${chakraNameMoon}): ${chakraInfoMoon.moon_recommendations[state]}`
         );
+
+        // ✅ Ставим флаг — состояние дня пройдено
+        setIsEmotionStepCompleted(true);
     }
 };
 
@@ -298,10 +304,27 @@ const startEmotionDialog = () => {
                         }}>
                         <h4>🛤️ Твой путь сейчас:</h4>
                         <p>{birthChakra.currentPath}</p>
-                        <button onClick={startQuestionnaire}>Задать вопрос</button>
+                        <button
+                          onClick={() => {
+                            if (isEmotionStepCompleted) {
+                              startQuestionnaire();
+                            } else {
+                              setShowEmotionReminder(true);
+                            }
+                          }}
+                          disabled={!isEmotionStepCompleted}
+                          style={{
+                            opacity: isEmotionStepCompleted ? 1 : 0.5,
+                            pointerEvents: 'auto',
+                            cursor: isEmotionStepCompleted ? 'pointer' : 'not-allowed',
+                            marginTop: "10px"
+                          }}
+                        >
+                          Задать вопрос
+                        </button>
                     </div>
                 <p>
-              2025 © R&D проект Юры Реута{' '}
+              2025 © Non Profit R&D by Yury Reut{' '}
               <a
                 href="https://www.instagram.com/nowyoucanseelove/"
                 target="_blank"
@@ -313,7 +336,23 @@ const startEmotionDialog = () => {
             </p>
                 </div>
             )}
-            </div>    
+            </div>   
+{showEmotionReminder && (
+  <div style={{
+    marginTop: "10px",
+    color: "#b00000",
+    backgroundColor: "#ffe0e0",
+    padding: "10px",
+    borderRadius: "8px"
+  }}>
+    🔁 Сначала уточни своё <b>состояние дня</b>, чтобы задать осознанный вопрос.
+    <br />
+    <button onClick={() => {
+      setShowEmotionReminder(false);
+      startEmotionDialog();
+    }}>Открыть состояние дня</button>
+  </div>
+)}
 {/* 🔹 Диалог "Твое восприятие сегодня" */}
 {showEmotionDialog && birthChakra && (
   <div style={{
