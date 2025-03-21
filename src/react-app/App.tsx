@@ -87,8 +87,8 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-        const chakraName = birthChakra?.birth.chakraName as keyof typeof day_EQ7.chakras || 'Муладхара';
-        const chakraInfo = day_EQ7.chakras[chakraName as keyof typeof day_EQ7.chakras];
+        const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
+        const chakraInfo = (day_EQ7.chakras as Record<string, any>)[chakraName];
         
         setEmotionAnalysis(
           `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
