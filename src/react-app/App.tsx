@@ -100,8 +100,8 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         }
 
         setEmotionAnalysis(
-            `☀️ По Солнцу (${chakraNameSun}): ${chakraInfoSun.sun_recommendations[sunState!]}\n` +
-            `🌙 По Луне (${chakraNameMoon}): ${chakraInfoMoon.moon_recommendations[state]}`
+          `☀️ В действиях: ${chakraInfoSun.sun_recommendations[sunState!]}\n` +
+          `🌙 В эмоциях: ${chakraInfoMoon.moon_recommendations[state]}`
         );
 
         // ✅ Ставим флаг — состояние дня пройдено
