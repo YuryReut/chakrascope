@@ -55,11 +55,36 @@ function App() {
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
 
-    // 🔹 Состояния для диалога про эмоции дня
-    const [showEmotionDialog, setShowEmotionDialog] = useState(false);
-    const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
-    const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
+    // 🔹 Запуск диалога про эмоции дня
+const startEmotionDialog = () => {
+    setShowEmotionDialog(true);
+    setSelectedEmotion(null);
+    setEmotionAnalysis(null);
+    setCurrentStep('sun');
+    setSunState(null);
+    setMoonState(null);
+};
 
+// 🔹 Новые состояния для шагов и состояний чакр
+const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun');
+const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
+const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
+
+// 🔹 Обработка выбора состояния чакры
+const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
+    if (currentStep === 'sun') {
+        setSunState(state);
+        setCurrentStep('moon');
+    } else if (currentStep === 'moon') {
+        setMoonState(state);
+        setCurrentStep('result');
+
+        const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
+        const chakraInfo = day_EQ7[chakraName];
+
+        setEmotionAnalysis(`☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`);
+    }
+};
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
@@ -125,19 +150,6 @@ function App() {
         const analysis = analyzeQuery(answers);
         setQueryResult(analysis);
         setShowAnalysis(true);
-    };
-
-    // 🔹 Запуск диалога про эмоции дня
-    const startEmotionDialog = () => {
-        setShowEmotionDialog(true);
-        setSelectedEmotion(null);
-        setEmotionAnalysis(null);
-    };
-
-    // 🔹 Обработка выбора эмоции
-    const handleEmotionSelect = (emotion: string) => {
-        setSelectedEmotion(emotion);
-        setEmotionAnalysis(`🔥 Действия как ${emotion}. 💡 Понимание как ${emotion}.`);
     };
 
     return (
@@ -250,33 +262,50 @@ function App() {
             )}
             </div>    
             {/* 🔹 Диалог "Твое восприятие сегодня" */}
-            {showEmotionDialog && (
-                 <div style={{
-                    position: "fixed",
-                    top: "0",
-                    left: "0",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
+         {showEmotionDialog && (
+             <div style={{
+                position: \"fixed\",
+                top: \"0\",
+                left: \"0\",
+                width: \"100vw\",
+                height: \"100vh\",
+                backgroundColor: \"rgba(0, 0, 0, 0.5)\",
+                display: \"flex\",
+                justifyContent: \"center\",
+                alignItems: \"center\"
+            }}>
+                <div style={{
+                    backgroundColor: \"white\",
+                    padding: \"20px\",
+                    borderRadius: \"10px\",
+                    textAlign: \"center\"
                 }}>
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "20px",
-                        borderRadius: "10px",
-                        textAlign: "center"
-                    }}>
-                    <p>Тестовый режим. Уточни, как ты ощущаешь себя:</p>
-                    <button onClick={() => handleEmotionSelect("спокойствие")}>Спокойствие</button>
-                    <button onClick={() => handleEmotionSelect("радость")}>Радость</button>
-                    <button onClick={() => handleEmotionSelect("вдохновение")}>Вдохновение</button>
-                    {selectedEmotion && <p>{emotionAnalysis}</p>}
-                    <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
-                </div>
+                {currentStep === 'sun' && (
+                    <>
+                        <p>Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> прямо сейчас?</p>
+                        <button onClick={() => handleStateSelect(\"balance\")}>✅ В балансе</button>
+                        <button onClick={() => handleStateSelect(\"excess\")}>🌊 В потоке (избыток)</button>
+                        <button onClick={() => handleStateSelect(\"block\")}>⛔️ В блоке</button>
+                    </>
+                )}
+                {currentStep === 'moon' && (
+                    <>
+                        <p>Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> прямо сейчас?</p>
+                        <button onClick={() => handleStateSelect(\"balance\")}>✅ В балансе</button>
+                        <button onClick={() => handleStateSelect(\"excess\")}>🌊 В потоке (избыток)</button>
+                        <button onClick={() => handleStateSelect(\"block\")}>⛔️ В блоке</button>
+                    </>
+                )}
+                {currentStep === 'result' && (
+                    <>
+                        <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
+                        <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+                    </>
+                )}
             </div>
-            )}
+        </div>
+        )}
+
 
             {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
