@@ -4,6 +4,8 @@ import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 
+type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
+
 function convertToJulianDate(dateString: string): string {
     const date = new Date(dateString);
     const start = new Date(date.getFullYear(), 0, 0);
@@ -62,6 +64,8 @@ const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
 const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun');
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
+console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
+    
     
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -72,7 +76,7 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-        const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
+       const chakraName = (birthChakra?.birth.chakraName || 'Муладхара') as ChakraName;
         const chakraInfo = (day_EQ7 as any).chakras[chakraName] || {};
         
         setEmotionAnalysis(
