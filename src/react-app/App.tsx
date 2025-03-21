@@ -261,50 +261,52 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
                 </div>
             )}
             </div>    
-            {/* 🔹 Диалог "Твое восприятие сегодня" */}
-         {showEmotionDialog && (
-             <div style={{
-                position: \"fixed\",
-                top: \"0\",
-                left: \"0\",
-                width: \"100vw\",
-                height: \"100vh\",
-                backgroundColor: \"rgba(0, 0, 0, 0.5)\",
-                display: \"flex\",
-                justifyContent: \"center\",
-                alignItems: \"center\"
-            }}>
-                <div style={{
-                    backgroundColor: \"white\",
-                    padding: \"20px\",
-                    borderRadius: \"10px\",
-                    textAlign: \"center\"
-                }}>
-                {currentStep === 'sun' && (
-                    <>
-                        <p>Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> прямо сейчас?</p>
-                        <button onClick={() => handleStateSelect(\"balance\")}>✅ В балансе</button>
-                        <button onClick={() => handleStateSelect(\"excess\")}>🌊 В потоке (избыток)</button>
-                        <button onClick={() => handleStateSelect(\"block\")}>⛔️ В блоке</button>
-                    </>
-                )}
-                {currentStep === 'moon' && (
-                    <>
-                        <p>Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> прямо сейчас?</p>
-                        <button onClick={() => handleStateSelect(\"balance\")}>✅ В балансе</button>
-                        <button onClick={() => handleStateSelect(\"excess\")}>🌊 В потоке (избыток)</button>
-                        <button onClick={() => handleStateSelect(\"block\")}>⛔️ В блоке</button>
-                    </>
-                )}
-                {currentStep === 'result' && (
-                    <>
-                        <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
-                        <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
-                    </>
-                )}
-            </div>
+         {/* 🔹 Диалог "Твое восприятие сегодня" */}
+{showEmotionDialog && (
+    <div style={{
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    }}>
+        <div style={{
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            textAlign: "center"
+        }}>
+            {currentStep === 'sun' && (
+                <>
+                    <p>Как ты ощущаешь состояние своей чакры дня <b>по Солнцу</b> прямо сейчас?</p>
+                    <button onClick={() => handleStateSelect("balance")}>✅ В балансе</button>
+                    <button onClick={() => handleStateSelect("excess")}>🌊 В потоке (избыток)</button>
+                    <button onClick={() => handleStateSelect("block")}>⛔️ В блоке</button>
+                </>
+            )}
+
+            {currentStep === 'moon' && (
+                <>
+                    <p>Как ты ощущаешь состояние своей чакры дня <b>по Луне</b> прямо сейчас?</p>
+                    <button onClick={() => handleStateSelect("balance")}>✅ В балансе</button>
+                    <button onClick={() => handleStateSelect("excess")}>🌊 В потоке (избыток)</button>
+                    <button onClick={() => handleStateSelect("block")}>⛔️ В блоке</button>
+                </>
+            )}
+
+            {currentStep === 'result' && (
+                <>
+                    <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
+                    <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+                </>
+            )}
         </div>
-        )}
+    </div>
+)}
 
 
             {/* 🔹 Диалог "Задать вопрос" */}
