@@ -304,43 +304,23 @@ const startEmotionDialog = () => {
                         }}>
                         <h4>🛤️ Твой путь сейчас:</h4>
                         <p>{birthChakra.currentPath}</p>
-                        <div style={{ position: "relative", display: "inline-block", marginTop: "10px" }}>
-                          <button
-                            onClick={() => {
-                              if (isEmotionStepCompleted) {
-                                startQuestionnaire();
-                              } else {
-                                setShowEmotionReminder(true);
-                              }
-                            }}
-                            style={{
-                              opacity: isEmotionStepCompleted ? 1 : 0.5,
-                              pointerEvents: 'auto',
-                              cursor: 'pointer'
-                            }}
-                          >
-                            Задать вопрос
-                          </button>
-                        
-                          {!isEmotionStepCompleted && (
-                            <div style={{
-                              position: "absolute",
-                              top: "110%",
-                              left: "50%",
-                              transform: "translateX(-50%)",
-                              backgroundColor: "#222",
-                              color: "#fff",
-                              padding: "6px 10px",
-                              borderRadius: "6px",
-                              fontSize: "12px",
-                              whiteSpace: "nowrap",
-                              opacity: 0.9,
-                              zIndex: 10
-                            }}>
-                              Чтобы задать вопрос, сначала уточните своё состояние дня
-                            </div>
-                          )}
-                        </div>
+                        <button
+                          onClick={() => {
+                            if (isEmotionStepCompleted) {
+                              startQuestionnaire();
+                            } else {
+                              setShowEmotionReminder(true);
+                            }
+                          }}
+                          style={{
+                            opacity: isEmotionStepCompleted ? 1 : 0.5,
+                            pointerEvents: 'auto',
+                            cursor: 'pointer',
+                            marginTop: "10px"
+                          }}
+                        >
+                          Задать вопрос
+                        </button>
                     </div>
                 <p>
               2025 © Non Profit R&D by Yury Reut{' '}
@@ -358,18 +338,39 @@ const startEmotionDialog = () => {
             </div>   
 {showEmotionReminder && (
   <div style={{
-    marginTop: "10px",
-    color: "#b00000",
-    backgroundColor: "#ffe0e0",
-    padding: "10px",
-    borderRadius: "8px"
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#fff",
+    color: "#000",
+    padding: "20px",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+    zIndex: 1000,
+    textAlign: "center",
+    maxWidth: "90%",
+    width: "400px"
   }}>
-    🔁 Сначала уточни своё <b>состояние дня</b>, чтобы задать осознанный вопрос.
-    <br />
-    <button onClick={() => {
-      setShowEmotionReminder(false);
-      startEmotionDialog();
-    }}>Открыть состояние дня</button>
+    <p style={{ marginBottom: "15px" }}>
+      🔁 Чтобы задать вопрос, сначала уточни своё состояние дня.
+    </p>
+    <button
+      onClick={() => {
+        setShowEmotionReminder(false);
+        startEmotionDialog();
+      }}
+      style={{
+        padding: "8px 16px",
+        backgroundColor: "#000",
+        color: "#fff",
+        border: "none",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      Перейти к состоянию дня
+    </button>
   </div>
 )}
 {/* 🔹 Диалог "Твое восприятие сегодня" */}
