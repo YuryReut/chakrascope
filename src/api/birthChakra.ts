@@ -82,14 +82,17 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
                 lunarEmoji: chakraMoon.emoji,
                 lunarNumber: lunarChakra,
                 lunarTitle: chakraMoon.title,
-                lunarName: chakraMoon.name
+                lunarName: chakraMoon.name,
+                desc: chakraSun.desc
             },
 
-            currentPath: `💫 Главные энергии года:  ${chakrasData.chakras[yearChakra - 1].desc} из ${chakrasData.chakras[yearChakra - 1].emoji} ${yearChakra}-й Чакры ${chakrasData.chakras[yearChakra - 1].title} (${chakrasData.chakras[yearChakra - 1].name}).
-            🔄 А прямо сейчас в 52-дневном цикле ты живешь через ${chakrasData.chakras[cycleChakra - 1].desc} через ${chakrasData.chakras[cycleChakra - 1].emoji} ${cycleChakra}-ю Чакру ${chakrasData.chakras[cycleChakra - 1].title} (${chakrasData.chakras[cycleChakra - 1].name}).`,
+            currentPath: chakraSun.path && chakraMoon.path
+                ? `☀️ ${chakraSun.path}\n🌙 ${chakraMoon.path}`
+                : "",
 
-            today: `🔥 Ты сегодня — это ${chakrasData.chakras[dayChakra - 1].desc} из ${chakrasData.chakras[dayChakra - 1].emoji} ${dayChakra}-й Чакры ${chakrasData.chakras[dayChakra - 1].title} (${chakrasData.chakras[dayChakra - 1].name}).
-            💫 Эмоции дня — ${chakrasData.chakras[lunarChakra - 1].desc}, потому что энергия в ${chakrasData.chakras[lunarChakra - 1].emoji} ${lunarChakra}-ой Чакре ${chakrasData.chakras[lunarChakra - 1].title} (${chakrasData.chakras[lunarChakra - 1].name}).`
+            today: chakraSun.day && chakraMoon.day
+                ? `☀️ ${chakraSun.day}\n🌙 ${chakraMoon.day}`
+                : ""
         },
         logs: debugLogs
     };
@@ -117,7 +120,7 @@ export function analyzeQuery(answers: boolean[]) {
 
     let chakraMatches = 0;
     let movementDescriptions: string[] = [];
-    
+
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
             movementDescriptions.push("полностью соответствует вашему текущему пути");
@@ -156,4 +159,5 @@ export function analyzeQuery(answers: boolean[]) {
 
     return { interpretation, growthVector, queryOrganicity };
 }
+
 export { getCurrentTithi, getChakraFromTithi };
