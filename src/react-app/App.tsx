@@ -75,16 +75,26 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setMoonState(state);
         setCurrentStep('result');
 
-const chakraNameSun = birthChakra?.today.split(' и ')[0] as ChakraName;
-const chakraNameMoon = birthChakra?.today.split(' и ')[1] as ChakraName;
+        const chakrasToday = birthChakra?.today.split(' и ');
+        
+        if (!chakrasToday || chakrasToday.length !== 2) {
+            setEmotionAnalysis('⚠️ Ошибка определения чакр дня.');
+            return;
+        }
 
-const chakraInfoSun = day_EQ7.chakras[chakraNameSun];
-const chakraInfoMoon = day_EQ7.chakras[chakraNameMoon];
+        const [chakraNameSun, chakraNameMoon] = chakrasToday as [ChakraName, ChakraName];
 
-setEmotionAnalysis(
-  `☀️ По Солнцу (${chakraNameSun}): ${chakraInfoSun.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraNameMoon}): ${chakraInfoMoon.moon_recommendations[state]}`
-);
+        const chakraInfoSun = day_EQ7.chakras[chakraNameSun];
+        const chakraInfoMoon = day_EQ7.chakras[chakraNameMoon];
 
+        if (!chakraInfoSun || !chakraInfoMoon) {
+            setEmotionAnalysis('⚠️ Ошибка загрузки данных для чакр дня.');
+            return;
+        }
+
+        setEmotionAnalysis(
+            `☀️ По Солнцу (${chakraNameSun}): ${chakraInfoSun.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraNameMoon}): ${chakraInfoMoon.moon_recommendations[state]}`
+        );
     }
 };
 
