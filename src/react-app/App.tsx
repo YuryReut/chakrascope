@@ -54,6 +54,11 @@ function App() {
     }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
+    // 🔹 Состояния для диалога про эмоции дня (восстановлено)
+    const [showEmotionDialog, setShowEmotionDialog] = useState(false);
+    const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+    const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
+
 
     // 🔹 Запуск диалога про эмоции дня
 const startEmotionDialog = () => {
