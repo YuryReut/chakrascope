@@ -31,7 +31,7 @@ function getChakraFromWeekday(date: string): number {
 }
 
 // **🔥 Обновленный персонализированный метод расчета Чакры дня**
-function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
+export function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
     const yearChakra = getChakraFromYear(birthDate);
     const cycleChakra = getChakra52Cycle(birthDate, currentDate);
     const tithi = getCurrentTithi(moonDegree);
