@@ -52,7 +52,6 @@ function App() {
     };
     currentPath: string;
     today: string;
-    todayText: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
