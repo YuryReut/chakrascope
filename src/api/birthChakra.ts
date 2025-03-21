@@ -82,17 +82,10 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
                 lunarEmoji: chakraMoon.emoji,
                 lunarNumber: lunarChakra,
                 lunarTitle: chakraMoon.title,
-                lunarName: chakraMoon.name,
-                desc: chakraSun.desc
+                lunarName: chakraMoon.name
             },
-
-            currentPath: chakraSun.path && chakraMoon.path
-                ? `☀️ ${chakraSun.path}\n🌙 ${chakraMoon.path}`
-                : "",
-
-            today: chakraSun.day && chakraMoon.day
-                ? `☀️ ${chakraSun.day}\n🌙 ${chakraMoon.day}`
-                : ""
+           currentPath: chakrasData.chakras[yearChakra - 1].path,
+           today: chakrasData.chakras[dayChakra - 1].day
         },
         logs: debugLogs
     };
@@ -120,7 +113,7 @@ export function analyzeQuery(answers: boolean[]) {
 
     let chakraMatches = 0;
     let movementDescriptions: string[] = [];
-
+    
     selectedChakras.forEach((chakra) => {
         if (chakra === yearQuarter) {
             movementDescriptions.push("полностью соответствует вашему текущему пути");
@@ -159,5 +152,4 @@ export function analyzeQuery(answers: boolean[]) {
 
     return { interpretation, growthVector, queryOrganicity };
 }
-
 export { getCurrentTithi, getChakraFromTithi };
