@@ -55,11 +55,10 @@ function App() {
     }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
-    // 🔹 Состояния для диалога про эмоции дня (восстановлено)
-    const [showEmotionDialog, setShowEmotionDialog] = useState(false);
-    const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
-        
-// 🔹 Новые состояния для шагов и состояний чакр
+    // 🔹 Состояния для диалога про эмоции дня 
+const [showEmotionDialog, setShowEmotionDialog] = useState(false);
+const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
 const [currentStep, setCurrentStep] = useState<'sun' | 'moon' | 'result'>('sun');
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
@@ -74,14 +73,21 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
         setCurrentStep('result');
 
         const chakraName = birthChakra?.birth.chakraName || 'Муладхара';
-        const chakraInfo = (day_EQ7 as any).chakras[chakraName] as any;
+        const chakraInfo = (day_EQ7 as any).chakras[chakraName] || {};
         
         setEmotionAnalysis(
           `☀️ По Солнцу (${chakraName}): ${chakraInfo.sun_recommendations[sunState!]}\n🌙 По Луне (${chakraName}): ${chakraInfo.moon_recommendations[state]}`
         );
     }
 };
-
+const startEmotionDialog = () => {
+    setShowEmotionDialog(true);
+    setSelectedEmotion(null);
+    setEmotionAnalysis(null);
+    setCurrentStep('sun');
+    setSunState(null);
+    setMoonState(null);
+};
     const handleCheckChakra = () => {
         const today = new Date().toISOString().split("T")[0];
         const formattedDate = convertToJulianDate(birthDate);
