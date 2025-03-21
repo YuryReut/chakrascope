@@ -110,23 +110,22 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 };
 
 const startEmotionDialog = () => {
-    if (birthChakra?.today) {
-        const chakrasToday = birthChakra.today.split(" и ");
-        if (chakrasToday.length === 2) {
-            setChakraNameSun(chakrasToday[0] as ChakraName);
-            setChakraNameMoon(chakrasToday[1] as ChakraName);
-        }
+    if (birthChakra?.chakraNameSun && birthChakra?.chakraNameMoon) {
+        setChakraNameSun(birthChakra.chakraNameSun as ChakraName);
+        setChakraNameMoon(birthChakra.chakraNameMoon as ChakraName);
+    } else {
+        setChakraNameSun(null);
+        setChakraNameMoon(null);
     }
 
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
     setEmotionAnalysis(null);
-
-    // 🔁 теперь по умолчанию начинается с intro
-    setCurrentStep('intro');
+    setCurrentStep('sun');
     setSunState(null);
     setMoonState(null);
 };
+
 
   const handleCheckChakra = () => {
     const today = new Date().toISOString().split("T")[0];
