@@ -290,8 +290,8 @@ const startEmotionDialog = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>📅 Сегодня твой день:</h4>
-                        <p>{birthChakra.today}</p>
+                        <h4>📅 Сегодня:</h4>
+                        <p>{birthChakra.todayText}</p>
                         <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                     </div>
 
@@ -304,7 +304,7 @@ const startEmotionDialog = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>🛤️ Твой путь сейчас:</h4>
+                        <h4>🛤️ Твой путь:</h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
                           onClick={() => {
