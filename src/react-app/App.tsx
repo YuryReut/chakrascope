@@ -400,37 +400,37 @@ const startEmotionDialog = () => {
     }}>
       {currentStep === 'sun' && chakraNameSun && day_EQ7.chakras[chakraNameSun] && (
         <>
-          <p>Что больше описывает твои действия сегодня?</p>
+          <p style={{ marginBottom: "15px" }}>Что лучше описывает твои действия сегодня?</p>
           <button onClick={() => handleStateSelect("balance")}>
-            🙂 В балансе<br /><small>{day_EQ7.chakras[chakraNameSun].states.balance}</small>
+            🙂 Спокойные, уверенные действия<br /><small>{day_EQ7.chakras[chakraNameSun].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🤩 В потоке<br /><small>{day_EQ7.chakras[chakraNameSun].states.excess}</small>
+            ⚡️ Много суеты или резкости<br /><small>{day_EQ7.chakras[chakraNameSun].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            😶 В блоке<br /><small>{day_EQ7.chakras[chakraNameSun].states.block}</small>
+            💤 Ощущение ступора или замедления<br /><small>{day_EQ7.chakras[chakraNameSun].states.block}</small>
           </button>
         </>
       )}
 
       {currentStep === 'moon' && chakraNameMoon && day_EQ7.chakras[chakraNameMoon] && (
         <>
-          <p>Что лучше описывает твои эмоции сегодня?</p>
+          <p style={{ marginBottom: "15px" }}>Что лучше описывает твои эмоции сегодня?</p>
           <button onClick={() => handleStateSelect("balance")}>
-            🙂 В балансе<br /><small>{day_EQ7.chakras[chakraNameMoon].states.balance}</small>
+            🙂 Спокойные, мягкие эмоции<br /><small>{day_EQ7.chakras[chakraNameMoon].states.balance}</small>
           </button>
           <button onClick={() => handleStateSelect("excess")}>
-            🤩 В потоке<br /><small>{day_EQ7.chakras[chakraNameMoon].states.excess}</small>
+            😵 Перепады, перегруз, накаты<br /><small>{day_EQ7.chakras[chakraNameMoon].states.excess}</small>
           </button>
           <button onClick={() => handleStateSelect("block")}>
-            😶 В блоке<br /><small>{day_EQ7.chakras[chakraNameMoon].states.block}</small>
+            😶 Сложно что-то почувствовать<br /><small>{day_EQ7.chakras[chakraNameMoon].states.block}</small>
           </button>
         </>
       )}
 
       {currentStep === 'result' && emotionAnalysis && (
         <>
-          <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
+          <p style={{ whiteSpace: 'pre-line', marginBottom: '15px' }}>{emotionAnalysis}</p>
           <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
         </>
       )}
@@ -444,6 +444,7 @@ const startEmotionDialog = () => {
     </div>
   </div>
 )}
+          
 {/* 🔹 Диалог "Задать вопрос" */}
             {showQuestions && (
                 <div style={{
