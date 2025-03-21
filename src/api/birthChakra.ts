@@ -83,8 +83,8 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
                 lunarTitle: chakraMoon.title,
                 lunarName: chakraMoon.name
             },
-           currentPath: chakrasData.chakras[yearChakra - 1].path,
-           today: chakrasData.chakras[dayChakra - 1].day
+            today: `${chakrasData.chakras[dayChakra - 1].emoji} ${chakrasData.chakras[dayChakra - 1].day}`,
+            currentPath: `${chakrasData.chakras[yearChakra - 1].emoji} ${chakrasData.chakras[yearChakra - 1].path}`,
         },
         logs: debugLogs
     };
