@@ -121,12 +121,11 @@ const startEmotionDialog = () => {
     setShowEmotionDialog(true);
     setSelectedEmotion(null);
     setEmotionAnalysis(null);
-
-    // 🔁 теперь по умолчанию начинается с intro
     setCurrentStep('intro');
     setSunState(null);
     setMoonState(null);
 };
+
 
 
   const handleCheckChakra = () => {
