@@ -480,7 +480,7 @@ const startEmotionDialog = () => {
       backgroundColor: "#ffffff",
       padding: "20px",
       borderRadius: "10px",
-      maxWidth: "90%",
+      maxWidth: "90vw",
       width: "500px",
       textAlign: "center",
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
@@ -565,6 +565,8 @@ const startEmotionDialog = () => {
                     <div style={{
                         backgroundColor: "white",
                         padding: "20px",
+                        width: "90vw",
+                        maxWidth: "500px",
                         borderRadius: "10px",
                         textAlign: "center"
                     }}>
