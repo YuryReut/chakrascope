@@ -76,6 +76,11 @@ const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null
 void moonState;
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
+void queryResult;
+void questionConfirmed;
+void showAnalysis;
+void handleAnswer;
+void handleGetAnswer;
   
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -612,3 +617,5 @@ const startEmotionDialog = () => {
         </div>
     );
 }
+
+export default App;
