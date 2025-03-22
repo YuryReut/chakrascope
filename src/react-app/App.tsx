@@ -52,8 +52,7 @@ function App() {
         queryOrganicity: string[];
         todayPerception: string;
     }>(null);
-    const [questionConfirmed, setQuestionConfirmed] = useState(false);
-    const [showAnalysis, setShowAnalysis] = useState(false);
+
     // 🔹 Состояния для диалога про эмоции дня 
 const [showEmotionDialog, setShowEmotionDialog] = useState(false);
 const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
@@ -69,8 +68,6 @@ void moonState;
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
 void queryResult;
-void questionConfirmed;
-void showAnalysis;
   
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
