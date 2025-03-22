@@ -71,6 +71,7 @@ const [currentStep, setCurrentStep] = useState<'intro' | 'sun' | 'moon' | 'resul
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
 const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
+const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
