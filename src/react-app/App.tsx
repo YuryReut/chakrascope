@@ -79,8 +79,6 @@ const [showEmotionReminder, setShowEmotionReminder] = useState(false);
 void queryResult;
 void questionConfirmed;
 void showAnalysis;
-void handleAnswer;
-void handleGetAnswer;
   
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -213,6 +211,9 @@ const startEmotionDialog = () => {
         setQueryResult(analysis);
         setShowAnalysis(true);
     };
+  
+void handleAnswer;
+void handleGetAnswer;
 
     return (
         <div style={{
