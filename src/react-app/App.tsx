@@ -77,6 +77,7 @@ console.log(selectedEmotion, moonState); // временно, чтобы убр�
 
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
+  
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
     if (currentStep === 'sun') {
@@ -125,8 +126,6 @@ const startEmotionDialog = () => {
     setSunState(null);
     setMoonState(null);
 };
-
-
 
   const handleCheckChakra = () => {
     const today = new Date().toISOString().split("T")[0];
@@ -184,7 +183,6 @@ const startEmotionDialog = () => {
     setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
 };
 
-
     const startQuestionnaire = () => {
         setShowQuestions(true);
         setQuestionConfirmed(false);
@@ -229,6 +227,47 @@ const startEmotionDialog = () => {
             boxSizing: "border-box",
             backgroundColor: "#ffffff"
         }}>
+          <style>
+  {`
+    button {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .button-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+  `}
+</style>
+
             <div style={{
                 display: "flex",
                 flexDirection: "column",
@@ -452,15 +491,11 @@ const startEmotionDialog = () => {
       {currentStep === 'intro' && (
         <>
           <p style={{ marginBottom: "20px", whiteSpace: "pre-line" }}>
-            Твое восприятие может быть чистым только в медитации.
-            Ты практически постоянно находишься в состоянии аффекта.
-            Солнце и Луна задают в определенном уровне твое восприятие того,
-            что происходит вокруг, и ты воспринимаешь свое внутреннее состояние
-            и мир вокруг через энергетические центры.
-
-            Уточни свое состояние и получи рекомендацию —
-            как относиться к миру и к своему состоянию сегодня.
-          </p>
+            Наше восприятие почти всегда искажено — под влиянием гормонов, эмоций и автоматических реакций.
+Только в состоянии глубокой концентрации или медитации оно становится по-настоящему ясным.
+Каждый день активируются определённые уровни нервной и энергетической системы, влияющие на то, как мы действуем и чувствуем.
+Осознавая, через какой центр ты воспринимаешь происходящее сегодня, ты можешь точнее понять свои эмоции и интерпретировать свои действия.
+            </p>
           <button onClick={() => setCurrentStep('sun')}>
             Уточнить состояние
           </button>
@@ -471,19 +506,23 @@ const startEmotionDialog = () => {
       {currentStep === 'sun' && chakraNameSun && day_EQ7.chakras[chakraNameSun] && (
         <>
           <p>Что больше описывает твои <b>действия</b> сегодня?</p>
+          <div className="button-column">
           <button onClick={() => handleStateSelect("balance")}>🙂 {day_EQ7.chakras[chakraNameSun].states.balance}</button>
           <button onClick={() => handleStateSelect("excess")}>😵 {day_EQ7.chakras[chakraNameSun].states.excess}</button>
           <button onClick={() => handleStateSelect("block")}>😶 {day_EQ7.chakras[chakraNameSun].states.block}</button>
-        </>
+        </div>
+       </>
       )}
 
       {/* Этап 2 — состояние по Луне */}
       {currentStep === 'moon' && chakraNameMoon && day_EQ7.chakras[chakraNameMoon] && (
         <>
           <p>Что лучше описывает твои <b>эмоции</b> сегодня?</p>
+          <div className="button-column">
           <button onClick={() => handleStateSelect("balance")}>🙂 {day_EQ7.chakras[chakraNameMoon].states.balance}</button>
           <button onClick={() => handleStateSelect("excess")}>😵 {day_EQ7.chakras[chakraNameMoon].states.excess}</button>
           <button onClick={() => handleStateSelect("block")}>😶 {day_EQ7.chakras[chakraNameMoon].states.block}</button>
+          </div>
         </>
       )}
 
@@ -492,7 +531,9 @@ const startEmotionDialog = () => {
         <>
           <p><b>Рекомендации:</b></p>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
-          <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+          <<div className="button-row">>
+            <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+          </div>
         </>
       )}
 
@@ -500,7 +541,9 @@ const startEmotionDialog = () => {
       {(!chakraNameSun || !chakraNameMoon || !day_EQ7.chakras[chakraNameSun] || !day_EQ7.chakras[chakraNameMoon]) && (
         <>
           <p>⚠️ Данные о чакрах дня не загружены корректно.</p>
-          <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+          <div className="button-row">
+            <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
+          </div>
         </>
       )}
     </div>
@@ -528,25 +571,33 @@ const startEmotionDialog = () => {
                     {!questionConfirmed ? (
                         <>
                             <p>Тестовый режим. Сформулируйте свой вопрос.</p>
-                            <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
+                            <div className="button-row">
+                              <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
+                            </div>
                         </>
                     ) : currentQuestion !== null ? (
                         <>
                             <p>{QUESTIONS[currentQuestion]}</p>
+                          <div className="button-row">
                             <button onClick={() => handleAnswer(true)}>Да</button>
                             <button onClick={() => handleAnswer(false)}>Нет</button>
+                          </div>
                         </>
                     ) : !showAnalysis ? (
                         <>
                             <p>Ваш вопрос описан.</p>
+                          <div className="button-row">
                             <button onClick={handleGetAnswer}>Получить ответ</button>
+                          </div>
                         </>
                     ) : queryResult ? (
                         <div>
                             <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
                             <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
                             <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
-                            <button onClick={() => setShowQuestions(false)}>Закрыть</button>
+                            <div className="button-row">
+                              <button onClick={() => setShowQuestions(false)}>Закрыть</button>
+                            </div>
                         </div>
                     ) : null}
                 </div>
