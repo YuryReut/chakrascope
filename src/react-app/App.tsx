@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   getBirthChakra,
-  analyzeQuery,
   getPersonalChakraDay,
   getCurrentTithi,
   getChakraFromTithi
@@ -57,8 +56,6 @@ function App() {
     const [showQuestions, setShowQuestions] = useState(false);
     const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
     const [showBirthDetails, setShowBirthDetails] = useState(false);
-    const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
-    const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
     const [queryResult, setQueryResult] = useState<null | {
         interpretation: string;
         growthVector: string;
