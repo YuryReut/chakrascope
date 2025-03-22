@@ -244,20 +244,24 @@ const startEmotionDialog = () => {
             }}>
                 <h1>Чакроскоп</h1>
              <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
-              <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                style={{
-                  padding: "8px 12px",
-                  fontSize: "16px",
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                  backgroundColor: "#fff",
-                  color: "#000",
-                  maxWidth: "200px"
-                }}
-              />
+              <label style={{ marginRight: "10px" }}>
+                Введите дату рождения:
+                <input 
+                  type="date" 
+                  value={birthDate} 
+                  onChange={(e) => setBirthDate(e.target.value)} 
+                  style={{ 
+                    marginLeft: "10px",
+                    padding: "8px",
+                    fontSize: "16px",
+                    border: "1px solid #ccc",
+                    borderRadius: "6px",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    minWidth: "180px"
+                  }} 
+                />
+              </label>
               <button
                 onClick={handleCheckChakra}
                 style={{
