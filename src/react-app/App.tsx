@@ -570,84 +570,62 @@ const startEmotionDialog = () => {
             Выбери только одну — ту, которая откликается сильнее всего.
           </p>
           <div className="button-column">
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Материальное, безопасность",
-                todayPerception: "Сегодня ты можешь переоценивать важность этого вопроса",
-                queryOrganicity: ["Это естественная для тебя тема"],
-                growthVector: "Ты немного возвращаешься назад, но всё ещё в потоке"
-              });
-              setQuestionStep('result');
-            }}>
-              Материальное, безопасность
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Эмоции, желания",
-                todayPerception: "Сегодня это может ощущаться ярче, чем есть на самом деле",
-                queryOrganicity: ["Это не совсем твоя тема"],
-                growthVector: "Это может ощущаться как вызов — но он в верном направлении"
-              });
-              setQuestionStep('result');
-            }}>
-              Эмоции, желания
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Достижения, сила воли",
-                todayPerception: "Сегодня ты видишь ситуацию достаточно трезво",
-                queryOrganicity: ["Это естественная для тебя тема"],
-                growthVector: "Ты в точке — этот вопрос полностью совпадает с твоим направлением"
-              });
-              setQuestionStep('result');
-            }}>
-              Достижения, сила воли
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Отношения, чувства",
-                todayPerception: "Сегодня ты можешь быть не до конца уверена в себе",
-                queryOrganicity: ["Это естественная для тебя тема"],
-                growthVector: "Пока это не в фокусе твоего года"
-              });
-              setQuestionStep('result');
-            }}>
-              Отношения, чувства
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Творчество, выражение",
-                todayPerception: "Ты воспринимаешь всё довольно ясно",
-                queryOrganicity: ["Это естественная для тебя тема"],
-                growthVector: "Это в фокусе — хороший момент для такого вопроса"
-              });
-              setQuestionStep('result');
-            }}>
-              Творчество, выражение
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Интуиция, образы",
-                todayPerception: "Есть шанс переоценить глубину вопроса",
-                queryOrganicity: ["Это не совсем твоя привычная зона"],
-                growthVector: "Это шаг вверх — может быть непросто, но верно"
-              });
-              setQuestionStep('result');
-            }}>
-              Восприятие и понимание вещей
-            </button>
-            <button onClick={() => {
-              setQueryResult({
-                interpretation: "Единство, духовность",
-                todayPerception: "Твоё восприятие сегодня совпадает с сутью вопроса",
-                queryOrganicity: ["Это естественная для тебя тема"],
-                growthVector: "Это вопрос о самом главном — ты готова к нему"
-              });
-              setQuestionStep('result');
-            }}>
-              Духовность
-            </button>
-          </div>
+  <button onClick={() => {
+    const result = generateQueryResult(0); // 🔴
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🔴 Материальное, безопасность
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(1); // 🟠
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🟠 Эмоции, желания
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(2); // 🟡
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🟡 Достижения, сила воли
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(3); // 🟢
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🟢 Отношения, чувства
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(4); // 🔵
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🔵 Творчество, выражение
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(5); // 🟣
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    🟣 Интуиция, образы
+  </button>
+
+  <button onClick={() => {
+    const result = generateQueryResult(6); // ⚪
+    setQueryResult(result);
+    setQuestionStep('result');
+  }}>
+    ⚪ Единство, духовность
+  </button>
+</div>
         </>
       )}
 
