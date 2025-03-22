@@ -552,64 +552,64 @@ const startEmotionDialog = () => {
   </div>
 )}
 {/* 🔹 Диалог "Задать вопрос" */}
-            {showQuestions && (
-                <div style={{
-                    position: "fixed",
-                    top: "0",
-                    left: "0",
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}>
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "20px",
-                        width: "100%",
-                        maxWidth: "90vw",
-                        borderRadius: "10px",
-                        boxSizing: "border-box",
-                        textAlign: "center"
-                    }}>
-                    {!questionConfirmed ? (
-                        <>
-                            <p>Тестовый режим. Сформулируйте свой вопрос.</p>
-                            <div className="button-row">
-                              <button onClick={() => setQuestionConfirmed(true)}>Готово</button>
-                            </div>
-                        </>
-                    ) : currentQuestion !== null ? (
-                        <>
-                            <p>{QUESTIONS[currentQuestion]}</p>
-                          <div className="button-row">
-                            <button onClick={() => handleAnswer(true)}>Да</button>
-                            <button onClick={() => handleAnswer(false)}>Нет</button>
-                          </div>
-                        </>
-                    ) : !showAnalysis ? (
-                        <>
-                            <p>Ваш вопрос описан.</p>
-                          <div className="button-row">
-                            <button onClick={handleGetAnswer}>Получить ответ</button>
-                          </div>
-                        </>
-                    ) : queryResult ? (
-                        <div>
-                            <p>📜 <b>Вы понимаете сам вопрос как:</b> {queryResult.interpretation}</p>
-                            <p>🔄 <b>Этот вопрос про:</b> {queryResult.growthVector}</p>
-                            <p>🌱 <b>Для вас этот вопрос:</b> {queryResult.queryOrganicity.join(", ")}</p>
-                            <div className="button-row">
-                              <button onClick={() => setShowQuestions(false)}>Закрыть</button>
-                            </div>
-                        </div>
-                    ) : null}
-                </div>
-              </div>
-            )}
-        </div>
-    );
+{showQuestions && (
+  <div style={{
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000
+  }}>
+    <div style={{
+      backgroundColor: "white",
+      padding: "20px",
+      width: "100%",
+      maxWidth: "90vw",
+      borderRadius: "10px",
+      boxSizing: "border-box",
+      textAlign: "center",
+      color: "#000"
+    }}>
+      <p style={{ marginBottom: "20px", fontSize: "16px" }}>
+        Чтобы получить точный ответ, важно понять, к какой сфере жизни относится твой вопрос.  
+        Это поможет тебе увидеть его с нужного уровня.  
+        Выбери только один вариант, который лучше всего описывает суть.
+      </p>
+      <div className="button-column">
+        <button onClick={() => { setAnswers([true, false, false, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 1-я чакра"); }}>
+          🔴 Материальное, безопасность
+        </button>
+        <button onClick={() => { setAnswers([false, true, false, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 2-я чакра"); }}>
+          🟠 Эмоции, желания
+        </button>
+        <button onClick={() => { setAnswers([false, false, true, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 3-я чакра"); }}>
+          🟡 Достижения, сила воли
+        </button>
+        <button onClick={() => { setAnswers([false, false, false, true, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 4-я чакра"); }}>
+          🟢 Отношения, чувства
+        </button>
+        <button onClick={() => { setAnswers([false, false, false, false, true, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 5-я чакра"); }}>
+          🔵 Творчество, выражение
+        </button>
+        <button onClick={() => { setAnswers([false, false, false, false, false, true, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 6-я чакра"); }}>
+          🟣 Интуиция, образы
+        </button>
+        <button onClick={() => { setAnswers([false, false, false, false, false, false, true]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 7-я чакра"); }}>
+          ⚪ Единство, духовность
+        </button>
+      </div>
+      <div className="button-row" style={{ marginTop: "20px" }}>
+        <button onClick={() => setShowQuestions(false)}>Отмена</button>
+      </div>
+    </div>
+  </div>
+)}
+
 }
 
 export default App;
