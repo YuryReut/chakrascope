@@ -697,7 +697,7 @@ void handleGetAnswer;
     </div>
   </div>
 )}
-      {queryResult && (
+  {queryResult && (
   <div style={{
     position: "fixed",
     top: 0,
@@ -717,21 +717,24 @@ void handleGetAnswer;
       width: "100%",
       maxWidth: "90vw",
       boxSizing: "border-box",
-      textAlign: "center",
+      textAlign: "left",
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-      color: "#000"
+      color: "#000",
+      fontSize: "16px",
+      lineHeight: "1.5"
     }}>
-      <h4>🧩 Ответ на твой вопрос</h4>
-      <p><b>💡 Твой вопрос про:</b> {queryResult.interpretation}</p>
-      <p><b>🌀 Сегодня:</b> {queryResult.todayPerception}</p>
-      <p><b>🌿 Эта тема для тебя:</b> {queryResult.queryOrganicity.join(", ")}</p>
+      <p><b>💡 Вопрос про:</b> {queryResult.interpretation}</p>
+      <p><b>Сегодня:</b><br />👉 {queryResult.todayPerception}</p>
+      <p><b>Это для тебя:</b><br />🌱 {queryResult.queryOrganicity.join(", ")}</p>
+      <p><b>Направление:</b><br />➡️ {queryResult.growthVector}</p>
 
-      <div className="button-row" style={{ marginTop: "20px" }}>
+      <div className="button-row" style={{ marginTop: "20px", textAlign: "center" }}>
         <button onClick={() => setQueryResult(null)}>Закрыть</button>
       </div>
     </div>
   </div>
 )}
+
 
         </div>
     );
