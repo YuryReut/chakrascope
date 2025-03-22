@@ -334,12 +334,24 @@ const startEmotionDialog = () => {
                       <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                     </p>
                   
-                    {!showBirthDetails && (
-                      <button onClick={() => setShowBirthDetails(true)} style={{ marginTop: "10px" }}>
-                        Больше
-                      </button>
-                    )}
-                  
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setShowBirthDetails(!showBirthDetails);
+                      }}
+                      style={{
+                        display: "inline-block",
+                        marginTop: "10px",
+                        fontSize: "14px",
+                        color: "#0077cc",
+                        textDecoration: "underline",
+                        cursor: "pointer"
+                      }}
+                    >
+                      {showBirthDetails ? "Скрыть" : "Подробнее"}
+                    </a>
+
                     {showBirthDetails && (
                       <div style={{ marginTop: "10px" }}>
                         <p>💫 Как ты ощущаешь себя внутри: {birthChakra.birth.inner}</p>
