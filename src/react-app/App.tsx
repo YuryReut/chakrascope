@@ -55,6 +55,7 @@ function App() {
     todayText: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
+    const [showBirthDetails, setShowBirthDetails] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
     const [queryResult, setQueryResult] = useState<null | {
@@ -314,53 +315,39 @@ const startEmotionDialog = () => {
             </div>
             {birthChakra && (
                 <div>
-                    {/* Блок 1 - С чем ты пришел в мир */}
-                    <div style={{
-                            backgroundColor: "#ffffff",
-                            padding: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                            marginBottom: "15px",
-                            textAlign: "left"
-                        }}>
-                        <h4>🔆 С чем ты пришел в этот мир:</h4>
-                        <p>
-                          🔆 Твоя основная чакра — {birthChakra.birth.chakraEmoji} {birthChakra.birth.chakraNumber}-й чакры {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) → <a 
-                              href={birthChakra.birth.link} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              style={{ color: "inherit", textDecoration: "none" }}
-                            >
-                              Подробнее
-                            </a>
-                            <br />
-                          🌀 Внутреннее ощущение: {birthChakra.birth.inner}<br />
-                          🌍 Как это проявляется в жизни: {birthChakra.birth.outer}<br />
-                          ❤️ В любви и отношениях: {birthChakra.birth.relationship} → <a 
-                              href={birthChakra.birth.lovelink} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              style={{ color: "inherit", textDecoration: "none" }}
-                            >
-                              Подробнее
-                            </a>
-                          <br /><br />
-                          🌙 Твое восприятие мира — {birthChakra.birth.lunarDescription} из {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-й Чакры {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}).
-                        </p>
-                    </div>
-                    {/* Блок 2 - Сегодня */}
-                    <div style={{
-                            backgroundColor: "#ffffff",
-                            padding: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                            marginBottom: "15px",
-                            textAlign: "left"
-                        }}>
-                        <h4>Сегодня:</h4>
-                        <p>{birthChakra.todayText}</p>
-                        <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-                    </div>
+                   {/* Блок 1 - С чем ты пришел в мир */} 
+                  <div style={{ 
+                    backgroundColor: "#ffffff",
+                    padding: "15px",
+                    borderRadius: "8px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                    marginBottom: "15px",
+                    textAlign: "left"
+                  }}>
+                    <h4>🔆 С чем ты пришел в этот мир:</h4>
+                  
+                    <p>
+                      {birthChakra.birth.chakraEmoji} Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) →{' '}
+                      <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
+                      <br />
+                      ❤️ В любви: {birthChakra.birth.relationship} →{' '}
+                      <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
+                    </p>
+                  
+                    {!showBirthDetails && (
+                      <button onClick={() => setShowBirthDetails(true)} style={{ marginTop: "10px" }}>
+                        Больше
+                      </button>
+                    )}
+                  
+                    {showBirthDetails && (
+                      <div style={{ marginTop: "10px" }}>
+                        <p>💫 Как ты ощущаешь себя внутри: {birthChakra.birth.inner}</p>
+                        <p>🌿 Как ты проявляешься в жизни: {birthChakra.birth.outer}</p>
+                        <p>🌙 Твое восприятие мира — {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}) {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-я чакра: {birthChakra.birth.lunarDescription}</p>
+                      </div>
+                    )}
+                  </div>
 
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
