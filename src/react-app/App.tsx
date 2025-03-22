@@ -242,7 +242,7 @@ const startEmotionDialog = () => {
                 borderRadius: "10px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
-                <h1>Чакроскоп</h1>
+              <h1 style={{ fontWeight: 200, fontSize: "32px", marginBottom: "10px" }}>Чакроскоп</h1>
              <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
               <label style={{ marginRight: "10px" }}>
                 Введите дату рождения:
@@ -363,7 +363,9 @@ const startEmotionDialog = () => {
     marginTop: "20px",
     maxWidth: "700px",
     width: "100%",
-    textAlign: "left",
+    textAlign: "center",
+    fontSize: "11px",
+    lineHeight: "1.5",
     color: "#000"
 }}>
   <p>
