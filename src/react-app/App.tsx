@@ -243,30 +243,36 @@ const startEmotionDialog = () => {
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
                 <h1>Чакроскоп</h1>
-               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
-                <label htmlFor="birthdate" style={{ fontSize: "14px", color: "#555" }}>
-                  Выберите дату рождения
-                </label>
-                <input
-                  id="birthdate"
-                  type="date"
-                  value={birthDate}
-                  onChange={(e) => setBirthDate(e.target.value)}
-                  style={{
-                    padding: "10px",
-                    fontSize: "16px",
-                    border: "1px solid #ccc",
-                    borderRadius: "6px",
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    width: "200px",
-                    maxWidth: "100%",
-                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
-                    appearance: "none"
-                  }}
-                />
-              </div>
-                <button onClick={handleCheckChakra}>Рассчитать</button>
+             <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
+              <input
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                style={{
+                  padding: "8px 12px",
+                  fontSize: "16px",
+                  border: "1px solid #ccc",
+                  borderRadius: "6px",
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  maxWidth: "200px"
+                }}
+              />
+              <button
+                onClick={handleCheckChakra}
+                style={{
+                  padding: "8px 16px",
+                  fontSize: "18px",
+                  border: "1px solid #000",
+                  backgroundColor: "transparent",
+                  color: "#000",
+                  borderRadius: "6px",
+                  cursor: "pointer"
+                }}
+              >
+                →
+              </button>
+            </div>
             {birthChakra && (
                 <div>
                     {/* Блок 1 - С чем ты пришел в мир */}
