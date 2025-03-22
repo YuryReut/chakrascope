@@ -598,18 +598,19 @@ void handleGetAnswer;
       </p>
 
       <div className="button-column">
-        <button onClick={() => {
-          setAnswers([true, false, false, false, false, false, false]);
-          setShowQuestions(false);
+       <button onClick={() => { 
+          setAnswers([true, false, false, false, false, false, false]); 
           setQueryResult({
             interpretation: "🔴 Материальное, безопасность",
-            growthVector: "🟢 Это возвращает тебя назад, к пройденным задачам.",
-            queryOrganicity: ["🧭 Это естественно для тебя"],
-            todayPerception: "😶 Сегодня ты вряд ли сможешь чётко почувствовать этот вопрос"
+            todayPerception: "Сегодня ты можешь переоценивать важность этого вопроса",
+            queryOrganicity: ["Эта тема для тебя естественная"],
+            growthVector: "Ты немного возвращаешься назад, но всё ещё в потоке"
           });
+          setShowQuestions(false);
         }}>
           🔴 Материальное, безопасность
         </button>
+
 
         <button onClick={() => {
           setAnswers([false, true, false, false, false, false, false]);
@@ -696,6 +697,25 @@ void handleGetAnswer;
     </div>
   </div>
 )}
+        {queryResult && (
+  <div style={{
+    backgroundColor: "#ffffff",
+    padding: "20px",
+    borderRadius: "10px",
+    marginTop: "20px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    maxWidth: "700px",
+    textAlign: "left",
+    color: "#000"
+  }}>
+    <h4>🧩 Ответ на твой вопрос</h4>
+    <p><b>💡 Сфера:</b> {queryResult.interpretation}</p>
+    <p><b>🌀 Сегодня:</b> {queryResult.todayPerception}</p>
+    <p><b>🌿 Органичность:</b> {queryResult.queryOrganicity.join(", ")}</p>
+    <p><b>🌊 Движение в году:</b> {queryResult.growthVector}</p>
+  </div>
+)}
+
         </div>
     );
 }
