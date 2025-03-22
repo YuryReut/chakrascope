@@ -172,11 +172,70 @@ const startEmotionDialog = () => {
     setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
 };
 
-    const startQuestionnaire = () => {
+        const startQuestionnaire = () => {
         setShowQuestions(true);
-        setQuestionConfirmed(false);
-        setShowAnalysis(false);
         setQueryResult(null);
+    };
+
+    const generateQueryResult = (chakraIndex: number) => {
+      const chakraLabels = [
+        "Материальное, безопасность",
+        "Эмоции, желания",
+        "Достижения, сила воли",
+        "Отношения, чувства",
+        "Творчество, выражение",
+        "Интуиция, образы",
+        "Единство, духовность"
+      ];
+      const interpretation = chakraLabels[chakraIndex];
+
+      let todayPerception = "🙂 Ты можешь доверять своему ощущению — оно ясное";
+      if (moonState === "block") {
+        todayPerception = "😶 Сегодня ты вряд ли сможешь почувствовать это ясно";
+      } else if (moonState === "excess") {
+        todayPerception = "😵 Сегодня ты можешь переоценить значимость вопроса";
+      }
+
+      let organicityText = "🧭 Это не совсем твоя тема";
+      if (birthChakra) {
+        const chakraLineMap = {
+          1: "male", 3: "male", 5: "male", 7: "female",
+          2: "female", 4: "female", 6: "female"
+        };
+        const birth = birthChakra.birth.chakraNumber;
+        const birthLine = chakraLineMap[birth === 7 ? 2 : birth as keyof typeof chakraLineMap];
+        const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
+        if (birthLine === questionLine) {
+          organicityText = "🌱 Это естественная для тебя тема";
+        }
+      }
+
+      let vectorText = "🔄 Это не в фокусе твоего года.";
+      if (birthChakra) {
+        const chakraLineMap = {
+          1: "male", 3: "male", 5: "male", 7: "female",
+          2: "female", 4: "female", 6: "female"
+        };
+        const yearChakra = parseInt(birthChakra.currentPath.match(/\d/)?.[0] || "0");
+        const yearLine = chakraLineMap[yearChakra === 7 ? 2 : yearChakra as keyof typeof chakraLineMap];
+        const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
+        if (yearLine === questionLine) {
+          if (chakraIndex + 1 < yearChakra) {
+            vectorText = "↩️ Ты немного возвращаешься назад, но всё ещё в потоке";
+          } else if (chakraIndex + 1 === yearChakra) {
+            vectorText = "🎯 Ты в точке — вопрос точно соответствует твоему пути";
+          } else {
+            vectorText = "🚀 Это шаг вперёд — может быть непросто, но верно";
+          }
+        }
+      }
+
+      return {
+        interpretation,
+        todayPerception,
+        queryOrganicity: [organicityText],
+        growthVector: vectorText
+      };
     };
 
     return (
