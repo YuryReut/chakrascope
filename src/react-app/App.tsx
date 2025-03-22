@@ -356,25 +356,34 @@ const startEmotionDialog = () => {
                           Задать вопрос
                         </button>
                     </div>
-               <p>
-                 Чакроскоп — это инструмент самопознания, который соединяет древнее знание о чакрах с реальными астрономическими данными о Солнце и Луне.
-Он помогает понять, какие энергии активны в тебе сегодня, какие процессы формируют твой год и какие внутренние ритмы ведут тебя с самого начала.
-Это способ мягко взглянуть на своё состояние, уловить ритмы жизни и начать лучше чувствовать себя — без мистики, просто наблюдая.
-               </p>
-               <p>
-                 2025 © Non Profit R&D by Yury Reut{' '}
-              <a
-                href="https://www.instagram.com/nowyoucanseelove/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'inherit', textDecoration: 'none' }}
-              >
-                Now You Can See Love
-              </a>
-            </p>
                 </div>
             )}
-            </div>   
+            </div>
+  <div style={{
+    marginTop: "20px",
+    maxWidth: "700px",
+    width: "100%",
+    textAlign: "left",
+    color: "#000"
+}}>
+  <p>
+    Чакроскоп — это инструмент самопознания, который соединяет древнее знание о чакрах с реальными астрономическими данными о Солнце и Луне.
+    Он помогает понять, какие энергии активны в тебе сегодня, какие процессы формируют твой год и какие внутренние ритмы ведут тебя с самого начала.
+    Это способ мягко взглянуть на своё состояние, уловить ритмы жизни и начать лучше чувствовать себя — без мистики, просто наблюдая.
+  </p>
+  <p style={{ marginTop: "10px" }}>
+    2025 © Non Profit R&D by Yury Reut{' '}
+    <a
+      href="https://www.instagram.com/nowyoucanseelove/"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: 'inherit', textDecoration: 'none' }}
+    >
+      Now You Can See Love
+    </a>
+  </p>
+</div>
+
 {showEmotionReminder && (
   <div style={{
     position: "fixed",
