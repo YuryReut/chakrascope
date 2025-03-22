@@ -197,16 +197,6 @@ const startEmotionDialog = () => {
         setQueryResult(null);
     };
 
-  setQueryResult({
-    interpretation,
-    todayPerception,
-    queryOrganicity: [organicityText],
-    growthVector: vectorText
-  });
-  setShowQuestions(false);
-};
-
-
     return (
         <div style={{
             display: "flex",
