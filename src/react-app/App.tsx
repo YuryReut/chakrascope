@@ -20,16 +20,6 @@ function convertToJulianDate(dateString: string): string {
     return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
 }
 
-const QUESTIONS = [
-    "Этот вопрос связан с материальной стороной жизни?",
-    "Он касается ваших эмоций и желаний?",
-    "Этот вопрос про силу воли и достижение целей?",
-    "Он связан с отношениями и сердечными чувствами?",
-    "Этот вопрос касается самовыражения и творчества?",
-    "Он затрагивает интуицию и внутреннее видение?",
-    "Этот вопрос про глубокое понимание и осознание?"
-];
-
 function App() {
   const [birthDate, setBirthDate] = useState("2000-12-31");
   const [birthChakra, setBirthChakra] = useState<{
