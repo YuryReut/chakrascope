@@ -725,46 +725,6 @@ void handleGetAnswer;
     </div>
   </div>
 )}
-          
-{queryResult && (
-  <div style={{
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 999
-  }}>
-    <div style={{
-      backgroundColor: "#ffffff",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "100%",
-      maxWidth: "90vw",
-      boxSizing: "border-box",
-      textAlign: "left",
-      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-      color: "#000",
-      fontSize: "16px",
-      lineHeight: "1.5"
-    }}>
-      <p><b>💡 Вопрос про:</b> {queryResult.interpretation}</p>
-      <p><b>Сегодня:</b><br />👉 {queryResult.todayPerception}</p>
-      <p><b>Это для тебя:</b><br />🌱 {queryResult.queryOrganicity.join(", ")}</p>
-      <p><b>Направление:</b><br />➡️ {queryResult.growthVector}</p>
-
-      <div className="button-row" style={{ marginTop: "20px", textAlign: "center" }}>
-        <button onClick={() => setQueryResult(null)}>Закрыть</button>
-      </div>
-    </div>
-  </div>
-)}
-
-
         </div>
     );
 }
