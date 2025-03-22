@@ -531,7 +531,7 @@ const startEmotionDialog = () => {
         <>
           <p><b>Рекомендации:</b></p>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
-          <<div className="button-row">
+          <div className="button-row">
             <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
           </div>
         </>
