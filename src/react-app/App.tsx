@@ -73,7 +73,6 @@ const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
 const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
-console.log(selectedEmotion, moonState); // временно, чтобы убрать ошибки
 
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
