@@ -228,11 +228,17 @@ const startEmotionDialog = () => {
         }
     };
 
-    const handleGetAnswer = () => {
-        const analysis = analyzeQuery(answers);
-        setQueryResult(analysis);
-        setShowAnalysis(true);
-    };
+const handleGetAnswer = () => {
+  const analysis = analyzeQuery(answers);
+  setQueryResult({
+    interpretation: analysis.interpretation,
+    growthVector: analysis.growthVector,
+    queryOrganicity: analysis.queryOrganicity,
+    todayPerception: "🔶 Сегодня ты можешь переоценивать важность этого вопроса" // заглушка
+  });
+  setShowAnalysis(true);
+};
+
   
 void handleAnswer;
 void handleGetAnswer;
