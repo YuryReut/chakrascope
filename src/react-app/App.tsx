@@ -446,15 +446,7 @@ const startEmotionDialog = () => {
         setShowEmotionReminder(false);
         startEmotionDialog();
       }}
-      style={{
-        padding: "8px 16px",
-        backgroundColor: "#000",
-        color: "#fff",
-        border: "none",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
+     >
       Перейти к состоянию дня
     </button>
   </div>
