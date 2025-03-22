@@ -285,10 +285,15 @@ const startEmotionDialog = () => {
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
                 <h1>Чакроскоп</h1>
-                <input 
-                  type="date" 
-                  value={birthDate} 
-                  onChange={(e) => setBirthDate(e.target.value)} 
+               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
+                <label htmlFor="birthdate" style={{ fontSize: "14px", color: "#555" }}>
+                  Выберите дату рождения
+                </label>
+                <input
+                  id="birthdate"
+                  type="date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
                   style={{
                     padding: "10px",
                     fontSize: "16px",
@@ -299,11 +304,10 @@ const startEmotionDialog = () => {
                     width: "200px",
                     maxWidth: "100%",
                     boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none"
-                  }} 
+                    appearance: "none"
+                  }}
                 />
+              </div>
                 <button onClick={handleCheckChakra}>Рассчитать</button>
             {birthChakra && (
                 <div>
