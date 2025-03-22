@@ -348,7 +348,19 @@ const startEmotionDialog = () => {
                       </div>
                     )}
                   </div>
-
+                   {/* Блок 2 - Сегодня */}
+                  <div style={{
+                    backgroundColor: "#ffffff",
+                    padding: "15px",
+                    borderRadius: "8px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                    marginBottom: "15px",
+                    textAlign: "left"
+                  }}>
+                    <h4>Сегодня:</h4>
+                    <p>{birthChakra.todayText}</p>
+                    <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+                  </div>
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
                             backgroundColor: "#ffffff",
