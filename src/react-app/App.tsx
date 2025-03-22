@@ -325,11 +325,11 @@ const startEmotionDialog = () => {
                     textAlign: "left"
                   }}>
                     <h4>База</h4>
-                  
                     <p>
                       🔆 | {birthChakra.birth.chakraEmoji} : Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) →{' '}
                       <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
-                      <br />
+                    </p>
+                    <p>
                       ❤️ : {birthChakra.birth.relationship} →{' '}
                       <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                     </p>
@@ -354,7 +354,7 @@ const startEmotionDialog = () => {
 
                     {showBirthDetails && (
                       <div style={{ marginTop: "10px" }}>
-                      <p>Для тебя внутри — {birthChakra.birth.inner}</p>
+                      <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
                       <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
                       <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription}</p>
                     </div>
