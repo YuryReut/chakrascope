@@ -62,6 +62,7 @@ function App() {
         interpretation: string;
         growthVector: string;
         queryOrganicity: string[];
+        todayPerception: string;
     }>(null);
     const [questionConfirmed, setQuestionConfirmed] = useState(false);
     const [showAnalysis, setShowAnalysis] = useState(false);
