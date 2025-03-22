@@ -74,6 +74,27 @@ const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
 const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
 const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 void moonState;
+// 🔹 Как ты воспринимаешь вопрос сегодня — по чакре дня
+const todayPerceptionTexts = {
+  block: "Сегодня ты, скорее всего, не сможешь чётко почувствовать суть этого вопроса.",
+  balance: "Ты можешь доверять своему ощущению — оно достаточно ясное.",
+  excess: "Есть риск переоценить значимость этого вопроса — будь внимательнее к ощущениям."
+};
+
+// 🔹 Органичность вопроса — сравнение с чакрой рождения
+const organicityTexts = {
+  natural: "Это естественная для тебя тема — ты легко ориентируешься в этом направлении.",
+  foreign: "Это не совсем естественная для тебя тема — может быть сложнее понять, как с ней быть."
+};
+
+// 🔹 Вектор — сравнение с чакрой года
+const vectorTexts = {
+  notInFocus: "Сейчас это направление не является ключевым для твоего роста.",
+  backward: "Этот вопрос возвращает тебя к уже пройденным темам — в этом нет ничего плохого.",
+  aligned: "Ты как раз в той точке — этот вопрос точно соответствует твоему внутреннему пути.",
+  forward: "Это может ощущаться как вызов — но он идёт в верном направлении."
+};
+
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
 void queryResult;
@@ -558,8 +579,8 @@ void handleGetAnswer;
   </div>
 )}
 {/* 🔹 Диалог "Задать вопрос" */}
-           {showQuestions && (
-               <div style={{
+{showQuestions && (
+  <div style={{
     position: "fixed",
     top: "0",
     left: "0",
@@ -586,35 +607,106 @@ void handleGetAnswer;
         Это поможет тебе увидеть его с нужного уровня.  
         Выбери только один вариант, который лучше всего описывает суть.
       </p>
+
       <div className="button-column">
-        <button onClick={() => { setAnswers([true, false, false, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 1-я чакра"); }}>
+        <button onClick={() => {
+          setAnswers([true, false, false, false, false, false, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🔴 Материальное, безопасность",
+            growthVector: "🟢 Это возвращает тебя назад, к пройденным задачам.",
+            queryOrganicity: ["🧭 Это естественно для тебя"],
+            todayPerception: "😶 Сегодня ты вряд ли сможешь чётко почувствовать этот вопрос"
+          });
+        }}>
           🔴 Материальное, безопасность
         </button>
-        <button onClick={() => { setAnswers([false, true, false, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 2-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, true, false, false, false, false, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🟠 Эмоции, желания",
+            growthVector: "⚪ Это может ощущаться как вызов — но он в верном направлении.",
+            queryOrganicity: ["🧭 Это не совсем твоя тема"],
+            todayPerception: "😵 Сегодня ты можешь переоценить значимость вопроса"
+          });
+        }}>
           🟠 Эмоции, желания
         </button>
-        <button onClick={() => { setAnswers([false, false, true, false, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 3-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, false, true, false, false, false, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🟡 Достижения, сила воли",
+            growthVector: "🟡 Ты в точке — вопрос точно соответствует твоему пути.",
+            queryOrganicity: ["🧭 Это естественно для тебя"],
+            todayPerception: "🙂 Ты можешь доверять своему ощущению — оно ясное"
+          });
+        }}>
           🟡 Достижения, сила воли
         </button>
-        <button onClick={() => { setAnswers([false, false, false, true, false, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 4-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, false, false, true, false, false, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🟢 Отношения, чувства",
+            growthVector: "🔵 Сейчас это не в фокусе года.",
+            queryOrganicity: ["🧭 Это естественно для тебя"],
+            todayPerception: "😶 Сегодня ты вряд ли сможешь почувствовать это ясно"
+          });
+        }}>
           🟢 Отношения, чувства
         </button>
-        <button onClick={() => { setAnswers([false, false, false, false, true, false, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 5-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, false, false, false, true, false, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🔵 Творчество, выражение",
+            growthVector: "🔵 Это в фокусе — отличный момент для такого вопроса.",
+            queryOrganicity: ["🧭 Это естественно для тебя"],
+            todayPerception: "🙂 Ты воспринимаешь всё достаточно чётко"
+          });
+        }}>
           🔵 Творчество, выражение
         </button>
-        <button onClick={() => { setAnswers([false, false, false, false, false, true, false]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 6-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, false, false, false, false, true, false]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "🟣 Интуиция, образы",
+            growthVector: "🟠 Это шаг вперёд — может быть непросто, но верно.",
+            queryOrganicity: ["🧭 Это не совсем твоя привычная зона"],
+            todayPerception: "😵 Есть риск ошибочного ощущения"
+          });
+        }}>
           🟣 Интуиция, образы
         </button>
-        <button onClick={() => { setAnswers([false, false, false, false, false, false, true]); setShowQuestions(false); alert("🔧 Заглушка: выбрана 7-я чакра"); }}>
+
+        <button onClick={() => {
+          setAnswers([false, false, false, false, false, false, true]);
+          setShowQuestions(false);
+          setQueryResult({
+            interpretation: "⚪ Единство, духовность",
+            growthVector: "⚪ Это вопрос о самом высоком — ты готова к этому.",
+            queryOrganicity: ["🧭 Это естественно для тебя"],
+            todayPerception: "🙂 Твоё восприятие сегодня совпадает с сутью вопроса"
+          });
+        }}>
           ⚪ Единство, духовность
         </button>
       </div>
+
       <div className="button-row" style={{ marginTop: "20px" }}>
         <button onClick={() => setShowQuestions(false)}>Отмена</button>
       </div>
     </div>
   </div>
-            )}
+)}
         </div>
     );
 }
