@@ -324,10 +324,10 @@ const startEmotionDialog = () => {
                     marginBottom: "15px",
                     textAlign: "left"
                   }}>
-                    <h4>🔆 С чем ты пришел в этот мир:</h4>
+                    <h4>База</h4>
                   
                     <p>
-                      {birthChakra.birth.chakraEmoji} Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) →{' '}
+                      🔆 | {birthChakra.birth.chakraEmoji} : Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} ({birthChakra.birth.chakraName}) →{' '}
                       <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                       <br />
                       ❤️ : {birthChakra.birth.relationship} →{' '}
@@ -369,7 +369,7 @@ const startEmotionDialog = () => {
                     marginBottom: "15px",
                     textAlign: "left"
                   }}>
-                    <h4>Сегодня:</h4>
+                    <h4>Сегодня</h4>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
@@ -382,7 +382,7 @@ const startEmotionDialog = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                        <h4>Твой 2025-й:</h4>
+                        <h4>Твой 2025-й</h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
                           onClick={() => {
