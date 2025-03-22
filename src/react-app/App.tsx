@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import {
   getBirthChakra,
   analyzeQuery,
@@ -77,6 +78,46 @@ console.log(selectedEmotion, moonState); // временно, чтобы убр�
 
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);
+
+// Глобальные стили — добавим через useEffect
+useEffect(() => {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    input[type="date"] {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    button {
+      background-color: #fff;
+      color: #000;
+      border: 2px solid #000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #000;
+      color: #fff;
+    }
+  `;
+  document.head.appendChild(style);
+  return () => {
+    document.head.removeChild(style);
+  };
+}, []);
+
     
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
