@@ -55,6 +55,7 @@ function App() {
     todayText: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
+    const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
     const [showBirthDetails, setShowBirthDetails] = useState(false);
     const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
     const [currentQuestion, setCurrentQuestion] = useState<number | null>(0);
@@ -591,113 +592,141 @@ void handleGetAnswer;
       textAlign: "center",
       color: "#000"
     }}>
-      <p style={{ marginBottom: "20px", fontSize: "16px" }}>
-        Чтобы получить точный ответ, важно понять, к какой сфере жизни относится твой вопрос.  
-        Это поможет тебе увидеть его с нужного уровня.  
-        Выбери только один вариант, который лучше всего описывает суть.
-      </p>
+    {questionStep === 'intro' && (
+        <>
+          <p style={{ fontSize: "16px", marginBottom: "20px" }}>
+            💬 Этот блок поможет тебе <b>точно сформулировать суть вопроса</b> и понять, с какого уровня лучше на него смотреть.  
+            Очень важно, чтобы ты уже определил своё эмоциональное состояние.  
+            Только тогда ты сможешь почувствовать, в чём суть запроса.  
+          </p>
+          <button onClick={() => setQuestionStep('select')}>Определить вопрос</button>
+          <div className="button-row" style={{ marginTop: "20px" }}>
+            <button onClick={() => setShowQuestions(false)}>Отмена</button>
+          </div>
+        </>
+      )}
 
-      <div className="button-column">
-       <button onClick={() => { 
-          setAnswers([true, false, false, false, false, false, false]); 
-          setQueryResult({
-            interpretation: "🔴 Материальное, безопасность",
-            todayPerception: "Сегодня ты можешь переоценивать важность этого вопроса",
-            queryOrganicity: ["Эта тема для тебя естественная"],
-            growthVector: "Ты немного возвращаешься назад, но всё ещё в потоке"
-          });
-          setShowQuestions(false);
-        }}>
-          🔴 Материальное, безопасность
-        </button>
+      {questionStep === 'select' && (
+        <>
+          <p style={{ marginBottom: "20px", fontSize: "16px" }}>
+            🧭 Посмотри на свой вопрос.  
+            <b>К какой из сфер жизни он относится?</b>  
+            Выбери только одну — ту, которая откликается сильнее всего.
+          </p>
+          <div className="button-column">
+            <button onClick={() => {
+              setAnswers([true, false, false, false, false, false, false]);
+              setQueryResult({
+                interpretation: "🔴 Материальное, безопасность",
+                todayPerception: "👉 Сегодня ты можешь переоценивать важность этого вопроса",
+                queryOrganicity: ["🌱 Это естественная для тебя тема"],
+                growthVector: "➡️ Ты немного возвращаешься назад, но всё ещё в потоке"
+              });
+              setQuestionStep('result');
+            }}>
+              🔴 Материальное, безопасность
+            </button>
+            <button onClick={() => {
+              setAnswers([false, true, false, false, false, false, false]);
+              setQueryResult({
+                interpretation: "🟠 Эмоции, желания",
+                todayPerception: "👉 Сегодня это может ощущаться ярче, чем есть на самом деле",
+                queryOrganicity: ["🌱 Это не совсем твоя тема"],
+                growthVector: "➡️ Это может ощущаться как вызов — но он в верном направлении"
+              });
+              setQuestionStep('result');
+            }}>
+              🟠 Эмоции, желания
+            </button>
+            <button onClick={() => {
+              setAnswers([false, false, true, false, false, false, false]);
+              setQueryResult({
+                interpretation: "🟡 Достижения, сила воли",
+                todayPerception: "👉 Сегодня ты видишь ситуацию достаточно трезво",
+                queryOrganicity: ["🌱 Это естественная для тебя тема"],
+                growthVector: "➡️ Ты в точке — этот вопрос полностью совпадает с твоим направлением"
+              });
+              setQuestionStep('result');
+            }}>
+              🟡 Достижения, сила воли
+            </button>
+            <button onClick={() => {
+              setAnswers([false, false, false, true, false, false, false]);
+              setQueryResult({
+                interpretation: "🟢 Отношения, чувства",
+                todayPerception: "👉 Сегодня ты можешь быть не до конца уверена в себе",
+                queryOrganicity: ["🌱 Это естественная для тебя тема"],
+                growthVector: "➡️ Пока это не в фокусе твоего года"
+              });
+              setQuestionStep('result');
+            }}>
+              🟢 Отношения, чувства
+            </button>
+            <button onClick={() => {
+              setAnswers([false, false, false, false, true, false, false]);
+              setQueryResult({
+                interpretation: "🔵 Творчество, выражение",
+                todayPerception: "👉 Ты воспринимаешь всё довольно ясно",
+                queryOrganicity: ["🌱 Это естественная для тебя тема"],
+                growthVector: "➡️ Это в фокусе — хороший момент для такого вопроса"
+              });
+              setQuestionStep('result');
+            }}>
+              🔵 Творчество, выражение
+            </button>
+            <button onClick={() => {
+              setAnswers([false, false, false, false, false, true, false]);
+              setQueryResult({
+                interpretation: "🟣 Интуиция, образы",
+                todayPerception: "👉 Есть шанс переоценить глубину вопроса",
+                queryOrganicity: ["🌱 Это не совсем твоя привычная зона"],
+                growthVector: "➡️ Это шаг вверх — может быть непросто, но верно"
+              });
+              setQuestionStep('result');
+            }}>
+              🟣 Интуиция, образы
+            </button>
+            <button onClick={() => {
+              setAnswers([false, false, false, false, false, false, true]);
+              setQueryResult({
+                interpretation: "⚪ Единство, духовность",
+                todayPerception: "👉 Твоё восприятие сегодня совпадает с сутью вопроса",
+                queryOrganicity: ["🌱 Это естественная для тебя тема"],
+                growthVector: "➡️ Это вопрос о самом главном — ты готова к нему"
+              });
+              setQuestionStep('result');
+            }}>
+              ⚪ Единство, духовность
+            </button>
+          </div>
+        </>
+      )}
 
-
-        <button onClick={() => {
-          setAnswers([false, true, false, false, false, false, false]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "🟠 Эмоции, желания",
-            growthVector: "⚪ Это может ощущаться как вызов — но он в верном направлении.",
-            queryOrganicity: ["🧭 Это не совсем твоя тема"],
-            todayPerception: "😵 Сегодня ты можешь переоценить значимость вопроса"
-          });
-        }}>
-          🟠 Эмоции, желания
-        </button>
-
-        <button onClick={() => {
-          setAnswers([false, false, true, false, false, false, false]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "🟡 Достижения, сила воли",
-            growthVector: "🟡 Ты в точке — вопрос точно соответствует твоему пути.",
-            queryOrganicity: ["🧭 Это естественно для тебя"],
-            todayPerception: "🙂 Ты можешь доверять своему ощущению — оно ясное"
-          });
-        }}>
-          🟡 Достижения, сила воли
-        </button>
-
-        <button onClick={() => {
-          setAnswers([false, false, false, true, false, false, false]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "🟢 Отношения, чувства",
-            growthVector: "🔵 Сейчас это не в фокусе года.",
-            queryOrganicity: ["🧭 Это естественно для тебя"],
-            todayPerception: "😶 Сегодня ты вряд ли сможешь почувствовать это ясно"
-          });
-        }}>
-          🟢 Отношения, чувства
-        </button>
-
-        <button onClick={() => {
-          setAnswers([false, false, false, false, true, false, false]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "🔵 Творчество, выражение",
-            growthVector: "🔵 Это в фокусе — отличный момент для такого вопроса.",
-            queryOrganicity: ["🧭 Это естественно для тебя"],
-            todayPerception: "🙂 Ты воспринимаешь всё достаточно чётко"
-          });
-        }}>
-          🔵 Творчество, выражение
-        </button>
-
-        <button onClick={() => {
-          setAnswers([false, false, false, false, false, true, false]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "🟣 Интуиция, образы",
-            growthVector: "🟠 Это шаг вперёд — может быть непросто, но верно.",
-            queryOrganicity: ["🧭 Это не совсем твоя привычная зона"],
-            todayPerception: "😵 Есть риск ошибочного ощущения"
-          });
-        }}>
-          🟣 Интуиция, образы
-        </button>
-
-        <button onClick={() => {
-          setAnswers([false, false, false, false, false, false, true]);
-          setShowQuestions(false);
-          setQueryResult({
-            interpretation: "⚪ Единство, духовность",
-            growthVector: "⚪ Это вопрос о самом высоком — ты готова к этому.",
-            queryOrganicity: ["🧭 Это естественно для тебя"],
-            todayPerception: "🙂 Твоё восприятие сегодня совпадает с сутью вопроса"
-          });
-        }}>
-          ⚪ Единство, духовность
-        </button>
-      </div>
-
-      <div className="button-row" style={{ marginTop: "20px" }}>
-        <button onClick={() => setShowQuestions(false)}>Отмена</button>
-      </div>
+      {questionStep === 'result' && queryResult && (
+        <>
+          <p style={{ fontSize: "16px", fontWeight: "bold", marginBottom: "10px" }}>🧩 Ответ на твой вопрос</p>
+          <p style={{ marginBottom: "20px" }}>
+            💡 Вопрос про: {queryResult.interpretation}
+            <br /><br />
+            Сегодня: {queryResult.todayPerception}
+            <br />
+            Это для тебя: {queryResult.queryOrganicity[0]}
+            <br />
+            Направление: {queryResult.growthVector}
+          </p>
+          <div className="button-row">
+            <button onClick={() => {
+              setShowQuestions(false);
+              setQuestionStep('intro');
+            }}>Закрыть</button>
+          </div>
+        </>
+      )}
     </div>
   </div>
 )}
-  {queryResult && (
+          
+{queryResult && (
   <div style={{
     position: "fixed",
     top: 0,
