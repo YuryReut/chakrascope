@@ -285,8 +285,26 @@ const startEmotionDialog = () => {
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
                 <h1>Чакроскоп</h1>
-                <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /> <button onClick={handleCheckChakra}>Рассчитать</button>
-
+                <input 
+                  type="date" 
+                  value={birthDate} 
+                  onChange={(e) => setBirthDate(e.target.value)} 
+                  style={{
+                    padding: "10px",
+                    fontSize: "16px",
+                    border: "1px solid #ccc",
+                    borderRadius: "6px",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    width: "200px",
+                    maxWidth: "100%",
+                    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    MozAppearance: "none"
+                  }} 
+                />
+                <button onClick={handleCheckChakra}>Рассчитать</button>
             {birthChakra && (
                 <div>
                     {/* Блок 1 - С чем ты пришел в мир */}
@@ -368,7 +386,7 @@ const startEmotionDialog = () => {
                     </div>
                <p>
                  Чакроскоп — это инструмент самопознания, который соединяет древнее знание о чакрах с реальными астрономическими данными о Солнце и Луне.
-Он помогает понять, какие энергии активны в тебе сегодня, какие процессы формируют твой год и с какими внутренними настройками ты пришла в этот мир.
+Он помогает понять, какие энергии активны в тебе сегодня, какие процессы формируют твой год и какие внутренние ритмы ведут тебя с самого начала.
 Это способ мягко взглянуть на своё состояние, уловить ритмы жизни и начать лучше чувствовать себя — без мистики, просто наблюдая.
                </p>
                <p>
