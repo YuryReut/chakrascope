@@ -697,22 +697,39 @@ void handleGetAnswer;
     </div>
   </div>
 )}
-        {queryResult && (
+      {queryResult && (
   <div style={{
-    backgroundColor: "#ffffff",
-    padding: "20px",
-    borderRadius: "10px",
-    marginTop: "20px",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-    maxWidth: "700px",
-    textAlign: "left",
-    color: "#000"
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 999
   }}>
-    <h4>🧩 Ответ на твой вопрос</h4>
-    <p><b>💡 Сфера:</b> {queryResult.interpretation}</p>
-    <p><b>🌀 Сегодня:</b> {queryResult.todayPerception}</p>
-    <p><b>🌿 Органичность:</b> {queryResult.queryOrganicity.join(", ")}</p>
-    <p><b>🌊 Движение в году:</b> {queryResult.growthVector}</p>
+    <div style={{
+      backgroundColor: "#ffffff",
+      padding: "20px",
+      borderRadius: "10px",
+      width: "100%",
+      maxWidth: "90vw",
+      boxSizing: "border-box",
+      textAlign: "center",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+      color: "#000"
+    }}>
+      <h4>🧩 Ответ на твой вопрос</h4>
+      <p><b>💡 Твой вопрос про:</b> {queryResult.interpretation}</p>
+      <p><b>🌀 Сегодня:</b> {queryResult.todayPerception}</p>
+      <p><b>🌿 Эта тема для тебя:</b> {queryResult.queryOrganicity.join(", ")}</p>
+
+      <div className="button-row" style={{ marginTop: "20px" }}>
+        <button onClick={() => setQueryResult(null)}>Закрыть</button>
+      </div>
+    </div>
   </div>
 )}
 
