@@ -33,7 +33,7 @@ const QUESTIONS = [
 ];
 
 function App() {
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthDate] = useState("2000-12-31");
   const [birthChakra, setBirthChakra] = useState<{
     birth: {
         chakraNumber: number;
