@@ -66,11 +66,9 @@ function App() {
     const [showAnalysis, setShowAnalysis] = useState(false);
     // 🔹 Состояния для диалога про эмоции дня 
 const [showEmotionDialog, setShowEmotionDialog] = useState(false);
-const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
 const [emotionAnalysis, setEmotionAnalysis] = useState<string | null>(null);
 const [currentStep, setCurrentStep] = useState<'intro' | 'sun' | 'moon' | 'result'>('intro');
 const [sunState, setSunState] = useState<'balance' | 'excess' | 'block' | null>(null);
-const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null>(null);
 const [chakraNameSun, setChakraNameSun] = useState<ChakraName | null>(null);
 const [chakraNameMoon, setChakraNameMoon] = useState<ChakraName | null>(null);    
 
@@ -119,11 +117,9 @@ const startEmotionDialog = () => {
     }
 
     setShowEmotionDialog(true);
-    setSelectedEmotion(null);
     setEmotionAnalysis(null);
     setCurrentStep('intro');
     setSunState(null);
-    setMoonState(null);
 };
 
   const handleCheckChakra = () => {
