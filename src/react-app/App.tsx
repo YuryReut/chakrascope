@@ -354,10 +354,10 @@ const startEmotionDialog = () => {
 
                     {showBirthDetails && (
                       <div style={{ marginTop: "10px" }}>
-                        <p>💫 Как ты ощущаешь себя внутри: {birthChakra.birth.inner}</p>
-                        <p>🌿 Как ты проявляешься в жизни: {birthChakra.birth.outer}</p>
-                        <p>🌙 Твое восприятие мира — {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}) {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-я чакра: {birthChakra.birth.lunarDescription}</p>
-                      </div>
+                      <p>💫 Как ты ощущаешь себя внутри: {birthChakra.birth.inner}</p>
+                      <p>🌿 Как ты проявляешься в жизни: {birthChakra.birth.outer}</p>
+                      <p>🌙 | {birthChakra.birth.lunarEmoji} {birthChakra.birth.lunarNumber}-я чакра {birthChakra.birth.lunarTitle} ({birthChakra.birth.lunarName}): {birthChakra.birth.lunarDescription}</p>
+                    </div>
                     )}
                   </div>
                    {/* Блок 2 - Сегодня */}
