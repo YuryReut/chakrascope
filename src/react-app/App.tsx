@@ -435,11 +435,12 @@ const startEmotionDialog = () => {
     color: "#000",
     padding: "20px",
     borderRadius: "10px",
+    boxSizing: "border-box",
     boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
     zIndex: 1000,
     textAlign: "center",
-    maxWidth: "90%",
-    width: "400px"
+    width: "100%",
+    maxWidth: "90vw"
   }}>
     <p style={{ marginBottom: "15px" }}>
       🔁 Чтобы задать вопрос, сначала уточни своё состояние дня.
@@ -480,8 +481,9 @@ const startEmotionDialog = () => {
       backgroundColor: "#ffffff",
       padding: "20px",
       borderRadius: "10px",
+      width: "100%",
       maxWidth: "90vw",
-      width: "500px",
+      boxSizing: "border-box",
       textAlign: "center",
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
       color: "#000"
@@ -565,9 +567,10 @@ const startEmotionDialog = () => {
                     <div style={{
                         backgroundColor: "white",
                         padding: "20px",
-                        width: "90vw",
-                        maxWidth: "500px",
+                        width: "100%",
+                        maxWidth: "90vw",
                         borderRadius: "10px",
+                        boxSizing: "border-box",
                         textAlign: "center"
                     }}>
                     {!questionConfirmed ? (
