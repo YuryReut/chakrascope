@@ -188,8 +188,6 @@ const startEmotionDialog = () => {
     const startQuestionnaire = () => {
         setShowQuestions(true);
         setQuestionConfirmed(false);
-        setCurrentQuestion(0);
-        setAnswers(Array(QUESTIONS.length).fill(null));
         setShowAnalysis(false);
         setQueryResult(null);
     };
@@ -583,7 +581,6 @@ const startEmotionDialog = () => {
           </p>
           <div className="button-column">
             <button onClick={() => {
-              setAnswers([true, false, false, false, false, false, false]);
               setQueryResult({
                 interpretation: "🔴 Материальное, безопасность",
                 todayPerception: "👉 Сегодня ты можешь переоценивать важность этого вопроса",
@@ -595,7 +592,6 @@ const startEmotionDialog = () => {
               🔴 Материальное, безопасность
             </button>
             <button onClick={() => {
-              setAnswers([false, true, false, false, false, false, false]);
               setQueryResult({
                 interpretation: "🟠 Эмоции, желания",
                 todayPerception: "👉 Сегодня это может ощущаться ярче, чем есть на самом деле",
@@ -607,7 +603,6 @@ const startEmotionDialog = () => {
               🟠 Эмоции, желания
             </button>
             <button onClick={() => {
-              setAnswers([false, false, true, false, false, false, false]);
               setQueryResult({
                 interpretation: "🟡 Достижения, сила воли",
                 todayPerception: "👉 Сегодня ты видишь ситуацию достаточно трезво",
@@ -619,7 +614,6 @@ const startEmotionDialog = () => {
               🟡 Достижения, сила воли
             </button>
             <button onClick={() => {
-              setAnswers([false, false, false, true, false, false, false]);
               setQueryResult({
                 interpretation: "🟢 Отношения, чувства",
                 todayPerception: "👉 Сегодня ты можешь быть не до конца уверена в себе",
@@ -631,7 +625,6 @@ const startEmotionDialog = () => {
               🟢 Отношения, чувства
             </button>
             <button onClick={() => {
-              setAnswers([false, false, false, false, true, false, false]);
               setQueryResult({
                 interpretation: "🔵 Творчество, выражение",
                 todayPerception: "👉 Ты воспринимаешь всё довольно ясно",
@@ -643,7 +636,6 @@ const startEmotionDialog = () => {
               🔵 Творчество, выражение
             </button>
             <button onClick={() => {
-              setAnswers([false, false, false, false, false, true, false]);
               setQueryResult({
                 interpretation: "🟣 Интуиция, образы",
                 todayPerception: "👉 Есть шанс переоценить глубину вопроса",
@@ -655,7 +647,6 @@ const startEmotionDialog = () => {
               🟣 Интуиция, образы
             </button>
             <button onClick={() => {
-              setAnswers([false, false, false, false, false, false, true]);
               setQueryResult({
                 interpretation: "⚪ Единство, духовность",
                 todayPerception: "👉 Твоё восприятие сегодня совпадает с сутью вопроса",
