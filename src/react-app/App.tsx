@@ -687,7 +687,7 @@ const startEmotionDialog = () => {
 
       {questionStep === 'result' && queryResult && (
         <>
-          <p>🧩 Ответ на твой вопрос про {queryResult.interpretation}</p>
+          <p><strong>Ответ на твой вопрос про {queryResult.interpretation}</strong></p>
           <p>
             {queryResult.todayPerception}
           </p>
