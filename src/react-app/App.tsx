@@ -629,63 +629,50 @@ const startEmotionDialog = () => {
           <p style={{ marginBottom: "20px" }}>
             Выбери только одну сферу жизни к которой относится твой вопрос
           </p>
-          <div className="button-column">
-  <button onClick={() => {
-    const result = generateQueryResult(0); // 🔴
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🔴 Материальное, безопасность
-  </button>
+         <div className="button-column">
+          {/* 🔴 Муладхара */}
+          <button onClick={() => { setQueryResult(generateQueryResult(0)); setQuestionStep('result'); }}>
+            Вопрос про безопасность, дом и деньги<br />
+            <span style={{ fontSize: "85%" }}>Переезд, Увольнение, Финансовая опора</span>
+          </button>
+        
+          {/* 🟠 Свадхистхана */}
+          <button onClick={() => { setQueryResult(generateQueryResult(1)); setQuestionStep('result'); }}>
+            Вопрос про чувства, удовольствие и тело<br />
+            <span style={{ fontSize: "75%" }}>Новые отношения, Беременность, Переезд на остров</span>
+          </button>
+        
+          {/* 🟡 Манипура */}
+          <button onClick={() => { setQueryResult(generateQueryResult(2)); setQuestionStep('result'); }}>
+            Вопрос про цель, силу и развитие<br />
+            <span style={{ fontSize: "70%" }}>Открыть бизнес, Выйти из зависимости, Добиться роста</span>
+          </button>
+        
+          {/* 🟢 Анахата */}
+          <button onClick={() => { setQueryResult(generateQueryResult(3)); setQuestionStep('result'); }}>
+            Вопрос про любовь, близость и связь<br />
+            <span style={{ fontSize: "60%" }}>Закрыть прошлое, Восстановить контакт, Открыться чувствам</span>
+          </button>
+        
+          {/* 🔵 Вишудха */}
+          <button onClick={() => { setQueryResult(generateQueryResult(4)); setQuestionStep('result'); }}>
+            Вопрос про творчество, голос и проявление<br />
+            <span style={{ fontSize: "50%" }}>Запустить блог, Выступать, Делать личный бренд</span>
+          </button>
+        
+          {/* 🟣 Аджна */}
+          <button onClick={() => { setQueryResult(generateQueryResult(5)); setQuestionStep('result'); }}>
+            Вопрос про интуицию, сценарий и предназначение<br />
+            <span style={{ fontSize: "85%" }}>Найти себя, Уйти с работы, Перепридумать путь</span>
+          </button>
+        
+          {/* ⚪ Сахасрара */}
+          <button onClick={() => { setQueryResult(generateQueryResult(6)); setQuestionStep('result'); }}>
+            Вопрос про доверие, тишину и смысл<br />
+            <span style={{ fontSize: "85%" }}>Уехать в ретрит, Отказаться от контроля, Довериться потоку</span>
+          </button>
+        </div>
 
-  <button onClick={() => {
-    const result = generateQueryResult(1); // 🟠
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🟠 Эмоции, желания
-  </button>
-
-  <button onClick={() => {
-    const result = generateQueryResult(2); // 🟡
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🟡 Достижения, сила воли
-  </button>
-
-  <button onClick={() => {
-    const result = generateQueryResult(3); // 🟢
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🟢 Отношения, чувства
-  </button>
-
-  <button onClick={() => {
-    const result = generateQueryResult(4); // 🔵
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🔵 Творчество, выражение
-  </button>
-
-  <button onClick={() => {
-    const result = generateQueryResult(5); // 🟣
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    🟣 Интуиция, образы
-  </button>
-
-  <button onClick={() => {
-    const result = generateQueryResult(6); // ⚪
-    setQueryResult(result);
-    setQuestionStep('result');
-  }}>
-    ⚪ Единство, духовность
-  </button>
-</div>
         </>
       )}
 
