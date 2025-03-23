@@ -440,7 +440,7 @@ const startEmotionDialog = () => {
     maxWidth: "700px",
     width: "100%",
     textAlign: "center",
-    fontSize: "11px",
+    fontSize: "65%",
     lineHeight: "1.5",
     color: "#000"
 }}>
