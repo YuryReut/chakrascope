@@ -467,7 +467,7 @@ const startEmotionDialog = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      Now You Can See Love
+      Юрий Реут
     </a> {' '}
     <a
       href="https://www.instagram.com/nowyoucanseelove/"
