@@ -88,7 +88,21 @@ void queryResult;
 // 🔹 Совместимость с партнёром
 const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
 const [partnerBirthDate, setPartnerBirthDate] = useState("");
-const [compatibilityText, setCompatibilityText] = useState<string | null>(null);
+const [compatibilityText, setCompatibilityText] = useState<{
+  summary: string;
+  chakra1?: {
+    how: string;
+    not: string;
+  };
+  chakra2?: {
+    how: string;
+    not: string;
+  };
+  chakra3?: {
+    how: string;
+    not: string;
+  };
+} | null>(null);
   
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -173,23 +187,13 @@ const handleCalculateCompatibility = async () => {
   const chakra2 = details?.["2"];
   const chakra3 = details?.["3"];
 
-  const textBlock = `
-${summary}
+ setCompatibilityText({
+  summary,
+  chakra1,
+  chakra2,
+  chakra3
+});
 
-Стабильность и безопасность:
-Как: ${chakra1?.how || "—"}
-Точно нет: ${chakra1?.not || "—"}
-
-Эмоции и секс:
-Как: ${chakra2?.how || "—"}
-Точно нет: ${chakra2?.not || "—"}
-
-Действия и цели:
-Как: ${chakra3?.how || "—"}
-Точно нет: ${chakra3?.not || "—"}
-  `.trim();
-
-  setCompatibilityText(textBlock);
 };
 
 const handleCheckChakra = () => {
@@ -746,12 +750,30 @@ const handleCheckChakra = () => {
           setCompatibilityText(null);
         }}>Закрыть</button>
       </div>
-      {compatibilityText && (
-        <div style={{ marginTop: "20px", textAlign: "left" }}>
-          <p><strong>Совместимость:</strong></p>
-          <p>{compatibilityText}</p>
+     {compatibilityText && (
+      <div style={{ marginTop: "20px", textAlign: "left", fontSize: "16px", lineHeight: "1.5" }}>
+        <p style={{ fontWeight: "bold", marginBottom: "10px" }}>💬 {compatibilityText.summary}</p>
+    
+        <div style={{ marginBottom: "12px" }}>
+          <p style={{ fontWeight: "bold" }}>Стабильность и безопасность</p>
+          <p><strong>Как:</strong> {compatibilityText.chakra1?.how || "—"}</p>
+          <p><strong>Точно нет:</strong> {compatibilityText.chakra1?.not || "—"}</p>
         </div>
-      )}
+    
+        <div style={{ marginBottom: "12px" }}>
+          <p style={{ fontWeight: "bold" }}>Эмоции и чувственность</p>
+          <p><strong>Как:</strong> {compatibilityText.chakra2?.how || "—"}</p>
+          <p><strong>Точно нет:</strong> {compatibilityText.chakra2?.not || "—"}</p>
+        </div>
+    
+        <div style={{ marginBottom: "12px" }}>
+          <p style={{ fontWeight: "bold" }}>Действия и цели</p>
+          <p><strong>Как:</strong> {compatibilityText.chakra3?.how || "—"}</p>
+          <p><strong>Точно нет:</strong> {compatibilityText.chakra3?.not || "—"}</p>
+        </div>
+      </div>
+    )}
+
     </div>
   </div>
 )}
