@@ -38,6 +38,7 @@ function convertToJulianDate(dateString: string): string {
 
 function App() {
   const [birthDate, setBirthDate] = useState("2000-12-31");
+  const [hasChangedBirthDate, setHasChangedBirthDate] = useState(false);
   const [birthChakra, setBirthChakra] = useState<{
     birth: {
         chakraNumber: number;
@@ -205,10 +206,11 @@ const handleCalculateCompatibility = async () => {
 };
 
 const handleCheckChakra = () => {
-  if (!birthDate) {
-  setShowDateAlert("Пожалуйста, выбери дату рождения перед расчётом.");
-  return;
+  if (!hasChangedBirthDate) {
+    setShowDateAlert("Пожалуйста, выбери дату рождения перед расчётом.");
+    return;
   }
+
   const today = new Date().toISOString().split("T")[0];
   const formattedDate = convertToJulianDate(birthDate);
 
@@ -407,7 +409,10 @@ const handleCheckChakra = () => {
                 <input 
                   type="date" 
                   value={birthDate} 
-                  onChange={(e) => setBirthDate(e.target.value)} 
+                  onChange={(e) => {
+                    setBirthDate(e.target.value);
+                    setHasChangedBirthDate(true);
+                  }}
                   style={{ 
                     marginLeft: "10px",
                     padding: "8px",
@@ -911,27 +916,36 @@ const handleCheckChakra = () => {
     </div>
   </div>
 )}
- {showDateAlert && (
-        <div style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: "#fff",
-          color: "#000",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-          zIndex: 1000,
-          maxWidth: "90vw",
-          textAlign: "center"
-        }}>
-          <p style={{ marginBottom: "15px" }}>{showDateAlert}</p>
-          <button onClick={() => setShowDateAlert(null)}>Понятно</button>
-        </div>
-      )}
-        </div>
-    );
+{showDateAlert && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000
+  }}>
+    <div style={{
+      backgroundColor: "#fff",
+      padding: "20px",
+      borderRadius: "10px",
+      textAlign: "center",
+      color: "#000",
+      boxShadow: "0px 4px 12px rgba(0,0,0,0.3)",
+      maxWidth: "90vw"
+    }}>
+      <p style={{ marginBottom: "15px" }}>{showDateAlert}</p>
+      <div className="button-row">
+        <button onClick={() => setShowDateAlert(null)}>Понятно</button>
+      </div>
+    </div>
+  </div>
+)}
+          
 }
 
 export default App;
