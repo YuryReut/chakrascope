@@ -164,7 +164,7 @@ const startEmotionDialog = () => {
             });
         return;
     }
-
+   };
     const sunDegree = solarEntry.Solar_Longitude;
     const moonDegree = lunarEntry.Lunar_Longitude;
 
@@ -187,7 +187,7 @@ const startEmotionDialog = () => {
 
     setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
     setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
-};
+
 
   const handleCalculateCompatibility = async () => {
   if (!partnerBirthDate || !birthChakra) return;
@@ -202,7 +202,7 @@ const startEmotionDialog = () => {
     setCompatibilityText("Не удалось определить чакру партнёра.");
     return;
   }
-
+ };
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
