@@ -10,7 +10,20 @@ import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
 
-const chakraCompatibility: Record<string, Record<string, string>> = chakraCompatibilityRaw;
+type CompatibilityDetails = {
+  how: string;
+  not: string;
+};
+
+type ChakraCompatibilityEntry = {
+  summary: string;
+  details: {
+    [key: string]: CompatibilityDetails;
+  };
+};
+
+const chakraCompatibility: Record<string, Record<string, ChakraCompatibilityEntry>> = chakraCompatibilityRaw;
+
 
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
@@ -126,7 +139,7 @@ const startEmotionDialog = () => {
 
 
 
- const handleCalculateCompatibility = async () => {
+const handleCalculateCompatibility = async () => {
   if (!partnerBirthDate || !birthChakra) return;
 
   const today = new Date().toISOString().split("T")[0];
@@ -147,8 +160,50 @@ const startEmotionDialog = () => {
   const partnerChakraNumber = result.result.birth.chakraNumber;
   const yourChakraNumber = birthChakra.birth.chakraNumber;
 
-  const text = chakraCompatibility[yourChakraNumber.toString()]?.[partnerChakraNumber.toString()] || "Нет данных о совместимости.";
-  setCompatibilityText(text);
+  const pairData = chakraCompatibility[yourChakraNumber.toString()]?.[partnerChakraNumber.toString()];
+
+  if (!pairData) {
+    setCompatibilityText("Нет данных о совместимости.");
+    return;
+  }
+
+  const { summary, details } = pairData;
+
+  const chakra1 = details?.["1"];
+  const chakra2 = details?.["2"];
+  const chakra3 = details?.["3"];
+
+  const textBlock = `
+${summary}
+
+Стабильность и безопасность:
+Как: ${chakra1?.how || "—"}
+Точно нет: ${chakra1?.not || "—"}
+
+Эмоции и секс:
+Как: ${chakra2?.how || "—"}
+Точно нет: ${chakra2?.not || "—"}
+
+Действия и цели:
+Как: ${chakra3?.how || "—"}
+Точно нет: ${chakra3?.not || "—"}
+  `.trim();
+
+  setCompatibilityText(textBlock);
+};
+
+  
+  const { summary, details } = pairData;
+  
+  let textBlock = `💬 ${summary}\n`;
+  
+  for (let i = 1; i <= 3; i++) {
+    const chakraAdvice = details?.[i.toString()];
+    if (chakraAdvice) {
+      textBlock += `\n${i}-я чакра:\n✅ ${chakraAdvice.how}\n🚫 ${chakraAdvice.not}\n`;
+    }
+  }
+  setCompatibilityText(textBlock);
 };
 
 const handleCheckChakra = () => {
