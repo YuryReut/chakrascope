@@ -163,7 +163,9 @@ const handleCalculateCompatibility = async () => {
   const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
 
   if (!solarEntry || !lunarEntry) {
-    setCompatibilityText("Не удалось определить чакру партнёра.");
+    setCompatibilityTextsetCompatibilityText({
+      summary: "Не удалось определить чакру партнёра.",
+    });
     return;
   }
 
@@ -177,7 +179,9 @@ const handleCalculateCompatibility = async () => {
   const pairData = chakraCompatibility[yourChakraNumber.toString()]?.[partnerChakraNumber.toString()];
 
   if (!pairData) {
-    setCompatibilityText("Нет данных о совместимости.");
+    setCompatibilityText({
+      summary: "Нет данных о совместимости.",
+    });
     return;
   }
 
