@@ -761,21 +761,30 @@ const handleCheckChakra = () => {
           <br />
           {compatibilityText.summary}</p>
         <div style={{ marginBottom: "12px" }}>
-          <p><strong>Стабильность и безопасность</strong></p>
-          <p><strong>Как:</strong> {compatibilityText.chakra1?.how || "—"}</p>
-          <p><strong>Точно нет:</strong> {compatibilityText.chakra1?.not || "—"}</p>
+          <p>
+            <strong>Стабильность и безопасность</strong>
+          <br />
+          {compatibilityText.chakra1?.how || "—"}</p>
+          <br />
+          {compatibilityText.chakra1?.not || "—"}</p>
         </div>
     
         <div style={{ marginBottom: "12px" }}>
-          <p><strong>Эмоции и чувственность</strong></p>
-          <p><strong>Как:</strong> {compatibilityText.chakra2?.how || "—"}</p>
-          <p><strong>Точно нет:</strong> {compatibilityText.chakra2?.not || "—"}</p>
+          <p>
+            <strong>Эмоции и чувственность</strong>
+          <br />
+          {compatibilityText.chakra2?.how || "—"}
+          <br />
+          {compatibilityText.chakra2?.not || "—"}</p>
         </div>
     
         <div style={{ marginBottom: "12px" }}>
-          <p><strong>Действия и цели</strong></p>
-          <p><strong>Как:</strong> {compatibilityText.chakra3?.how || "—"}</p>
-          <p><strong>Точно нет:</strong> {compatibilityText.chakra3?.not || "—"}</p>
+          <p>
+            <strong>Действия и цели</strong>
+          <br />
+          {compatibilityText.chakra3?.how || "—"}
+          <br />
+          {compatibilityText.chakra3?.not || "—"}</p>
         </div>
       </div>
     )}
