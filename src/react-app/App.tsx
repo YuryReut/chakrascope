@@ -163,7 +163,7 @@ const handleCalculateCompatibility = async () => {
   const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
 
   if (!solarEntry || !lunarEntry) {
-    setCompatibilityTextsetCompatibilityText({
+    setCompatibilityText({
       summary: "Не удалось определить чакру партнёра.",
     });
     return;
