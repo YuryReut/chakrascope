@@ -80,7 +80,6 @@ const [moonState, setMoonState] = useState<'balance' | 'excess' | 'block' | null
 void moonState;
 // 🔹 Как ты воспринимаешь вопрос сегодня — по чакре дня
 
-
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
 void queryResult;
@@ -103,7 +102,8 @@ const [compatibilityText, setCompatibilityText] = useState<{
     not: string;
   };
 } | null>(null);
-  
+
+const [showDateAlert, setShowDateAlert] = useState<string | null>(null);  
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
     if (currentStep === 'sun') {
@@ -154,6 +154,10 @@ const startEmotionDialog = () => {
 
 
 const handleCalculateCompatibility = async () => {
+  if (!partnerBirthDate) {
+    setShowDateAlert("Пожалуйста, выбери дату рождения партнёра.");
+    return;
+  }
   if (!partnerBirthDate || !birthChakra) return;
 
   const today = new Date().toISOString().split("T")[0];
@@ -201,11 +205,16 @@ const handleCalculateCompatibility = async () => {
 };
 
 const handleCheckChakra = () => {
+  if (!birthDate) {
+  setShowDateAlert("Пожалуйста, выбери дату рождения перед расчётом.");
+  return;
+  }
   const today = new Date().toISOString().split("T")[0];
   const formattedDate = convertToJulianDate(birthDate);
 
   const solarEntry = solarData.find(entry => entry.Date === formattedDate);
   const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
+ 
 
   if (!solarEntry || !lunarEntry) {
     setBirthChakra({ 
@@ -878,6 +887,25 @@ const handleCheckChakra = () => {
         </div>
 
         </>
+      )}
+      {showDateAlert && (
+        <div style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "#fff",
+          color: "#000",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
+          zIndex: 1000,
+          maxWidth: "90vw",
+          textAlign: "center"
+        }}>
+          <p style={{ marginBottom: "15px" }}>{showDateAlert}</p>
+          <button onClick={() => setShowDateAlert(null)}>Понятно</button>
+        </div>
       )}
 
       {questionStep === 'result' && queryResult && (
