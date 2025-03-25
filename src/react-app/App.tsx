@@ -192,20 +192,6 @@ ${summary}
   setCompatibilityText(textBlock);
 };
 
-  
-  const { summary, details } = pairData;
-  
-  let textBlock = `💬 ${summary}\n`;
-  
-  for (let i = 1; i <= 3; i++) {
-    const chakraAdvice = details?.[i.toString()];
-    if (chakraAdvice) {
-      textBlock += `\n${i}-я чакра:\n✅ ${chakraAdvice.how}\n🚫 ${chakraAdvice.not}\n`;
-    }
-  }
-  setCompatibilityText(textBlock);
-};
-
 const handleCheckChakra = () => {
   const today = new Date().toISOString().split("T")[0];
   const formattedDate = convertToJulianDate(birthDate);
