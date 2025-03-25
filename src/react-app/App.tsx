@@ -945,7 +945,8 @@ const handleCheckChakra = () => {
     </div>
   </div>
 )}
-          
+   </div>
+    );
 }
 
 export default App;
