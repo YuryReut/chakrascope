@@ -800,25 +800,6 @@ const handleCheckChakra = () => {
     </div>
   </div>
 )}
- {showDateAlert && (
-        <div style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: "#fff",
-          color: "#000",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-          zIndex: 1000,
-          maxWidth: "90vw",
-          textAlign: "center"
-        }}>
-          <p style={{ marginBottom: "15px" }}>{showDateAlert}</p>
-          <button onClick={() => setShowDateAlert(null)}>Понятно</button>
-        </div>
-      )}
 
 {/* 🔹 Диалог "Задать вопрос" */}
 {showQuestions && (
@@ -930,6 +911,25 @@ const handleCheckChakra = () => {
     </div>
   </div>
 )}
+ {showDateAlert && (
+        <div style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "#fff",
+          color: "#000",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
+          zIndex: 1000,
+          maxWidth: "90vw",
+          textAlign: "center"
+        }}>
+          <p style={{ marginBottom: "15px" }}>{showDateAlert}</p>
+          <button onClick={() => setShowDateAlert(null)}>Понятно</button>
+        </div>
+      )}
         </div>
     );
 }
