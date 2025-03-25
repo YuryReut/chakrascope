@@ -8,6 +8,7 @@ import {
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
+import chakraCompatibility from "../api/chakras_compatibility.json";
 
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
@@ -68,6 +69,11 @@ void moonState;
 const [isEmotionStepCompleted, setIsEmotionStepCompleted] = useState(false);
 const [showEmotionReminder, setShowEmotionReminder] = useState(false);    
 void queryResult;
+
+// 🔹 Совместимость с партнёром
+const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
+const [partnerBirthDate, setPartnerBirthDate] = useState("");
+const [compatibilityText, setCompatibilityText] = useState<string | null>(null);
   
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
@@ -115,6 +121,17 @@ const startEmotionDialog = () => {
     setCurrentStep('intro');
     setSunState(null);
 };
+
+  const sunDegree = solarEntry.Solar_Longitude;
+  const moonDegree = lunarEntry.Lunar_Longitude;
+
+  const result = getBirthChakra(partnerBirthDate, today, sunDegree, moonDegree);
+  const partnerChakraNumber = result.result.birth.chakraNumber;
+  const yourChakraNumber = birthChakra.birth.chakraNumber;
+
+  // Загружаем JSON с совместимостью
+ const text = chakraCompatibility[yourChakraNumber]?.[partnerChakraNumber] || "Нет данных о совместимости.";
+ setCompatibilityText(text);
 
   const handleCheckChakra = () => {
     const today = new Date().toISOString().split("T")[0];
@@ -172,7 +189,22 @@ const startEmotionDialog = () => {
     setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
 };
 
-        const startQuestionnaire = () => {
+  const handleCalculateCompatibility = async () => {
+  if (!partnerBirthDate || !birthChakra) return;
+
+  const today = new Date().toISOString().split("T")[0];
+  const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
+
+  const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
+  const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
+
+  if (!solarEntry || !lunarEntry) {
+    setCompatibilityText("Не удалось определить чакру партнёра.");
+    return;
+  }
+
+
+    const startQuestionnaire = () => {
         setShowQuestions(true);
         setQueryResult(null);
     };
@@ -363,7 +395,31 @@ const startEmotionDialog = () => {
                       ❤️ : {birthChakra.birth.relationship} →{' '}
                       <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                     </p>
-                  
+                  {/* 👤 Плюсик для партнёрской совместимости */}
+<a
+  href="#"
+  onClick={(e) => {
+    e.preventDefault();
+    setShowCompatibilityPopup(true);
+  }}
+  style={{
+    fontSize: "18px",
+    marginLeft: "8px",
+    color: "#ffffff", // белый на белом, чтобы пока не было видно
+    backgroundColor: "#ffffff",
+    textDecoration: "none",
+    borderRadius: "50%",
+    width: "24px",
+    height: "24px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid transparent"
+  }}
+>
+  +
+</a>
+
                     <a
                       href="#"
                       onClick={(e) => {
@@ -599,6 +655,64 @@ const startEmotionDialog = () => {
     </div>
   </div>
 )}
+          
+{showCompatibilityPopup && (
+  <div style={{
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000
+  }}>
+    <div style={{
+      backgroundColor: "#fff",
+      padding: "20px",
+      width: "100%",
+      maxWidth: "90vw",
+      borderRadius: "10px",
+      boxSizing: "border-box",
+      textAlign: "center",
+      color: "#000"
+    }}>
+      <p style={{ marginBottom: "10px" }}>
+        Введите дату рождения партнёра:
+      </p>
+      <input 
+        type="date"
+        value={partnerBirthDate}
+        onChange={(e) => setPartnerBirthDate(e.target.value)}
+        style={{
+          padding: "8px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+          backgroundColor: "#fff",
+          color: "#000",
+          marginBottom: "10px"
+        }}
+      />
+      <div className="button-row">
+        <button onClick={handleCalculateCompatibility}>Показать совместимость</button>
+        <button onClick={() => {
+          setShowCompatibilityPopup(false);
+          setCompatibilityText(null);
+        }}>Закрыть</button>
+      </div>
+      {compatibilityText && (
+        <div style={{ marginTop: "20px", textAlign: "left" }}>
+          <p><strong>Совместимость:</strong></p>
+          <p>{compatibilityText}</p>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
 {/* 🔹 Диалог "Задать вопрос" */}
 {showQuestions && (
   <div style={{
