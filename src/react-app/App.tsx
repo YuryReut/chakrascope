@@ -744,25 +744,41 @@ const handleCheckChakra = () => {
       textAlign: "center",
       color: "#000"
     }}>
-      <p style={{ marginBottom: "10px" }}>
-        Введите дату рождения партнёра:
-      </p>
-      <input 
-        type="date"
-        value={partnerBirthDate}
-        onChange={(e) => setPartnerBirthDate(e.target.value)}
-        style={{
-          padding: "8px",
-          fontSize: "16px",
-          border: "1px solid #ccc",
-          borderRadius: "6px",
-          backgroundColor: "#fff",
-          color: "#000",
-          marginBottom: "10px"
-        }}
-      />
+
+<p style={{ marginBottom: "10px" }}>
+  Введите дату рождения партнёра:
+</p>
+<div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
+  <input 
+    type="date"
+    value={partnerBirthDate}
+    onChange={(e) => setPartnerBirthDate(e.target.value)}
+    style={{
+      padding: "8px",
+      fontSize: "16px",
+      border: "1px solid #ccc",
+      borderRadius: "6px",
+      backgroundColor: "#fff",
+      color: "#000",
+      minWidth: "180px"
+    }}
+  />
+  <button
+    onClick={handleCalculateCompatibility}
+    style={{
+      padding: "8px 16px",
+      fontSize: "18px",
+      border: "1px solid #000",
+      backgroundColor: "transparent",
+      color: "#000",
+      borderRadius: "6px",
+      cursor: "pointer"
+    }}
+  >
+    →
+  </button>
+</div>      
       <div className="button-row">
-        <button onClick={handleCalculateCompatibility}>Показать совместимость</button>
         <button onClick={() => {
           setShowCompatibilityPopup(false);
           setCompatibilityText(null);
