@@ -492,7 +492,7 @@ const handleCheckChakra = () => {
                         cursor: "pointer"
                       }}
                     >
-                      {showBirthDetails ? "Скрыть" : "Подробнее"}
+                      {showBirthDetails ? "Скрыть" : "Еще"}
                     </a>
 
                     {showBirthDetails && (
