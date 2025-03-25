@@ -461,30 +461,21 @@ const handleCheckChakra = () => {
                       ❤️ : {birthChakra.birth.relationship} →{' '}
                       <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                     </p>
-                  {/* 👤 Плюсик для партнёрской совместимости */}
-<a
-  href="#"
-  onClick={(e) => {
-    e.preventDefault();
-    setShowCompatibilityPopup(true);
-  }}
-  style={{
-    fontSize: "18px",
-    marginLeft: "8px",
-    color: "#ffffff", // белый на белом, чтобы пока не было видно
-    backgroundColor: "#ffffff",
-    textDecoration: "none",
-    borderRadius: "50%",
-    width: "24px",
-    height: "24px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "1px solid transparent"
-  }}
->
-  +
-</a>
+                    <button
+                      onClick={() => setShowCompatibilityPopup(true)}
+                      style={{
+                        marginTop: "10px",
+                        padding: "8px 16px",
+                        fontSize: "16px",
+                        border: "1px solid #000",
+                        borderRadius: "6px",
+                        backgroundColor: "#fff",
+                        color: "#000",
+                        cursor: "pointer"
+                      }}
+                    >
+                      Совместимость
+                    </button>
 
                     <a
                       href="#"
