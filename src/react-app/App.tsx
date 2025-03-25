@@ -88,6 +88,7 @@ void queryResult;
 // 🔹 Совместимость с партнёром
 const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
 const [partnerBirthDate, setPartnerBirthDate] = useState("2000-12-31");
+const [hasChangedPartnerDate, setHasChangedPartnerDate] = useState(false);
 const [compatibilityText, setCompatibilityText] = useState<{
   summary: string;
   chakra1?: {
@@ -155,7 +156,7 @@ const startEmotionDialog = () => {
 
 
 const handleCalculateCompatibility = async () => {
-  if (!partnerBirthDate) {
+  if (!hasChangedPartnerDate) {
     setShowDateAlert("Пожалуйста, выбери дату рождения партнёра.");
     return;
   }
@@ -752,7 +753,10 @@ const handleCheckChakra = () => {
   <input 
     type="date"
     value={partnerBirthDate}
-    onChange={(e) => setPartnerBirthDate(e.target.value)}
+    onChange={(e) => {
+      setPartnerBirthDate(e.target.value);
+      setHasChangedPartnerDate(true);
+    }}
     style={{
       padding: "8px",
       fontSize: "16px",
