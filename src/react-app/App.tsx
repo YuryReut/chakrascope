@@ -122,74 +122,9 @@ const startEmotionDialog = () => {
     setSunState(null);
 };
 
-  const sunDegree = solarEntry.Solar_Longitude;
-  const moonDegree = lunarEntry.Lunar_Longitude;
-
-  const result = getBirthChakra(partnerBirthDate, today, sunDegree, moonDegree);
-  const partnerChakraNumber = result.result.birth.chakraNumber;
-  const yourChakraNumber = birthChakra.birth.chakraNumber;
-
-  // Загружаем JSON с совместимостью
- const text = chakraCompatibility[yourChakraNumber]?.[partnerChakraNumber] || "Нет данных о совместимости.";
- setCompatibilityText(text);
-
-  const handleCheckChakra = () => {
-    const today = new Date().toISOString().split("T")[0];
-    const formattedDate = convertToJulianDate(birthDate);
-
-    const solarEntry = solarData.find(entry => entry.Date === formattedDate);
-    const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
-
-    if (!solarEntry || !lunarEntry) {
-        setBirthChakra({ 
-              birth: {
-                chakraNumber: 0,
-                chakraEmoji: "❌",
-                chakraTitle: "Ошибка",
-                chakraName: "Ошибка данных",
-                inner: "Ошибка даты",
-                outer: "Дата вне диапазона",
-                relationship: "Нет данных",
-                link: "#",
-                lovelink: "#",
-                lunarDescription: "Нет данных",
-                lunarEmoji: "❌",
-                lunarNumber: 0,
-                lunarTitle: "Ошибка",
-                lunarName: "Ошибка данных"
-              }, 
-              currentPath: "Дата вне диапазона данных!", 
-              today: "",
-              todayText: ""
-            });
-        return;
-    }
-   };
-    const sunDegree = solarEntry.Solar_Longitude;
-    const moonDegree = lunarEntry.Lunar_Longitude;
-
-    const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
-    setBirthChakra(result.result);
-
-    // 🔹 Добавляем расчет чакр по солнцу и луне
-    const chakraNameMap = {
-        1: "Муладхара",
-        2: "Свадхистхана",
-        3: "Манипура",
-        4: "Анахата",
-        5: "Вишудха",
-        6: "Аджна",
-        7: "Сахасрара"
-    };
-
-    const chakraNumberSun = getPersonalChakraDay(birthDate, today, moonDegree);
-    const chakraNumberMoon = getChakraFromTithi(getCurrentTithi(moonDegree));
-
-    setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
-    setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
 
 
-  const handleCalculateCompatibility = async () => {
+ const handleCalculateCompatibility = async () => {
   if (!partnerBirthDate || !birthChakra) return;
 
   const today = new Date().toISOString().split("T")[0];
@@ -202,7 +137,72 @@ const startEmotionDialog = () => {
     setCompatibilityText("Не удалось определить чакру партнёра.");
     return;
   }
- };
+
+  const sunDegree = solarEntry.Solar_Longitude;
+  const moonDegree = lunarEntry.Lunar_Longitude;
+
+  const result = getBirthChakra(partnerBirthDate, today, sunDegree, moonDegree);
+  const partnerChakraNumber = result.result.birth.chakraNumber;
+  const yourChakraNumber = birthChakra.birth.chakraNumber;
+
+  const text = chakraCompatibility[yourChakraNumber]?.[partnerChakraNumber] || "Нет данных о совместимости.";
+  setCompatibilityText(text);
+};
+
+const handleCheckChakra = () => {
+  const today = new Date().toISOString().split("T")[0];
+  const formattedDate = convertToJulianDate(birthDate);
+
+  const solarEntry = solarData.find(entry => entry.Date === formattedDate);
+  const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
+
+  if (!solarEntry || !lunarEntry) {
+    setBirthChakra({ 
+      birth: {
+        chakraNumber: 0,
+        chakraEmoji: "❌",
+        chakraTitle: "Ошибка",
+        chakraName: "Ошибка данных",
+        inner: "Ошибка даты",
+        outer: "Дата вне диапазона",
+        relationship: "Нет данных",
+        link: "#",
+        lovelink: "#",
+        lunarDescription: "Нет данных",
+        lunarEmoji: "❌",
+        lunarNumber: 0,
+        lunarTitle: "Ошибка",
+        lunarName: "Ошибка данных"
+      }, 
+      currentPath: "Дата вне диапазона данных!", 
+      today: "",
+      todayText: ""
+    });
+    return;
+  }
+
+  const sunDegree = solarEntry.Solar_Longitude;
+  const moonDegree = lunarEntry.Lunar_Longitude;
+
+  const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+  setBirthChakra(result.result);
+
+  const chakraNameMap = {
+    1: "Муладхара",
+    2: "Свадхистхана",
+    3: "Манипура",
+    4: "Анахата",
+    5: "Вишудха",
+    6: "Аджна",
+    7: "Сахасрара"
+  };
+
+  const chakraNumberSun = getPersonalChakraDay(birthDate, today, moonDegree);
+  const chakraNumberMoon = getChakraFromTithi(getCurrentTithi(moonDegree));
+
+  setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
+  setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
+};
 
     const startQuestionnaire = () => {
         setShowQuestions(true);
