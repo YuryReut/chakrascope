@@ -8,7 +8,9 @@ import {
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
-import chakraCompatibility from "../api/chakras_compatibility.json";
+import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
+
+const chakraCompatibility: Record<string, Record<string, string>> = chakraCompatibilityRaw;
 
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
