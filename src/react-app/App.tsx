@@ -145,7 +145,7 @@ const startEmotionDialog = () => {
   const partnerChakraNumber = result.result.birth.chakraNumber;
   const yourChakraNumber = birthChakra.birth.chakraNumber;
 
-  const text = chakraCompatibility[yourChakraNumber]?.[partnerChakraNumber] || "Нет данных о совместимости.";
+  const text = chakraCompatibility[yourChakraNumber.toString()]?.[partnerChakraNumber.toString()] || "Нет данных о совместимости.";
   setCompatibilityText(text);
 };
 
