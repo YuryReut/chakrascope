@@ -87,7 +87,7 @@ void queryResult;
 
 // 🔹 Совместимость с партнёром
 const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
-const [partnerBirthDate, setPartnerBirthDate] = useState("");
+const [partnerBirthDate, setPartnerBirthDate] = useState("2000-12-31");
 const [compatibilityText, setCompatibilityText] = useState<{
   summary: string;
   chakra1?: {
@@ -755,38 +755,37 @@ const handleCheckChakra = () => {
         }}>Закрыть</button>
       </div>
      {compatibilityText && (
-      <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
-        <p style={{ marginBottom: "10px" }}>
-          <strong>Рекомендация:</strong>
-          <br />
-          {compatibilityText.summary}</p>
-        <div style={{ marginBottom: "12px" }}>
-          <p>
-            <strong>Стабильность и безопасность</strong>
-          <br />
-          {compatibilityText.chakra1?.how || "—"}</p>
-          <br />
-          {compatibilityText.chakra1?.not || "—"}</p>
-        </div>
-    
-        <div style={{ marginBottom: "12px" }}>
-          <p>
-            <strong>Эмоции и чувственность</strong>
-          <br />
-          {compatibilityText.chakra2?.how || "—"}
-          <br />
-          {compatibilityText.chakra2?.not || "—"}</p>
-        </div>
-    
-        <div style={{ marginBottom: "12px" }}>
-          <p>
-            <strong>Действия и цели</strong>
-          <br />
-          {compatibilityText.chakra3?.how || "—"}
-          <br />
-          {compatibilityText.chakra3?.not || "—"}</p>
-        </div>
-      </div>
+     <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
+  <p style={{ marginBottom: "10px" }}>
+    <strong>Рекомендация:</strong><br />
+    {compatibilityText.summary}
+  </p>
+
+  <div style={{ marginBottom: "12px" }}>
+    <p>
+      <strong>Стабильность и безопасность</strong><br />
+      {compatibilityText.chakra1?.how || "—"}<br />
+      {compatibilityText.chakra1?.not || "—"}
+    </p>
+  </div>
+
+  <div style={{ marginBottom: "12px" }}>
+    <p>
+      <strong>Эмоции и чувственность</strong><br />
+      {compatibilityText.chakra2?.how || "—"}<br />
+      {compatibilityText.chakra2?.not || "—"}
+    </p>
+  </div>
+
+  <div style={{ marginBottom: "12px" }}>
+    <p>
+      <strong>Действия и цели</strong><br />
+      {compatibilityText.chakra3?.how || "—"}<br />
+      {compatibilityText.chakra3?.not || "—"}
+    </p>
+  </div>
+</div>
+
     )}
 
     </div>
