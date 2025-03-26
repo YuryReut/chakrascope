@@ -769,6 +769,7 @@ const handleCheckChakra = () => {
     zIndex: 1000
   }}>
     <div style={{
+      position: "relative", 
       backgroundColor: "#fff",
       padding: "20px",
       width: "100%",
@@ -815,12 +816,24 @@ const handleCheckChakra = () => {
     →
   </button>
 </div>      
-      <div className="button-row">
-        <button onClick={() => {
-          setShowCompatibilityPopup(false);
-          setCompatibilityText(null);
-        }}>Закрыть</button>
-      </div>
+<button
+  onClick={() => {
+    setShowCompatibilityPopup(false);
+    setCompatibilityText(null);
+  }}
+  style={{
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    background: "none",
+    border: "none",
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#999"
+  }}
+>
+  ✕
+</button>
      {compatibilityText && (
      <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
   <p style={{ marginBottom: "10px" }}>
