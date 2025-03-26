@@ -146,16 +146,6 @@ async function generatePromoCode(date1: string, date2: string): Promise<string> 
   return `${d1}-${d2}-${ts}-${shortSig}`;
 }
 
-
-  const signature = await crypto.subtle.sign("HMAC", cryptoKey, data);
-  const hashArray = Array.from(new Uint8Array(signature));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  const shortSig = hashHex.substring(0, 8).toUpperCase();
-
-  return `${payload}.${shortSig}`;
-}
-
-
 const [showDateAlert, setShowDateAlert] = useState<string | null>(null);  
 // 🔹 Обработка выбора состояния чакры
 const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
