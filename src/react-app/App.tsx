@@ -448,44 +448,45 @@ const handleCheckChakra = () => {
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
             }}>
               <h1 style={{ fontWeight: 200, fontSize: "32px", marginBottom: "10px" }}>Чакроскоп</h1>
-             <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
-              <label style={{ marginRight: "10px"}}>
-                <span style={{ fontSize: "0.8em" }}>Введите дату рождения: <br />
-                </span>
-                <input 
-                  type="date" 
-                  value={birthDate} 
-                  onChange={(e) => {
-                    setBirthDate(e.target.value);
-                    setHasChangedBirthDate(true);
-                  }}
-                  style={{ 
-                    marginLeft: "10px",
-                    padding: "8px",
-                    fontSize: "16px",
-                    border: "1px solid #ccc",
-                    borderRadius: "6px",
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    minWidth: "180px"
-                  }} 
-                />
+           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "10px", margin: "20px 0" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+              <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
+                Введите дату рождения:
               </label>
-              <button
-                onClick={handleCheckChakra}
-                style={{
-                  padding: "8px 16px",
-                  fontSize: "18px",
-                  border: "1px solid #000",
-                  backgroundColor: "transparent",
-                  color: "#000",
-                  borderRadius: "6px",
-                  cursor: "pointer"
+              <input 
+                type="date" 
+                value={birthDate} 
+                onChange={(e) => {
+                  setBirthDate(e.target.value);
+                  setHasChangedBirthDate(true);
                 }}
-              >
-                →
-              </button>
+                style={{ 
+                  padding: "8px",
+                  fontSize: "16px",
+                  border: "1px solid #ccc",
+                  borderRadius: "6px",
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  minWidth: "180px"
+                }} 
+              />
             </div>
+            <button
+              onClick={handleCheckChakra}
+              style={{
+                padding: "8px 16px",
+                fontSize: "18px",
+                border: "1px solid #000",
+                backgroundColor: "transparent",
+                color: "#000",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              →
+            </button>
+          </div>
+              
             {birthChakra && (
                 <div>
                    {/* Блок 1 - С чем ты пришел в мир */} 
@@ -799,12 +800,11 @@ const handleCheckChakra = () => {
     style={{
       position: "absolute",
       top: "0",
-      right: "10px",
+      right: "0",
       background: "none",
       border: "none",
       cursor: "pointer",
-      color: "#999",
-      fontSize: "14px"
+      color: "#999"
     }}
   >
     Закрыть
