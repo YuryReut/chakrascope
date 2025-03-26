@@ -108,19 +108,24 @@ const [compatibilityText, setCompatibilityText] = useState<{
   promoCode?: string | null;
 } | null>(null);
 
-async function generatePromoCode(userDate: string, partnerDate: string): Promise<string> {
-  const payloadObj = {
-    user: userDate,
-    partner: partnerDate,
-    timestamp: Math.floor(Date.now() / 1000)
+async function generatePromoCode(date1: string, date2: string): Promise<string> {
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    const year = d.getFullYear() % 100;
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
+    return `${year.toString().padStart(2, '0')}${month}${day}`;
   };
 
-  const payloadString = JSON.stringify(payloadObj);
-  const payloadBytes = new TextEncoder().encode(payloadString);
-  const payloadBase64 = btoa(String.fromCharCode(...payloadBytes));
+  const user = formatDate(date1);
+  const partner = formatDate(date2);
+  const timestamp = Math.floor(Date.now() / 1000).toString(36).toUpperCase(); // Base36 timestamp
+  const payload = `${user}-${partner}-${timestamp}`;
 
   const secret = "7f0f1aa34d1e20aaab1fd8480db04175bbcc416e8d236039c0fb3e5ce5c48f98";
-  const key = new TextEncoder().encode(secret);
+  const encoder = new TextEncoder();
+  const key = encoder.encode(secret);
+  const data = encoder.encode(payload);
 
   const cryptoKey = await crypto.subtle.importKey(
     "raw",
@@ -130,12 +135,14 @@ async function generatePromoCode(userDate: string, partnerDate: string): Promise
     ["sign"]
   );
 
-  const signatureBuffer = await crypto.subtle.sign("HMAC", cryptoKey, payloadBytes);
-  const signatureArray = Array.from(new Uint8Array(signatureBuffer));
-  const signatureHex = signatureArray.map(b => b.toString(16).padStart(2, "0")).join("").substring(0, 12).toUpperCase();
+  const signature = await crypto.subtle.sign("HMAC", cryptoKey, data);
+  const hashArray = Array.from(new Uint8Array(signature));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const shortSig = hashHex.substring(0, 8).toUpperCase();
 
-  return `${payloadBase64}.${signatureHex}`;
+  return `${payload}.${shortSig}`;
 }
+
 
 const [showDateAlert, setShowDateAlert] = useState<string | null>(null);  
 // 🔹 Обработка выбора состояния чакры
