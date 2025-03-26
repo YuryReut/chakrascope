@@ -791,7 +791,7 @@ const handleCheckChakra = () => {
       color: "#000"
     }}>
 
-<p style={{ marginBottom: "10px" }}>
+<p style={{ marginBottom: "4px", marginTop: "10px", fontSize: "0.6em"  }}>
   Введите дату рождения партнёра:
 </p>
 <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
