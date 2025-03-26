@@ -790,25 +790,30 @@ const handleCheckChakra = () => {
       color: "#000"
     }}>
 <div style={{ position: "relative", marginBottom: "10px", textAlign: "center" }}>
-  <button
-    onClick={() => {
-      setShowCompatibilityPopup(false);
-      setCompatibilityText(null);
-    }}
-    style={{
-      position: "absolute",
-      background: "none",
-      border: "none",
-      cursor: "pointer",
-      color: "#999",
-    }}
-  >
-    Закрыть
-  </button>
+<button
+  onClick={() => {
+    setShowCompatibilityPopup(false);
+    setCompatibilityText(null);
+  }}
+  style={{
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "#999",
+    fontSize: "14px"
+  }}
+>
+  Закрыть
+</button>
 
-  <label style={{ display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
-    <span style={{ fontSize: "0.8em" }}>Дата рождения партнёра: <br />
-    </span>
+<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "10px", marginBottom: "10px", marginTop: "20px" }}>
+  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+    <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
+      Дата рождения партнёра:
+    </label>
     <input 
       type="date"
       value={partnerBirthDate}
@@ -817,7 +822,6 @@ const handleCheckChakra = () => {
         setHasChangedPartnerDate(true);
       }}
       style={{
-        marginLeft: "10px",
         padding: "8px",
         fontSize: "16px",
         border: "1px solid #ccc",
@@ -827,24 +831,21 @@ const handleCheckChakra = () => {
         minWidth: "180px"
       }}
     />
-  </label>
-
-  <div style={{ marginTop: "10px" }}>
-    <button
-      onClick={handleCalculateCompatibility}
-      style={{
-        padding: "8px 16px",
-        fontSize: "18px",
-        border: "1px solid #000",
-        backgroundColor: "transparent",
-        color: "#000",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      →
-    </button>
   </div>
+  <button
+    onClick={handleCalculateCompatibility}
+    style={{
+      padding: "8px 16px",
+      fontSize: "18px",
+      border: "1px solid #000",
+      backgroundColor: "transparent",
+      color: "#000",
+      borderRadius: "6px",
+      cursor: "pointer"
+    }}
+  >
+    →
+  </button>
 </div>
       
  {compatibilityText && (
