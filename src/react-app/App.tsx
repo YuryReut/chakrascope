@@ -699,7 +699,7 @@ const handleCheckChakra = () => {
       textDecoration: "underline"
     }}
   >
-    X
+    Закрыть
   </span>
 </div>
       {/* Этап 0 — вступительный текст */}
@@ -941,7 +941,7 @@ const handleCheckChakra = () => {
       textDecoration: "underline"
     }}
   >
-    X
+    Закрыть
   </span>
 </div>  
     {questionStep === 'intro' && (
@@ -1016,12 +1016,6 @@ const handleCheckChakra = () => {
           <p>
             {queryResult.growthVector}
           </p>
-          <div className="button-row">
-            <button onClick={() => {
-              setShowQuestions(false);
-              setQuestionStep('intro');
-            }}>Закрыть</button>
-          </div>
         </>
       )}
     </div>
