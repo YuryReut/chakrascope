@@ -789,27 +789,24 @@ const handleCheckChakra = () => {
   </p>
      {compatibilityText.exactMatch && (
   <div style={{
-    border: "1px solid #сссссс",
+    border: "1px solid #cccccc",
     borderRadius: "12px",
     padding: "15px",
     marginTop: "20px"
   }}>
     <p>
-      💖 Похоже, что это как раз те отношения, которые стоит
-    </p>
+      💖 Похоже, что это как раз те отношения, которые стоит <br />
     <a
       href="https://web3wed.io"
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        color: "#d63384",
-        fontWeight: "bold",
-        textDecoration: "underline",
-        fontSize: "16px"
+        fontWeight: "bold"
       }}
     >
       сохранить навечно как настоящую любовь →
     </a>
+    </p>
   </div>
 )}
 
