@@ -790,8 +790,26 @@ const handleCheckChakra = () => {
       textAlign: "center",
       color: "#000"
     }}>
+<button
+  onClick={() => {
+    setShowCompatibilityPopup(false);
+    setCompatibilityText(null);
+  }}
+  style={{
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    background: "none",
+    border: "none",
+    fontSize: "16px",
+    cursor: "pointer",
+    color: "#999"
+  }}
+>
+  Закрыть
+</button>
 
-<p style={{ marginBottom: "4px", marginTop: "10px", fontSize: "0.6em"  }}>
+<p style={{ marginBottom: "4px", fontSize: "0.8em"  }}>
   Введите дату рождения партнёра:
 </p>
 <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
@@ -827,25 +845,7 @@ const handleCheckChakra = () => {
     →
   </button>
 </div>      
-<button
-  onClick={() => {
-    setShowCompatibilityPopup(false);
-    setCompatibilityText(null);
-  }}
-  style={{
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "none",
-    border: "none",
-    fontSize: "16px",
-    cursor: "pointer",
-    color: "#999"
-  }}
->
-  Закрыть
-</button>
-     {compatibilityText && (
+ {compatibilityText && (
      <div style={{ marginTop: "20px", textAlign: "center" }}>
   <p style={{ marginBottom: "10px" }}>
     <strong>Рекомендации</strong><br />
