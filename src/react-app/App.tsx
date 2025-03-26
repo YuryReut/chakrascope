@@ -696,7 +696,6 @@ const handleCheckChakra = () => {
     onClick={() => setShowEmotionDialog(false)}
     style={{
       cursor: "pointer",
-      fontSize: "14px",
       color: "#999",
       textDecoration: "underline"
     }}
@@ -801,7 +800,6 @@ const handleCheckChakra = () => {
     right: "10px",
     background: "none",
     border: "none",
-    fontSize: "16px",
     cursor: "pointer",
     color: "#999"
   }}
@@ -994,7 +992,6 @@ const handleCheckChakra = () => {
     }}
     style={{
       cursor: "pointer",
-      fontSize: "14px",
       color: "#999",
       textDecoration: "underline"
     }}
