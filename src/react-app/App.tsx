@@ -906,10 +906,10 @@ const handleCheckChakra = () => {
     Стабильность и безопасность
   </p>
   {openBlock === "chakra1" && (
-    <>
-      <p>{compatibilityText.chakra1?.how || "—"}</p>
-      <p>{compatibilityText.chakra1?.not || "—"}</p>
-    </>
+    <p>
+      {compatibilityText.chakra1?.how || "—"} <br />
+      {compatibilityText.chakra1?.not || "—"}
+    </p>
   )}
 </div>
 
@@ -927,10 +927,10 @@ const handleCheckChakra = () => {
     Эмоции и чувственность
   </p>
   {openBlock === "chakra2" && (
-    <>
-      <p>{compatibilityText.chakra2?.how || "—"}</p>
-      <p>{compatibilityText.chakra2?.not || "—"}</p>
-    </>
+      <p>
+      {compatibilityText.chakra2?.how || "—"} <br />
+      {compatibilityText.chakra2?.not || "—"}
+      </p>
   )}
 </div>
 
@@ -948,10 +948,10 @@ const handleCheckChakra = () => {
     Действия и цели
   </p>
   {openBlock === "chakra3" && (
-    <>
-      <p>{compatibilityText.chakra3?.how || "—"}</p>
-      <p>{compatibilityText.chakra3?.not || "—"}</p>
-    </>
+      <p>
+        {compatibilityText.chakra3?.how || "—"}  <br />
+        {compatibilityText.chakra3?.not || "—"}
+      </p>
   )}
 </div>
 </div>
