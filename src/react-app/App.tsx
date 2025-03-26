@@ -789,14 +789,12 @@ const handleCheckChakra = () => {
   </p>
      {compatibilityText.exactMatch && (
   <div style={{
-    border: "2px solid #ff69b4",
+    border: "1px solid #сссссс",
     borderRadius: "12px",
     padding: "15px",
-    backgroundColor: "#fff0f5",
-    marginTop: "20px",
-    boxShadow: "0 4px 8px rgba(255, 105, 180, 0.2)"
+    marginTop: "20px"
   }}>
-    <p style={{ margin: "0 0 10px" }}>
+    <p>
       💖 Похоже, что это как раз те отношения, которые стоит
     </p>
     <a
