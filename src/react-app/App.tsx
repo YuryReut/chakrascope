@@ -10,6 +10,7 @@ import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
 
+
 type CompatibilityDetails = {
   how: string;
   not: string;
@@ -104,7 +105,31 @@ const [compatibilityText, setCompatibilityText] = useState<{
     not: string;
   };
   exactMatch?: boolean;
+  promoCode?: string | null;
 } | null>(null);
+
+async function generatePromoCode(date1: string, date2: string): Promise<string> {
+  const sortedDates = [date1, date2].sort(); // гарантируем одинаковый порядок
+  const payload = `${sortedDates[0]}|${sortedDates[1]}`;
+
+  const secret = "7f0f1aa34d1e20aaab1fd8480db04175bbcc416e8d236039c0fb3e5ce5c48f98"; // держим только на клиенте
+  const encoder = new TextEncoder();
+  const key = encoder.encode(secret);
+  const data = encoder.encode(payload);
+
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    key,
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const signature = await crypto.subtle.sign("HMAC", cryptoKey, data);
+  const hashArray = Array.from(new Uint8Array(signature));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex.substring(0, 12).toUpperCase(); // Промокод длиной 12 символов
+}
 
 
 const [showDateAlert, setShowDateAlert] = useState<string | null>(null);  
@@ -198,14 +223,16 @@ const handleCalculateCompatibility = async () => {
   const chakra2 = details?.["2"];
   const chakra3 = details?.["3"];
 
- setCompatibilityText({
+ const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
+
+setCompatibilityText({
   summary,
   chakra1,
   chakra2,
   chakra3,
-  exactMatch: isExactMatch
+  exactMatch: isExactMatch,
+  promoCode
 });
-
 };
 
 const handleCheckChakra = () => {
@@ -273,6 +300,14 @@ const handleCheckChakra = () => {
         setShowQuestions(true);
         setQueryResult(null);
     };
+
+  // 🔐 Генерация промокода по дате рождения и дате партнёра
+function generatePromoCode(userDate: string, partnerDate: string): string {
+  const data = `${userDate}_${partnerDate}`;
+  const secretKey = "z89r@J1nX-64WplK"; // любой сложный ключ
+  // @ts-ignore
+  return CryptoJS.HmacSHA256(data, secretKey).toString().slice(0, 12); // промокод из 12 символов
+}
 
     const generateQueryResult = (chakraIndex: number) => {
       const chakraLabels = [
@@ -805,7 +840,8 @@ const handleCheckChakra = () => {
       }}
     >
       сохранить навечно как настоящую любовь →
-    </a>
+    </a><br />
+       Промокод: <strong>{compatibilityText.promoCode}</strong>
     </p>
   </div>
 )}
