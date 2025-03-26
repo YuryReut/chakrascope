@@ -109,20 +109,23 @@ const [compatibilityText, setCompatibilityText] = useState<{
 } | null>(null);
 
 async function generatePromoCode(date1: string, date2: string): Promise<string> {
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const year = d.getFullYear() % 100;
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const day = d.getDate().toString().padStart(2, '0');
-    return `${year.toString().padStart(2, '0')}${month}${day}`;
+  const sortedDates = [date1, date2].sort();
+  const timestamp = Math.floor(Date.now() / 1000); // секунды
+
+  // Упрощённое кодирование: YYMMDD → base36
+  const toBase36Date = (dateStr: string) => {
+    const parts = dateStr.split('-');
+    const compact = parts[0].slice(2) + parts[1] + parts[2]; // YYMMDD
+    return parseInt(compact, 10).toString(36).toUpperCase(); // base36
   };
 
-  const user = formatDate(date1);
-  const partner = formatDate(date2);
-  const timestamp = Math.floor(Date.now() / 1000).toString(36).toUpperCase(); // Base36 timestamp
-  const payload = `${user}-${partner}-${timestamp}`;
+  const d1 = toBase36Date(sortedDates[0]);
+  const d2 = toBase36Date(sortedDates[1]);
+  const ts = timestamp.toString(36).toUpperCase();
 
+  const payload = `${d1}-${d2}-${ts}`;
   const secret = "7f0f1aa34d1e20aaab1fd8480db04175bbcc416e8d236039c0fb3e5ce5c48f98";
+
   const encoder = new TextEncoder();
   const key = encoder.encode(secret);
   const data = encoder.encode(payload);
@@ -134,6 +137,15 @@ async function generatePromoCode(date1: string, date2: string): Promise<string> 
     false,
     ["sign"]
   );
+
+  const signature = await crypto.subtle.sign("HMAC", cryptoKey, data);
+  const hashArray = Array.from(new Uint8Array(signature));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  const shortSig = hashHex.substring(0, 8).toUpperCase();
+
+  return `${d1}-${d2}-${ts}-${shortSig}`;
+}
+
 
   const signature = await crypto.subtle.sign("HMAC", cryptoKey, data);
   const hashArray = Array.from(new Uint8Array(signature));
