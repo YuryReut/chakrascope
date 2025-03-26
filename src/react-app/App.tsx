@@ -689,7 +689,19 @@ const handleCheckChakra = () => {
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
       color: "#000"
     }}>
-
+      <div style={{ textAlign: "right", marginBottom: "10px" }}>
+  <span
+    onClick={() => setShowEmotionDialog(false)}
+    style={{
+      cursor: "pointer",
+      fontSize: "14px",
+      color: "#999",
+      textDecoration: "underline"
+    }}
+  >
+    X
+  </span>
+</div>
       {/* Этап 0 — вступительный текст */}
       {currentStep === 'intro' && (
         <>
@@ -736,9 +748,6 @@ const handleCheckChakra = () => {
         <>
           <p><b>Рекомендации:</b></p>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
-          <div className="button-row">
-            <button onClick={() => setShowEmotionDialog(false)}>Закрыть</button>
-          </div>
         </>
       )}
 
@@ -919,6 +928,22 @@ const handleCheckChakra = () => {
       textAlign: "center",
       color: "#000"
     }}>
+    <div style={{ textAlign: "right", marginBottom: "10px" }}>
+  <span
+    onClick={() => {
+      setShowQuestions(false);
+      setQuestionStep('intro');
+    }}
+    style={{
+      cursor: "pointer",
+      fontSize: "14px",
+      color: "#999",
+      textDecoration: "underline"
+    }}
+  >
+    X
+  </span>
+</div>  
     {questionStep === 'intro' && (
         <>
           <p>🙌</p>
@@ -932,9 +957,6 @@ const handleCheckChakra = () => {
 Дай себе момент. Ответ уже может быть внутри.
           </p>
           <button onClick={() => setQuestionStep('select')}>Определить вопрос</button>
-          <div className="button-row" style={{ marginTop: "20px" }}>
-            <button onClick={() => setShowQuestions(false)}>Отмена</button>
-          </div>
         </>
       )}
 
