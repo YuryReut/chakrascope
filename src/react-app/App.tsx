@@ -789,60 +789,66 @@ const handleCheckChakra = () => {
       textAlign: "center",
       color: "#000"
     }}>
-<button
-  onClick={() => {
-    setShowCompatibilityPopup(false);
-    setCompatibilityText(null);
-  }}
-  style={{
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: "#999"
-  }}
->
-  Закрыть
-</button>
-
-<p style={{ marginBottom: "4px", fontSize: "0.8em"  }}>
-  Введите дату рождения партнёра:
-</p>
-<div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
-  <input 
-    type="date"
-    value={partnerBirthDate}
-    onChange={(e) => {
-      setPartnerBirthDate(e.target.value);
-      setHasChangedPartnerDate(true);
-    }}
-    style={{
-      padding: "8px",
-      fontSize: "16px",
-      border: "1px solid #ccc",
-      borderRadius: "6px",
-      backgroundColor: "#fff",
-      color: "#000",
-      minWidth: "180px"
-    }}
-  />
+<div style={{ position: "relative", marginBottom: "10px", textAlign: "center" }}>
   <button
-    onClick={handleCalculateCompatibility}
+    onClick={() => {
+      setShowCompatibilityPopup(false);
+      setCompatibilityText(null);
+    }}
     style={{
-      padding: "8px 16px",
-      fontSize: "18px",
-      border: "1px solid #000",
-      backgroundColor: "transparent",
-      color: "#000",
-      borderRadius: "6px",
-      cursor: "pointer"
+      position: "absolute",
+      top: "10px",
+      right: "10px",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      color: "#999",
+      fontSize: "14px"
     }}
   >
-    →
+    Закрыть
   </button>
-</div>      
+
+  <label style={{ fontSize: "14px", display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
+    Введите дату рождения партнёра:
+    <input 
+      type="date"
+      value={partnerBirthDate}
+      onChange={(e) => {
+        setPartnerBirthDate(e.target.value);
+        setHasChangedPartnerDate(true);
+      }}
+      style={{
+        marginLeft: "10px",
+        padding: "8px",
+        fontSize: "16px",
+        border: "1px solid #ccc",
+        borderRadius: "6px",
+        backgroundColor: "#fff",
+        color: "#000",
+        minWidth: "180px"
+      }}
+    />
+  </label>
+
+  <div style={{ marginTop: "10px" }}>
+    <button
+      onClick={handleCalculateCompatibility}
+      style={{
+        padding: "8px 16px",
+        fontSize: "18px",
+        border: "1px solid #000",
+        backgroundColor: "transparent",
+        color: "#000",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      →
+    </button>
+  </div>
+</div>
+      
  {compatibilityText && (
      <div style={{ marginTop: "20px", textAlign: "center" }}>
   <p style={{ marginBottom: "10px" }}>
