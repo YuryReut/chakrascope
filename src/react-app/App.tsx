@@ -790,7 +790,7 @@ const handleCheckChakra = () => {
       color: "#000"
     }}>
 
-<div style={{ position: "relative", marginBottom: "10px", textAlign: "center" }}>
+<div style={{ position: "relative", paddingTop: "30px", marginBottom: "10px", textAlign: "center" }}>
   <button
     onClick={() => {
       setShowCompatibilityPopup(false);
@@ -798,7 +798,7 @@ const handleCheckChakra = () => {
     }}
     style={{
       position: "absolute",
-      top: "10px",
+      top: "0",
       right: "10px",
       background: "none",
       border: "none",
@@ -810,16 +810,7 @@ const handleCheckChakra = () => {
     Закрыть
   </button>
 
-  <div
-    style={{
-      display: "flex",
-      alignItems: "flex-end",
-      justifyContent: "center",
-      gap: "10px",
-      marginBottom: "10px",
-      marginTop: "20px"
-    }}
-  >
+  <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "10px", marginBottom: "10px", marginTop: "20px" }}>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
       <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
         Дата рождения партнёра:
