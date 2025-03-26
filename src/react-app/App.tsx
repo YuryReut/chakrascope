@@ -846,7 +846,7 @@ const handleCheckChakra = () => {
   Закрыть
 </button>
      {compatibilityText && (
-     <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
+     <div style={{ marginTop: "20px", textAlign: "center" }}>
   <p style={{ marginBottom: "10px" }}>
     <strong>Рекомендация:</strong><br />
     {compatibilityText.summary}
@@ -856,8 +856,25 @@ const handleCheckChakra = () => {
     border: "1px solid #cccccc",
     borderRadius: "12px",
     padding: "15px",
-    marginTop: "20px"
+    marginTop: "20px",
+    position: "relative"
   }}>
+      <a
+      href="https://dzen.ru/a/Z-DTMOLsYA3bphbf"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "15px",
+        fontSize: "13px",
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
+    >
+      Подробнее
+    </a>
     <p>
       💖 Похоже, что это как раз те отношения, которые стоит <br />
     <a
