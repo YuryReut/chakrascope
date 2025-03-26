@@ -848,7 +848,7 @@ const handleCheckChakra = () => {
      {compatibilityText && (
      <div style={{ marginTop: "20px", textAlign: "center" }}>
   <p style={{ marginBottom: "10px" }}>
-    <strong>Рекомендация:</strong><br />
+    <strong>Рекомендации</strong><br />
     {compatibilityText.summary}
   </p>
      {compatibilityText.exactMatch && (
