@@ -846,66 +846,46 @@ const handleCheckChakra = () => {
   Закрыть
 </button>
       
-{compatibilityText && (
- <div style={{ marginTop: "20px", textAlign: "center" }}>
-  <p style={{ marginBottom: "10px" }}>
-    <strong>Рекомендации</strong><br />
-    {compatibilityText.summary}
-  </p>
-    {/* 💖 Match */}
-<div
-  onClick={() => setOpenBlock("match")}
-  style={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    cursor: "pointer",
-    fontWeight: "bold",
-    marginBottom: "8px",
-    gap: "6px"
-  }}
->
-  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-    <span>💖</span>
-    <span>100%</span>
-  </div>
-  <a
-    href="https://dzen.ru/a/Z-DTMOLsYA3bphbf"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      fontSize: "12px",
-      color: "#888",
-      textDecoration: "underline"
-    }}
-    onClick={(e) => e.stopPropagation()} // чтобы не сворачивался блок при клике на ссылку
-  >
-    Подробнее
-  </a>
-</div>
-
-{openBlock === "match" && compatibilityText.exactMatch && (
+ {compatibilityText.exactMatch && (
   <div style={{
     border: "1px solid #cccccc",
     borderRadius: "12px",
     padding: "15px",
-    marginBottom: "15px"
+    marginTop: "20px",
+    position: "relative"
   }}>
+     <a
+      href="https://dzen.ru/a/Z-DTMOLsYA3bphbf"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "15px",
+        fontSize: "13px",
+        color: "#666",
+        textDecoration: "underline"
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      Подробнее
+    </a>
     <p>
       💖 Похоже, что это как раз те отношения, которые стоит <br />
-      <a
-        href="https://web3wed.io"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ fontWeight: "bold" }}
-      >
-        сохранить навечно как настоящую любовь →
-      </a><br />
-      Промокод: <strong>{compatibilityText.promoCode}</strong>
+    <a
+      href="https://web3wed.io"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        fontWeight: "bold"
+      }}
+    >
+      сохранить навечно как настоящую любовь →
+    </a><br />
+       Промокод: <strong>{compatibilityText.promoCode}</strong>
     </p>
   </div>
 )}
-
 
   {/* 💛 Стабильность */}
 <div style={{ marginBottom: "12px", textAlign: "left" }}>
