@@ -449,8 +449,9 @@ const handleCheckChakra = () => {
             }}>
               <h1 style={{ fontWeight: 200, fontSize: "32px", marginBottom: "10px" }}>Чакроскоп</h1>
              <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
-              <label style={{ marginRight: "10px", fontSize: "0.8em" }}>
-                Введите дату рождения:
+              <label style={{ marginRight: "10px"}}>
+                <span style={{ fontSize: "0.8em" }}>Введите дату рождения: <br />
+                </span>
                 <input 
                   type="date" 
                   value={birthDate} 
@@ -696,8 +697,7 @@ const handleCheckChakra = () => {
     onClick={() => setShowEmotionDialog(false)}
     style={{
       cursor: "pointer",
-      color: "#999",
-      textDecoration: "underline"
+      color: "#999"
     }}
   >
     Закрыть
@@ -797,20 +797,18 @@ const handleCheckChakra = () => {
     }}
     style={{
       position: "absolute",
-      top: "10px",
-      right: "10px",
       background: "none",
       border: "none",
       cursor: "pointer",
       color: "#999",
-      fontSize: "14px"
     }}
   >
     Закрыть
   </button>
 
-  <label style={{ fontSize: "0.8em", display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
-    Дата рождения партнёра:
+  <label style={{ display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
+    <span style={{ fontSize: "0.8em" }}>Дата рождения партнёра: <br />
+    </span>
     <input 
       type="date"
       value={partnerBirthDate}
