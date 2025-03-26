@@ -871,6 +871,7 @@ const handleCheckChakra = () => {
         <p>{compatibilityText.chakra3?.not || "—"}</p>
       </div>
     )}
+
   </div>
 )}
 
