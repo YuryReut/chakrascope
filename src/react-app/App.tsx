@@ -108,6 +108,8 @@ const [compatibilityText, setCompatibilityText] = useState<{
   promoCode?: string | null;
 } | null>(null);
 
+const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | null>("chakra1");
+
 async function generatePromoCode(date1: string, date2: string): Promise<string> {
   const sortedDates = [date1, date2].sort();
   const timestamp = Math.floor(Date.now() / 1000); // секунды
@@ -841,7 +843,7 @@ const handleCheckChakra = () => {
     color: "#999"
   }}
 >
-  ✕
+  Закрыть
 </button>
      {compatibilityText && (
      <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
@@ -873,29 +875,68 @@ const handleCheckChakra = () => {
   </div>
 )}
 
-  <div style={{ marginBottom: "12px" }}>
-    <p>
-      <strong>Стабильность и безопасность</strong><br />
-      {compatibilityText.chakra1?.how || "—"}<br />
-      {compatibilityText.chakra1?.not || "—"}
-    </p>
-  </div>
+  {/* 💛 Стабильность */}
+<div style={{ marginBottom: "12px", textAlign: "left" }}>
+  <p
+    onClick={() => setOpenBlock(openBlock === "chakra1" ? null : "chakra1")}
+    style={{
+      cursor: "pointer",
+      fontWeight: "bold",
+      textDecoration: "underline",
+      marginBottom: "6px"
+    }}
+  >
+    Стабильность и безопасность
+  </p>
+  {openBlock === "chakra1" && (
+    <>
+      <p>{compatibilityText.chakra1?.how || "—"}</p>
+      <p>{compatibilityText.chakra1?.not || "—"}</p>
+    </>
+  )}
+</div>
 
-  <div style={{ marginBottom: "12px" }}>
-    <p>
-      <strong>Эмоции и чувственность</strong><br />
-      {compatibilityText.chakra2?.how || "—"}<br />
-      {compatibilityText.chakra2?.not || "—"}
-    </p>
-  </div>
+{/* 🧡 Эмоции */}
+<div style={{ marginBottom: "12px", textAlign: "left" }}>
+  <p
+    onClick={() => setOpenBlock(openBlock === "chakra2" ? null : "chakra2")}
+    style={{
+      cursor: "pointer",
+      fontWeight: "bold",
+      textDecoration: "underline",
+      marginBottom: "6px"
+    }}
+  >
+    Эмоции и чувственность
+  </p>
+  {openBlock === "chakra2" && (
+    <>
+      <p>{compatibilityText.chakra2?.how || "—"}</p>
+      <p>{compatibilityText.chakra2?.not || "—"}</p>
+    </>
+  )}
+</div>
 
-  <div style={{ marginBottom: "12px" }}>
-    <p>
-      <strong>Действия и цели</strong><br />
-      {compatibilityText.chakra3?.how || "—"}<br />
-      {compatibilityText.chakra3?.not || "—"}
-    </p>
-  </div>
+{/* ❤️‍🔥 Действия */}
+<div style={{ marginBottom: "12px", textAlign: "left" }}>
+  <p
+    onClick={() => setOpenBlock(openBlock === "chakra3" ? null : "chakra3")}
+    style={{
+      cursor: "pointer",
+      fontWeight: "bold",
+      textDecoration: "underline",
+      marginBottom: "6px"
+    }}
+  >
+    Действия и цели
+  </p>
+  {openBlock === "chakra3" && (
+    <>
+      <p>{compatibilityText.chakra3?.how || "—"}</p>
+      <p>{compatibilityText.chakra3?.not || "—"}</p>
+    </>
+  )}
+</div>
 </div>
 
     )}
