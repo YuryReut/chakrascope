@@ -449,7 +449,7 @@ const handleCheckChakra = () => {
             }}>
               <h1 style={{ fontWeight: 200, fontSize: "32px", marginBottom: "10px" }}>Чакроскоп</h1>
              <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "20px 0" }}>
-              <label style={{ marginRight: "10px" }}>
+              <label style={{ marginRight: "10px", fontSize: "0.8em" }}>
                 Введите дату рождения:
                 <input 
                   type="date" 
@@ -809,8 +809,8 @@ const handleCheckChakra = () => {
     Закрыть
   </button>
 
-  <label style={{ fontSize: "14px", display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
-    Введите дату рождения партнёра:
+  <label style={{ fontSize: "0.8em", display: "inline-flex", alignItems: "center", marginTop: "30px" }}>
+    Дата рождения партнёра:
     <input 
       type="date"
       value={partnerBirthDate}
