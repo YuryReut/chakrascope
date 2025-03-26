@@ -766,159 +766,111 @@ const handleCheckChakra = () => {
   </div>
 )}
           
-...
-
-// 💖 Добавляем состояние для аккордеона, включая Match
-const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | "match" | null>("chakra1");
-
-...
-
 {compatibilityText && (
   <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
-    <p style={{ marginBottom: "10px" }}>
-      <strong>Рекомендация:</strong><br />
-      {compatibilityText.summary}
-    </p>
 
-    {/* 💖 Match-блок */}
-    {compatibilityText.exactMatch && (
+    {/* 💖 Match */}
+    <div
+      onClick={() => setOpenBlock("match")}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        fontWeight: "bold",
+        marginBottom: "8px",
+        gap: "6px"
+      }}
+    >
+      <span>💖</span>
+      <span>100%</span>
+    </div>
+    {openBlock === "match" && compatibilityText.exactMatch && (
       <div style={{
         border: "1px solid #cccccc",
         borderRadius: "12px",
-        padding: "0",
-        marginTop: "20px",
-        overflow: "hidden"
+        padding: "15px",
+        marginBottom: "15px"
       }}>
-        <div
-          onClick={() => setOpenBlock(openBlock === "match" ? null : "match")}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "12px 15px",
-            cursor: "pointer",
-            backgroundColor: "#f0f0f0",
-            fontWeight: "bold",
-            fontSize: "16px"
-          }}
-        >
-          <span>💖 100%</span>
-          <span>{openBlock === "match" ? "▲" : "▼"}</span>
-        </div>
-        {openBlock === "match" && (
-          <div style={{ padding: "15px" }}>
-            <p>
-              Похоже, что это как раз те отношения, которые стоит <br />
-              <a
-                href="https://web3wed.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontWeight: "bold" }}
-              >
-                сохранить навечно, как настоящую любовь →
-              </a><br />
-              Промокод: <strong>{compatibilityText.promoCode}</strong>
-            </p>
-          </div>
-        )}
+        <p>
+          💖 Похоже, что это как раз те отношения, которые стоит <br />
+          <a
+            href="https://web3wed.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontWeight: "bold" }}
+          >
+            сохранить навечно как настоящую любовь →
+          </a><br />
+          Промокод: <strong>{compatibilityText.promoCode}</strong>
+        </p>
       </div>
     )}
 
-    {/* 🔴 Блок 1 — Стабильность */}
-    <div style={{
-      border: "1px solid #cccccc",
-      borderRadius: "12px",
-      padding: "0",
-      marginTop: "20px",
-      overflow: "hidden"
-    }}>
-      <div
-        onClick={() => setOpenBlock(openBlock === "chakra1" ? null : "chakra1")}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "12px 15px",
-          cursor: "pointer",
-          backgroundColor: "#f0f0f0",
-          fontWeight: "bold",
-          fontSize: "16px"
-        }}
-      >
-        <span>▶ Стабильность и безопасность</span>
-        <span>{openBlock === "chakra1" ? "▲" : "▼"}</span>
-      </div>
-      {openBlock === "chakra1" && (
-        <div style={{ padding: "15px" }}>
-          <p>{compatibilityText.chakra1?.how || "—"}</p>
-          <p>{compatibilityText.chakra1?.not || "—"}</p>
-        </div>
-      )}
+    {/* Chakra 1 */}
+    <div
+      onClick={() => setOpenBlock("chakra1")}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        fontWeight: "bold",
+        marginBottom: "8px",
+        gap: "6px"
+      }}
+    >
+      <span>{openBlock === "chakra1" ? "▼" : "▶"}</span>
+      <span>Стабильность и безопасность</span>
     </div>
+    {openBlock === "chakra1" && (
+      <div style={{ marginBottom: "12px" }}>
+        <p>{compatibilityText.chakra1?.how || "—"}</p>
+        <p>{compatibilityText.chakra1?.not || "—"}</p>
+      </div>
+    )}
 
-    {/* 🟠 Блок 2 — Эмоции */}
-    <div style={{
-      border: "1px solid #cccccc",
-      borderRadius: "12px",
-      padding: "0",
-      marginTop: "15px",
-      overflow: "hidden"
-    }}>
-      <div
-        onClick={() => setOpenBlock(openBlock === "chakra2" ? null : "chakra2")}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "12px 15px",
-          cursor: "pointer",
-          backgroundColor: "#f0f0f0",
-          fontWeight: "bold",
-          fontSize: "16px"
-        }}
-      >
-        <span>▶ Эмоции и чувственность</span>
-        <span>{openBlock === "chakra2" ? "▲" : "▼"}</span>
-      </div>
-      {openBlock === "chakra2" && (
-        <div style={{ padding: "15px" }}>
-          <p>{compatibilityText.chakra2?.how || "—"}</p>
-          <p>{compatibilityText.chakra2?.not || "—"}</p>
-        </div>
-      )}
+    {/* Chakra 2 */}
+    <div
+      onClick={() => setOpenBlock("chakra2")}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        fontWeight: "bold",
+        marginBottom: "8px",
+        gap: "6px"
+      }}
+    >
+      <span>{openBlock === "chakra2" ? "▼" : "▶"}</span>
+      <span>Эмоции и чувственность</span>
     </div>
+    {openBlock === "chakra2" && (
+      <div style={{ marginBottom: "12px" }}>
+        <p>{compatibilityText.chakra2?.how || "—"}</p>
+        <p>{compatibilityText.chakra2?.not || "—"}</p>
+      </div>
+    )}
 
-    {/* 🟡 Блок 3 — Действия */}
-    <div style={{
-      border: "1px solid #cccccc",
-      borderRadius: "12px",
-      padding: "0",
-      marginTop: "15px",
-      overflow: "hidden"
-    }}>
-      <div
-        onClick={() => setOpenBlock(openBlock === "chakra3" ? null : "chakra3")}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "12px 15px",
-          cursor: "pointer",
-          backgroundColor: "#f0f0f0",
-          fontWeight: "bold",
-          fontSize: "16px"
-        }}
-      >
-        <span>▶ Действия и цели</span>
-        <span>{openBlock === "chakra3" ? "▲" : "▼"}</span>
-      </div>
-      {openBlock === "chakra3" && (
-        <div style={{ padding: "15px" }}>
-          <p>{compatibilityText.chakra3?.how || "—"}</p>
-          <p>{compatibilityText.chakra3?.not || "—"}</p>
-        </div>
-      )}
+    {/* Chakra 3 */}
+    <div
+      onClick={() => setOpenBlock("chakra3")}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        fontWeight: "bold",
+        marginBottom: "8px",
+        gap: "6px"
+      }}
+    >
+      <span>{openBlock === "chakra3" ? "▼" : "▶"}</span>
+      <span>Действия и цели</span>
     </div>
+    {openBlock === "chakra3" && (
+      <div style={{ marginBottom: "12px" }}>
+        <p>{compatibilityText.chakra3?.how || "—"}</p>
+        <p>{compatibilityText.chakra3?.not || "—"}</p>
+      </div>
+    )}
   </div>
 )
 
