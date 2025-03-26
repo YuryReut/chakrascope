@@ -854,19 +854,19 @@ const handleCheckChakra = () => {
     marginTop: "20px",
     position: "relative"
   }}>
-     <a
+    <a
       href="https://dzen.ru/a/Z-DTMOLsYA3bphbf"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
         top: "10px",
         right: "15px",
-        fontSize: "13px",
-        color: "#666",
+        fontSize: "12px",
+        color: "#999",
         textDecoration: "underline"
       }}
-      onClick={(e) => e.stopPropagation()}
     >
       Подробнее
     </a>
