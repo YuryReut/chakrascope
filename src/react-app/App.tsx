@@ -787,19 +787,34 @@ const handleCheckChakra = () => {
     <strong>Рекомендация:</strong><br />
     {compatibilityText.summary}
   </p>
-      {compatibilityText.exactMatch && (
-      <p style={{ marginTop: "10px", fontSize: "18px" }}>
-        💖 Похоже, это как раз те отношения, которые стоит запечатлеть навсегда.<br />
-        <a
-          href="https://web3wed.io"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: "underline", color: "#0077cc" }}
-        >
-          Записать момент любви в блокчейн
-        </a>
-      </p>
-    )}
+     {compatibilityText.exactMatch && (
+  <div style={{
+    border: "2px solid #ff69b4",
+    borderRadius: "12px",
+    padding: "15px",
+    backgroundColor: "#fff0f5",
+    marginTop: "20px",
+    boxShadow: "0 4px 8px rgba(255, 105, 180, 0.2)"
+  }}>
+    <p style={{ margin: "0 0 10px" }}>
+      💖 Похоже, что это как раз те отношения, которые стоит
+    </p>
+    <a
+      href="https://web3wed.io"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "#d63384",
+        fontWeight: "bold",
+        textDecoration: "underline",
+        fontSize: "16px"
+      }}
+    >
+      сохранить навечно как настоящую любовь →
+    </a>
+  </div>
+)}
+
   <div style={{ marginBottom: "12px" }}>
     <p>
       <strong>Стабильность и безопасность</strong><br />
