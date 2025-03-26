@@ -103,7 +103,9 @@ const [compatibilityText, setCompatibilityText] = useState<{
     how: string;
     not: string;
   };
+  exactMatch?: boolean;
 } | null>(null);
+
 
 const [showDateAlert, setShowDateAlert] = useState<string | null>(null);  
 // 🔹 Обработка выбора состояния чакры
