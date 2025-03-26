@@ -153,8 +153,6 @@ const startEmotionDialog = () => {
     setSunState(null);
 };
 
-
-
 const handleCalculateCompatibility = async () => {
   if (!hasChangedPartnerDate) {
     setShowDateAlert("Пожалуйста, выбери дату рождения партнёра.");
@@ -183,6 +181,7 @@ const handleCalculateCompatibility = async () => {
   const yourChakraNumber = birthChakra.birth.chakraNumber;
 
   const pairData = chakraCompatibility[yourChakraNumber.toString()]?.[partnerChakraNumber.toString()];
+  const isExactMatch = yourChakraNumber === partnerChakraNumber;
 
   if (!pairData) {
     setCompatibilityText({
@@ -201,7 +200,8 @@ const handleCalculateCompatibility = async () => {
   summary,
   chakra1,
   chakra2,
-  chakra3
+  chakra3,
+  exactMatch: isExactMatch
 });
 
 };
@@ -785,7 +785,19 @@ const handleCheckChakra = () => {
     <strong>Рекомендация:</strong><br />
     {compatibilityText.summary}
   </p>
-
+      {compatibilityText.exactMatch && (
+      <p style={{ marginTop: "10px", fontSize: "18px" }}>
+        💖 Похоже, это как раз те отношения, которые стоит запечатлеть навсегда.<br />
+        <a
+          href="https://web3wed.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline", color: "#0077cc" }}
+        >
+          Записать момент любви в блокчейн
+        </a>
+      </p>
+    )}
   <div style={{ marginBottom: "12px" }}>
     <p>
       <strong>Стабильность и безопасность</strong><br />
