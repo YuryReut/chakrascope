@@ -301,14 +301,6 @@ const handleCheckChakra = () => {
         setQueryResult(null);
     };
 
-  // 🔐 Генерация промокода по дате рождения и дате партнёра
-function generatePromoCode(userDate: string, partnerDate: string): string {
-  const data = `${userDate}_${partnerDate}`;
-  const secretKey = "z89r@J1nX-64WplK"; // любой сложный ключ
-  // @ts-ignore
-  return CryptoJS.HmacSHA256(data, secretKey).toString().slice(0, 12); // промокод из 12 символов
-}
-
     const generateQueryResult = (chakraIndex: number) => {
       const chakraLabels = [
         "Материальное, безопасность",
@@ -327,7 +319,6 @@ function generatePromoCode(userDate: string, partnerDate: string): string {
         } else if (moonState === "excess") {
           todayPerception = "Есть риск переоценить значимость этого вопроса — будь внимательнее к ощущениям.";
         }
-
 
       let organicityText = "Это не совсем естественная для тебя тема — может быть сложнее понять, как с ней быть.";
       if (birthChakra) {
