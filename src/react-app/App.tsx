@@ -781,8 +781,8 @@ const handleCheckChakra = () => {
         gap: "6px"
       }}
     >
-      <span>💖</span>
-      <span>100%</span>
+      <span>{openBlock === "match" ? "▼" : "▶"}</span>
+      <span>💖 100%</span>
     </div>
     {openBlock === "match" && compatibilityText.exactMatch && (
       <div style={{
@@ -871,9 +871,9 @@ const handleCheckChakra = () => {
         <p>{compatibilityText.chakra3?.not || "—"}</p>
       </div>
     )}
-
   </div>
 )}
+
 
 
 {/* 🔹 Диалог "Задать вопрос" */}
