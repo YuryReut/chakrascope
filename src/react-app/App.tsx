@@ -108,7 +108,7 @@ const [compatibilityText, setCompatibilityText] = useState<{
   promoCode?: string | null;
 } | null>(null);
 
-const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | null>("chakra1");
+const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | "match" | null>("chakra1");
 
 async function generatePromoCode(date1: string, date2: string): Promise<string> {
   const sortedDates = [date1, date2].sort();
@@ -766,184 +766,162 @@ const handleCheckChakra = () => {
   </div>
 )}
           
-{showCompatibilityPopup && (
-  <div style={{
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1000
-  }}>
-    <div style={{
-      position: "relative", 
-      backgroundColor: "#fff",
-      padding: "20px",
-      width: "100%",
-      maxWidth: "90vw",
-      borderRadius: "10px",
-      boxSizing: "border-box",
-      textAlign: "center",
-      color: "#000"
-    }}>
+...
 
-<p style={{ marginBottom: "10px" }}>
-  Введите дату рождения партнёра:
-</p>
-<div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
-  <input 
-    type="date"
-    value={partnerBirthDate}
-    onChange={(e) => {
-      setPartnerBirthDate(e.target.value);
-      setHasChangedPartnerDate(true);
-    }}
-    style={{
-      padding: "8px",
-      fontSize: "16px",
-      border: "1px solid #ccc",
-      borderRadius: "6px",
-      backgroundColor: "#fff",
-      color: "#000",
-      minWidth: "180px"
-    }}
-  />
-  <button
-    onClick={handleCalculateCompatibility}
-    style={{
-      padding: "8px 16px",
-      fontSize: "18px",
-      border: "1px solid #000",
-      backgroundColor: "transparent",
-      color: "#000",
-      borderRadius: "6px",
-      cursor: "pointer"
-    }}
-  >
-    →
-  </button>
-</div>      
-<button
-  onClick={() => {
-    setShowCompatibilityPopup(false);
-    setCompatibilityText(null);
-  }}
-  style={{
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "none",
-    border: "none",
-    fontSize: "16px",
-    cursor: "pointer",
-    color: "#999"
-  }}
->
-  Закрыть
-</button>
-     {compatibilityText && (
-     <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
-  <p style={{ marginBottom: "10px" }}>
-    <strong>Рекомендация:</strong><br />
-    {compatibilityText.summary}
-  </p>
-     {compatibilityText.exactMatch && (
-  <div style={{
-    border: "1px solid #cccccc",
-    borderRadius: "12px",
-    padding: "15px",
-    marginTop: "20px"
-  }}>
-    <p>
-      💖 Похоже, что это как раз те отношения, которые стоит <br />
-    <a
-      href="https://web3wed.io"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        fontWeight: "bold"
-      }}
-    >
-      сохранить навечно как настоящую любовь →
-    </a><br />
-       Промокод: <strong>{compatibilityText.promoCode}</strong>
+// 💖 Добавляем состояние для аккордеона, включая Match
+const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | "match" | null>("chakra1");
+
+...
+
+{compatibilityText && (
+  <div style={{ marginTop: "20px", textAlign: "center", lineHeight: "1.5" }}>
+    <p style={{ marginBottom: "10px" }}>
+      <strong>Рекомендация:</strong><br />
+      {compatibilityText.summary}
     </p>
-  </div>
-)}
 
-  {/* 💛 Стабильность */}
-<div style={{ marginBottom: "12px", textAlign: "left" }}>
-  <p
-    onClick={() => setOpenBlock(openBlock === "chakra1" ? null : "chakra1")}
-    style={{
-      cursor: "pointer",
-      fontWeight: "bold",
-      textDecoration: "underline",
-      marginBottom: "6px"
-    }}
-  >
-    Стабильность и безопасность
-  </p>
-  {openBlock === "chakra1" && (
-    <>
-      <p>{compatibilityText.chakra1?.how || "—"}</p>
-      <p>{compatibilityText.chakra1?.not || "—"}</p>
-    </>
-  )}
-</div>
-
-{/* 🧡 Эмоции */}
-<div style={{ marginBottom: "12px", textAlign: "left" }}>
-  <p
-    onClick={() => setOpenBlock(openBlock === "chakra2" ? null : "chakra2")}
-    style={{
-      cursor: "pointer",
-      fontWeight: "bold",
-      textDecoration: "underline",
-      marginBottom: "6px"
-    }}
-  >
-    Эмоции и чувственность
-  </p>
-  {openBlock === "chakra2" && (
-    <>
-      <p>{compatibilityText.chakra2?.how || "—"}</p>
-      <p>{compatibilityText.chakra2?.not || "—"}</p>
-    </>
-  )}
-</div>
-
-{/* ❤️‍🔥 Действия */}
-<div style={{ marginBottom: "12px", textAlign: "left" }}>
-  <p
-    onClick={() => setOpenBlock(openBlock === "chakra3" ? null : "chakra3")}
-    style={{
-      cursor: "pointer",
-      fontWeight: "bold",
-      textDecoration: "underline",
-      marginBottom: "6px"
-    }}
-  >
-    Действия и цели
-  </p>
-  {openBlock === "chakra3" && (
-    <>
-      <p>{compatibilityText.chakra3?.how || "—"}</p>
-      <p>{compatibilityText.chakra3?.not || "—"}</p>
-    </>
-  )}
-</div>
-</div>
-
+    {/* 💖 Match-блок */}
+    {compatibilityText.exactMatch && (
+      <div style={{
+        border: "1px solid #cccccc",
+        borderRadius: "12px",
+        padding: "0",
+        marginTop: "20px",
+        overflow: "hidden"
+      }}>
+        <div
+          onClick={() => setOpenBlock(openBlock === "match" ? null : "match")}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "12px 15px",
+            cursor: "pointer",
+            backgroundColor: "#f0f0f0",
+            fontWeight: "bold",
+            fontSize: "16px"
+          }}
+        >
+          <span>💖 100%</span>
+          <span>{openBlock === "match" ? "▲" : "▼"}</span>
+        </div>
+        {openBlock === "match" && (
+          <div style={{ padding: "15px" }}>
+            <p>
+              Похоже, что это как раз те отношения, которые стоит <br />
+              <a
+                href="https://web3wed.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontWeight: "bold" }}
+              >
+                сохранить навечно, как настоящую любовь →
+              </a><br />
+              Промокод: <strong>{compatibilityText.promoCode}</strong>
+            </p>
+          </div>
+        )}
+      </div>
     )}
 
+    {/* 🔴 Блок 1 — Стабильность */}
+    <div style={{
+      border: "1px solid #cccccc",
+      borderRadius: "12px",
+      padding: "0",
+      marginTop: "20px",
+      overflow: "hidden"
+    }}>
+      <div
+        onClick={() => setOpenBlock(openBlock === "chakra1" ? null : "chakra1")}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "12px 15px",
+          cursor: "pointer",
+          backgroundColor: "#f0f0f0",
+          fontWeight: "bold",
+          fontSize: "16px"
+        }}
+      >
+        <span>▶ Стабильность и безопасность</span>
+        <span>{openBlock === "chakra1" ? "▲" : "▼"}</span>
+      </div>
+      {openBlock === "chakra1" && (
+        <div style={{ padding: "15px" }}>
+          <p>{compatibilityText.chakra1?.how || "—"}</p>
+          <p>{compatibilityText.chakra1?.not || "—"}</p>
+        </div>
+      )}
+    </div>
+
+    {/* 🟠 Блок 2 — Эмоции */}
+    <div style={{
+      border: "1px solid #cccccc",
+      borderRadius: "12px",
+      padding: "0",
+      marginTop: "15px",
+      overflow: "hidden"
+    }}>
+      <div
+        onClick={() => setOpenBlock(openBlock === "chakra2" ? null : "chakra2")}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "12px 15px",
+          cursor: "pointer",
+          backgroundColor: "#f0f0f0",
+          fontWeight: "bold",
+          fontSize: "16px"
+        }}
+      >
+        <span>▶ Эмоции и чувственность</span>
+        <span>{openBlock === "chakra2" ? "▲" : "▼"}</span>
+      </div>
+      {openBlock === "chakra2" && (
+        <div style={{ padding: "15px" }}>
+          <p>{compatibilityText.chakra2?.how || "—"}</p>
+          <p>{compatibilityText.chakra2?.not || "—"}</p>
+        </div>
+      )}
+    </div>
+
+    {/* 🟡 Блок 3 — Действия */}
+    <div style={{
+      border: "1px solid #cccccc",
+      borderRadius: "12px",
+      padding: "0",
+      marginTop: "15px",
+      overflow: "hidden"
+    }}>
+      <div
+        onClick={() => setOpenBlock(openBlock === "chakra3" ? null : "chakra3")}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "12px 15px",
+          cursor: "pointer",
+          backgroundColor: "#f0f0f0",
+          fontWeight: "bold",
+          fontSize: "16px"
+        }}
+      >
+        <span>▶ Действия и цели</span>
+        <span>{openBlock === "chakra3" ? "▲" : "▼"}</span>
+      </div>
+      {openBlock === "chakra3" && (
+        <div style={{ padding: "15px" }}>
+          <p>{compatibilityText.chakra3?.how || "—"}</p>
+          <p>{compatibilityText.chakra3?.not || "—"}</p>
+        </div>
+      )}
     </div>
   </div>
-)}
+)
+
 
 {/* 🔹 Диалог "Задать вопрос" */}
 {showQuestions && (
