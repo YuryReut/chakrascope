@@ -789,63 +789,74 @@ const handleCheckChakra = () => {
       textAlign: "center",
       color: "#000"
     }}>
-<div style={{ position: "relative", marginBottom: "10px", textAlign: "center" }}>
-<button
-  onClick={() => {
-    setShowCompatibilityPopup(false);
-    setCompatibilityText(null);
-  }}
-  style={{
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: "#999",
-    fontSize: "14px"
-  }}
->
-  Закрыть
-</button>
 
-<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "10px", marginBottom: "10px", marginTop: "20px" }}>
-  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-    <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
-      Дата рождения партнёра:
-    </label>
-    <input 
-      type="date"
-      value={partnerBirthDate}
-      onChange={(e) => {
-        setPartnerBirthDate(e.target.value);
-        setHasChangedPartnerDate(true);
-      }}
-      style={{
-        padding: "8px",
-        fontSize: "16px",
-        border: "1px solid #ccc",
-        borderRadius: "6px",
-        backgroundColor: "#fff",
-        color: "#000",
-        minWidth: "180px"
-      }}
-    />
-  </div>
+<div style={{ position: "relative", marginBottom: "10px", textAlign: "center" }}>
   <button
-    onClick={handleCalculateCompatibility}
+    onClick={() => {
+      setShowCompatibilityPopup(false);
+      setCompatibilityText(null);
+    }}
     style={{
-      padding: "8px 16px",
-      fontSize: "18px",
-      border: "1px solid #000",
-      backgroundColor: "transparent",
-      color: "#000",
-      borderRadius: "6px",
-      cursor: "pointer"
+      position: "absolute",
+      top: "10px",
+      right: "10px",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      color: "#999",
+      fontSize: "14px"
     }}
   >
-    →
+    Закрыть
   </button>
+
+  <div
+    style={{
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "center",
+      gap: "10px",
+      marginBottom: "10px",
+      marginTop: "20px"
+    }}
+  >
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+      <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
+        Дата рождения партнёра:
+      </label>
+      <input 
+        type="date"
+        value={partnerBirthDate}
+        onChange={(e) => {
+          setPartnerBirthDate(e.target.value);
+          setHasChangedPartnerDate(true);
+        }}
+        style={{
+          padding: "8px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+          backgroundColor: "#fff",
+          color: "#000",
+          minWidth: "180px"
+        }}
+      />
+    </div>
+    <button
+      onClick={handleCalculateCompatibility}
+      style={{
+        padding: "8px 16px",
+        fontSize: "18px",
+        border: "1px solid #000",
+        backgroundColor: "transparent",
+        color: "#000",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      →
+    </button>
+  </div>
 </div>
       
  {compatibilityText && (
