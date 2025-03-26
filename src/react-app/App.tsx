@@ -865,7 +865,7 @@ const handleCheckChakra = () => {
     position: "relative"
   }}>
       <a
-      href="https://dzen.ru/a/Z-DTMOLsYA3bphbf"
+      href="https://dzen.ru/a/Z-O8E97FOkrOn3na"
       target="_blank"
       rel="noopener noreferrer"
       onClick={(e) => e.stopPropagation()}
