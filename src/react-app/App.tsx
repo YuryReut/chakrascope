@@ -883,7 +883,7 @@ const handleCheckChakra = () => {
     <p>
       💖 Похоже, что это как раз те отношения, которые стоит <br />
     <a
-      href="https://web3wed.io"
+      href="https://web3wed.io/chakras"
       target="_blank"
       rel="noopener noreferrer"
       style={{
