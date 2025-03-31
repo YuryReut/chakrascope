@@ -52,11 +52,6 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
-import solarActivity from "../api/solarActivityModel.json";
-import kpIndex from "../api/kpIndex.json";
-import chakrasData from "../data/chakrasData.json";
-import { getChakraFromYear, getCurrentTithi, getChakraFromTithi, getPersonalChakraDay } from "./chakraUtils";
-
 export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDegree: number, moonDegree: number) {
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
