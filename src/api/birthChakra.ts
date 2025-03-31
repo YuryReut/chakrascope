@@ -1,4 +1,5 @@
 import chakrasData from "./chakras.json";
+import solarActivity from "../api/solarActivityModel.json";
 
 // Определение Титхи (Лунного дня)
 function getCurrentTithi(lunarLongitude: number): number {
@@ -60,7 +61,14 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
-    const solarChakra = getChakraFromTithi(Math.floor(sunDegree / 12) + 1);
+
+    // 🔹 Получаем активность Солнца на дату рождения
+    const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
+    const solarIntensity = solarEntry ? solarEntry.a : 0;
+    const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
+
+    debugLogs.push(`☀️ Активность Солнца: ${solarIntensity} → чакра ${solarChakra}`);
+
     const chakraSun = chakrasData.chakras[solarChakra - 1];
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
@@ -90,6 +98,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
         logs: debugLogs
     };
 }
+
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
