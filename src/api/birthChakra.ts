@@ -52,11 +52,7 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
 }
 
 // Исходный код полностью сохранён
-export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
-    let debugLogs = [];
-
-    debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
-
+export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDegree: number, moonDegree: number) {
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
@@ -65,9 +61,6 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
     const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
     const solarIntensity = solarEntry ? solarEntry.a : 0;
     const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
-
-    // 🔸 Старый способ (по градусу Солнца) — временно отключен:
-    // const solarChakra = getChakraFromTithi(Math.floor(sunDegree / 12) + 1);
 
     const chakraSun = chakrasData.chakras[solarChakra - 1];
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
@@ -94,8 +87,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
             currentPath: chakrasData.chakras[yearChakra - 1].path,
             today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakrasData.chakras[lunarChakra - 1].name}`,
             todayText: chakrasData.chakras[dayChakra - 1].day
-        },
-        logs: debugLogs
+        }
     };
 }
 
