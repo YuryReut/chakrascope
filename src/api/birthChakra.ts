@@ -1,5 +1,6 @@
 import chakrasData from "./chakras.json";
 import solarActivity from "../api/solarActivityModel.json";
+import kpIndex from "../api/kpIndex.json";
 
 // Определение Титхи (Лунного дня)
 function getCurrentTithi(lunarLongitude: number): number {
@@ -51,16 +52,23 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
-// Исходный код полностью сохранён
+
 export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDegree: number, moonDegree: number) {
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
 
-    // 🔹 Новый способ определения солнечной чакры — через модель солнечной активности
-    const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-    const solarIntensity = solarEntry ? solarEntry.a : 0;
-    const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
+    // 🔹 Новый способ определения солнечной чакры — через Kp-индекс (геомагнитные бури)
+    const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
+    const kpValue = kpEntry ? kpEntry.kp : 0;
+
+    // 🔸 Переводим kpValue (0–9) в 1–7 чакру
+    const solarChakra = Math.min(7, Math.max(1, Math.round((kpValue / 9) * 6) + 1));
+
+    // 🔸 Старый способ через solarActivity — временно отключен:
+    // const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
+    // const solarIntensity = solarEntry ? solarEntry.a : 0;
+    // const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
 
     const chakraSun = chakrasData.chakras[solarChakra - 1];
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
