@@ -52,28 +52,25 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
 }
 
 // Исходный код полностью сохранён
-export function getBirthChakra(dateOfBirth: string, currentDate: string, moonDegree: number)
-
+export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
     let debugLogs = [];
 
+    debugLogs.push(`🔹 Входная дата рождения: ${dateOfBirth}`);
+
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
 
-    // 🔹 Получаем активность Солнца на дату рождения
+    // 🔹 Новый способ определения солнечной чакры — через модель солнечной активности
     const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-    const solarIntensity = typeof solarEntry?.a === "number" ? solarEntry.a : 0;
-    export function getBirthChakra(dateOfBirth: string, currentDate: string, moonDegree: number) {
-    const yearChakra = getChakraFromYear(dateOfBirth);
-    const tithi = getCurrentTithi(moonDegree);
-    const lunarChakra = getChakraFromTithi(tithi);
-
-    const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-    const solarIntensity = typeof solarEntry?.a === "number" ? solarEntry.a : 0;
+    const solarIntensity = solarEntry ? solarEntry.a : 0;
     const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
 
-    const chakraSun = chakrasData.chakras?.[solarChakra - 1] ?? chakrasData.chakras[0];
-    const chakraMoon = chakrasData.chakras?.[lunarChakra - 1] ?? chakrasData.chakras[0];
+    // 🔸 Старый способ (по градусу Солнца) — временно отключен:
+    // const solarChakra = getChakraFromTithi(Math.floor(sunDegree / 12) + 1);
+
+    const chakraSun = chakrasData.chakras[solarChakra - 1];
+    const chakraMoon = chakrasData.chakras[lunarChakra - 1];
     const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
 
     return {
@@ -98,8 +95,10 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, moonDeg
             today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakrasData.chakras[lunarChakra - 1].name}`,
             todayText: chakrasData.chakras[dayChakra - 1].day
         },
+        logs: debugLogs
     };
 }
+
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
