@@ -52,23 +52,32 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
+import solarActivity from "../api/solarActivityModel.json";
+import kpIndex from "../api/kpIndex.json";
+import chakrasData from "../data/chakrasData.json";
+import { getChakraFromYear, getCurrentTithi, getChakraFromTithi, getPersonalChakraDay } from "./chakraUtils";
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDegree: number, moonDegree: number) {
     const yearChakra = getChakraFromYear(dateOfBirth);
     const tithi = getCurrentTithi(moonDegree);
     const lunarChakra = getChakraFromTithi(tithi);
 
-    // 🔹 Новый способ определения солнечной чакры — через Kp-индекс (геомагнитные бури)
+    // 🔹 Получаем солнечные данные
+    const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
     const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
-    const kpValue = kpEntry ? kpEntry.kp : 0;
 
-    // 🔸 Переводим kpValue (0–9) в 1–7 чакру
-    const solarChakra = Math.min(7, Math.max(1, Math.round((kpValue / 9) * 6) + 1));
+    const solarValue = solarEntry ? solarEntry.a : 0;
+    const kpValue = kpEntry ? kpEntry.k : 0;
 
-    // 🔸 Старый способ через solarActivity — временно отключен:
-    // const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-    // const solarIntensity = solarEntry ? solarEntry.a : 0;
-    // const solarChakra = Math.min(7, Math.max(1, Math.ceil(solarIntensity * 7)));
+    // 🔸 Нормализуем
+    const normSolar = solarValue;                // solarValue уже в диапазоне 0–1
+    const normKp = Math.min(kpValue / 9, 1);     // Kp = 0–9 → 0–1
+
+    // 🔸 Весовая модель: 40% пятна, 60% бури
+    const combined = normSolar * 0.4 + normKp * 0.6;
+
+    // 🔸 Расчёт чакры: шкала 1–7
+    const solarChakra = Math.min(7, Math.max(1, Math.ceil(combined * 7)));
 
     const chakraSun = chakrasData.chakras[solarChakra - 1];
     const chakraMoon = chakrasData.chakras[lunarChakra - 1];
@@ -98,7 +107,6 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDeg
         }
     };
 }
-
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
