@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   getBirthChakra,
   getPersonalChakraDay,
+  nakshatraToChakra
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
@@ -303,7 +304,6 @@ const handleCheckChakra = () => {
   };
 
   const chakraNumberSun = getPersonalChakraDay(sunDegree);
-  import { nakshatraToChakra } from "../api/birthChakra";
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
   const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
 
