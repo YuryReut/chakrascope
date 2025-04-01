@@ -2,8 +2,6 @@ import { useState } from "react";
 import {
   getBirthChakra,
   getPersonalChakraDay,
-  getCurrentTithi,
-  getChakraFromTithi
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
@@ -305,7 +303,7 @@ const handleCheckChakra = () => {
     7: "Сахасрара"
   };
 
-  const chakraNumberSun = getPersonalChakraDay(birthDate, today, moonDegree);
+  const chakraNumberSun = getPersonalChakraDay(sunDegree);
   const chakraNumberMoon = getChakraFromTithi(getCurrentTithi(moonDegree));
 
   setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
