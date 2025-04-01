@@ -558,7 +558,6 @@ const handleCheckChakra = () => {
                     textAlign: "left"
                   }}>
                     <h4>
-                      {birthChakra.birth.lunarEmoji}
                       Сегодня
                     </h4>
                     <p>{birthChakra.todayText}</p>
@@ -573,19 +572,19 @@ const handleCheckChakra = () => {
                             marginBottom: "15px",
                             textAlign: "left"
                         }}>
-                      <h4>
-                        {chakrasData.chakras[(((new Date().getFullYear() - new Date(birthDate).getFullYear()) % 7 + 7) % 7)].emoji}{" "}
-                        Твой{" "}
-                        {
+                     <h4>
+                        Твой {
                           new Date().getFullYear() - new Date(birthDate).getFullYear() -
                           (
                             new Date().getMonth() < new Date(birthDate).getMonth() ||
-                            (new Date().getMonth() === new Date(birthDate).getMonth() &&
-                              new Date().getDate() < new Date(birthDate).getDate())
+                            (
+                              new Date().getMonth() === new Date(birthDate).getMonth() &&
+                              new Date().getDate() < new Date(birthDate).getDate()
+                            )
                               ? 1
                               : 0
                           )
-                        }-й год
+                        }-й год:
                       </h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
