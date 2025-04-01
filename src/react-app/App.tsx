@@ -557,7 +557,10 @@ const handleCheckChakra = () => {
                     marginBottom: "15px",
                     textAlign: "left"
                   }}>
-                    <h4{birthChakra.birth.lunarEmoji} Сегодня</h4>
+                    <h4>
+                      {birthChakra.birth.lunarEmoji}
+                      Сегодня
+                    </h4>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
