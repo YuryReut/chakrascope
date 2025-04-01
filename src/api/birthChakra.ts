@@ -2,23 +2,6 @@ import chakrasData from "./chakras.json";
 import solarActivity from "../api/solarActivityModel.json";
 import kpIndex from "../api/kpIndex.json";
 
-// Определение Титхи (Лунного дня)
-function getCurrentTithi(lunarLongitude: number): number {
-    return Math.floor(lunarLongitude / 12) + 1;
-}
-
-// Определение Чакры по Титхи (разбиваем 30 Титхи на 7 Чакр)
-function getChakraFromTithi(tithi: number): number {
-    return Math.floor((tithi - 1) / 4.29) + 1;
-}
-
-// Чакра по 52-дневному биоритму
-function getChakra52Cycle(birthDate: string, currentDate: string): number {
-    const birth = new Date(birthDate);
-    const now = new Date(currentDate);
-    const daysPassed = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-    return Math.floor((daysPassed % 52) / 7.43) + 1;
-}
 
 // Чакра года (по году рождения)
 function getChakraFromYear(date: string): number {
@@ -26,11 +9,6 @@ function getChakraFromYear(date: string): number {
     return ((year - 1950) % 7) + 1;
 }
 
-// Чакра по дню недели (Вара)
-function getChakraFromWeekday(date: string): number {
-    const weekday = new Date(date).getDay(); // 0 = воскресенье, 6 = суббота
-    return (weekday % 7) + 1;
-}
 
 // **🔥 Обновленный персонализированный метод расчета Чакры дня**
 export function getPersonalChakraDay(sunDegree: number): number {
