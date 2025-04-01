@@ -96,9 +96,9 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
 
   const chakraSun = chakrasData.chakras[solarChakra - 1];
   const chakraMoon = chakrasData.chakras[lunarChakra - 1];
-  const chakraPhaseKeys = ['balance', 'excess', 'block'];
-  const chakraPhaseKey = chakraPhaseKeys[chakraPhaseIndex];
-
+  const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
+  type PhaseKey = typeof chakraPhaseKeys[number];
+  const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
   const chakraPhase = chakraSun.states[chakraPhaseKey];
 
   const yearChakra = getChakraFromYear(dateOfBirth);
