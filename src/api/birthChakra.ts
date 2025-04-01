@@ -169,4 +169,4 @@ export function analyzeQuery(answers: boolean[]) {
 
     return { interpretation, growthVector, queryOrganicity };
 }
-export { getCurrentTithi, getChakraFromTithi };
+
