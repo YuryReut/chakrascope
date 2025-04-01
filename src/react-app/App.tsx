@@ -217,7 +217,7 @@ const handleCalculateCompatibility = async () => {
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
 
-  const result = getBirthChakra(partnerBirthDate, today, sunDegree, moonDegree);
+  const result = getBirthChakra(partnerBirthDate, sunDegree, moonDegree);
   const partnerChakraNumber = result.result.birth.chakraNumber;
   const yourChakraNumber = birthChakra.birth.chakraNumber;
 
@@ -290,7 +290,7 @@ const handleCheckChakra = () => {
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
 
-  const result = getBirthChakra(birthDate, today, sunDegree, moonDegree);
+  const result = getBirthChakra(birthDate, sunDegree, moonDegree);
   setBirthChakra(result.result);
 
   const chakraNameMap = {
