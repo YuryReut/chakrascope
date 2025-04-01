@@ -303,8 +303,8 @@ const handleCheckChakra = () => {
   };
 
   const chakraNumberSun = getPersonalChakraDay(sunDegree);
+  import { nakshatraToChakra } from "../api/birthChakra";
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-  const nakshatraToChakra = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 1, 1, 1, 2, 2, 2];
   const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
 
   setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
