@@ -201,7 +201,7 @@ const handleCalculateCompatibility = async () => {
   }
   if (!partnerBirthDate || !birthChakra) return;
 
-  const today = new Date().toISOString().split("T")[0];
+//  const today = new Date().toISOString().split("T")[0];
   const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
 
   const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
@@ -254,8 +254,7 @@ const handleCheckChakra = () => {
     setShowDateAlert("Пожалуйста, выбери дату рождения перед расчётом.");
     return;
   }
-
-  const today = new Date().toISOString().split("T")[0];
+  
   const formattedDate = convertToJulianDate(birthDate);
 
   const solarEntry = solarData.find(entry => entry.Date === formattedDate);
