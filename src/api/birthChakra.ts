@@ -33,24 +33,24 @@ function getChakraFromWeekday(date: string): number {
 }
 
 // **🔥 Обновленный персонализированный метод расчета Чакры дня**
-export function getPersonalChakraDay(birthDate: string, currentDate: string, moonDegree: number): number {
-    const yearChakra = getChakraFromYear(birthDate);
-    const cycleChakra = getChakra52Cycle(birthDate, currentDate);
-    const tithi = getCurrentTithi(moonDegree);
-    const chakraTitthi = getChakraFromTithi(tithi);
-    const chakraWeekday = getChakraFromWeekday(currentDate);
-    const chakraMoon = getChakraFromTithi(Math.floor(moonDegree / 12) + 1);
+export function getPersonalChakraDay(sunDegree: number): number {
+  const nakshatraToChakra = [
+    1, 1, 1,  // Ашвини, Бхарани, Криттика
+    2, 2, 2,  // Рохини, Мригашира, Ардра
+    3, 3, 3,  // Пунарвасу, Пушья, Ашлеша
+    4, 4, 4,  // Магха, Пурвапхалгуни, Уттарапхалгуни
+    5, 5, 5,  // Хаста, Читра, Свати
+    6, 6, 6,  // Вишакха, Анурадха, Джештха
+    7, 7, 7,  // Мула, Пурвашадха, Уттарашадха
+    1, 1, 1   // Шравана, Дхаништха, Шатабхиша
+  ];
 
-    const chakraDay = Math.round(
-        (yearChakra * 0.3) +
-        (cycleChakra * 0.3) +
-        (chakraTitthi * 0.2) +
-        (chakraWeekday * 0.1) +
-        (chakraMoon * 0.1)
-    );
+  const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
+  const sunChakra = nakshatraToChakra[sunNakshatraIndex] || 1;
 
-    return chakraDay > 7 ? 7 : chakraDay;
+  return sunChakra;
 }
+
 
 export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
   // 🔹 Сопоставление накшатра (1–27) → чакра (1–7)
@@ -102,7 +102,7 @@ export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegr
   const chakraPhase = chakraSun.states[chakraPhaseKey];
 
   const yearChakra = getChakraFromYear(dateOfBirth);
-  const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
+  const dayChakra = getPersonalChakraDay(sunDegree);
 
   return {
     result: {
