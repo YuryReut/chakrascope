@@ -572,15 +572,18 @@ const handleCheckChakra = () => {
                         }}>
                       <h4>
                         {chakrasData.chakras[(((new Date().getFullYear() - new Date(birthDate).getFullYear()) % 7 + 7) % 7)].emoji}{" "}
-                        Твой {new Date().getFullYear() - new Date(birthDate).getFullYear() - (
-                          new Date().getMonth() < new Date(birthDate).getMonth() ||
-                          (new Date().getMonth() === new Date(birthDate).getMonth() &&
-                           new Date().getDate() < new Date(birthDate).getDate())
-                            ? 1
-                            : 0
-                        )}-й год
+                        Твой{" "}
+                        {
+                          new Date().getFullYear() - new Date(birthDate).getFullYear() -
+                          (
+                            new Date().getMonth() < new Date(birthDate).getMonth() ||
+                            (new Date().getMonth() === new Date(birthDate).getMonth() &&
+                              new Date().getDate() < new Date(birthDate).getDate())
+                              ? 1
+                              : 0
+                          )
+                        }-й год
                       </h4>
-
                         <p>{birthChakra.currentPath}</p>
                         <button
                           onClick={() => {
