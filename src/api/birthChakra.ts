@@ -52,56 +52,83 @@ export function getPersonalChakraDay(birthDate: string, currentDate: string, moo
     return chakraDay > 7 ? 7 : chakraDay;
 }
 
-export function getBirthChakra(dateOfBirth: string, currentDate: string, _sunDegree: number, moonDegree: number) {
-    const yearChakra = getChakraFromYear(dateOfBirth);
-    const tithi = getCurrentTithi(moonDegree);
-    const lunarChakra = getChakraFromTithi(tithi);
+export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
+  // 🔹 Сопоставление накшатра (1–27) → чакра (1–7)
+  const nakshatraToChakra = [
+    1, 1, 1,  // Ашвини, Бхарани, Криттика
+    2, 2, 2,  // Рохини, Мригашира, Ардра
+    3, 3, 3,  // Пунарвасу, Пушья, Ашлеша
+    4, 4, 4,  // Магха, Пурвапхалгуни, Уттарапхалгуни
+    5, 5, 5,  // Хаста, Читра, Свати
+    6, 6, 6,  // Вишакха, Анурадха, Джештха
+    7, 7, 7,  // Мула, Пурвашадха, Уттарашадха
+    1, 1, 1   // Шравана, Дхаништха, Шатабхиша (снова 1–3 накшатры — 1 чакра)
+  ];
 
-    // 🔹 Получаем солнечные данные
-    const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-    const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
+  const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
+  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-    const solarValue = solarEntry ? solarEntry.a : 0;
-    const kpValue = kpEntry ? kpEntry.k : 0;
+  const solarChakra = nakshatraToChakra[sunNakshatraIndex] || 1;
+  const lunarChakra = nakshatraToChakra[moonNakshatraIndex] || 1;
 
-    // 🔸 Нормализуем
-    const normSolar = solarValue;                // solarValue уже в диапазоне 0–1
-    const normKp = Math.min(kpValue / 9, 1);     // Kp = 0–9 → 0–1
+  // 🔸 Получаем данные о пятнах и бурях
+  const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
+  const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
 
-    // 🔸 Весовая модель: 40% пятна, 60% бури
-    const combined = normSolar * 0.4 + normKp * 0.6;
+  const solarValue = solarEntry ? solarEntry.a : 0;
+  const kpValue = kpEntry ? kpEntry.k : 0;
 
-    // 🔸 Расчёт чакры: шкала 1–7
-    const solarChakra = Math.min(7, Math.max(1, Math.ceil(combined * 7)));
+  const normSolar = Math.min(solarValue, 1);        // уже нормализовано
+  const normKp = Math.min(kpValue / 9, 1);          // нормализуем в диапазон 0–1
 
-    const chakraSun = chakrasData.chakras[solarChakra - 1];
-    const chakraMoon = chakrasData.chakras[lunarChakra - 1];
-    const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
+  // 🔸 Определяем фазу чакры рождения
+  let chakraPhaseIndex = 0; // 0 = balance, 1 = excess, 2 = block
 
-    return {
-        result: {
-            birth: {
-                chakraNumber: solarChakra,
-                chakraEmoji: chakraSun.emoji,
-                chakraTitle: chakraSun.title,
-                chakraName: chakraSun.name,
-                inner: chakraSun.phases[0].inner,
-                outer: chakraSun.phases[0].outer,
-                relationship: chakraSun.phases[0].relationship,
-                link: chakraSun.link,
-                lovelink: chakraSun.lovelink,
-                lunarDescription: chakraMoon.desc,
-                lunarEmoji: chakraMoon.emoji,
-                lunarNumber: lunarChakra,
-                lunarTitle: chakraMoon.title,
-                lunarName: chakraMoon.name
-            },
-            currentPath: chakrasData.chakras[yearChakra - 1].path,
-            today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakrasData.chakras[lunarChakra - 1].name}`,
-            todayText: chakrasData.chakras[dayChakra - 1].day
-        }
-    };
+  if ([1, 3, 5].includes(solarChakra)) {
+    if (normSolar >= 0.66) chakraPhaseIndex = 1;       // excess
+    else if (normSolar <= 0.33) chakraPhaseIndex = 2;  // block
+  } else if ([2, 4, 6].includes(solarChakra)) {
+    if (normKp >= 0.66) chakraPhaseIndex = 1;
+    else if (normKp <= 0.33) chakraPhaseIndex = 2;
+  } else {
+    chakraPhaseIndex = 0; // для 7 чакры — всегда balance (или можешь иначе решить)
+  }
+
+  const chakraSun = chakrasData.chakras[solarChakra - 1];
+  const chakraMoon = chakrasData.chakras[lunarChakra - 1];
+  const chakraPhaseKeys = ['balance', 'excess', 'block'];
+  const chakraPhaseKey = chakraPhaseKeys[chakraPhaseIndex];
+
+  const chakraPhase = chakraSun.states[chakraPhaseKey];
+
+  const yearChakra = getChakraFromYear(dateOfBirth);
+  const dayChakra = getPersonalChakraDay(dateOfBirth, currentDate, moonDegree);
+
+  return {
+    result: {
+      birth: {
+        chakraNumber: solarChakra,
+        chakraEmoji: chakraSun.emoji,
+        chakraTitle: chakraSun.title,
+        chakraName: chakraSun.name,
+        inner: chakraPhase.inner,
+        outer: chakraPhase.outer,
+        relationship: chakraPhase.relationship,
+        link: chakraSun.link,
+        lovelink: chakraSun.lovelink,
+        lunarDescription: chakraMoon.desc,
+        lunarEmoji: chakraMoon.emoji,
+        lunarNumber: lunarChakra,
+        lunarTitle: chakraMoon.title,
+        lunarName: chakraMoon.name
+      },
+      currentPath: chakrasData.chakras[yearChakra - 1].path,
+      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakrasData.chakras[lunarChakra - 1].name}`,
+      todayText: chakrasData.chakras[dayChakra - 1].day
+    }
+  };
 }
+
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
