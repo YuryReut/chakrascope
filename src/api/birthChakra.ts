@@ -30,7 +30,7 @@ export function getPersonalChakraDay(sunDegree: number): number {
 }
 
 
-export function getBirthChakra(dateOfBirth: string, currentDate: string, sunDegree: number, moonDegree: number) {
+export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
   // 🔹 Сопоставление накшатра (1–27) → чакра (1–7)
   const nakshatraToChakra = [
     1, 1, 1,  // Ашвини, Бхарани, Криттика
