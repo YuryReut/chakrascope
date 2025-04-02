@@ -34,10 +34,12 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-  const solarChakraIndex = (nakshatraToChakra[sunNakshatraIndex] || 1) - 1;
-  const lunarChakraIndex = (nakshatraToChakra[moonNakshatraIndex] || 1) - 1;
+  const solarChakraNumber = nakshatraToChakra[sunNakshatraIndex] || 1;
+  const lunarChakraNumber = nakshatraToChakra[moonNakshatraIndex] || 1;
 
-  // 🔸 Получаем данные о пятнах и бурях
+  const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
+  const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
+
   const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
   const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
 
@@ -47,20 +49,15 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const normSolar = Math.min(solarValue, 1);
   const normKp = Math.min(kpValue / 9, 1);
 
-  // 🔸 Определяем фазу чакры рождения
   let chakraPhaseIndex = 0;
-  const chakraNumber = solarChakraIndex + 1;
 
-  if ([1, 3, 5].includes(chakraNumber)) {
+  if ([1, 3, 5].includes(solarChakraNumber)) {
     if (normSolar >= 0.66) chakraPhaseIndex = 1;
     else if (normSolar <= 0.33) chakraPhaseIndex = 2;
-  } else if ([2, 4, 6].includes(chakraNumber)) {
+  } else if ([2, 4, 6].includes(solarChakraNumber)) {
     if (normKp >= 0.66) chakraPhaseIndex = 1;
     else if (normKp <= 0.33) chakraPhaseIndex = 2;
   }
-
-  const chakraSun = chakrasData.chakras[solarChakraIndex];
-  const chakraMoon = chakrasData.chakras[lunarChakraIndex];
 
   const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
   type PhaseKey = typeof chakraPhaseKeys[number];
@@ -73,7 +70,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   return {
     result: {
       birth: {
-        chakraNumber: chakraNumber,
+        chakraNumber: solarChakraNumber,
         chakraEmoji: chakraSun.emoji,
         chakraTitle: chakraSun.title,
         chakraName: chakraSun.name,
@@ -84,7 +81,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lovelink: chakraSun.lovelink,
         lunarDescription: chakraMoon.desc,
         lunarEmoji: chakraMoon.emoji,
-        lunarNumber: lunarChakraIndex + 1,
+        lunarNumber: lunarChakraNumber,
         lunarTitle: chakraMoon.title,
         lunarName: chakraMoon.name
       },
@@ -94,7 +91,6 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
     }
   };
 }
-
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
