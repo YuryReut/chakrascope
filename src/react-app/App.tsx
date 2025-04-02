@@ -55,6 +55,7 @@ function App() {
         lunarNumber: number;
         lunarTitle: string;
         lunarName: string;
+        nakshatraInstagram: string; 
     };
     currentPath: string;
     today: string;
