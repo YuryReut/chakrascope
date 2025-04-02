@@ -503,16 +503,6 @@ const handleCheckChakra = () => {
                     <p>
                       🔆 | {birthChakra.birth.chakraEmoji} : {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
                       <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>.
-                       {/* 👇 Блок ссылки на Накшатру (Instagram) */}
-                      ✨ {' '}
-                      <a
-                        href={birthChakra.birth.nakshatraInstagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "inherit", textDecoration: "none" }}
-                      >
-                        → Накшатра
-                      </a>
                     </p>
                     <p>
                       ❤️ : {birthChakra.birth.relationship} →{' '}
@@ -533,7 +523,6 @@ const handleCheckChakra = () => {
                     >
                       Совместимость
                     </button>
-
                     <a
                       href="#"
                       onClick={(e) => {
@@ -556,6 +545,17 @@ const handleCheckChakra = () => {
                       <div style={{ marginTop: "10px" }}>
                       <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
                       <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
+                      <p>
+                      ✨ Связано с энергией звезд →
+                      <a
+                        href={birthChakra.birth.nakshatraInstagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "inherit", textDecoration: "none" }}
+                      >
+                         Накшатра
+                      </a>
+                     </p>
                       <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription}</p>
                     </div>
                     )}
