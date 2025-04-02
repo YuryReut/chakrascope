@@ -30,9 +30,7 @@ export function getPersonalChakraDay(sunDegree: number): number {
   return sunChakra;
 }
 
-
 export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
-
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
@@ -46,24 +44,24 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const solarValue = solarEntry ? solarEntry.a : 0;
   const kpValue = kpEntry ? kpEntry.k : 0;
 
-  const normSolar = Math.min(solarValue, 1);        // уже нормализовано
-  const normKp = Math.min(kpValue / 9, 1);          // нормализуем в диапазон 0–1
+  const normSolar = Math.min(solarValue, 1);
+  const normKp = Math.min(kpValue / 9, 1);
 
   // 🔸 Определяем фазу чакры рождения
-  let chakraPhaseIndex = 0; // 0 = balance, 1 = excess, 2 = block
+  let chakraPhaseIndex = 0;
+  const chakraNumber = solarChakraIndex + 1;
 
-  if ([1, 3, 5].includes(solarChakra)) {
-    if (normSolar >= 0.66) chakraPhaseIndex = 1;       // excess
-    else if (normSolar <= 0.33) chakraPhaseIndex = 2;  // block
-  } else if ([2, 4, 6].includes(solarChakra)) {
+  if ([1, 3, 5].includes(chakraNumber)) {
+    if (normSolar >= 0.66) chakraPhaseIndex = 1;
+    else if (normSolar <= 0.33) chakraPhaseIndex = 2;
+  } else if ([2, 4, 6].includes(chakraNumber)) {
     if (normKp >= 0.66) chakraPhaseIndex = 1;
     else if (normKp <= 0.33) chakraPhaseIndex = 2;
-  } else {
-    chakraPhaseIndex = 0; // для 7 чакры — всегда balance (или можешь иначе решить)
   }
 
   const chakraSun = chakrasData.chakras[solarChakraIndex];
   const chakraMoon = chakrasData.chakras[lunarChakraIndex];
+
   const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
   type PhaseKey = typeof chakraPhaseKeys[number];
   const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
@@ -75,7 +73,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   return {
     result: {
       birth: {
-        chakraNumber: solarChakraIndex + 1,
+        chakraNumber: chakraNumber,
         chakraEmoji: chakraSun.emoji,
         chakraTitle: chakraSun.title,
         chakraName: chakraSun.name,
@@ -91,7 +89,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lunarName: chakraMoon.name
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path,
-      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakrasData.chakras[lunarChakra - 1].name}`,
+      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
       todayText: chakrasData.chakras[dayChakra - 1].day
     }
   };
