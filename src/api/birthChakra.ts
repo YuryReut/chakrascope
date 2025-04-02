@@ -36,8 +36,8 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-  const solarChakra = nakshatraToChakra[sunNakshatraIndex] || 1;
-  const lunarChakra = nakshatraToChakra[moonNakshatraIndex] || 1;
+  const solarChakraIndex = (nakshatraToChakra[sunNakshatraIndex] || 1) - 1;
+  const lunarChakraIndex = (nakshatraToChakra[moonNakshatraIndex] || 1) - 1;
 
   // 🔸 Получаем данные о пятнах и бурях
   const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
@@ -62,8 +62,8 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
     chakraPhaseIndex = 0; // для 7 чакры — всегда balance (или можешь иначе решить)
   }
 
-  const chakraSun = chakrasData.chakras[solarChakra - 1];
-  const chakraMoon = chakrasData.chakras[lunarChakra - 1];
+  const chakraSun = chakrasData.chakras[solarChakraIndex];
+  const chakraMoon = chakrasData.chakras[lunarChakraIndex];
   const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
   type PhaseKey = typeof chakraPhaseKeys[number];
   const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
@@ -75,7 +75,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   return {
     result: {
       birth: {
-        chakraNumber: solarChakra,
+        chakraNumber: solarChakraIndex + 1,
         chakraEmoji: chakraSun.emoji,
         chakraTitle: chakraSun.title,
         chakraName: chakraSun.name,
@@ -86,7 +86,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lovelink: chakraSun.lovelink,
         lunarDescription: chakraMoon.desc,
         lunarEmoji: chakraMoon.emoji,
-        lunarNumber: lunarChakra,
+        lunarNumber: lunarChakraIndex + 1,
         lunarTitle: chakraMoon.title,
         lunarName: chakraMoon.name
       },
