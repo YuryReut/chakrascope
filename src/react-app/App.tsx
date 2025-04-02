@@ -499,13 +499,12 @@ const handleCheckChakra = () => {
                     marginBottom: "15px",
                     textAlign: "left"
                   }}>
-                    <h4>База</h4>
+                    <h4>Твоя основная чакра</h4>
                     <p>
-                      🔆 | {birthChakra.birth.chakraEmoji} : Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
+                      🔆 | {birthChakra.birth.chakraEmoji} : {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
                       <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>.
                        {/* 👇 Блок ссылки на Накшатру (Instagram) */}
-                       {' '}
-                      (
+                      ✨ {' '}
                       <a
                         href={birthChakra.birth.nakshatraInstagram}
                         target="_blank"
@@ -514,7 +513,6 @@ const handleCheckChakra = () => {
                       >
                         → Накшатра
                       </a>
-                       )
                     </p>
                     <p>
                       ❤️ : {birthChakra.birth.relationship} →{' '}
