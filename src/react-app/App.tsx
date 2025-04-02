@@ -279,7 +279,8 @@ const handleCheckChakra = () => {
         lunarEmoji: "❌",
         lunarNumber: 0,
         lunarTitle: "Ошибка",
-        lunarName: "Ошибка данных"
+        lunarName: "Ошибка данных",
+        nakshatraInstagram: "#"
       }, 
       currentPath: "Дата вне диапазона данных!", 
       today: "",
