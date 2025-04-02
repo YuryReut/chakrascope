@@ -546,7 +546,7 @@ const handleCheckChakra = () => {
                       <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
                       <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
                       <p>
-                      ✨ Связано с энергией звезд →
+                      Связано с энергией звезд →{' '}
                       <a
                         href={birthChakra.birth.nakshatraInstagram}
                         target="_blank"
