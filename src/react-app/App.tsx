@@ -502,16 +502,16 @@ const handleCheckChakra = () => {
                     <h4>База</h4>
                     <p>
                       🔆 | {birthChakra.birth.chakraEmoji} : Твоя основная чакра — {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
-                      <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>
+                      <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>.
                        {/* 👇 Блок ссылки на Накшатру (Instagram) */}
-                      ✨ : {' '}
+                      🌌 → {' '}
                       <a
                         href={birthChakra.birth.nakshatraInstagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ color: "#833AB4", textDecoration: "underline" }}
+                        style={{ color: "inherit", textDecoration: "none" }}
                       >
-                        Накшатра →
+                        Накшатра
                       </a>
                     </p>
                     <p>
