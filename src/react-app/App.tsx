@@ -635,36 +635,48 @@ const handleCheckChakra = () => {
   <p>
   Чакроскоп — это инструмент самопознания, который соединяет древнее знание о чакрах с реальными астрономическими данными о Солнце и Луне.
   Он помогает понять, какие энергии активны в тебе сегодня, какие процессы формируют твой год и какие внутренние ритмы ведут тебя с самого начала.
-  Это способ мягко взглянуть на своё состояние, уловить ритмы жизни и начать лучше чувствовать себя — без мистики, просто наблюдая.{' '} 
-    <a
-      href="https://dzen.ru/a/Z-D7Rnsxljt7vFYY"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Подробнее на Дзене
-    </a>  
+  Это способ мягко взглянуть на своё состояние, уловить ритмы жизни и начать лучше чувствовать себя — без мистики, просто наблюдая.{' '}
+  <a
+    href="https://dzen.ru/a/Z-D7Rnsxljt7vFYY"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Подробнее на Дзене
+  </a>
 </p>
+
 <p style={{ marginTop: "10px" }}>
   Все ответы в Чакроскопе — это не точные предсказания и не профессиональные рекомендации, а приглашение к самонаблюдению и честному внутреннему диалогу.
   Этот инструмент не заменяет медицинскую, психологическую или юридическую помощь.
 </p>
-  <p style={{ marginTop: "10px" }}>
-    2025 © Non Profit R&D by{' '} 
-    <a
-      href="https://dzen.ru/a/Z-C6rxkJ3HED4O81"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Юрий Реут
-    </a> {' '}
-    <a
-      href="https://www.instagram.com/nowyoucanseelove/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Now You Can See Love
-    </a>
-  </p>
+
+<p style={{ marginTop: "10px" }}>
+  2025 © Non Profit R&amp;D by{' '}
+  <a
+    href="https://dzen.ru/a/Z-C6rxkJ3HED4O81"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Юрий Реут
+  </a>{' '}
+  ·{' '}
+  <a
+    href="https://www.instagram.com/nowyoucanseelove/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Now You Can See Love
+  </a>{' '}
+  ·{' '}
+  <a
+    href="/legal.html"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Пользовательское соглашение и политика конфиденциальности
+  </a>
+</p>
+
 </div>
 
 {showEmotionReminder && (
