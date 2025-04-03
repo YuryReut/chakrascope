@@ -774,7 +774,7 @@ const handleCheckChakra = () => {
       {/* Этап 3 — результат */}
       {currentStep === 'result' && emotionAnalysis && (
         <>
-          <p><b>Рекомендации:</b></p>
+          <p><b>Рекомендации к восприятию сегодняшнего дня:</b></p>
           <p style={{ whiteSpace: 'pre-line' }}>{emotionAnalysis}</p>
         </>
       )}
@@ -1094,10 +1094,11 @@ const handleCheckChakra = () => {
       )}
       {questionStep === 'result' && queryResult && (
         <>
-          <p><strong>Рекомендации</strong></p>
+          <p><strong>Твое восприятие этого вопроса сегодня</strong></p>
           <p>
             {queryResult.todayPerception}
           </p>
+          <p><strong>Рекомендации</strong></p>
           <p>
             {queryResult.queryOrganicity[0]}
           </p>
