@@ -575,11 +575,11 @@ const handleCheckChakra = () => {
                     <h4>
                       Сегодня активна 
                       <a
-                        href={day_EQ7.chakras[chakraNameSun].link}
+                        href={chakraNameSun ? day_EQ7.chakras[chakraNameSun].link : "#"}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {chakraNameSun}
+                        {chakraNameSun || birthChakra.today}
                       </a>
                     </h4>
                     <p>{birthChakra.todayText}</p>
@@ -607,14 +607,24 @@ const handleCheckChakra = () => {
                               : 0
                           )
                         }-й год: 
-                      <a
-                        href={day_EQ7.chakras[chakraNameMap[yearChakra]].link}
+                        <a
+                        href={
+                          day_EQ7.chakras[
+                            chakraNameMap[
+                              parseInt(birthChakra.currentPath.match(/\d/)?.[0] || "0") as keyof typeof chakraNameMap
+                            ]
+                          ]?.link || "#"
+                        }
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {chakraNameMap[yearChakra]}
+                        {
+                          chakraNameMap[
+                            parseInt(birthChakra.currentPath.match(/\d/)?.[0] || "0") as keyof typeof chakraNameMap
+                          ]
+                        }
                       </a>
-                      </h4>
+                     </h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
                           onClick={() => {
