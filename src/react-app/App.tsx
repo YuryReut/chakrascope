@@ -505,6 +505,9 @@ const handleCheckChakra = () => {
                       <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>.
                     </p>
                     <p>
+                      {birthChakra.birth.outer}
+                    </p>
+                    <p>
                       ❤️ : {birthChakra.birth.relationship} →{' '}
                       <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
                     </p>
