@@ -573,7 +573,7 @@ const handleCheckChakra = () => {
                     textAlign: "left"
                   }}>
                     <h4>
-                      Сегодня активна {dayChakra}-я чакра — {dayChakraName}
+                      Сегодня активна {birthChakra.today}
                     </h4>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
@@ -599,7 +599,8 @@ const handleCheckChakra = () => {
                               ? 1
                               : 0
                           )
-                        }-й год:
+                        }-й год: 
+                       {birthChakra.currentPath}
                       </h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
