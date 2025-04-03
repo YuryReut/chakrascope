@@ -573,7 +573,14 @@ const handleCheckChakra = () => {
                     textAlign: "left"
                   }}>
                     <h4>
-                      Сегодня активна {birthChakra.today}
+                      Сегодня активна 
+                      <a
+                        href={day_EQ7.chakras[chakraNameSun].link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {chakraNameSun}
+                      </a>
                     </h4>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
@@ -600,7 +607,13 @@ const handleCheckChakra = () => {
                               : 0
                           )
                         }-й год: 
-                       {birthChakra.currentPath}
+                      <a
+                        href={day_EQ7.chakras[chakraNameMap[yearChakra]].link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {chakraNameMap[yearChakra]}
+                      </a>
                       </h4>
                         <p>{birthChakra.currentPath}</p>
                         <button
