@@ -23,6 +23,14 @@ export const nakshatraNames = [
   "Пурва Бхадрапада", "Уттара Бхадрапада", "Ревати"
 ];
 
+export const nakshatraPostIds = [
+    "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
+    "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
+    "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
+    "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
+    "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
+    "DH7_UlDx8b4", "DH7-_ykxKmK"
+  ];
 // Чакра года (по году рождения)
 function getChakraFromYear(date: string): number {
     const year = new Date(date).getFullYear();
@@ -39,54 +47,44 @@ export function getPersonalChakraDay(sunDegree: number): number {
   return sunChakra;
 }
 
-export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
-  // Массив ID постов в Instagram по порядку накшатр
-  const nakshatraPostIds = [
-    "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
-    "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
-    "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
-    "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
-    "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
-    "DH7_UlDx8b4", "DH7-_ykxKmK"
-  ];
-
+export function getBirthChakra(birthDate: string, sunDegree: number, moonDegree: number) {
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-
-  const solarChakraNumber = nakshatraToChakra[sunNakshatraIndex] || 1;
-  const lunarChakraNumber = nakshatraToChakra[moonNakshatraIndex] || 1;
+  
+  const solarChakraNumber = chakrasData.nakshatraToChakra[sunNakshatraIndex];
+  const lunarChakraNumber = chakrasData.nakshatraToChakra[moonNakshatraIndex];
 
   const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
   const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
 
-  const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
-  const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
+  const chakraPhase = chakraSun.states.balance; 
 
-  const solarValue = solarEntry ? solarEntry.a : 0;
-  const kpValue = kpEntry ? kpEntry.k : 0;
+  const today = new Date().toISOString().split("T")[0];
+  const julianToday = convertToJulianDate(today);
+  const lunarTodayEntry = lunarData.find(entry => entry.Date === julianToday);
+  const solarTodayEntry = solarData.find(entry => entry.Date === julianToday);
 
-  const normSolar = Math.min(solarValue, 1);
-  const normKp = Math.min(kpValue / 9, 1);
+  let todayNakshatraName = "Нет данных";
+  let todayNakshatraLink = "#";
+  let todayChakraDayNumber = 1;
+  let todayLunarChakraNumber = 1;
 
-  let chakraPhaseIndex = 0;
+  if (lunarTodayEntry && solarTodayEntry) {
+    const moonDegreeToday = lunarTodayEntry.Lunar_Longitude;
+    const sunDegreeToday = solarTodayEntry.Solar_Longitude;
 
-  if ([1, 3, 5].includes(solarChakraNumber)) {
-    if (normSolar >= 0.66) chakraPhaseIndex = 1;
-    else if (normSolar <= 0.33) chakraPhaseIndex = 2;
-  } else if ([2, 4, 6].includes(solarChakraNumber)) {
-    if (normKp >= 0.66) chakraPhaseIndex = 1;
-    else if (normKp <= 0.33) chakraPhaseIndex = 2;
+    const todayNakshatraIndex = Math.floor(sunDegreeToday / (360 / 27));
+    todayNakshatraName = nakshatraNames[todayNakshatraIndex];
+    todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
+
+    todayChakraDayNumber = chakrasData.nakshatraToChakra[todayNakshatraIndex];
+
+    const todayMoonNakshatraIndex = Math.floor(moonDegreeToday / (360 / 27));
+    todayLunarChakraNumber = chakrasData.nakshatraToChakra[todayMoonNakshatraIndex];
   }
 
-  const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
-  type PhaseKey = typeof chakraPhaseKeys[number];
-  const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
-  const chakraPhase = chakraSun.states[chakraPhaseKey];
-
-  const yearChakra = getChakraFromYear(dateOfBirth);
-  const dayChakra = getPersonalChakraDay(sunDegree);
-
-  const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
+  const chakraPeriodPosts = ["DIBDVkFRDeb","DIBDeTMRg7u","DIBDiZtxAhy","DIBDqcRxkY-","DIBDvCKR8dc","DIBDz0DRSAR","DIBD30GRoyD"];
+  const chakraDayPosts = ["DIBETbmRAhm","DIBEgOBxL-Z","DIBEkATx7Nm","DIBEn5Txz0v","DIBEr7nRGof","DIBEvLpxElK","DIBExxXRFII"];
 
   return {
     result: {
@@ -105,17 +103,29 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lunarNumber: lunarChakraNumber,
         lunarTitle: chakraMoon.title,
         lunarName: chakraMoon.name,
-        nakshatraName: nakshatraNames[sunNakshatraIndex],       // 👈
-        nakshatraLink: nakshatraInstagram,
-        nakshatraInstagram  // 👈 добавлен линк на Instagram
+        nakshatraName: nakshatraNames[sunNakshatraIndex],
+        nakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`,
+        nakshatraInstagram: `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`
       },
-      currentPath: chakrasData.chakras[yearChakra - 1].path,
-      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
-      todayText: chakrasData.chakras[dayChakra - 1].day
+      currentPath: chakrasData.chakras[solarChakraNumber - 1].path,
+      today: `${chakrasData.chakras[todayChakraDayNumber - 1].name}`,
+      todayText: chakrasData.chakras[todayChakraDayNumber - 1].day,
+      todayNakshatraName,
+      todayNakshatraLink,
+      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[todayChakraDayNumber - 1]}/`,
+      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[todayLunarChakraNumber - 1]}/`
     }
   };
 }
 
+function convertToJulianDate(dateString: string): string {
+  const date = new Date(dateString);
+  const start = new Date(date.getFullYear(), 0, 0);
+  const diff = date.getTime() - start.getTime();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
+}
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
