@@ -37,7 +37,6 @@ function getChakraFromYear(date: string): number {
     return ((year - 1950) % 7) + 1;
 }
 
-
 // **🔥 Обновленный персонализированный метод расчета Чакры дня**
 export function getPersonalChakraDay(sunDegree: number): number {
 
@@ -47,58 +46,74 @@ export function getPersonalChakraDay(sunDegree: number): number {
   return sunChakra;
 }
 
-import chakrasData from "./chakras.json";
-import nakshatraToChakra from "./nakshatraToChakra.json";
+export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
 
-export function getBirthChakra(birthDate, sunDegree, moonDegree) {
-  const nakshatraIndex = Math.floor(sunDegree / (360 / 27));
-  const lunarNakshatraIndex = Math.floor(moonDegree / (360 / 27));
+  const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
+  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-  const chakraNumber = nakshatraToChakra[nakshatraIndex];
-  const lunarChakraNumber = nakshatraToChakra[lunarNakshatraIndex];
+  const solarChakraNumber = nakshatraToChakra[sunNakshatraIndex] || 1;
+  const lunarChakraNumber = nakshatraToChakra[moonNakshatraIndex] || 1;
 
-  const chakra = chakrasData.chakras.find(c => c.id === chakraNumber);
-  const lunarChakra = chakrasData.chakras.find(c => c.id === lunarChakraNumber);
+  const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
+  const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
 
-  const todayNakshatraName = chakra.nakshatraNames[nakshatraIndex % chakra.nakshatraNames.length];
-  const todayNakshatraLink = chakra.nakshatraLinks[nakshatraIndex % chakra.nakshatraLinks.length];
+  const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
+  const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
 
-  const todayLunarNakshatraName = lunarChakra.nakshatraNames[lunarNakshatraIndex % lunarChakra.nakshatraNames.length];
-  const todayLunarNakshatraLink = lunarChakra.nakshatraLinks[lunarNakshatraIndex % lunarChakra.nakshatraLinks.length];
+  const solarValue = solarEntry ? solarEntry.a : 0;
+  const kpValue = kpEntry ? kpEntry.k : 0;
 
-  const result = {
-    birth: {
-      chakraNumber,
-      chakraEmoji: chakra.emoji,
-      chakraTitle: chakra.title,
-      chakraName: chakra.name,
-      inner: chakra.states.balance.inner,
-      outer: chakra.states.balance.outer,
-      relationship: chakra.states.balance.relationship,
-      link: chakra.link,
-      lovelink: chakra.lovelink,
-      lunarDescription: lunarChakra.desc,
-      lunarEmoji: lunarChakra.emoji,
-      lunarNumber: lunarChakra.id,
-      lunarTitle: lunarChakra.title,
-      lunarName: lunarChakra.name,
-      nakshatraInstagram: chakra.nakshatraLinks[nakshatraIndex % chakra.nakshatraLinks.length],
-      nakshatraName: todayNakshatraName,
-      nakshatraLink: todayNakshatraLink
-    },
-    currentPath: chakra.path,
-    today: `${chakra.name} и ${lunarChakra.name}`,
-    todayText: chakra.day,
-    chakraPeriod: chakraNumber,
-    chakraDay: lunarChakraNumber,
-    todayNakshatraName,
-    todayNakshatraLink,
-    todayLunarNakshatraName,
-    todayLunarNakshatraLink
+  const normSolar = Math.min(solarValue, 1);
+  const normKp = Math.min(kpValue / 9, 1);
+
+  let chakraPhaseIndex = 0;
+
+  if ([1, 3, 5].includes(solarChakraNumber)) {
+    if (normSolar >= 0.66) chakraPhaseIndex = 1;
+    else if (normSolar <= 0.33) chakraPhaseIndex = 2;
+  } else if ([2, 4, 6].includes(solarChakraNumber)) {
+    if (normKp >= 0.66) chakraPhaseIndex = 1;
+    else if (normKp <= 0.33) chakraPhaseIndex = 2;
+  }
+
+  const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
+  type PhaseKey = typeof chakraPhaseKeys[number];
+  const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
+  const chakraPhase = chakraSun.states[chakraPhaseKey];
+
+  const yearChakra = getChakraFromYear(dateOfBirth);
+  const dayChakra = getPersonalChakraDay(sunDegree);
+
+  const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
+
+  return {
+    result: {
+      birth: {
+        chakraNumber: solarChakraNumber,
+        chakraEmoji: chakraSun.emoji,
+        chakraTitle: chakraSun.title,
+        chakraName: chakraSun.name,
+        inner: chakraPhase.inner,
+        outer: chakraPhase.outer,
+        relationship: chakraPhase.relationship,
+        link: chakraSun.link,
+        lovelink: chakraSun.lovelink,
+        lunarDescription: chakraMoon.desc,
+        lunarEmoji: chakraMoon.emoji,
+        lunarNumber: lunarChakraNumber,
+        lunarTitle: chakraMoon.title,
+        lunarName: chakraMoon.name,
+        nakshatraName: nakshatraNames[sunNakshatraIndex],
+        nakshatraLink: nakshatraInstagram,
+        nakshatraInstagram
+      },
+      currentPath: chakrasData.chakras[yearChakra - 1].path,
+      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
+      todayText: chakrasData.chakras[dayChakra - 1].day
+    }
   };
-
-  return { result };
 }
+
 
 function convertToJulianDate(dateString: string): string {
   const date = new Date(dateString);
