@@ -9,6 +9,19 @@ import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
 
+useEffect(() => {
+  const today = new Date();
+  const julianDate = convertToJulianDate(today.toISOString().split("T")[0]);
+  const lunarEntryToday = lunarData.find(entry => entry.Date === julianDate);
+
+  if (lunarEntryToday) {
+    const moonDegreeToday = lunarEntryToday.Lunar_Longitude;
+    const todayNakshatraIndex = Math.floor(moonDegreeToday / (360 / 27));
+
+    setTodayNakshatraName(nakshatraNames[todayNakshatraIndex]);
+    setTodayNakshatraLink(`https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`);
+  }
+}, []);
 
 type CompatibilityDetails = {
   how: string;
@@ -23,6 +36,8 @@ type ChakraCompatibilityEntry = {
 };
 
 const chakraCompatibility: Record<string, Record<string, ChakraCompatibilityEntry>> = chakraCompatibilityRaw;
+const [todayNakshatraName, setTodayNakshatraName] = useState<string | null>(null);
+const [todayNakshatraLink, setTodayNakshatraLink] = useState<string | null>(null);
 
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
@@ -302,7 +317,7 @@ const handleCheckChakra = () => {
   const chakraNumberSun = getPersonalChakraDay(sunDegree);
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
   const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
-
+  
   const chakraPeriodPosts = {
     1: "DIBDVkFRDeb",
     2: "DIBDeTMRg7u",
@@ -602,8 +617,8 @@ const generateQueryResult = (chakraIndex: number) => {
                       Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.birth.nakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.nakshatraName}</a>
                     </p>
                     <p>
-                      Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
-                    </p>
+                    Восприятие дня: <a href={todayNakshatraLink!} target="_blank" rel="noopener noreferrer">{todayNakshatraName}</a>
+                     </p>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
