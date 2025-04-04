@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import {
   getBirthChakra,
   getPersonalChakraDay,
-  nakshatraToChakra
+  nakshatraToChakra,
+  nakshatraNames,
+  nakshatraPostIds
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
