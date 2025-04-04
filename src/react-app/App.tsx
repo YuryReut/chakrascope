@@ -296,6 +296,21 @@ const handleCheckChakra = () => {
 
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
+  // 🔹 Получаем накшатру дня (по Солнцу на сегодня)
+    const todayDate = new Date().toISOString().split("T")[0];
+    const todayJulian = convertToJulianDate(todayDate);
+    const todaySolarEntry = solarData.find(entry => entry.Date === todayJulian);
+    
+    let todayNakshatraName = "";
+    let todayNakshatraLink = "";
+    
+    if (todaySolarEntry) {
+      const todaySunDegree = todaySolarEntry.Solar_Longitude;
+      const todayNakshatraIndex = Math.floor(todaySunDegree / (360 / 27));
+      todayNakshatraName = nakshatraNames[todayNakshatraIndex];
+      todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
+    }
+
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
 
@@ -328,8 +343,10 @@ const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumber
 
   setBirthChakra({
     ...result.result,
-    chakraPeriodLink,
-    chakraDayLink
+  chakraPeriodLink,
+  chakraDayLink,
+  todayNakshatraName,
+  todayNakshatraLink
   });
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
@@ -599,7 +616,7 @@ const generateQueryResult = (chakraIndex: number) => {
                       Сегодня
                     </h4>
                     <p>
-                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.birth.nakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.nakshatraName}</a>
+                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.todayNakshatraName}</a>
                     </p>
                     <p>
                       Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
