@@ -323,8 +323,8 @@ const handleCheckChakra = () => {
     7: "DIBExxXRFII"
   };
 
- const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun.toString()]}/`;
- const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon.toString()]}/`;
+const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
+const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
 
   setBirthChakra({
     ...result.result,
