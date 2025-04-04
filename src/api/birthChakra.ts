@@ -47,75 +47,57 @@ export function getPersonalChakraDay(sunDegree: number): number {
   return sunChakra;
 }
 
-export function getBirthChakra(birthDate: string, sunDegree: number, moonDegree: number) {
-  const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
-  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-  
-  const solarChakraNumber = chakrasData.nakshatraToChakra[sunNakshatraIndex];
-  const lunarChakraNumber = chakrasData.nakshatraToChakra[moonNakshatraIndex];
+import chakrasData from "./chakras.json";
+import nakshatraToChakra from "./nakshatraToChakra.json";
 
-  const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
-  const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
+export function getBirthChakra(birthDate, sunDegree, moonDegree) {
+  const nakshatraIndex = Math.floor(sunDegree / (360 / 27));
+  const lunarNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-  const chakraPhase = chakraSun.states.balance; 
+  const chakraNumber = nakshatraToChakra[nakshatraIndex];
+  const lunarChakraNumber = nakshatraToChakra[lunarNakshatraIndex];
 
-  const today = new Date().toISOString().split("T")[0];
-  const julianToday = convertToJulianDate(today);
-  const lunarTodayEntry = lunarData.find(entry => entry.Date === julianToday);
-  const solarTodayEntry = solarData.find(entry => entry.Date === julianToday);
+  const chakra = chakrasData.chakras.find(c => c.id === chakraNumber);
+  const lunarChakra = chakrasData.chakras.find(c => c.id === lunarChakraNumber);
 
-  let todayNakshatraName = "Нет данных";
-  let todayNakshatraLink = "#";
-  let todayChakraDayNumber = 1;
-  let todayLunarChakraNumber = 1;
+  const todayNakshatraName = chakra.nakshatraNames[nakshatraIndex % chakra.nakshatraNames.length];
+  const todayNakshatraLink = chakra.nakshatraLinks[nakshatraIndex % chakra.nakshatraLinks.length];
 
-  if (lunarTodayEntry && solarTodayEntry) {
-    const moonDegreeToday = lunarTodayEntry.Lunar_Longitude;
-    const sunDegreeToday = solarTodayEntry.Solar_Longitude;
+  const todayLunarNakshatraName = lunarChakra.nakshatraNames[lunarNakshatraIndex % lunarChakra.nakshatraNames.length];
+  const todayLunarNakshatraLink = lunarChakra.nakshatraLinks[lunarNakshatraIndex % lunarChakra.nakshatraLinks.length];
 
-    const todayNakshatraIndex = Math.floor(sunDegreeToday / (360 / 27));
-    todayNakshatraName = nakshatraNames[todayNakshatraIndex];
-    todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
-
-    todayChakraDayNumber = chakrasData.nakshatraToChakra[todayNakshatraIndex];
-
-    const todayMoonNakshatraIndex = Math.floor(moonDegreeToday / (360 / 27));
-    todayLunarChakraNumber = chakrasData.nakshatraToChakra[todayMoonNakshatraIndex];
-  }
-
-  const chakraPeriodPosts = ["DIBDVkFRDeb","DIBDeTMRg7u","DIBDiZtxAhy","DIBDqcRxkY-","DIBDvCKR8dc","DIBDz0DRSAR","DIBD30GRoyD"];
-  const chakraDayPosts = ["DIBETbmRAhm","DIBEgOBxL-Z","DIBEkATx7Nm","DIBEn5Txz0v","DIBEr7nRGof","DIBEvLpxElK","DIBExxXRFII"];
-
-  return {
-    result: {
-      birth: {
-        chakraNumber: solarChakraNumber,
-        chakraEmoji: chakraSun.emoji,
-        chakraTitle: chakraSun.title,
-        chakraName: chakraSun.name,
-        inner: chakraPhase.inner,
-        outer: chakraPhase.outer,
-        relationship: chakraPhase.relationship,
-        link: chakraSun.link,
-        lovelink: chakraSun.lovelink,
-        lunarDescription: chakraMoon.desc,
-        lunarEmoji: chakraMoon.emoji,
-        lunarNumber: lunarChakraNumber,
-        lunarTitle: chakraMoon.title,
-        lunarName: chakraMoon.name,
-        nakshatraName: nakshatraNames[sunNakshatraIndex],
-        nakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`,
-        nakshatraInstagram: `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`
-      },
-      currentPath: chakrasData.chakras[solarChakraNumber - 1].path,
-      today: `${chakrasData.chakras[todayChakraDayNumber - 1].name}`,
-      todayText: chakrasData.chakras[todayChakraDayNumber - 1].day,
-      todayNakshatraName,
-      todayNakshatraLink,
-      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[todayChakraDayNumber - 1]}/`,
-      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[todayLunarChakraNumber - 1]}/`
-    }
+  const result = {
+    birth: {
+      chakraNumber,
+      chakraEmoji: chakra.emoji,
+      chakraTitle: chakra.title,
+      chakraName: chakra.name,
+      inner: chakra.states.balance.inner,
+      outer: chakra.states.balance.outer,
+      relationship: chakra.states.balance.relationship,
+      link: chakra.link,
+      lovelink: chakra.lovelink,
+      lunarDescription: lunarChakra.desc,
+      lunarEmoji: lunarChakra.emoji,
+      lunarNumber: lunarChakra.id,
+      lunarTitle: lunarChakra.title,
+      lunarName: lunarChakra.name,
+      nakshatraInstagram: chakra.nakshatraLinks[nakshatraIndex % chakra.nakshatraLinks.length],
+      nakshatraName: todayNakshatraName,
+      nakshatraLink: todayNakshatraLink
+    },
+    currentPath: chakra.path,
+    today: `${chakra.name} и ${lunarChakra.name}`,
+    todayText: chakra.day,
+    chakraPeriod: chakraNumber,
+    chakraDay: lunarChakraNumber,
+    todayNakshatraName,
+    todayNakshatraLink,
+    todayLunarNakshatraName,
+    todayLunarNakshatraLink
   };
+
+  return { result };
 }
 
 function convertToJulianDate(dateString: string): string {
