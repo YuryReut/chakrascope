@@ -38,8 +38,8 @@ function convertToJulianDate(dateString: string): string {
 function App() {
   const [birthDate, setBirthDate] = useState("2000-12-31");
   const [hasChangedBirthDate, setHasChangedBirthDate] = useState(false);
-  const [birthChakra, setBirthChakra] = useState<{
-    birth: {
+ const [birthChakra, setBirthChakra] = useState<{
+      birth: {
         chakraNumber: number;
         chakraEmoji: string;
         chakraTitle: string;
@@ -54,18 +54,16 @@ function App() {
         lunarNumber: number;
         lunarTitle: string;
         lunarName: string;
-        nakshatraInstagram: string; 
+        nakshatraInstagram: string;
         nakshatraName: string;
         nakshatraLink: string;
-        nakshatraName?: string;
-        nakshatraLink?: string;
-    };
-    currentPath: string;
-    today: string;
-    todayText: string;
-    chakraPeriodLink?: string;
-    chakraDayLink?: string;
-} | null>(null);
+      };
+      currentPath: string;
+      today: string;
+      todayText: string;
+      chakraPeriodLink: string;
+      chakraDayLink: string;
+    } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
     const [showBirthDetails, setShowBirthDetails] = useState(false);
@@ -286,10 +284,12 @@ const handleCheckChakra = () => {
         nakshatraInstagram: "#",
         nakshatraName: "Ошибка",
         nakshatraLink: "#"
-      }, 
+      },
       currentPath: "Дата вне диапазона данных!", 
       today: "",
-      todayText: ""
+      todayText: "",
+      chakraPeriodLink: "#",
+      chakraDayLink: "#"
     });
     return;
   }
@@ -297,21 +297,13 @@ const handleCheckChakra = () => {
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
 
+  const result = getBirthChakra(birthDate, sunDegree, moonDegree);
+
   const chakraNumberSun = getPersonalChakraDay(sunDegree);
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
   const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
 
-  const chakraNameMap = {
-    1: "Муладхара",
-    2: "Свадхистхана",
-    3: "Манипура",
-    4: "Анахата",
-    5: "Вишудха",
-    6: "Аджна",
-    7: "Сахасрара"
-  };
-
-  const chakraPeriodPosts: Record<number, string> = {
+  const chakraPeriodPosts = {
     1: "DIBDVkFRDeb",
     2: "DIBDeTMRg7u",
     3: "DIBDiZtxAhy",
@@ -321,7 +313,7 @@ const handleCheckChakra = () => {
     7: "DIBD30GRoyD"
   };
 
-  const chakraDayPosts: Record<number, string> = {
+  const chakraDayPosts = {
     1: "DIBETbmRAhm",
     2: "DIBEgOBxL-Z",
     3: "DIBEkATx7Nm",
@@ -334,25 +326,22 @@ const handleCheckChakra = () => {
   const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun]}/`;
   const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon]}/`;
 
-  const result = getBirthChakra(birthDate, sunDegree, moonDegree);
   setBirthChakra({
-  birth: result.result.birth,
-  currentPath: result.result.currentPath,
-  today: result.result.today,
-  todayText: result.result.todayText,
-  chakraPeriodLink,
-  chakraDayLink
-});
-  setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
-  setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
+    ...result.result,
+    chakraPeriodLink,
+    chakraDayLink
+  });
+
+  setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
+  setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
 };
 
-    const startQuestionnaire = () => {
-        setShowQuestions(true);
-        setQueryResult(null);
-    };
+const startQuestionnaire = () => {
+  setShowQuestions(true);
+  setQueryResult(null);
+};
 
-    const generateQueryResult = (chakraIndex: number) => {
+const generateQueryResult = (chakraIndex: number) => {
       const chakraLabels = [
         "Материальное, безопасность",
         "Эмоции, желания",
