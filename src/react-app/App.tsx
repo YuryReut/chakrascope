@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   getBirthChakra,
-  getPersonalChakraDay,
   nakshatraToChakra
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
@@ -289,9 +288,7 @@ const handleCheckChakra = () => {
       today: "",
       todayText: "",
       chakraPeriodLink: "#",
-      chakraDayLink: "#",
-      todayNakshatraName: "Ошибка данных",
-      todayNakshatraLink: "#"
+      chakraDayLink: "#"
     });
     return;
   }
@@ -301,8 +298,39 @@ const handleCheckChakra = () => {
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
 
-  setBirthChakra(result.result);
+  const chakraPeriodPosts = {
+    1: "DIBDVkFRDeb",
+    2: "DIBDeTMRg7u",
+    3: "DIBDiZtxAhy",
+    4: "DIBDqcRxkY-",
+    5: "DIBDvCKR8dc",
+    6: "DIBDz0DRSAR",
+    7: "DIBD30GRoyD"
+  };
+
+  const chakraDayPosts = {
+    1: "DIBETbmRAhm",
+    2: "DIBEgOBxL-Z",
+    3: "DIBEkATx7Nm",
+    4: "DIBEn5Txz0v",
+    5: "DIBEr7nRGof",
+    6: "DIBEvLpxElK",
+    7: "DIBExxXRFII"
+  };
+
+  const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[result.chakraPeriod]}/`;
+  const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[result.chakraDay]}/`;
+
+  setBirthChakra({
+    ...result.result,
+    chakraPeriodLink,
+    chakraDayLink
+  });
+
+  setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
+  setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
 };
+
 
 const startQuestionnaire = () => {
   setShowQuestions(true);
