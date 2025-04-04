@@ -40,7 +40,13 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
     "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
     "DH7_UlDx8b4", "DH7-_ykxKmK"
   ];
-
+  export const nakshatraNames = [
+    "Ашвини", "Бхарани", "Криттика", "Рохини", "Мригашира", "Ардра",
+    "Пунавасу", "Пушья", "Ашлеша", "Магха", "Пурва Пхалгуни", "Уттара Пхалгуни",
+    "Хаста", "Читра", "Свати", "Вишакха", "Анурадха", "Джештха",
+    "Мула", "Пурва Ашадха", "Уттара Ашадха", "Шравана", "Дхаништха", "Шатабхиша",
+    "Пурва Бхадрапада", "Уттара Бхадрапада", "Ревати"
+  ];
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
@@ -96,6 +102,8 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lunarNumber: lunarChakraNumber,
         lunarTitle: chakraMoon.title,
         lunarName: chakraMoon.name,
+        nakshatraName: nakshatraNames[sunNakshatraIndex],       // 👈
+        nakshatraLink: nakshatraInstagram,
         nakshatraInstagram  // 👈 добавлен линк на Instagram
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path,
