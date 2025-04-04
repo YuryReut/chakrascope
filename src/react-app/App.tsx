@@ -256,12 +256,10 @@ const handleCheckChakra = () => {
     setShowDateAlert("Пожалуйста, выбери дату рождения перед расчётом.");
     return;
   }
-  
-  const formattedDate = convertToJulianDate(birthDate);
 
+  const formattedDate = convertToJulianDate(birthDate);
   const solarEntry = solarData.find(entry => entry.Date === formattedDate);
   const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
- 
 
   if (!solarEntry || !lunarEntry) {
     setBirthChakra({ 
@@ -292,8 +290,9 @@ const handleCheckChakra = () => {
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
 
-  const result = getBirthChakra(birthDate, sunDegree, moonDegree);
-  setBirthChakra(result.result);
+  const chakraNumberSun = getPersonalChakraDay(sunDegree);
+  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
+  const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
 
   const chakraNameMap = {
     1: "Муладхара",
@@ -305,9 +304,35 @@ const handleCheckChakra = () => {
     7: "Сахасрара"
   };
 
-  const chakraNumberSun = getPersonalChakraDay(sunDegree);
-  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-  const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
+  const chakraPeriodPosts = {
+    1: "DIBDVkFRDeb",
+    2: "DIBDeTMRg7u",
+    3: "DIBDiZtxAhy",
+    4: "DIBDqcRxkY-",
+    5: "DIBDvCKR8dc",
+    6: "DIBDz0DRSAR",
+    7: "DIBD30GRoyD"
+  };
+
+  const chakraDayPosts = {
+    1: "DIBETbmRAhm",
+    2: "DIBEgOBxL-Z",
+    3: "DIBEkATx7Nm",
+    4: "DIBEn5Txz0v",
+    5: "DIBEr7nRGof",
+    6: "DIBEvLpxElK",
+    7: "DIBExxXRFII"
+  };
+
+  const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun]}/`;
+  const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon]}/`;
+
+  const result = getBirthChakra(birthDate, sunDegree, moonDegree);
+  setBirthChakra({
+    ...result.result,
+    chakraPeriodLink,
+    chakraDayLink
+  });
 
   setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
   setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
@@ -575,6 +600,12 @@ const handleCheckChakra = () => {
                     <h4>
                       Сегодня
                     </h4>
+                    <p>
+                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.birth.nakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.nakshatraName}</a>
+                    </p>
+                    <p>
+                      Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
+                    </p>
                     <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
