@@ -289,7 +289,9 @@ const handleCheckChakra = () => {
       today: "",
       todayText: "",
       chakraPeriodLink: "#",
-      chakraDayLink: "#"
+      chakraDayLink: "#",
+      todayNakshatraName: "Ошибка данных",
+      todayNakshatraLink: "#"
     });
     return;
   }
@@ -299,41 +301,7 @@ const handleCheckChakra = () => {
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
 
-  const chakraNumberSun = getPersonalChakraDay(sunDegree);
-  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-  const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
-
-  const chakraPeriodPosts = {
-    1: "DIBDVkFRDeb",
-    2: "DIBDeTMRg7u",
-    3: "DIBDiZtxAhy",
-    4: "DIBDqcRxkY-",
-    5: "DIBDvCKR8dc",
-    6: "DIBDz0DRSAR",
-    7: "DIBD30GRoyD"
-  };
-
-  const chakraDayPosts = {
-    1: "DIBETbmRAhm",
-    2: "DIBEgOBxL-Z",
-    3: "DIBEkATx7Nm",
-    4: "DIBEn5Txz0v",
-    5: "DIBEr7nRGof",
-    6: "DIBEvLpxElK",
-    7: "DIBExxXRFII"
-  };
-
-const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
-const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
-
-  setBirthChakra({
-    ...result.result,
-    chakraPeriodLink,
-    chakraDayLink
-  });
-
-  setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
-  setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
+  setBirthChakra(result.result);
 };
 
 const startQuestionnaire = () => {
@@ -595,16 +563,24 @@ const generateQueryResult = (chakraIndex: number) => {
                     marginBottom: "15px",
                     textAlign: "left"
                   }}>
-                    <h4>
-                      Сегодня
-                    </h4>
-                    <p>
-                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.birth.nakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.nakshatraName}</a>
-                    </p>
-                    <p>
-                      Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
-                    </p>
-                    <p>{birthChakra.todayText}</p>
+                     <h4>Сегодня</h4>
+                      <p>
+                        Период{" "}
+                        <a href={birthChakra.chakraPeriodLink} target="_blank">
+                          {birthChakra.today}
+                        </a>{" "}
+                        по накшатре{" "}
+                        <a href={birthChakra.todayNakshatraLink} target="_blank">
+                          {birthChakra.todayNakshatraName}
+                        </a>
+                      </p>
+                      <p>
+                        Восприятие дня:{" "}
+                        <a href={birthChakra.chakraDayLink} target="_blank">
+                          {birthChakra.today}
+                        </a>
+                      </p>
+                      <p>{birthChakra.todayText}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
                     {/* Блок 3 - Твой путь сейчас */}
