@@ -56,6 +56,8 @@ function App() {
         lunarTitle: string;
         lunarName: string;
         nakshatraInstagram: string; 
+        nakshatraName: string;
+        nakshatraLink: string;
     };
     currentPath: string;
     today: string;
@@ -278,7 +280,9 @@ const handleCheckChakra = () => {
         lunarNumber: 0,
         lunarTitle: "Ошибка",
         lunarName: "Ошибка данных",
-        nakshatraInstagram: "#"
+        nakshatraInstagram: "#",
+        nakshatraName: "Ошибка",
+        nakshatraLink: "#"
       }, 
       currentPath: "Дата вне диапазона данных!", 
       today: "",
@@ -329,11 +333,13 @@ const handleCheckChakra = () => {
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
   setBirthChakra({
-    ...result.result,
-    chakraPeriodLink,
-    chakraDayLink
-  });
-
+  birth: result.result.birth,
+  currentPath: result.result.currentPath,
+  today: result.result.today,
+  todayText: result.result.todayText,
+  chakraPeriodLink,
+  chakraDayLink
+});
   setChakraNameSun(chakraNameMap[chakraNumberSun as keyof typeof chakraNameMap] as ChakraName);
   setChakraNameMoon(chakraNameMap[chakraNumberMoon as keyof typeof chakraNameMap] as ChakraName);
 };
