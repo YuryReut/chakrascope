@@ -109,7 +109,11 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path,
       today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
-      todayText: chakrasData.chakras[dayChakra - 1].day
+      todayText: chakrasData.chakras[dayChakra - 1].day,
+      chakraPeriod: solarChakraNumber, 
+      chakraDay: dayChakra,
+      todayNakshatraLink: nakshatraInstagram,             
+      todayNakshatraName: nakshatraNames[sunNakshatraIndex]
     }
   };
 }
