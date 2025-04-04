@@ -86,7 +86,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
 
   const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
 
-  return {
+ return {
     result: {
       birth: {
         chakraNumber: solarChakraNumber,
@@ -110,22 +110,12 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
       currentPath: chakrasData.chakras[yearChakra - 1].path,
       today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
       todayText: chakrasData.chakras[dayChakra - 1].day,
-      chakraPeriod: solarChakraNumber, 
-      chakraDay: dayChakra,
-      todayNakshatraLink: nakshatraInstagram,             
-      todayNakshatraName: nakshatraNames[sunNakshatraIndex]
+      chakraPeriod: solarChakraNumber, // добавлено ✅
+      chakraDay: dayChakra,            // добавлено ✅
+      todayNakshatraLink: nakshatraInstagram, // добавлено ✅
+      todayNakshatraName: nakshatraNames[sunNakshatraIndex] // добавлено ✅
     }
-  };
-}
-
-
-function convertToJulianDate(dateString: string): string {
-  const date = new Date(dateString);
-  const start = new Date(date.getFullYear(), 0, 0);
-  const diff = date.getTime() - start.getTime();
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dayOfYear = Math.floor(diff / oneDay);
-  return `${date.getFullYear()}-${dayOfYear.toString().padStart(3, "0")}`;
+ };
 }
 
 export function analyzeQuery(answers: boolean[]) {
