@@ -24,7 +24,6 @@ type ChakraCompatibilityEntry = {
 
 const chakraCompatibility: Record<string, Record<string, ChakraCompatibilityEntry>> = chakraCompatibilityRaw;
 
-
 type ChakraName = 'Муладхара' | 'Свадхистхана' | 'Манипура' | 'Анахата' | 'Вишудха' | 'Аджна' | 'Сахасрара';
 
 function convertToJulianDate(dateString: string): string {
@@ -58,10 +57,14 @@ function App() {
         nakshatraInstagram: string; 
         nakshatraName: string;
         nakshatraLink: string;
+        nakshatraName?: string;
+        nakshatraLink?: string;
     };
     currentPath: string;
     today: string;
     todayText: string;
+    chakraPeriodLink?: string;
+    chakraDayLink?: string;
 } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
@@ -308,7 +311,7 @@ const handleCheckChakra = () => {
     7: "Сахасрара"
   };
 
-  const chakraPeriodPosts = {
+  const chakraPeriodPosts: Record<number, string> = {
     1: "DIBDVkFRDeb",
     2: "DIBDeTMRg7u",
     3: "DIBDiZtxAhy",
@@ -318,7 +321,7 @@ const handleCheckChakra = () => {
     7: "DIBD30GRoyD"
   };
 
-  const chakraDayPosts = {
+  const chakraDayPosts: Record<number, string> = {
     1: "DIBETbmRAhm",
     2: "DIBEgOBxL-Z",
     3: "DIBEkATx7Nm",
