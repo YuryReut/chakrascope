@@ -1,13 +1,9 @@
 import { useState } from "react";
-import {
-  getBirthChakra,
-  nakshatraToChakra
-} from "../api/birthChakra";
+import { getBirthChakra } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
-
 
 type CompatibilityDetails = {
   how: string;
