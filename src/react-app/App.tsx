@@ -566,11 +566,11 @@ const generateQueryResult = (chakraIndex: number) => {
                     }}>
                       <h4>Сегодня</h4>             
                       <p>
-                        {birthChakra.todayText}<br />
                         Восприятие дня:{" "}
                         <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">
                           {birthChakra.birth.lunarName}
-                        </a>
+                        </a><br />
+                        {birthChakra.birth.lunarDescription}
                       </p>
                       <a
                         href="#"
@@ -587,14 +587,10 @@ const generateQueryResult = (chakraIndex: number) => {
                           cursor: "pointer"
                         }}
                       >
-                        {showTodayDetails ? "Скрыть" : "Еще"}
-                      </a>
-                    
-                      {showTodayDetails && (
+                       {showTodayDetails && (
                         <div style={{ marginTop: "10px" }}>
-                          <p>
-                            {birthChakra.birth.lunarDescription}
-                          </p>
+                          <p><strong>Фокус дня:</strong> {birthChakra.todayText}</p>
+                          <p><strong>Фокус периода:</strong> {birthChakra.birth.sprint}</p>
                           <p>
                             Период{" "}
                             <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">
@@ -605,11 +601,10 @@ const generateQueryResult = (chakraIndex: number) => {
                               {birthChakra.todayNakshatraName}
                             </a>
                           </p>
-                           <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+                          <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                         </div>
                       )}
                     </div>
-
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
                             backgroundColor: "#ffffff",
