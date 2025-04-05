@@ -598,7 +598,6 @@ const generateQueryResult = (chakraIndex: number) => {
                       
                         {showTodayDetails && (
                           <div style={{ marginTop: "10px" }}>
-                            <p>{birthChakra.birth.lunarDescription}</p>
                             <p>
                               {birthChakra.birth.sprint}<br />
                               Период{" "}
