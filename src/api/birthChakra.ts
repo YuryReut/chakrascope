@@ -109,35 +109,35 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
 
   return {
-    result: {
-      birth: {
-        chakraNumber: solarChakraNumber,
-        chakraEmoji: chakraSun.emoji,
-        chakraTitle: chakraSun.title,
-        chakraName: chakraSun.name,
-        inner: chakraPhase.inner,
-        outer: chakraPhase.outer,
-        relationship: chakraPhase.relationship,
-        link: chakraSun.link,
-        lovelink: chakraSun.lovelink,
-        lunarDescription: chakraMoon.desc,
-        lunarEmoji: chakraMoon.emoji,
-        lunarNumber: lunarChakraNumber,
-        lunarTitle: chakraMoon.title,
-        lunarName: chakraMoon.name,
-        nakshatraName: nakshatraNames[sunNakshatraIndex],
-        nakshatraLink: nakshatraInstagram,
-        nakshatraInstagram
-      },
-      currentPath: chakrasData.chakras[yearChakra - 1].path,
-      today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
-      todayText: chakrasData.chakras[dayChakra - 1].day,
-      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[dayChakra]}/`,
-      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`,
-      todayNakshatraName: nakshatraNames[moonNakshatraIndex],
-      todayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`
-    }
-  };
+  result: {
+    birth: {
+      chakraNumber: solarChakraNumber,
+      chakraEmoji: chakraSun.emoji,
+      chakraTitle: chakraSun.title,
+      chakraName: chakraSun.name,
+      inner: chakraPhase.inner,
+      outer: chakraPhase.outer,
+      relationship: chakraPhase.relationship,
+      link: chakraSun.link,
+      lovelink: chakraSun.lovelink,
+      lunarDescription: chakraMoon.desc,
+      lunarEmoji: chakraMoon.emoji,
+      lunarNumber: lunarChakraNumber,
+      lunarTitle: chakraMoon.title,
+      lunarName: chakraMoon.name,
+      nakshatraName: nakshatraNames[sunNakshatraIndex],
+      nakshatraLink: nakshatraInstagram,
+      nakshatraInstagram
+    },
+    currentPath: chakrasData.chakras[yearChakra - 1].path,
+    today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
+    todayText: chakrasData.chakras[dayChakra - 1].day,
+    chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[dayChakra]}/`,
+    chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`,
+    todayNakshatraName: nakshatraNames[moonNakshatraIndex],
+    todayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`
+  }
+};
 }
 
 
