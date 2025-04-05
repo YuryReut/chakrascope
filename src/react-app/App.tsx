@@ -567,12 +567,12 @@ const generateQueryResult = (chakraIndex: number) => {
                       Сегодня
                     </h4>
                     <p>
-                      Восприятие дня:  {birthChakra.todayText}.<br />
-                      <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
+                     {birthChakra.todayText}<br />
+                      Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
                     </p>
                     <p>
-                    Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.todayNakshatraName}</a>: <br /> 
-                    {birthChakra.birth.lunarDescription}
+                     {birthChakra.birth.lunarDescription}  <br />
+                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.todayNakshatraName}</a>
                     </p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
