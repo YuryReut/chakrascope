@@ -120,7 +120,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
       relationship: chakraPhase.relationship,
       link: chakraSun.link,
       lovelink: chakraSun.lovelink,
-      lunarDescription: chakraMoon.desc,
+      lunarDescription: chakraMoon.sprint,
       lunarEmoji: chakraMoon.emoji,
       lunarNumber: lunarChakraNumber,
       lunarTitle: chakraMoon.title,
