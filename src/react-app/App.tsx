@@ -261,36 +261,38 @@ const handleCheckChakra = () => {
   const solarEntry = solarData.find(entry => entry.Date === formattedDate);
   const lunarEntry = lunarData.find(entry => entry.Date === formattedDate);
 
-  if (!solarEntry || !lunarEntry) {
-    setBirthChakra({ 
-      birth: {
-        chakraNumber: 0,
-        chakraEmoji: "❌",
-        chakraTitle: "Ошибка",
-        chakraName: "Ошибка данных",
-        inner: "Ошибка даты",
-        outer: "Дата вне диапазона",
-        relationship: "Нет данных",
-        link: "#",
-        lovelink: "#",
-        lunarDescription: "Нет данных",
-        lunarEmoji: "❌",
-        lunarNumber: 0,
-        lunarTitle: "Ошибка",
-        lunarName: "Ошибка данных",
-        nakshatraInstagram: "#",
-        nakshatraName: "Ошибка",
-        nakshatraLink: "#"
-      },
-      currentPath: "Дата вне диапазона данных!", 
-      today: "",
-      todayText: "",
-      chakraPeriodLink: "#",
-      chakraDayLink: "#"
-    });
-    return;
-  }
-
+ if (!solarEntry || !lunarEntry) {
+  setBirthChakra({ 
+    birth: {
+      chakraNumber: 0,
+      chakraEmoji: "❌",
+      chakraTitle: "Ошибка",
+      chakraName: "Ошибка данных",
+      inner: "Ошибка даты",
+      outer: "Дата вне диапазона",
+      relationship: "Нет данных",
+      link: "#",
+      lovelink: "#",
+      lunarDescription: "Нет данных",
+      lunarEmoji: "❌",
+      lunarNumber: 0,
+      lunarTitle: "Ошибка",
+      lunarName: "Ошибка данных",
+      nakshatraInstagram: "#",
+      nakshatraName: "Ошибка",
+      nakshatraLink: "#"
+    },
+    currentPath: "Дата вне диапазона данных!",
+    today: "",
+    todayText: "",
+    chakraPeriodLink: "#",
+    chakraDayLink: "#",
+    todayNakshatraName: "Ошибка",
+    todayNakshatraLink: "#"
+  });
+  return;
+}
+  
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
 
