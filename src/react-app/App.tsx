@@ -3,14 +3,21 @@ import {
   getBirthChakra,
   getPersonalChakraDay,
   nakshatraToChakra,
-  nakshatraNames, 
-  nakshatraPostIds
+  nakshatraNames
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
 
+const nakshatraPostIds = [
+  "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
+  "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
+  "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
+  "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
+  "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
+  "DH7_UlDx8b4", "DH7-_ykxKmK"
+];
 
 type CompatibilityDetails = {
   how: string;
@@ -65,6 +72,8 @@ function App() {
       todayText: string;
       chakraPeriodLink: string;
       chakraDayLink: string;
+      todayNakshatraName: string;
+      todayNakshatraLink: string;
     } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
@@ -343,8 +352,8 @@ const handleCheckChakra = () => {
 const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
 const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
 const todayNakshatraIndex = Math.floor(sunDegree / (360 / 27));
-const todayNakshatraName = nakshatraNames[todayNakshatraIndex];
-const todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
+todayNakshatraName = nakshatraNames[todayNakshatraIndex];
+todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
 
   setBirthChakra({
     ...result.result,
