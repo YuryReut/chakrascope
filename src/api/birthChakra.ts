@@ -134,6 +134,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
     currentPath: chakrasData.chakras[yearChakra - 1].path,
     today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
     todayText: chakrasData.chakras[dayChakra - 1].day,
+    daySprint: chakrasData.chakras[dayChakra - 1].sprint,
     chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[dayChakra as keyof typeof chakraPeriodPosts]}/`,
     chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber as keyof typeof chakraDayPosts]}/`,
     todayNakshatraName: nakshatraNames[moonNakshatraIndex],
