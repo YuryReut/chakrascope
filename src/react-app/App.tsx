@@ -307,50 +307,8 @@ const handleCheckChakra = () => {
 
   const sunDegree = solarEntry.Solar_Longitude;
   const moonDegree = lunarEntry.Lunar_Longitude;
-  // 🔹 Получаем накшатру дня (по Солнцу на сегодня)
-    const todayDate = new Date().toISOString().split("T")[0];
-    const todayJulian = convertToJulianDate(todayDate);
-    const todaySolarEntry = solarData.find(entry => entry.Date === todayJulian);
-    
-    let todayNakshatraName = "";
-    let todayNakshatraLink = "";
-    
-    if (todaySolarEntry) {
-      const todaySunDegree = todaySolarEntry.Solar_Longitude;
-      const todayNakshatraIndex = Math.floor(todaySunDegree / (360 / 27));
-      todayNakshatraName = nakshatraNames[todayNakshatraIndex];
-      todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
-    }
-
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
-
-  const chakraNumberSun = getPersonalChakraDay(sunDegree);
-  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
-  const chakraNumberMoon = nakshatraToChakra[moonNakshatraIndex] || 1;
-
-  const chakraPeriodPosts = {
-    1: "DIBDVkFRDeb",
-    2: "DIBDeTMRg7u",
-    3: "DIBDiZtxAhy",
-    4: "DIBDqcRxkY-",
-    5: "DIBDvCKR8dc",
-    6: "DIBDz0DRSAR",
-    7: "DIBD30GRoyD"
-  };
-
-  const chakraDayPosts = {
-    1: "DIBETbmRAhm",
-    2: "DIBEgOBxL-Z",
-    3: "DIBEkATx7Nm",
-    4: "DIBEn5Txz0v",
-    5: "DIBEr7nRGof",
-    6: "DIBEvLpxElK",
-    7: "DIBExxXRFII"
-  };
-
-const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
-const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
 
   setBirthChakra(result.result);
 
