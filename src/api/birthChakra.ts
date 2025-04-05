@@ -87,6 +87,9 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const dayChakra = getPersonalChakraDay(sunDegree);
 
   const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
+  const todayNakshatraName = nakshatraNames[moonNakshatraIndex];
+  const todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`;
+
 
   return {
     result: {
@@ -111,7 +114,9 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path,
       today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
-      todayText: chakrasData.chakras[dayChakra - 1].day
+      todayText: chakrasData.chakras[dayChakra - 1].day,
+      todayNakshatraName: nakshatraNames[moonNakshatraIndex],
+      todayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`
     }
   };
 }
