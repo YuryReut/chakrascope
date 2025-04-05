@@ -277,6 +277,7 @@ const handleCheckChakra = () => {
       link: "#",
       lovelink: "#",
       sprint: "Нет данных",
+      day: "Нет данных",
       lunarDescription: "Нет данных",
       lunarEmoji: "❌",
       lunarNumber: 0,
