@@ -578,7 +578,7 @@ const generateQueryResult = (chakraIndex: number) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {birthChakra.lunarName}
+                            {birthChakra.birth.lunarName}
                           </a>
                         </p>
                       
@@ -601,7 +601,7 @@ const generateQueryResult = (chakraIndex: number) => {
                         {showTodayDetails && (
                           <div style={{ marginTop: "10px" }}>
                             <p>
-                              {birthChakra.sprint}<br />
+                              {birthChakra.birth.sprint}<br />
                               Период{" "}
                               <a
                                 href={birthChakra.chakraPeriodLink}
