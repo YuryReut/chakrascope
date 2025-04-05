@@ -564,8 +564,7 @@ const generateQueryResult = (chakraIndex: number) => {
                       marginBottom: "15px",
                       textAlign: "left"
                     }}>
-                      <h4>Сегодня</h4>
-                    
+                      <h4>Сегодня</h4>             
                       <p>
                         {birthChakra.todayText}<br />
                         Восприятие дня:{" "}
@@ -573,9 +572,6 @@ const generateQueryResult = (chakraIndex: number) => {
                           {birthChakra.birth.lunarName}
                         </a>
                       </p>
-                    
-                      <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-                    
                       <a
                         href="#"
                         onClick={(e) => {
@@ -597,10 +593,7 @@ const generateQueryResult = (chakraIndex: number) => {
                       {showTodayDetails && (
                         <div style={{ marginTop: "10px" }}>
                           <p>
-                            <strong>Фокус дня:</strong> {birthChakra.todayText}
-                          </p>
-                          <p>
-                            <strong>Фокус периода:</strong> {birthChakra.birth.lunarDescription}
+                            {birthChakra.birth.lunarDescription}
                           </p>
                           <p>
                             Период{" "}
@@ -612,6 +605,7 @@ const generateQueryResult = (chakraIndex: number) => {
                               {birthChakra.todayNakshatraName}
                             </a>
                           </p>
+                           <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                         </div>
                       )}
                     </div>
