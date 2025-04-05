@@ -45,6 +45,7 @@ function App() {
         link: string;
         lovelink: string;
         sprint: string;
+        day: string;
         lunarDescription: string;
         lunarEmoji: string;
         lunarNumber: number;
