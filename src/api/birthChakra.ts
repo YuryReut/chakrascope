@@ -87,9 +87,6 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const dayChakra = getPersonalChakraDay(sunDegree);
 
   const nakshatraInstagram = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
-  const todayNakshatraName = nakshatraNames[moonNakshatraIndex];
-  const todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`;
-
 
   return {
     result: {
