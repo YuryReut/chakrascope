@@ -572,7 +572,8 @@ const generateQueryResult = (chakraIndex: number) => {
                     <p>
                       Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
                     </p>
-                    <p>{birthChakra.todayText}</p>
+                    <p><strong>Фокус периода:</strong> {chakrasData.chakras[birthChakra.birth.chakraNumber - 1].sprint}</p>
+                    <p><strong>Фокус дня:</strong> {chakrasData.chakras[birthChakra.birth.lunarNumber - 1].day}</p>
                     <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
                   </div>
                     {/* Блок 3 - Твой путь сейчас */}
