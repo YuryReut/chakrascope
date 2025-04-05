@@ -599,7 +599,7 @@ const generateQueryResult = (chakraIndex: number) => {
                         {showTodayDetails && (
                           <div style={{ marginTop: "10px" }}>
                             <p>
-                              {birthChakra.daySprint}<br />
+                              {birthChakra.todayText}<br />
                               Период{" "}
                               <a
                                 href={birthChakra.chakraPeriodLink}
