@@ -2,7 +2,9 @@ import { useState } from "react";
 import {
   getBirthChakra,
   getPersonalChakraDay,
-  nakshatraToChakra
+  nakshatraToChakra,
+  nakshatraNames, 
+  nakshatraPostIds
 } from "../api/birthChakra";
 import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
@@ -340,6 +342,9 @@ const handleCheckChakra = () => {
 
 const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
 const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
+const todayNakshatraIndex = Math.floor(sunDegree / (360 / 27));
+const todayNakshatraName = nakshatraNames[todayNakshatraIndex];
+const todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
 
   setBirthChakra({
     ...result.result,
@@ -616,7 +621,7 @@ const generateQueryResult = (chakraIndex: number) => {
                       Сегодня
                     </h4>
                     <p>
-                      Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.todayNakshatraName}</a>
+                    Период <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.chakraName}</a> по накшатре <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">{birthChakra.todayNakshatraName}</a>  
                     </p>
                     <p>
                       Восприятие дня: <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">{birthChakra.birth.lunarName}</a>
