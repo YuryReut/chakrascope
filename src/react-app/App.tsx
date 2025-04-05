@@ -565,13 +565,17 @@ const generateQueryResult = (chakraIndex: number) => {
                       textAlign: "left"
                     }}>
                       <h4>Сегодня</h4>             
-                      <p>
-                        {birthChakra.todayText}<br />
-                        Восприятие дня:{" "}
-                        <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">
-                          {birthChakra.birth.lunarName}
-                        </a>
-                      </p>
+                    <p>
+                      {birthChakra.todayText}<br />
+                      Восприятие дня:{" "}
+                      <a
+                        href={birthChakra.chakraDayLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {birthChakra.birth.lunarTitle}
+                      </a>
+                    </p>
                       <a
                         href="#"
                         onClick={(e) => {
