@@ -576,7 +576,7 @@ const generateQueryResult = (chakraIndex: number) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {birthChakra.birth.lunarTitle}
+                            {birthChakra.birth.lunarName}
                           </a>
                         </p>
                       
