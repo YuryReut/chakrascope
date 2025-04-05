@@ -556,7 +556,7 @@ const generateQueryResult = (chakraIndex: number) => {
                     )}
                   </div>
                 {/* Блок 2 - Сегодня */}
-              <div style={{
+          <div style={{
   backgroundColor: "#ffffff",
   padding: "15px",
   borderRadius: "8px",
@@ -564,18 +564,19 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <h4>Сегодня</h4>             
+  <h4>Сегодня</h4>
   <p>
-   {birthChakra.birth.day}<br />
+    {birthChakra.todayText}<br />
     Восприятие дня:{" "}
     <a
       href={birthChakra.chakraDayLink}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {chakrasData.chakras[birthChakra.birth.lunarNumber - 1].name}
+      {birthChakra.birth.lunarName}
     </a>
   </p>
+
   <a
     href="#"
     onClick={(e) => {
@@ -591,25 +592,35 @@ const generateQueryResult = (chakraIndex: number) => {
   >
     {showTodayDetails ? "Скрыть" : "Еще"}
   </a>
-      {showTodayDetails && (
-        <div style={{ marginTop: "10px" }}>
-          <p>
-            {birthChakra.birth.sprint}
-            <br />
-            Период{" "}
-            <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">
-              {chakrasData.chakras[birthChakra.birth.chakraNumber - 1].name}
-            </a>{" "}
-            по накшатре{" "}
-            <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">
-              {birthChakra.todayNakshatraName}
-            </a>
-          </p>
-          <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-        </div>
-      )}
-    </div>
 
+  {showTodayDetails && (
+    <div style={{ marginTop: "10px" }}>
+      <p>
+        {birthChakra.birth.lunarDescription}
+      </p>
+      <p>
+        {birthChakra.birth.sprint}<br />
+        Период{" "}
+        <a
+          href={birthChakra.chakraPeriodLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {birthChakra.birth.chakraName}
+        </a>{" "}
+        по накшатре{" "}
+        <a
+          href={birthChakra.todayNakshatraLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {birthChakra.todayNakshatraName}
+        </a>
+      </p>
+      <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+    </div>
+  )}
+</div>
 
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
