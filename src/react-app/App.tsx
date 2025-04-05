@@ -351,9 +351,6 @@ const handleCheckChakra = () => {
 
 const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
 const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
-const todayNakshatraIndex = Math.floor(sunDegree / (360 / 27));
-todayNakshatraName = nakshatraNames[todayNakshatraIndex];
-todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNakshatraIndex]}/`;
 
   setBirthChakra({
     ...result.result,
