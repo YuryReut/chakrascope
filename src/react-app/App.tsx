@@ -569,7 +569,8 @@ const generateQueryResult = (chakraIndex: number) => {
                         Восприятие дня:{" "}
                         <a href={birthChakra.chakraDayLink} target="_blank" rel="noopener noreferrer">
                           {birthChakra.birth.lunarName}
-                        </a><br />
+                        </a>
+                        <br />
                         {birthChakra.birth.lunarDescription}
                       </p>
                       <a
@@ -581,7 +582,6 @@ const generateQueryResult = (chakraIndex: number) => {
                         style={{
                           display: "inline-block",
                           marginTop: "10px",
-                          fontSize: "14px",
                           color: "#0077cc",
                           textDecoration: "underline",
                           cursor: "pointer"
