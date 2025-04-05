@@ -23,6 +23,26 @@ export const nakshatraNames = [
   "Пурва Бхадрапада", "Уттара Бхадрапада", "Ревати"
 ];
 
+const chakraPeriodPosts = {
+  1: "DIBDVkFRDeb",
+  2: "DIBDeTMRg7u",
+  3: "DIBDiZtxAhy",
+  4: "DIBDqcRxkY-",
+  5: "DIBDvCKR8dc",
+  6: "DIBDz0DRSAR",
+  7: "DIBD30GRoyD"
+};
+
+const chakraDayPosts = {
+  1: "DIBETbmRAhm",
+  2: "DIBEgOBxL-Z",
+  3: "DIBEkATx7Nm",
+  4: "DIBEn5Txz0v",
+  5: "DIBEr7nRGof",
+  6: "DIBEvLpxElK",
+  7: "DIBExxXRFII"
+};
+
 // Чакра года (по году рождения)
 function getChakraFromYear(date: string): number {
     const year = new Date(date).getFullYear();
