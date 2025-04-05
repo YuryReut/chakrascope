@@ -352,16 +352,7 @@ const handleCheckChakra = () => {
 const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`;
 const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
 
-  setBirthChakra({
-  birth: result.result.birth,
-  currentPath: result.result.currentPath,
-  today: result.result.today,
-  todayText: result.result.todayText,
-  chakraPeriodLink,
-  chakraDayLink,
-  todayNakshatraName: todayNakshatraName || "Не определено",
-  todayNakshatraLink: todayNakshatraLink || "#"
-});
+  setBirthChakra(result.result);
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
