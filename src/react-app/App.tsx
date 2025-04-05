@@ -556,7 +556,7 @@ const generateQueryResult = (chakraIndex: number) => {
                     )}
                   </div>
                 {/* Блок 2 - Сегодня */}
-          <div style={{
+        <div style={{
   backgroundColor: "#ffffff",
   padding: "15px",
   borderRadius: "8px",
@@ -565,6 +565,7 @@ const generateQueryResult = (chakraIndex: number) => {
   textAlign: "left"
 }}>
   <h4>Сегодня</h4>
+
   <p>
     {birthChakra.todayText}<br />
     Восприятие дня:{" "}
@@ -573,7 +574,7 @@ const generateQueryResult = (chakraIndex: number) => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {birthChakra.birth.lunarName}
+      {birthChakra.birth.lunarTitle}
     </a>
   </p>
 
@@ -595,9 +596,7 @@ const generateQueryResult = (chakraIndex: number) => {
 
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p>
-        {birthChakra.birth.lunarDescription}
-      </p>
+      <p>{birthChakra.birth.lunarDescription}</p>
       <p>
         {birthChakra.birth.sprint}<br />
         Период{" "}
@@ -621,6 +620,7 @@ const generateQueryResult = (chakraIndex: number) => {
     </div>
   )}
 </div>
+
 
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
