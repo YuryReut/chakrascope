@@ -359,8 +359,8 @@ todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[todayNaksha
     ...result.result,
   chakraPeriodLink,
   chakraDayLink,
-  todayNakshatraName,
-  todayNakshatraLink
+  todayNakshatraName: todayNakshatraName || "Не определено",
+  todayNakshatraLink: todayNakshatraLink || "#"
   });
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
