@@ -556,61 +556,67 @@ const generateQueryResult = (chakraIndex: number) => {
                     )}
                   </div>
                 {/* Блок 2 - Сегодня */}
-                    <div style={{
-                      backgroundColor: "#ffffff",
-                      padding: "15px",
-                      borderRadius: "8px",
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                      marginBottom: "15px",
-                      textAlign: "left"
-                    }}>
-                      <h4>Сегодня</h4>             
-                    <p>
-                      {birthChakra.todayText}<br />
-                      Восприятие дня:{" "}
-                      <a
-                        href={birthChakra.chakraDayLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {birthChakra.birth.lunarTitle}
-                      </a>
-                    </p>
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setShowTodayDetails(!showTodayDetails);
-                        }}
-                        style={{
-                          display: "inline-block",
-                          marginTop: "10px",
-                          textDecoration: "underline",
-                          cursor: "pointer"
-                        }}
-                      >
-                        {showTodayDetails ? "Скрыть" : "Еще"}
-                      </a>
-                    
-                      {showTodayDetails && (
-                        <div style={{ marginTop: "10px" }}>
-                          <p>
-                            {birthChakra.birth.lunarDescription}
-                          </p>
-                          <p>
-                            Период{" "}
-                            <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">
-                              {birthChakra.birth.chakraName}
-                            </a>{" "}
-                            по накшатре{" "}
-                            <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">
-                              {birthChakra.todayNakshatraName}
-                            </a>
-                          </p>
-                           <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-                        </div>
-                      )}
-                    </div>
+              <div style={{
+  backgroundColor: "#ffffff",
+  padding: "15px",
+  borderRadius: "8px",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  marginBottom: "15px",
+  textAlign: "left"
+}}>
+  <h4>Сегодня</h4>             
+  <p>
+    {birthChakra.todayText}<br />
+    Восприятие дня:{" "}
+    <a
+      href={birthChakra.chakraDayLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {chakrasData.chakras[birthChakra.birth.lunarNumber - 1].name}
+    </a>
+  </p>
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      setShowTodayDetails(!showTodayDetails);
+    }}
+    style={{
+      display: "inline-block",
+      marginTop: "10px",
+      textDecoration: "underline",
+      cursor: "pointer"
+    }}
+  >
+    {showTodayDetails ? "Скрыть" : "Еще"}
+  </a>
+      {showTodayDetails && (
+        <div style={{ marginTop: "10px" }}>
+          <p>
+            {
+              chakrasData.chakras[birthChakra.birth.lunarNumber - 1].sprint
+            }
+          </p>
+          <p>
+            Период{" "}
+            <a href={birthChakra.chakraPeriodLink} target="_blank" rel="noopener noreferrer">
+              {chakrasData.chakras[birthChakra.birth.chakraNumber - 1].name}
+            </a>{" "}
+            по накшатре{" "}
+            <a href={birthChakra.todayNakshatraLink} target="_blank" rel="noopener noreferrer">
+              {birthChakra.todayNakshatraName}
+            </a>
+          </p>
+          <p>
+            <strong>Фокус периода:</strong>{" "}
+            {chakrasData.chakras[birthChakra.birth.chakraNumber - 1].sprint}
+          </p>
+          <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+        </div>
+      )}
+    </div>
+
 
                     {/* Блок 3 - Твой путь сейчас */}
                     <div style={{
