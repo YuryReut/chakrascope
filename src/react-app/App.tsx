@@ -353,12 +353,15 @@ const chakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[chakra
 const chakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`;
 
   setBirthChakra({
-    ...result.result,
+  birth: result.result.birth,
+  currentPath: result.result.currentPath,
+  today: result.result.today,
+  todayText: result.result.todayText,
   chakraPeriodLink,
   chakraDayLink,
   todayNakshatraName: todayNakshatraName || "Не определено",
   todayNakshatraLink: todayNakshatraLink || "#"
-  });
+});
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
