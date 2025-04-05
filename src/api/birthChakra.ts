@@ -105,13 +105,15 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lunarNumber: lunarChakraNumber,
         lunarTitle: chakraMoon.title,
         lunarName: chakraMoon.name,
-        nakshatraName: nakshatraNames[sunNakshatraIndex],       // 👈
+        nakshatraName: nakshatraNames[sunNakshatraIndex],
         nakshatraLink: nakshatraInstagram,
-        nakshatraInstagram  // 👈 добавлен линк на Instagram
+        nakshatraInstagram
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path,
       today: `${chakrasData.chakras[dayChakra - 1].name} и ${chakraMoon.name}`,
       todayText: chakrasData.chakras[dayChakra - 1].day,
+      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[dayChakra]}/`,
+      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`,
       todayNakshatraName: nakshatraNames[moonNakshatraIndex],
       todayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`
     }
