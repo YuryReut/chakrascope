@@ -745,8 +745,8 @@ const generateQueryResult = (chakraIndex: number) => {
   return (
     <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
       <p><strong>💫 Взаимодействие сегодня:</strong></p>
-      <p><strong>Тебе с ним:</strong> {dayAdvice.herToHim}</p>
-      <p><strong>Ему с тобой:</strong> {dayAdvice.himToHer}</p>
+      <p><strong>Тебе с ним:</strong> {dayAdvice.toOther}</p>
+      <p><strong>Ему с тобой:</strong> {dayAdvice.fromOther}</p>
     </div>
   );
 })()}
