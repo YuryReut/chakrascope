@@ -757,10 +757,44 @@ const generateQueryResult = (chakraIndex: number) => {
       <p><strong>Рекомендации</strong><br />{compatibilityText.summary}</p>
 
       {compatibilityText.exactMatch && (
-        <p>
-          💖 Это как раз те отношения, которые стоит сохранить.<br />
-          Промокод: <strong>{compatibilityText.promoCode}</strong>
-        </p>
+       <div style={{
+    border: "1px solid #cccccc",
+    borderRadius: "12px",
+    padding: "15px",
+    marginTop: "20px",
+    position: "relative"
+  }}>
+      <a
+      href="https://dzen.ru/a/Z-O8E97FOkrOn3na"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        position: "absolute",
+        top: "10px",
+        right: "15px",
+        fontSize: "13px",
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
+    >
+      Подробнее
+    </a>
+    <p>
+      💖 Похоже, что это как раз те отношения, которые стоит <br />
+    <a
+      href="https://web3wed.io/chakras"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        fontWeight: "bold"
+      }}
+    >
+      сохранить навечно как настоящую любовь →
+    </a><br />
+       Промокод: <strong>{compatibilityText.promoCode}</strong>
+    </p>
+  </div>
       )}
 {dayAdvice && (
   <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
