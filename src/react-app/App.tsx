@@ -626,7 +626,7 @@ const generateQueryResult = (chakraIndex: number) => {
         ? 1
         : 0
     )
-  }-й год:</strong><br />
+  }-й год</strong><br />
         {birthChakra.currentPath}
       </p>
       <div style={{ textAlign: "center" }}>
