@@ -101,7 +101,6 @@ void queryResult;
 const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
 const [partnerBirthDate, setPartnerBirthDate] = useState("2000-12-31");
 const [hasChangedPartnerDate, setHasChangedPartnerDate] = useState(false);
-const [dayAdvice, setDayAdvice] = useState<DayCoupleAdvice | null>(null);  
 const [compatibilityText, setCompatibilityText] = useState<{
   summary: string;
   chakra1?: {
