@@ -101,6 +101,7 @@ void queryResult;
 const [showCompatibilityPopup, setShowCompatibilityPopup] = useState(false);
 const [partnerBirthDate, setPartnerBirthDate] = useState("2000-12-31");
 const [hasChangedPartnerDate, setHasChangedPartnerDate] = useState(false);
+const [dayAdvice, setDayAdvice] = useState<DayCoupleAdvice | null>(null);  
 const [compatibilityText, setCompatibilityText] = useState<{
   summary: string;
   chakra1?: {
@@ -261,8 +262,8 @@ const handleCalculateCompatibility = async () => {
   const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
   const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
 
-
-  const dayAdvice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
+  const advice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
+  setDayAdvice(advice);
 
 setCompatibilityText({
   summary,
@@ -741,20 +742,13 @@ const generateQueryResult = (chakraIndex: number) => {
           Промокод: <strong>{compatibilityText.promoCode}</strong>
         </p>
       )}
-{(() => {
-  const lunarChakraNumber = birthChakra.birth.lunarNumber;
-  const solarChakraNumber = birthChakra.birth.chakraNumber;
-  const dayAdvice = dayCouple[lunarChakraNumber]?.[solarChakraNumber];
-  if (!dayAdvice) return null;
-  return (
-    <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
-      <p><strong>💫 Взаимодействие сегодня:</strong></p>
-      <p><strong>Тебе с ним:</strong> {dayAdvice.toOther}</p>
-      <p><strong>Ему с тобой:</strong> {dayAdvice.fromOther}</p>
-    </div>
-  );
-})()}
-
+{dayAdvice && (
+  <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+    <p><strong>💫 Взаимодействие сегодня:</strong></p>
+    <p><strong>Тебе с ним:</strong> {dayAdvice.toOther}</p>
+    <p><strong>Ему с тобой:</strong> {dayAdvice.fromOther}</p>
+  </div>
+)}
       <div style={{ marginTop: "10px" }}>
         <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
         <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
