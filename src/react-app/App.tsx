@@ -495,7 +495,7 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <p>🔆: Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
+  <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle}
   <br />
   {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
       {birthChakra.birth.chakraEmoji} Подробнее
@@ -520,19 +520,20 @@ const generateQueryResult = (chakraIndex: number) => {
 
   {showBirthDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p>Для тебя внутри:<br />
+      <p><strong>Для тебя внутри</strong><br />
         {birthChakra.birth.inner}.</p>
-      <p>Снаружи, в твоих действиях:<br />
+      <p><strong>Снаружи, в твоих действиях</strong><br />
         {birthChakra.birth.outer}.</p>
       <p>
-        Связано с энергией звезд накшатры {birthChakra.birth.nakshatraName} →{" "}
+        <strong>Период рождения</strong><br />
+        Cвязан с энергией звезд накшатры 
         <a
           href={birthChakra.birth.nakshatraInstagram}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "inherit", textDecoration: "none" }}
         >
-          Подробнее
+          {birthChakra.birth.nakshatraName}
         </a>
       </p>
       <p>🌙 : {birthChakra.birth.lunarDescription} →{" "}
@@ -556,8 +557,8 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <p>👁: Сегодня — {birthChakra.todayText} 
-    {" "}→ 
+  <p>👁 : <strong>Сегодня</strong> {birthChakra.todayText} 
+    {" "}→{" "} 
     <a
       href={birthChakra.chakraDayLink}
       target="_blank"
@@ -590,7 +591,7 @@ const generateQueryResult = (chakraIndex: number) => {
     <div style={{ marginTop: "10px" }}>
       <p>
         {birthChakra.birth.sprint}
-        {" "}→ 
+        {" "}→{" "}
         <a
           href={birthChakra.chakraPeriodLink}
           target="_blank"
@@ -646,7 +647,7 @@ const generateQueryResult = (chakraIndex: number) => {
   textAlign: "left"
 }}>
   <p>
-    ❤️: {birthChakra.birth.relationship} →{" "}
+    ❤️ : {birthChakra.birth.relationship} →{" "}
     <a
       href={birthChakra.birth.lovelink}
       target="_blank"
