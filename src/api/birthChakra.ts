@@ -101,7 +101,6 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const yearChakra = getChakraFromYear(dateOfBirth);
 
   const nakshatraInstagramSun = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
-  const nakshatraInstagramMoon = `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`;
 
   // 🔸 Чакра дня и периода — по текущей дате
   const now = new Date();
