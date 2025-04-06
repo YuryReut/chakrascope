@@ -780,7 +780,7 @@ const generateQueryResult = (chakraIndex: number) => {
     >
       Подробнее
     </a>
-    <p>
+    <p style={{ textAlign: "center" }}>>
       💖 Похоже, что это как раз те отношения, которые стоит <br />
     <a
       href="https://web3wed.io/chakras"
