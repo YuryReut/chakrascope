@@ -325,6 +325,29 @@ const handleCheckChakra = () => {
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
+  
+  if (hasChangedPartnerDate && partnerBirthDate) {
+  const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
+  const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
+  const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
+
+  if (solarEntry && lunarEntry) {
+    const sunDegree = solarEntry.Solar_Longitude;
+    const moonDegree = lunarEntry.Lunar_Longitude;
+    const result = getBirthChakra(partnerBirthDate, sunDegree, moonDegree);
+    const partnerChakraNumber = result.result.birth.chakraNumber;
+
+    const lunarChakraNumber = result.result.birth.lunarNumber;
+    const solarChakraNumber = result.result.birth.chakraNumber;
+    const isPerceptionDay = lunarChakraNumber % 2 === 0;
+
+    const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
+    const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+
+    setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
+  }
+}
+
 };
 
 const startQuestionnaire = () => {
