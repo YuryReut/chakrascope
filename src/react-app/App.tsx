@@ -259,11 +259,8 @@ const handleCalculateCompatibility = async () => {
   
   const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
   const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
-  
-  setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
 
-  
-setCompatibilityText({
+  setCompatibilityText({
   summary,
   chakra1,
   chakra2,
@@ -271,6 +268,8 @@ setCompatibilityText({
   exactMatch: isExactMatch,
   promoCode
 });
+
+  setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);  
 };
 
 const handleCheckChakra = () => {
