@@ -590,7 +590,7 @@ const generateQueryResult = (chakraIndex: number) => {
 </div>
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p>Период по накшатре{" "}
+      <p><strong>Период по накшатре{" "}
         <a
           href={birthChakra.todayNakshatraLink}
           target="_blank"
@@ -598,7 +598,8 @@ const generateQueryResult = (chakraIndex: number) => {
           style={{ color: "inherit", textDecoration: "none" }}
         >
           {birthChakra.todayNakshatraName}
-        </a><br />
+        </a>
+      </strong><br />
         {birthChakra.birth.sprint}
         {" "}→{" "}
         <a
