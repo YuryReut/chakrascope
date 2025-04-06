@@ -78,13 +78,13 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
   const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
 
-  // 🔹 Фаза чакры по активности (как было — не трогаем)
   const solarEntry = solarActivity.find(entry => entry.d === dateOfBirth);
   const kpEntry = kpIndex.find(entry => entry.d === dateOfBirth);
   const solarValue = solarEntry ? solarEntry.a : 0;
   const kpValue = kpEntry ? kpEntry.k : 0;
   const normSolar = Math.min(solarValue, 1);
   const normKp = Math.min(kpValue / 9, 1);
+
   let chakraPhaseIndex = 0;
   if ([1, 3, 5].includes(solarChakraNumber)) {
     if (normSolar >= 0.66) chakraPhaseIndex = 1;
@@ -93,26 +93,29 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
     if (normKp >= 0.66) chakraPhaseIndex = 1;
     else if (normKp <= 0.33) chakraPhaseIndex = 2;
   }
+
   const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
   type PhaseKey = typeof chakraPhaseKeys[number];
   const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
   const chakraPhase = chakraSun.states[chakraPhaseKey];
 
   const yearChakra = getChakraFromYear(dateOfBirth);
-
   const nakshatraInstagramSun = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
 
-  // 🔸 Чакра дня и периода — по текущей дате
+  // 🔸 ТЕКУЩАЯ ДАТА — для расчёта чакры дня и периода
   const now = new Date();
-  const currentSunDegree = ((now.getDate() + now.getMonth() * 30) % 360); // простой приближённый расчёт
-  const currentMoonDegree = ((now.getDate() * 13) % 360); // простой приближённый расчёт
+  const currentSunDegree = ((now.getDate() + now.getMonth() * 30) % 360); // приближённый расчёт
+  const currentMoonDegree = ((now.getDate() * 13) % 360); // приближённый расчёт
 
   const nowSunNakshatraIndex = Math.floor(currentSunDegree / (360 / 27));
   const nowMoonNakshatraIndex = Math.floor(currentMoonDegree / (360 / 27));
+
   const nowSolarChakraNumber = nakshatraToChakra[nowSunNakshatraIndex] || 1;
   const nowLunarChakraNumber = nakshatraToChakra[nowMoonNakshatraIndex] || 1;
+
   const nowChakraSun = chakrasData.chakras[nowSolarChakraNumber - 1];
   const nowChakraMoon = chakrasData.chakras[nowLunarChakraNumber - 1];
+
   const todayNakshatraName = nakshatraNames[nowMoonNakshatraIndex];
   const todayNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[nowMoonNakshatraIndex]}/`;
 
@@ -142,13 +145,14 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
       currentPath: chakrasData.chakras[yearChakra - 1].path,
       today: `${nowChakraSun.name} и ${nowChakraMoon.name}`,
       todayText: nowChakraMoon.day,
-      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[nowSolarChakraNumber as keyof typeof chakraPeriodPosts]}/`,
-      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[nowLunarChakraNumber as keyof typeof chakraDayPosts]}/`,
+      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[nowSolarChakraNumber]}/`,
+      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[nowLunarChakraNumber]}/`,
       todayNakshatraName,
       todayNakshatraLink
     }
   };
 }
+
 
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
