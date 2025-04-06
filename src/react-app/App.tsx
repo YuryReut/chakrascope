@@ -121,6 +121,7 @@ const [compatibilityText, setCompatibilityText] = useState<{
 } | null>(null);
 
 const [openBlock, setOpenBlock] = useState<"chakra1" | "chakra2" | "chakra3" | null>("chakra1");
+const [dayAdvice, setDayAdvice] = useState<DayCoupleAdvice | null>(null);
 
 async function generatePromoCode(date1: string, date2: string): Promise<string> {
   const sortedDates = [date1, date2].sort();
@@ -261,6 +262,10 @@ const handleCalculateCompatibility = async () => {
   
   const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
   const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+
+  
+  const advice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null;
+  setDayAdvice(advice);
 
   const advice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
   setDayAdvice(advice);
