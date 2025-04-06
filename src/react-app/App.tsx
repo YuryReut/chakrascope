@@ -495,7 +495,7 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
+  <p>🔆: Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
   <br />
   {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
       {birthChakra.birth.chakraEmoji} Подробнее
@@ -533,14 +533,14 @@ const generateQueryResult = (chakraIndex: number) => {
           Подробнее
         </a>
       </p>
-      <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription} →{" "}
+      <p>🌙 : {birthChakra.birth.lunarDescription} →{" "}
        <a
     href={birthChakra.chakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
     style={{ color: "inherit", textDecoration: "none" }}
   >
-    Подробнее
+    {birthChakra.birth.lunarEmoji} Подробнее
   </a></p>
     </div>
   )}
@@ -554,17 +554,14 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <h4>Твой путь</h4>
-
-  <p>
-    Сегодня: {birthChakra.todayText} 
+  <p>👁: Сегодня — {birthChakra.todayText} 
     →{' '}
     <a
       href={birthChakra.chakraDayLink}
       target="_blank"
       rel="noopener noreferrer"
     >
-      Подробнее {birthChakra.birth.lunarName}
+     {birthChakra.birth.lunarEmoji} Подробнее
     </a>
   </p>
 
@@ -594,7 +591,7 @@ const generateQueryResult = (chakraIndex: number) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Подробнее {birthChakra.birth.chakraName}
+         {birthChakra.birth.chakraEmoji} Подробнее 
         </a><br />
         Период по накшатре{" "}
         <a
@@ -642,7 +639,7 @@ const generateQueryResult = (chakraIndex: number) => {
   textAlign: "left"
 }}>
   <p>
-    ❤️ : {birthChakra.birth.relationship} →{" "}
+    ❤️: {birthChakra.birth.relationship} →{" "}
     <a
       href={birthChakra.birth.lovelink}
       target="_blank"
