@@ -4,6 +4,7 @@ import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
+import dayCouple from "../api/dayCouple.json";
 
 type CompatibilityDetails = {
   how: string;
@@ -243,6 +244,14 @@ const handleCalculateCompatibility = async () => {
   const chakra3 = details?.["3"];
 
  const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
+
+  const todayChakraNumber = birthChakra.birth.lunarNumber;
+  const isPerceptionDay = todayChakraNumber % 2 === 0;
+
+  const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
+  const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+
+  const dayAdvice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
 
 setCompatibilityText({
   summary,
@@ -721,7 +730,13 @@ const generateQueryResult = (chakraIndex: number) => {
           Промокод: <strong>{compatibilityText.promoCode}</strong>
         </p>
       )}
-
+      {dayAdvice && (
+        <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+          <p><strong>💫 Взаимодействие сегодня:</strong></p>
+          <p><strong>Тебе с ним:</strong> {dayAdvice.herToHim}</p>
+          <p><strong>Ему с тобой:</strong> {dayAdvice.himToHer}</p>
+        </div>
+      )}
       <div style={{ marginTop: "10px" }}>
         <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
         <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
