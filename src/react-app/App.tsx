@@ -542,9 +542,6 @@ const generateQueryResult = (chakraIndex: number) => {
   )}
 </div>
 
-
-
-                  {/* Блок 2 — Сегодня */}
 <div style={{
   backgroundColor: "#ffffff",
   padding: "15px",
@@ -605,7 +602,11 @@ const generateQueryResult = (chakraIndex: number) => {
         </a>
       </p>
 
-      <p><strong>Твой путь:</strong> {birthChakra.currentPath}</p>
+      <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
+
+      <p style={{ marginTop: "15px" }}>
+        {birthChakra.currentPath}
+      </p>
 
       <button
         onClick={() => {
@@ -628,7 +629,6 @@ const generateQueryResult = (chakraIndex: number) => {
   )}
 </div>
 
-  {/* Блок 3 — Отношения */}
 <div style={{
   backgroundColor: "#ffffff",
   padding: "15px",
@@ -652,9 +652,11 @@ const generateQueryResult = (chakraIndex: number) => {
   </p>
 
   <div style={{ display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "10px" }}>
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>Дата рождения партнёра:</label>
-      <input
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+      <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
+        Дата рождения партнёра:
+      </label>
+      <input 
         type="date"
         value={partnerBirthDate}
         onChange={(e) => {
@@ -689,14 +691,25 @@ const generateQueryResult = (chakraIndex: number) => {
   </div>
 
   {compatibilityText && (
-    <div style={{ marginTop: "15px" }}>
+    <div style={{ marginTop: "20px", textAlign: "left" }}>
       <p><strong>Рекомендации</strong><br />{compatibilityText.summary}</p>
-      {compatibilityText.exactMatch && compatibilityText.promoCode && (
-        <p>💖 Промокод на вечную любовь: <strong>{compatibilityText.promoCode}</strong></p>
+
+      {compatibilityText.exactMatch && (
+        <p>
+          💖 Это как раз те отношения, которые стоит сохранить.<br />
+          Промокод: <strong>{compatibilityText.promoCode}</strong>
+        </p>
       )}
+
+      <div style={{ marginTop: "10px" }}>
+        <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
+        <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
+        <p><strong>Действия и цели</strong><br />{compatibilityText.chakra3?.how}<br />{compatibilityText.chakra3?.not}</p>
+      </div>
     </div>
   )}
 </div>
+
                   
                 </div>
             )}
