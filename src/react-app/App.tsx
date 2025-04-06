@@ -1095,6 +1095,7 @@ const generateQueryResult = (chakraIndex: number) => {
     borderRadius: "12px",
     padding: "15px",
     marginTop: "20px",
+    textAlign: "center",
     position: "relative"
   }}>
       <a
@@ -1113,7 +1114,7 @@ const generateQueryResult = (chakraIndex: number) => {
     >
       Подробнее
     </a>
-    <p style={{ textAlign: "center" }}>
+    <p>
       💖 Похоже, что это как раз те отношения, которые стоит <br />
     <a
       href="https://web3wed.io/chakras"
