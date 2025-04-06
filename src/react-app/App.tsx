@@ -495,9 +495,9 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <p>🔆 Твоя основная чакра: {birthChakra.birth.chakraName}, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
-  </p>
-  <p>{birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+  <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
+  <br />
+  {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
       {birthChakra.birth.chakraEmoji} Подробнее
   </a></p>
   <a
@@ -523,17 +523,25 @@ const generateQueryResult = (chakraIndex: number) => {
       <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
       <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
       <p>
-        Связано с энергией звезд →{" "}
+        Связано с энергией звезд накшатры {birthChakra.birth.nakshatraName} →{" "}
         <a
           href={birthChakra.birth.nakshatraInstagram}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "inherit", textDecoration: "none" }}
         >
-          Накшатра
+          Подробнее
         </a>
       </p>
-      <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription}</p>
+      <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription} →{" "}
+       <a
+    href={birthChakra.chakraDayLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: "inherit", textDecoration: "none" }}
+  >
+    Подробнее
+  </a></p>
     </div>
   )}
 </div>
