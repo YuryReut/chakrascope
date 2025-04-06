@@ -14,8 +14,8 @@ type CompatibilityDetails = {
 };
 
 type DayCoupleAdvice = {
-  herToHim: string;
-  himToHer: string;
+  toOther: string;
+  fromOther: string;
 };
 
 type ChakraCompatibilityEntry = {
@@ -737,13 +737,20 @@ const generateQueryResult = (chakraIndex: number) => {
           Промокод: <strong>{compatibilityText.promoCode}</strong>
         </p>
       )}
-      {dayAdvice && (
-        <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
-          <p><strong>💫 Взаимодействие сегодня:</strong></p>
-          <p><strong>Тебе с ним:</strong> {dayAdvice.herToHim}</p>
-          <p><strong>Ему с тобой:</strong> {dayAdvice.himToHer}</p>
-        </div>
-      )}
+{(() => {
+  const lunarChakraNumber = birthChakra.birth.lunarNumber;
+  const solarChakraNumber = birthChakra.birth.chakraNumber;
+  const dayAdvice = dayCouple[lunarChakraNumber]?.[solarChakraNumber];
+  if (!dayAdvice) return null;
+  return (
+    <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+      <p><strong>💫 Взаимодействие сегодня:</strong></p>
+      <p><strong>Тебе с ним:</strong> {dayAdvice.herToHim}</p>
+      <p><strong>Ему с тобой:</strong> {dayAdvice.himToHer}</p>
+    </div>
+  );
+})()}
+
       <div style={{ marginTop: "10px" }}>
         <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
         <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
