@@ -486,186 +486,218 @@ const generateQueryResult = (chakraIndex: number) => {
               
             {birthChakra && (
                 <div>
-                   {/* Блок 1 - С чем ты пришел в мир */} 
-                  <div style={{ 
-                    backgroundColor: "#ffffff",
-                    padding: "15px",
-                    borderRadius: "8px",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "15px",
-                    textAlign: "left"
-                  }}>
-                    <h4>Твоя основная чакра</h4>
-                    <p>
-                      🔆 | {birthChakra.birth.chakraEmoji} : {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
-                      <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{birthChakra.birth.chakraName}</a>.
-                    </p>
-                    <p>
-                      {birthChakra.birth.outer}
-                    </p>
-                    <p>
-                      ❤️ : {birthChakra.birth.relationship} →{' '}
-                      <a href={birthChakra.birth.lovelink} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Подробнее</a>
-                    </p>
-                    <button
-                      onClick={() => setShowCompatibilityPopup(true)}
-                      style={{
-                        marginTop: "10px",
-                        padding: "8px 16px",
-                        fontSize: "16px",
-                        border: "1px solid #000",
-                        borderRadius: "6px",
-                        backgroundColor: "#fff",
-                        color: "#000",
-                        cursor: "pointer"
-                      }}
-                    >
-                      Совместимость
-                    </button>
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowBirthDetails(!showBirthDetails);
-                      }}
-                      style={{
-                        display: "inline-block",
-                        marginTop: "10px",
-                        fontSize: "14px",
-                        color: "#0077cc",
-                        textDecoration: "underline",
-                        cursor: "pointer"
-                      }}
-                    >
-                      {showBirthDetails ? "Скрыть" : "Еще"}
-                    </a>
+                {/* Блок 1 — Твоя основная чакра */}
+<div style={{ 
+  backgroundColor: "#ffffff",
+  padding: "15px",
+  borderRadius: "8px",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  marginBottom: "15px",
+  textAlign: "left"
+}}>
+  <h4>Твоя основная чакра</h4>
+  <p>
+    🔆 | {birthChakra.birth.chakraEmoji} : {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
+    <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+      {birthChakra.birth.chakraName}
+    </a>.
+  </p>
+  <p>{birthChakra.birth.outer}</p>
 
-                    {showBirthDetails && (
-                      <div style={{ marginTop: "10px" }}>
-                      <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
-                      <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
-                      <p>
-                      Связано с энергией звезд →{' '}
-                      <a
-                        href={birthChakra.birth.nakshatraInstagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "inherit", textDecoration: "none" }}
-                      >
-                         Накшатра
-                      </a>
-                     </p>
-                      <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription}</p>
-                    </div>
-                    )}
-                  </div>
-                {/* Блок 2 - Сегодня */}
-                        <div style={{
-                        backgroundColor: "#ffffff",
-                        padding: "15px",
-                        borderRadius: "8px",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                        marginBottom: "15px",
-                        textAlign: "left"
-                      }}>
-                        <h4>Сегодня</h4>
-                      
-                        <p>
-                          {birthChakra.todayText}<br />
-                          Восприятие дня:{" "}
-                          <a
-                            href={birthChakra.chakraDayLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {birthChakra.birth.lunarName}
-                          </a>
-                        </p>
-                      
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setShowTodayDetails(!showTodayDetails);
-                          }}
-                          style={{
-                            display: "inline-block",
-                            marginTop: "10px",
-                            textDecoration: "underline",
-                            cursor: "pointer"
-                          }}
-                        >
-                          {showTodayDetails ? "Скрыть" : "Еще"}
-                        </a>
-                      
-                        {showTodayDetails && (
-                          <div style={{ marginTop: "10px" }}>
-                            <p>
-                              {birthChakra.birth.sprint}<br />
-                              Период{" "}
-                              <a
-                                href={birthChakra.chakraPeriodLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {birthChakra.birth.chakraName}
-                              </a>{" "}
-                              по накшатре{" "}
-                              <a
-                                href={birthChakra.todayNakshatraLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {birthChakra.todayNakshatraName}
-                              </a>
-                            </p>
-                            <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-                          </div>
-                        )}
-                      </div>
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      setShowBirthDetails(!showBirthDetails);
+    }}
+    style={{
+      display: "inline-block",
+      marginTop: "10px",
+      fontSize: "14px",
+      color: "#0077cc",
+      textDecoration: "underline",
+      cursor: "pointer"
+    }}
+  >
+    {showBirthDetails ? "Скрыть" : "Еще"}
+  </a>
 
-                    {/* Блок 3 - Твой путь сейчас */}
-                    <div style={{
-                            backgroundColor: "#ffffff",
-                            padding: "15px",
-                            borderRadius: "8px",
-                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                            marginBottom: "15px",
-                            textAlign: "left"
-                        }}>
-                     <h4>
-                        Твой {
-                          new Date().getFullYear() - new Date(birthDate).getFullYear() -
-                          (
-                            new Date().getMonth() < new Date(birthDate).getMonth() ||
-                            (
-                              new Date().getMonth() === new Date(birthDate).getMonth() &&
-                              new Date().getDate() < new Date(birthDate).getDate()
-                            )
-                              ? 1
-                              : 0
-                          )
-                        }-й год:
-                      </h4>
-                        <p>{birthChakra.currentPath}</p>
-                        <button
-                          onClick={() => {
-                            if (isEmotionStepCompleted) {
-                              startQuestionnaire();
-                            } else {
-                              setShowEmotionReminder(true);
-                            }
-                          }}
-                          style={{
-                            opacity: isEmotionStepCompleted ? 1 : 0.5,
-                            pointerEvents: 'auto',
-                            cursor: 'pointer',
-                            marginTop: "10px"
-                          }}
-                        >
-                          Задать вопрос
-                        </button>
-                    </div>
+  {showBirthDetails && (
+    <div style={{ marginTop: "10px" }}>
+      <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
+      <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
+      <p>
+        Связано с энергией звезд →{" "}
+        <a
+          href={birthChakra.birth.nakshatraInstagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          Накшатра
+        </a>
+      </p>
+      <p>🌙 | {birthChakra.birth.lunarEmoji} : {birthChakra.birth.lunarDescription}</p>
+    </div>
+  )}
+</div>
+
+
+
+                  {/* Блок 2 — Сегодня */}
+<div style={{
+  backgroundColor: "#ffffff",
+  padding: "15px",
+  borderRadius: "8px",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  marginBottom: "15px",
+  textAlign: "left"
+}}>
+  <h4>Сегодня</h4>
+
+  <p>
+    {birthChakra.todayText}<br />
+    Восприятие дня:{" "}
+    <a
+      href={birthChakra.chakraDayLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {birthChakra.birth.lunarName}
+    </a>
+  </p>
+
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      setShowTodayDetails(!showTodayDetails);
+    }}
+    style={{
+      display: "inline-block",
+      marginTop: "10px",
+      textDecoration: "underline",
+      cursor: "pointer"
+    }}
+  >
+    {showTodayDetails ? "Скрыть" : "Еще"}
+  </a>
+
+  {showTodayDetails && (
+    <div style={{ marginTop: "10px" }}>
+      <p>
+        {birthChakra.birth.sprint}<br />
+        Период{" "}
+        <a
+          href={birthChakra.chakraPeriodLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {birthChakra.birth.chakraName}
+        </a>{" "}
+        по накшатре{" "}
+        <a
+          href={birthChakra.todayNakshatraLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {birthChakra.todayNakshatraName}
+        </a>
+      </p>
+
+      <p><strong>Твой путь:</strong> {birthChakra.currentPath}</p>
+
+      <button
+        onClick={() => {
+          if (isEmotionStepCompleted) {
+            startQuestionnaire();
+          } else {
+            setShowEmotionReminder(true);
+          }
+        }}
+        style={{
+          opacity: isEmotionStepCompleted ? 1 : 0.5,
+          pointerEvents: 'auto',
+          cursor: 'pointer',
+          marginTop: "10px"
+        }}
+      >
+        Задать вопрос
+      </button>
+    </div>
+  )}
+</div>
+
+  {/* Блок 3 — Отношения */}
+<div style={{
+  backgroundColor: "#ffffff",
+  padding: "15px",
+  borderRadius: "8px",
+  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+  marginBottom: "15px",
+  textAlign: "left"
+}}>
+  <h4>❤️</h4>
+
+  <p>
+    ❤️ : {birthChakra.birth.relationship} →{" "}
+    <a
+      href={birthChakra.birth.lovelink}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: "inherit", textDecoration: "none" }}
+    >
+      Подробнее
+    </a>
+  </p>
+
+  <div style={{ display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "10px" }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>Дата рождения партнёра:</label>
+      <input
+        type="date"
+        value={partnerBirthDate}
+        onChange={(e) => {
+          setPartnerBirthDate(e.target.value);
+          setHasChangedPartnerDate(true);
+        }}
+        style={{
+          padding: "8px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+          backgroundColor: "#fff",
+          color: "#000",
+          minWidth: "180px"
+        }}
+      />
+    </div>
+    <button
+      onClick={handleCalculateCompatibility}
+      style={{
+        padding: "8px 16px",
+        fontSize: "18px",
+        border: "1px solid #000",
+        backgroundColor: "transparent",
+        color: "#000",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      →
+    </button>
+  </div>
+
+  {compatibilityText && (
+    <div style={{ marginTop: "15px" }}>
+      <p><strong>Рекомендации</strong><br />{compatibilityText.summary}</p>
+      {compatibilityText.exactMatch && compatibilityText.promoCode && (
+        <p>💖 Промокод на вечную любовь: <strong>{compatibilityText.promoCode}</strong></p>
+      )}
+    </div>
+  )}
+</div>
+                  
                 </div>
             )}
             </div>
