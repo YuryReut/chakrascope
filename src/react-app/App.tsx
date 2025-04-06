@@ -4,11 +4,18 @@ import solarData from "../api/solar.json";
 import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
-import dayCouple from "../api/dayCouple.json";
+import rawDayCouple from "../api/dayCouple.json";
+
+const dayCouple: Record<string, Record<string, DayCoupleAdvice>> = rawDayCouple;
 
 type CompatibilityDetails = {
   how: string;
   not: string;
+};
+
+type DayCoupleAdvice = {
+  herToHim: string;
+  himToHer: string;
 };
 
 type ChakraCompatibilityEntry = {
