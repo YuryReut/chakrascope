@@ -1095,7 +1095,6 @@ const generateQueryResult = (chakraIndex: number) => {
     borderRadius: "12px",
     padding: "15px",
     marginTop: "20px",
-    textAlign: "center",
     position: "relative"
   }}>
       <a
