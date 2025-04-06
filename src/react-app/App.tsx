@@ -495,15 +495,11 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <h4>Твоя основная чакра</h4>
-  <p>
-    🔆 | {birthChakra.birth.chakraEmoji} : {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} →{' '}
-    <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-      {birthChakra.birth.chakraName}
-    </a>.
+  <p>🔆 Твоя основная чакра: {birthChakra.birth.chakraName}, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle} <br />
   </p>
-  <p>{birthChakra.birth.outer}</p>
-
+  <p>{birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+      {birthChakra.birth.chakraEmoji} Подробнее
+  </a></p>
   <a
     href="#"
     onClick={(e) => {
@@ -550,17 +546,17 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <h4>Сегодня</h4>
+  <h4>Твой путь</h4>
 
   <p>
-    {birthChakra.todayText}<br />
-    Восприятие дня:{" "}
+    Сегодня: {birthChakra.todayText} 
+    →{' '}
     <a
       href={birthChakra.chakraDayLink}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {birthChakra.birth.lunarName}
+      Подробнее {birthChakra.birth.lunarName}
     </a>
   </p>
 
@@ -583,16 +579,16 @@ const generateQueryResult = (chakraIndex: number) => {
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
       <p>
-        {birthChakra.birth.sprint}<br />
-        Период{" "}
+        {birthChakra.birth.sprint}
+         → {" "}
         <a
           href={birthChakra.chakraPeriodLink}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {birthChakra.birth.chakraName}
-        </a>{" "}
-        по накшатре{" "}
+          Подробнее {birthChakra.birth.chakraName}
+        </a><br />
+        Период по накшатре{" "}
         <a
           href={birthChakra.todayNakshatraLink}
           target="_blank"
@@ -637,8 +633,6 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <h4>❤️</h4>
-
   <p>
     ❤️ : {birthChakra.birth.relationship} →{" "}
     <a
@@ -651,7 +645,7 @@ const generateQueryResult = (chakraIndex: number) => {
     </a>
   </p>
 
-  <div style={{ display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "10px" }}>
+  <div style={{ justifyContent: "center", display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "10px" }}>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
       <label style={{ fontSize: "0.8em", marginBottom: "4px" }}>
         Дата рождения партнёра:
