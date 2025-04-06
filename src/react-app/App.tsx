@@ -500,7 +500,8 @@ const generateQueryResult = (chakraIndex: number) => {
   {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
       {birthChakra.birth.chakraEmoji} Подробнее
   </a></p>
-  <a
+ <div style={{ textAlign: "right" }}>
+   <a
     href="#"
     onClick={(e) => {
       e.preventDefault();
@@ -517,7 +518,7 @@ const generateQueryResult = (chakraIndex: number) => {
   >
     {showBirthDetails ? "Скрыть" : "Еще"}
   </a>
-
+</div>
   {showBirthDetails && (
     <div style={{ marginTop: "10px" }}>
       <p><strong>Для тебя внутри</strong><br />
@@ -568,7 +569,7 @@ const generateQueryResult = (chakraIndex: number) => {
      {birthChakra.birth.lunarEmoji} Подробнее
     </a>
   </p>
-
+<div style={{ textAlign: "right" }}>
   <a
     href="#"
     onClick={(e) => {
@@ -586,7 +587,7 @@ const generateQueryResult = (chakraIndex: number) => {
   >
     {showTodayDetails ? "Скрыть" : "Еще"}
   </a>
-
+</div>
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
       <p>Период по накшатре{" "}
@@ -609,9 +610,9 @@ const generateQueryResult = (chakraIndex: number) => {
          {birthChakra.birth.chakraEmoji} Подробнее 
         </a>
       </p>
-
+      <div style={{ textAlign: "center"}}>
       <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
-
+      </div>
       <p>
         <strong>Твой {
     new Date().getFullYear() - new Date(birthDate).getFullYear() -
@@ -627,7 +628,7 @@ const generateQueryResult = (chakraIndex: number) => {
   }-й год:</strong><br />
         {birthChakra.currentPath}
       </p>
-
+      <div style={{ textAlign: "center" }}>
       <button
         onClick={() => {
           if (isEmotionStepCompleted) {
@@ -645,6 +646,7 @@ const generateQueryResult = (chakraIndex: number) => {
       >
         Задать вопрос
       </button>
+      </div>
     </div>
   )}
 </div>
