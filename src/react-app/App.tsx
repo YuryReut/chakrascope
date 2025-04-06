@@ -509,7 +509,7 @@ const generateQueryResult = (chakraIndex: number) => {
     style={{
       display: "inline-block",
       marginTop: "10px",
-      fontSize: "14px",
+      fontSize: "12px",
       color: "#0077cc",
       textDecoration: "underline",
       cursor: "pointer"
@@ -520,8 +520,10 @@ const generateQueryResult = (chakraIndex: number) => {
 
   {showBirthDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p>Для тебя внутри — {birthChakra.birth.inner}.</p>
-      <p>Снаружи, в твоих действиях — {birthChakra.birth.outer}.</p>
+      <p>Для тебя внутри:<br />
+        {birthChakra.birth.inner}.</p>
+      <p>Снаружи, в твоих действиях:<br />
+        {birthChakra.birth.outer}.</p>
       <p>
         Связано с энергией звезд накшатры {birthChakra.birth.nakshatraName} →{" "}
         <a
@@ -555,11 +557,12 @@ const generateQueryResult = (chakraIndex: number) => {
   textAlign: "left"
 }}>
   <p>👁: Сегодня — {birthChakra.todayText} 
-    →{' '}
+    {" "}→ 
     <a
       href={birthChakra.chakraDayLink}
       target="_blank"
       rel="noopener noreferrer"
+      style={{ color: "inherit", textDecoration: "none" }}
     >
      {birthChakra.birth.lunarEmoji} Подробнее
     </a>
@@ -573,6 +576,8 @@ const generateQueryResult = (chakraIndex: number) => {
     }}
     style={{
       display: "inline-block",
+      fontSize: "12px",
+      color: "#0077cc",
       marginTop: "10px",
       textDecoration: "underline",
       cursor: "pointer"
@@ -585,11 +590,12 @@ const generateQueryResult = (chakraIndex: number) => {
     <div style={{ marginTop: "10px" }}>
       <p>
         {birthChakra.birth.sprint}
-         → {" "}
+        {" "}→ 
         <a
           href={birthChakra.chakraPeriodLink}
           target="_blank"
           rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
         >
          {birthChakra.birth.chakraEmoji} Подробнее 
         </a><br />
@@ -598,6 +604,7 @@ const generateQueryResult = (chakraIndex: number) => {
           href={birthChakra.todayNakshatraLink}
           target="_blank"
           rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
         >
           {birthChakra.todayNakshatraName}
         </a>
