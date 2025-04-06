@@ -526,7 +526,7 @@ const generateQueryResult = (chakraIndex: number) => {
         {birthChakra.birth.outer}.</p>
       <p>
         <strong>Период рождения</strong><br />
-        Cвязан с энергией звезд накшатры 
+        Cвязан с энергией звезд накшатры {" "}
         <a
           href={birthChakra.birth.nakshatraInstagram}
           target="_blank"
@@ -589,7 +589,15 @@ const generateQueryResult = (chakraIndex: number) => {
 
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p>
+      <p>Период по накшатре{" "}
+        <a
+          href={birthChakra.todayNakshatraLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          {birthChakra.todayNakshatraName}
+        </a><br />
         {birthChakra.birth.sprint}
         {" "}→{" "}
         <a
@@ -599,21 +607,24 @@ const generateQueryResult = (chakraIndex: number) => {
           style={{ color: "inherit", textDecoration: "none" }}
         >
          {birthChakra.birth.chakraEmoji} Подробнее 
-        </a><br />
-        Период по накшатре{" "}
-        <a
-          href={birthChakra.todayNakshatraLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-          {birthChakra.todayNakshatraName}
         </a>
       </p>
 
       <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
 
-      <p style={{ marginTop: "15px" }}>
+      <p>
+        <strong>Твой {
+    new Date().getFullYear() - new Date(birthDate).getFullYear() -
+    (
+      new Date().getMonth() < new Date(birthDate).getMonth() ||
+      (
+        new Date().getMonth() === new Date(birthDate).getMonth() &&
+        new Date().getDate() < new Date(birthDate).getDate()
+      )
+        ? 1
+        : 0
+    )
+  }-й год:</strong><br />
         {birthChakra.currentPath}
       </p>
 
