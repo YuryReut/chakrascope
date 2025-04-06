@@ -254,22 +254,16 @@ const handleCalculateCompatibility = async () => {
 
  const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
 
-  const todayChakraNumber = birthChakra.birth.lunarNumber;
-  const isPerceptionDay = todayChakraNumber % 2 === 0;
-
   const lunarChakraNumber = birthChakra.birth.lunarNumber;
   const solarChakraNumber = birthChakra.birth.chakraNumber;
+  const isPerceptionDay = lunarChakraNumber % 2 === 0;
   
   const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
   const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+  
+  setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
 
   
-  const advice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null;
-  setDayAdvice(advice);
-
-  const advice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
-  setDayAdvice(advice);
-
 setCompatibilityText({
   summary,
   chakra1,
