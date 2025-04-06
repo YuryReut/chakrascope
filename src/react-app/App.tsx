@@ -255,8 +255,12 @@ const handleCalculateCompatibility = async () => {
   const todayChakraNumber = birthChakra.birth.lunarNumber;
   const isPerceptionDay = todayChakraNumber % 2 === 0;
 
+  const lunarChakraNumber = birthChakra.birth.lunarNumber;
+  const solarChakraNumber = birthChakra.birth.chakraNumber;
+  
   const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
   const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+
 
   const dayAdvice = dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()];
 
