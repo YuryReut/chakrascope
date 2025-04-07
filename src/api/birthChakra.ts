@@ -1,6 +1,8 @@
 import chakrasData from "./chakras.json";
 import solarActivity from "../api/solarActivityModel.json";
 import kpIndex from "../api/kpIndex.json";
+import solarData from "../api/solar.json";
+import lunarData from "../api/lunar.json";
 
 // 🔸 Соответствие: накшатра (1–27) → чакра (1–7)
 export const nakshatraToChakra = [
