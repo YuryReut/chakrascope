@@ -66,12 +66,6 @@ function App() {
         nakshatraLink: string;
       };
       currentPath: string;
-      today: string;
-      todayText: string;
-      chakraPeriodLink: string;
-      chakraDayLink: string;
-      todayNakshatraName: string;
-      todayNakshatraLink: string;
     } | null>(null);
     const [showQuestions, setShowQuestions] = useState(false);
     const [questionStep, setQuestionStep] = useState<'intro' | 'select' | 'result'>('intro');
@@ -305,12 +299,6 @@ const handleCheckChakra = () => {
       nakshatraLink: "#"
     },
     currentPath: "Дата вне диапазона данных!",
-    today: "",
-    todayText: "",
-    chakraPeriodLink: "#",
-    chakraDayLink: "#",
-    todayNakshatraName: "Ошибка",
-    todayNakshatraLink: "#"
   });
   return;
 }
@@ -323,9 +311,6 @@ const handleCheckChakra = () => {
 
   setBirthChakra(result.result);
   setWayData(getWayChakraToday());
-
-  setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
-  setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
   
   if (hasChangedPartnerDate && partnerBirthDate) {
   const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
