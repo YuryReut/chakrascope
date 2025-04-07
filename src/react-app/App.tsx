@@ -201,7 +201,6 @@ const startEmotionDialog = () => {
     setCurrentStep('intro');
 };
 
-
 const handleCalculateCompatibility = async () => {
   if (!hasChangedPartnerDate) {
     setShowDateAlert("Пожалуйста, выбери дату рождения партнёра.");
@@ -209,7 +208,6 @@ const handleCalculateCompatibility = async () => {
   }
   if (!partnerBirthDate || !birthChakra) return;
 
-//  const today = new Date().toISOString().split("T")[0];
   const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
 
   const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
@@ -240,30 +238,29 @@ const handleCalculateCompatibility = async () => {
   }
 
   const { summary, details } = pairData;
-
   const chakra1 = details?.["1"];
   const chakra2 = details?.["2"];
   const chakra3 = details?.["3"];
 
- const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
+  const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
 
-  const lunarChakraNumber = birthChakra.birth.lunarNumber;
-  const solarChakraNumber = birthChakra.birth.chakraNumber;
-  const isPerceptionDay = lunarChakraNumber % 2 === 0;
-  
-  const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
-  const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+  const freshWayData = getWayChakraToday();
+  setWayData(freshWayData);
+
+  const isPerceptionDay = freshWayData.wayTodayText.includes("🌙");
+  const chakraKey1 = isPerceptionDay ? birthChakra.birth.lunarNumber : birthChakra.birth.chakraNumber;
+  const chakraKey2 = isPerceptionDay ? result.result.birth.lunarNumber : result.result.birth.chakraNumber;
 
   setCompatibilityText({
-  summary,
-  chakra1,
-  chakra2,
-  chakra3,
-  exactMatch: isExactMatch,
-  promoCode
-});
+    summary,
+    chakra1,
+    chakra2,
+    chakra3,
+    exactMatch: isExactMatch,
+    promoCode
+  });
 
-  setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);  
+  setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
 };
 
 const handleCheckChakra = () => {
