@@ -5,6 +5,7 @@ import lunarData from "../api/lunar.json";
 import day_EQ7 from "../api/dayEQ7_data.json";
 import chakraCompatibilityRaw from "../api/chakras_compatibility.json";
 import rawDayCouple from "../api/dayCouple.json";
+import { getWayChakraToday } from "../api/birthChakra";
 
 const dayCouple: Record<string, Record<string, DayCoupleAdvice>> = rawDayCouple;
 
@@ -41,6 +42,7 @@ function convertToJulianDate(dateString: string): string {
 function App() {
   const [birthDate, setBirthDate] = useState("2000-12-31");
   const [hasChangedBirthDate, setHasChangedBirthDate] = useState(false);
+  const [wayData, setWayData] = useState<ReturnType<typeof getWayChakraToday> | null>(null);
  const [birthChakra, setBirthChakra] = useState<{
       birth: {
         chakraNumber: number;
@@ -322,6 +324,7 @@ const handleCheckChakra = () => {
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
 
   setBirthChakra(result.result);
+  setWayData(getWayChakraToday());
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
@@ -610,6 +613,19 @@ const generateQueryResult = (chakraIndex: number) => {
      {birthChakra.birth.lunarEmoji} Подробнее
     </a>
   </p>
+  {wayData && (
+  <p>NEW - 👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
+    <a
+      href={wayData.wayChakraDayLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: "inherit", textDecoration: "none" }}
+    >
+      {wayData.wayChakraDayEmoji} Подробнее
+    </a>
+  </p>
+)}
+
 <div style={{ textAlign: "right" }}>
   <a
     href="#"
@@ -652,6 +668,28 @@ const generateQueryResult = (chakraIndex: number) => {
          {birthChakra.birth.chakraEmoji} Подробнее 
         </a>
       </p>
+      {wayData && (
+  <p><strong>NEW - Период по накшатре{" "}
+    <a
+      href={wayData.wayPeriodNakshatraLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: "inherit", textDecoration: "none" }}
+    >
+      {wayData.wayPeriodNakshatraName}
+    </a>
+  </strong><br />
+  {wayData.waySprint} →{" "}
+  <a
+    href={wayData.wayChakraPeriodLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: "inherit", textDecoration: "none" }}
+  >
+    {wayData.wayChakraPeriodEmoji} Подробнее
+  </a></p>
+)}
+
       <div style={{ textAlign: "center"}}>
       <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
       </div>
