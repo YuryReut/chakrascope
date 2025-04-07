@@ -160,6 +160,9 @@ export function getWayChakraToday() {
   const chakraDay = chakrasData.chakras[lunarChakraNumber - 1];
   const chakraPeriod = chakrasData.chakras[solarChakraNumber - 1];
 
+  const wayChakraDayName = chakraDay.name;
+  const wayChakraPeriodName = chakraPeriod.name;
+
   const wayTodayText = chakraDay.day;
   const wayChakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`;
   const wayChakraDayEmoji = chakraDay.emoji;
@@ -176,6 +179,8 @@ export function getWayChakraToday() {
     wayTodayText,
     wayChakraDayLink,
     wayChakraDayEmoji,
+    wayChakraDayName,
+    wayChakraPeriodName,
     wayTodayNakshatraName,
     wayTodayNakshatraLink,
     waySprint,
