@@ -140,6 +140,44 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   };
 }
 
+export function getWayChakraToday() {
+  const today = new Date();
+  const dayOfMonth = today.getDate();
+  const month = today.getMonth(); // 0–11
+  const currentSunDegree = ((dayOfMonth + month * 30) % 360); // приближённо
+  const currentMoonDegree = ((dayOfMonth * 13) % 360);        // приближённо
+
+  const nakshatraIndexSun = Math.floor(currentSunDegree / (360 / 27));
+  const nakshatraIndexMoon = Math.floor(currentMoonDegree / (360 / 27));
+
+  const chakraNumberSun = nakshatraToChakra[nakshatraIndexSun] || 1;
+  const chakraNumberMoon = nakshatraToChakra[nakshatraIndexMoon] || 1;
+
+  const chakraDay = chakrasData.chakras[chakraNumberMoon - 1];
+  const chakraPeriod = chakrasData.chakras[chakraNumberSun - 1];
+
+  const nakshatraPostIds = [
+    "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
+    "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
+    "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
+    "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
+    "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
+    "DH7_UlDx8b4", "DH7-_ykxKmK"
+  ];
+
+  return {
+    wayTodayText: chakraDay.day,
+    wayChakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`,
+    wayTodayNakshatraName: nakshatraNames[nakshatraIndexMoon],
+    wayTodayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[nakshatraIndexMoon]}/`,
+    waySprint: chakraPeriod.sprint,
+    wayChakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`,
+    wayPeriodNakshatraName: nakshatraNames[nakshatraIndexSun],
+    wayPeriodNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[nakshatraIndexSun]}/`
+  };
+}
+
+
 export function analyzeQuery(answers: boolean[]) {
     const yearQuarter = getChakraFromYear(new Date().toISOString().split("T")[0]);
 
