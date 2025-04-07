@@ -165,16 +165,18 @@ export function getWayChakraToday() {
     "DH7_UlDx8b4", "DH7-_ykxKmK"
   ];
 
-  return {
-    wayTodayText: chakraDay.day,
-    wayChakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[chakraNumberMoon as keyof typeof chakraDayPosts]}/`,
-    wayTodayNakshatraName: nakshatraNames[nakshatraIndexMoon],
-    wayTodayNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[nakshatraIndexMoon]}/`,
-    waySprint: chakraPeriod.sprint,
-    wayChakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[chakraNumberSun as keyof typeof chakraPeriodPosts]}/`,
-    wayPeriodNakshatraName: nakshatraNames[nakshatraIndexSun],
-    wayPeriodNakshatraLink: `https://www.instagram.com/p/${nakshatraPostIds[nakshatraIndexSun]}/`
-  };
+ return {
+  wayTodayText: chakraMoon.day,
+  wayChakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber as keyof typeof chakraDayPosts]}/`,
+  wayTodayNakshatraName: nakshatraNames[moonNakshatraIndex],
+  wayTodayNakshatraLink: nakshatraInstagramMoon,
+  waySprint: chakraSun.sprint,
+  wayChakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber as keyof typeof chakraPeriodPosts]}/`,
+  wayPeriodNakshatraName: nakshatraNames[sunNakshatraIndex],
+  wayPeriodNakshatraLink: nakshatraInstagramSun,
+  wayChakraDayEmoji: chakraMoon.emoji,
+  wayChakraPeriodEmoji: chakraSun.emoji
+};
 }
 
 
