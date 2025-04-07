@@ -609,7 +609,7 @@ const generateQueryResult = (chakraIndex: number) => {
 >
   Настроиться
 </a>
-
+</p>
 <div style={{ textAlign: "right" }}>
   <a
     href="#"
