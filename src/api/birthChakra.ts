@@ -174,7 +174,6 @@ export function getWayChakraToday() {
   const wayChakraPeriodName = chakraPeriod.name;
 
   const wayTodayText = chakraDay.day;
-  const wayChakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`;
   const wayChakraDayEmoji = chakraDay.emoji;
   const wayTodayNakshatraName = nakshatraNames[moonNakshatraIndex];
   const wayTodayNakshatraLink = `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`;
