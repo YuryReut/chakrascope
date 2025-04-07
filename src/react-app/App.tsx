@@ -344,65 +344,68 @@ const startQuestionnaire = () => {
 };
 
 const generateQueryResult = (chakraIndex: number) => {
-      const chakraLabels = [
-        "Материальное, безопасность",
-        "Эмоции, желания",
-        "Достижения, сила воли",
-        "Отношения, чувства",
-        "Творчество, выражение",
-        "Интуиция, образы",
-        "Единство, духовность"
-      ];
-      const interpretation = chakraLabels[chakraIndex];
+  const chakraLabels = [
+    "Материальное, безопасность",
+    "Эмоции, желания",
+    "Достижения, сила воли",
+    "Отношения, чувства",
+    "Творчество, выражение",
+    "Интуиция, образы",
+    "Единство, духовность"
+  ];
+  const interpretation = chakraLabels[chakraIndex];
 
-      let todayPerception = "Ты можешь доверять своему ощущению — оно достаточно ясное.";
-        if (moonState === "block") {
-          todayPerception = "Сегодня ты, скорее всего, не сможешь чётко почувствовать суть этого вопроса.";
-        } else if (moonState === "excess") {
-          todayPerception = "Есть риск переоценить значимость этого вопроса — будь внимательнее к ощущениям.";
-        }
+  let todayPerception = "Ты можешь доверять своему ощущению — оно достаточно ясное.";
+  if (moonState === "block") {
+    todayPerception = "Сегодня ты, скорее всего, не сможешь чётко почувствовать суть этого вопроса.";
+  } else if (moonState === "excess") {
+    todayPerception = "Есть риск переоценить значимость этого вопроса — будь внимательнее к ощущениям.";
+  }
 
-      let organicityText = "Это не совсем естественная для тебя тема — может быть сложнее понять, как с ней быть.";
-      if (birthChakra) {
-        const chakraLineMap = {
-          1: "male", 3: "male", 5: "male", 7: "female",
-          2: "female", 4: "female", 6: "female"
-        };
-        const birth = birthChakra.birth.chakraNumber;
-        const birthLine = chakraLineMap[birth === 7 ? 2 : birth as keyof typeof chakraLineMap];
-        const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
-        if (birthLine === questionLine) {
-          organicityText = "Это естественная для тебя тема — ты легко ориентируешься в этом направлении.";
-        }
-      }
-
-      let vectorText = "Сейчас это направление не является ключевым для твоего роста.";
-      if (birthChakra) {
-        const chakraLineMap = {
-          1: "male", 3: "male", 5: "male", 7: "female",
-          2: "female", 4: "female", 6: "female"
-        };
-        const yearChakra = parseInt(birthChakra.currentPath.match(/\d/)?.[0] || "0");
-        const yearLine = chakraLineMap[yearChakra === 7 ? 2 : yearChakra as keyof typeof chakraLineMap];
-        const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
-        if (yearLine === questionLine) {
-          if (chakraIndex + 1 < yearChakra) {
-            vectorText = "Этот вопрос возвращает тебя к уже пройденным темам — в этом нет ничего плохого.";
-          } else if (chakraIndex + 1 === yearChakra) {
-            vectorText = "Ты как раз в той точке — этот вопрос точно соответствует твоему внутреннему пути.";
-          } else {
-            vectorText = "Это может ощущаться как вызов — но он идёт в верном направлении.";
-          }
-        }
-      }
-      
-      return {
-        interpretation,
-        todayPerception,
-        queryOrganicity: [organicityText],
-        growthVector: vectorText
-      };
+  let organicityText = "Это не совсем естественная для тебя тема — может быть сложнее понять, как с ней быть.";
+  if (birthChakra) {
+    const chakraLineMap = {
+      1: "male", 3: "male", 5: "male", 7: "female",
+      2: "female", 4: "female", 6: "female"
     };
+    const birth = birthChakra.birth.chakraNumber;
+    const birthLine = chakraLineMap[birth === 7 ? 2 : birth as keyof typeof chakraLineMap];
+    const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
+    if (birthLine === questionLine) {
+      organicityText = "Это естественная для тебя тема — ты легко ориентируешься в этом направлении.";
+    }
+  }
+
+  let vectorText = "Сейчас это направление не является ключевым для твоего роста.";
+  if (birthChakra) {
+    const chakraLineMap = {
+      1: "male", 3: "male", 5: "male", 7: "female",
+      2: "female", 4: "female", 6: "female"
+    };
+    const yearChakra = parseInt(birthChakra.currentPath.match(/\d/)?.[0] || "0");
+    const yearLine = chakraLineMap[yearChakra === 7 ? 2 : yearChakra as keyof typeof chakraLineMap];
+    const questionLine = chakraLineMap[(chakraIndex + 1) as keyof typeof chakraLineMap];
+
+    if (yearLine === questionLine) {
+      if (chakraIndex + 1 < yearChakra) {
+        vectorText = "Этот вопрос возвращает тебя к уже пройденным темам — в этом нет ничего плохого.";
+      } else if (chakraIndex + 1 === yearChakra) {
+        vectorText = "Ты как раз в той точке — этот вопрос точно соответствует твоему внутреннему пути.";
+      } else {
+        vectorText = "Это может ощущаться как вызов — но он идёт в верном направлении.";
+      }
+    } else {
+      vectorText = "Этот вопрос связан с другим слоем твоего опыта — не исключено, что он проявится позже или требует особой зрелости.";
+    }
+  }
+
+  return {
+    interpretation,
+    todayPerception,
+    queryOrganicity: [organicityText],
+    growthVector: vectorText
+  };
+};
 
     return (
         <div style={{
