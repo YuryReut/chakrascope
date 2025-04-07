@@ -25,6 +25,15 @@ export const nakshatraNames = [
   "Пурва Бхадрапада", "Уттара Бхадрапада", "Ревати"
 ];
 
+ const nakshatraPostIds = [
+    "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
+    "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
+    "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
+    "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
+    "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
+    "DH7_UlDx8b4", "DH7-_ykxKmK"
+  ];
+
 const chakraPeriodPosts: Record<number, string> = {
   1: "DIBDVkFRDeb",
   2: "DIBDeTMRg7u",
@@ -62,15 +71,7 @@ export function getPersonalChakraDay(sunDegree: number): number {
 }
 
 export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
-  const nakshatraPostIds = [
-    "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
-    "DH7-6cvR4c_", "DH7_MdwxBMq", "DH7_ykXRAR6", "DH7_2DyRsqk", "DH7_JdyRDD3",
-    "DH7-0xOxTA2", "DH7_dlzRFCF", "DH7_DBqxoMy", "DH7-9mnx66d", "DH8AAxIx1Ku",
-    "DH8AYlHxXRm", "DH7_fdexsrV", "DH7_PL6R-Ns", "DH7_5rSRthF", "DH7_rGjRlmp",
-    "DH7_kVgRr5P", "DH7_vr4xCOp", "DH7_tF9xo9d", "DH7_oPBxOGh", "DH78ngkR04m",
-    "DH7_UlDx8b4", "DH7-_ykxKmK"
-  ];
-
+ 
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
