@@ -140,21 +140,30 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   };
 }
 
-export function getWayChakraToday() {
-  const today = new Date();
-  const dayOfMonth = today.getDate();
-  const month = today.getMonth(); // 0–11
-  const currentSunDegree = ((dayOfMonth + month * 30) % 360); // приближённо
-  const currentMoonDegree = ((dayOfMonth * 13) % 360);        // приближённо
+export function getWayChakraToday(): {
+  wayTodayText: string;
+  wayChakraDayLink: string;
+  wayTodayNakshatraName: string;
+  wayTodayNakshatraLink: string;
+  waySprint: string;
+  wayChakraPeriodLink: string;
+  wayPeriodNakshatraName: string;
+  wayPeriodNakshatraLink: string;
+  wayChakraDayEmoji: string;
+  wayChakraPeriodEmoji: string;
+} {
+  const now = new Date();
+  const sunDegree = getSunDegree(now);
+  const moonDegree = getMoonDegree(now);
 
-  const nakshatraIndexSun = Math.floor(currentSunDegree / (360 / 27));
-  const nakshatraIndexMoon = Math.floor(currentMoonDegree / (360 / 27));
+  const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
+  const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
-  const chakraNumberSun = nakshatraToChakra[nakshatraIndexSun] || 1;
-  const chakraNumberMoon = nakshatraToChakra[nakshatraIndexMoon] || 1;
+  const solarChakraNumber = nakshatraToChakra[sunNakshatraIndex] || 1;
+  const lunarChakraNumber = nakshatraToChakra[moonNakshatraIndex] || 1;
 
-  const chakraDay = chakrasData.chakras[chakraNumberMoon - 1];
-  const chakraPeriod = chakrasData.chakras[chakraNumberSun - 1];
+  const chakraSun = chakrasData.chakras[solarChakraNumber - 1];
+  const chakraMoon = chakrasData.chakras[lunarChakraNumber - 1];
 
   const nakshatraPostIds = [
     "DH7_GNDxmc2", "DH7-yo0RL32", "DH7-39BxDVm", "DH7_ZuRx-9U", "DH7_-YwRUTD",
@@ -165,19 +174,23 @@ export function getWayChakraToday() {
     "DH7_UlDx8b4", "DH7-_ykxKmK"
   ];
 
- return {
-  wayTodayText: chakraMoon.day,
-  wayChakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber as keyof typeof chakraDayPosts]}/`,
-  wayTodayNakshatraName: nakshatraNames[moonNakshatraIndex],
-  wayTodayNakshatraLink: nakshatraInstagramMoon,
-  waySprint: chakraSun.sprint,
-  wayChakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber as keyof typeof chakraPeriodPosts]}/`,
-  wayPeriodNakshatraName: nakshatraNames[sunNakshatraIndex],
-  wayPeriodNakshatraLink: nakshatraInstagramSun,
-  wayChakraDayEmoji: chakraMoon.emoji,
-  wayChakraPeriodEmoji: chakraSun.emoji
-};
+  const nakshatraInstagramSun = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
+  const nakshatraInstagramMoon = `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`;
+
+  return {
+    wayTodayText: chakraMoon.day,
+    wayChakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber as keyof typeof chakraDayPosts]}/`,
+    wayTodayNakshatraName: nakshatraNames[moonNakshatraIndex],
+    wayTodayNakshatraLink: nakshatraInstagramMoon,
+    waySprint: chakraSun.sprint,
+    wayChakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber as keyof typeof chakraPeriodPosts]}/`,
+    wayPeriodNakshatraName: nakshatraNames[sunNakshatraIndex],
+    wayPeriodNakshatraLink: nakshatraInstagramSun,
+    wayChakraDayEmoji: chakraMoon.emoji,
+    wayChakraPeriodEmoji: chakraSun.emoji
+  };
 }
+
 
 
 export function analyzeQuery(answers: boolean[]) {
