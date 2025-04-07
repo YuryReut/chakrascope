@@ -100,13 +100,11 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
 
   const chakraPhaseKeys = ['balance', 'excess', 'block'] as const;
   type PhaseKey = typeof chakraPhaseKeys[number];
-  const chakraPhaseKey: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
-  const chakraPhase = chakraSun.states[chakraPhaseKey];
+  const chakraPhase: PhaseKey = chakraPhaseKeys[chakraPhaseIndex];
+  const chakraData = chakraSun.states[chakraPhase];
 
   const yearChakra = getChakraFromYear(dateOfBirth);
-
   const nakshatraInstagramSun = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
-  const nakshatraInstagramMoon = `https://www.instagram.com/p/${nakshatraPostIds[moonNakshatraIndex]}/`;
 
   return {
     result: {
@@ -115,13 +113,13 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         chakraEmoji: chakraSun.emoji,
         chakraTitle: chakraSun.title,
         chakraName: chakraSun.name,
-        inner: chakraPhase.inner,
-        outer: chakraPhase.outer,
-        relationship: chakraPhase.relationship,
+        inner: chakraData.inner,
+        outer: chakraData.outer,
+        relationship: chakraData.relationship,
         link: chakraSun.link,
         lovelink: chakraSun.lovelink,
-        sprint: chakraMoon.sprint,      // Фокус ПЕРИОДА
-        day: chakraSun.day,             // Фокус ДНЯ (от солнца, но использовать не здесь)
+        sprint: chakraMoon.sprint,
+        day: chakraSun.day,
         lunarDescription: chakraMoon.desc,
         lunarEmoji: chakraMoon.emoji,
         lunarNumber: lunarChakraNumber,
@@ -131,13 +129,7 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         nakshatraLink: nakshatraInstagramSun,
         nakshatraInstagram: nakshatraInstagramSun
       },
-      currentPath: chakrasData.chakras[yearChakra - 1].path,
-      today: `${chakraSun.name} и ${chakraMoon.name}`, // Период и день
-      todayText: chakraMoon.day, // ФОКУС ДНЯ: фраза из лунной чакры
-      chakraPeriodLink: `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber as keyof typeof chakraPeriodPosts]}/`,
-      chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber as keyof typeof chakraDayPosts]}/`,
-      todayNakshatraName: nakshatraNames[moonNakshatraIndex],
-      todayNakshatraLink: nakshatraInstagramMoon
+      currentPath: chakrasData.chakras[yearChakra - 1].path
     }
   };
 }
