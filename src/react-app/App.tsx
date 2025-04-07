@@ -322,10 +322,10 @@ const handleCheckChakra = () => {
   const moonDegree = lunarEntry.Lunar_Longitude;
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
-  setWayData(getWayChakraToday(sunDegree, moonDegree));
+  setWayData(getWayChakraToday());
 
   setBirthChakra(result.result);
-  setWayData(getWayChakraToday(sunDegree, moonDegree));
+  setWayData(getWayChakraToday());
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
