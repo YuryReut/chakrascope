@@ -590,8 +590,8 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  {wayData && (
-  <p>
+{wayData && (
+  <><p>
   👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
   <a
     href={wayData.wayChakraDayLink}
@@ -631,7 +631,8 @@ const generateQueryResult = (chakraIndex: number) => {
     {showTodayDetails ? "Скрыть" : "Еще"}
   </a>
 </div>
-  }                
+</>  
+  
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
       {wayData && (
