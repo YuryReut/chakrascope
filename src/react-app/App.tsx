@@ -602,7 +602,7 @@ const generateQueryResult = (chakraIndex: number) => {
 </a>
 +
 <a
-  href={wayData.wayChakraDayLink}
+  href={wayData.wayChakraDaySetupLink}
   target="_blank"
   rel="noopener noreferrer"
   style={{ color: "inherit", textDecoration: "none", marginLeft: "4px" }}
