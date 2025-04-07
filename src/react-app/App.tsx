@@ -61,6 +61,7 @@ function App() {
         lunarNumber: number;
         lunarTitle: string;
         lunarName: string;
+        chakraDayLink: string;
         nakshatraInstagram: string;
         nakshatraName: string;
         nakshatraLink: string;
