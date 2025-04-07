@@ -23,7 +23,7 @@ export const nakshatraNames = [
   "Пурва Бхадрапада", "Уттара Бхадрапада", "Ревати"
 ];
 
-const chakraPeriodPosts = {
+const chakraPeriodPosts: Record<number, string> = {
   1: "DIBDVkFRDeb",
   2: "DIBDeTMRg7u",
   3: "DIBDiZtxAhy",
@@ -33,7 +33,7 @@ const chakraPeriodPosts = {
   7: "DIBD30GRoyD"
 };
 
-const chakraDayPosts = {
+const chakraDayPosts: Record<number, string> = {
   1: "DIBETbmRAhm",
   2: "DIBEgOBxL-Z",
   3: "DIBEkATx7Nm",
