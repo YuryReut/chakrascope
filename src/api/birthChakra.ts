@@ -184,6 +184,7 @@ export function getWayChakraToday() {
   const wayPeriodNakshatraName = nakshatraNames[sunNakshatraIndex];
   const wayPeriodNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
   const wayChakraDayLink = `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`;
+  const wayChakraDaySetupLink = `https://www.instagram.com/p/${chakraDaySetupPosts[lunarChakraNumber]}/`;
 
   return {
     wayTodayText,
