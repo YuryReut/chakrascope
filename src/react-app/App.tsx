@@ -295,6 +295,7 @@ const handleCheckChakra = () => {
       lunarNumber: 0,
       lunarTitle: "Ошибка",
       lunarName: "Ошибка данных",
+      chakraDayLink: "#",
       nakshatraInstagram: "#",
       nakshatraName: "Ошибка",
       nakshatraLink: "#"
