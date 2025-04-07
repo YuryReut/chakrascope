@@ -127,7 +127,8 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         lunarName: chakraMoon.name,
         nakshatraName: nakshatraNames[sunNakshatraIndex],
         nakshatraLink: nakshatraInstagramSun,
-        nakshatraInstagram: nakshatraInstagramSun
+        nakshatraInstagram: nakshatraInstagramSun,
+        chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path
     }
