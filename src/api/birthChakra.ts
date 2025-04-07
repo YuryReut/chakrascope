@@ -140,7 +140,21 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
   };
 }
 
-export function getWayChakraToday(sunDegree: number, moonDegree: number) {
+export function getWayChakraToday() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const start = new Date(year, 0, 0);
+  const dayOfYear = Math.floor((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+  const julianDate = `${year}-${dayOfYear.toString().padStart(3, "0")}`;
+
+  const solarEntry = solarData.find(entry => entry.Date === julianDate);
+  const lunarEntry = lunarData.find(entry => entry.Date === julianDate);
+
+  if (!solarEntry || !lunarEntry) return null;
+
+  const sunDegree = solarEntry.Solar_Longitude;
+  const moonDegree = lunarEntry.Lunar_Longitude;
+
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
 
