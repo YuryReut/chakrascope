@@ -71,6 +71,16 @@ export function getPersonalChakraDay(sunDegree: number): number {
 }
 
 export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegree: number) {
+
+  const chakraDaySetupPosts: Record<number, string> = {
+  1: "DII1cVixg7C",
+  2: "DII1hzJRoO3",
+  3: "DII1lmaRXsw",
+  4: "DII1pwqxKDz",
+  5: "DII1uU4Rkq0",
+  6: "DII2GjhRTuZ",
+  7: "DII2NLsRcsH"
+};
  
   const sunNakshatraIndex = Math.floor(sunDegree / (360 / 27));
   const moonNakshatraIndex = Math.floor(moonDegree / (360 / 27));
@@ -129,7 +139,8 @@ export function getBirthChakra(dateOfBirth: string, sunDegree: number, moonDegre
         nakshatraName: nakshatraNames[sunNakshatraIndex],
         nakshatraLink: nakshatraInstagramSun,
         nakshatraInstagram: nakshatraInstagramSun,
-        chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`
+        chakraDayLink: `https://www.instagram.com/p/${chakraDayPosts[lunarChakraNumber]}/`,
+        chakraDaySetupLink: `https://www.instagram.com/p/${chakraDaySetupPosts[lunarChakraNumber]}/`
       },
       currentPath: chakrasData.chakras[yearChakra - 1].path
     }
