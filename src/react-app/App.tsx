@@ -42,7 +42,7 @@ function convertToJulianDate(dateString: string): string {
 function App() {
  const [birthDate, setBirthDate] = useState("2000-12-31");
  const [hasChangedBirthDate, setHasChangedBirthDate] = useState(false);
- const wayData = getWayChakraToday(result.birth.sunDegree, result.birth.moonDegree);
+ const [wayData, setWayData] = useState<ReturnType<typeof getWayChakraToday> | null>(null);
  const [birthChakra, setBirthChakra] = useState<{
       birth: {
         chakraNumber: number;
@@ -322,9 +322,10 @@ const handleCheckChakra = () => {
   const moonDegree = lunarEntry.Lunar_Longitude;
 
   const result = getBirthChakra(birthDate, sunDegree, moonDegree);
+  setWayData(getWayChakraToday(sunDegree, moonDegree));
 
   setBirthChakra(result.result);
-  setWayData(getWayChakraToday());
+  setWayData(getWayChakraToday(sunDegree, moonDegree));
 
   setChakraNameSun(result.result.today.split(" и ")[0] as ChakraName);
   setChakraNameMoon(result.result.today.split(" и ")[1] as ChakraName);
