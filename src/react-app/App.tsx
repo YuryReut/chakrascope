@@ -592,16 +592,23 @@ const generateQueryResult = (chakraIndex: number) => {
 }}>
   {wayData && (
   <p>👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
-    <a
-      href={wayData.wayChakraDayLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: "inherit", textDecoration: "none" }}
-    >
-      {wayData.wayChakraDayEmoji} Подробнее
-    </a>
-  </p>
-)}
+   <a
+  href={wayData.wayChakraDayLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ color: "inherit", textDecoration: "none" }}
+>
+  Подробнее
+</a>
++
+<a
+  href={wayData.wayChakraDaySetupLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ color: "inherit", textDecoration: "none", marginLeft: "4px" }}
+>
+  Настроиться
+</a>
 
 <div style={{ textAlign: "right" }}>
   <a
