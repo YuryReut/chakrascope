@@ -196,19 +196,16 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 };
 
 const startEmotionDialog = () => {
-    if (birthChakra?.today) {
-        const chakrasToday = birthChakra.today.split(" и ");
-        if (chakrasToday.length === 2) {
-            setChakraNameSun(chakrasToday[0].trim() as ChakraName);
-            setChakraNameMoon(chakrasToday[1].trim() as ChakraName);
-        }
+    if (wayData) {
+        setChakraNameSun(wayData.wayPeriodNakshatraName as ChakraName);
+        setChakraNameMoon(wayData.wayTodayNakshatraName as ChakraName);
     }
 
     setShowEmotionDialog(true);
     setEmotionAnalysis(null);
     setCurrentStep('intro');
-    setSunState(null);
 };
+
 
 const handleCalculateCompatibility = async () => {
   if (!hasChangedPartnerDate) {
