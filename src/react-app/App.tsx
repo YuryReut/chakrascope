@@ -312,26 +312,26 @@ const handleCheckChakra = () => {
   setWayData(getWayChakraToday());
   
   if (hasChangedPartnerDate && partnerBirthDate) {
-  const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
-  const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
-  const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
+    const formattedPartnerDate = convertToJulianDate(partnerBirthDate);
+    const solarEntry = solarData.find(entry => entry.Date === formattedPartnerDate);
+    const lunarEntry = lunarData.find(entry => entry.Date === formattedPartnerDate);
 
-  if (solarEntry && lunarEntry) {
-    const sunDegree = solarEntry.Solar_Longitude;
-    const moonDegree = lunarEntry.Lunar_Longitude;
-    const result = getBirthChakra(partnerBirthDate, sunDegree, moonDegree);
-    const partnerChakraNumber = result.result.birth.chakraNumber;
+    if (solarEntry && lunarEntry) {
+      const sunDegree = solarEntry.Solar_Longitude;
+      const moonDegree = lunarEntry.Lunar_Longitude;
+      const partnerResult = getBirthChakra(partnerBirthDate, sunDegree, moonDegree);
 
-    const lunarChakraNumber = result.result.birth.lunarNumber;
-    const solarChakraNumber = result.result.birth.chakraNumber;
-    const isPerceptionDay = lunarChakraNumber % 2 === 0;
+      const freshWayData = getWayChakraToday();
+      setWayData(freshWayData);
 
-    const chakraKey1 = isPerceptionDay ? lunarChakraNumber : solarChakraNumber;
-    const chakraKey2 = isPerceptionDay ? partnerChakraNumber : lunarChakraNumber;
+      const isPerceptionDay = freshWayData.wayTodayText.includes("🌙");
 
-    setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
+      const chakraKey1 = isPerceptionDay ? birthChakra.result.birth.lunarNumber : birthChakra.result.birth.chakraNumber;
+      const chakraKey2 = isPerceptionDay ? partnerResult.result.birth.lunarNumber : partnerResult.result.birth.chakraNumber;
+
+      setDayAdvice(dayCouple[chakraKey1.toString()]?.[chakraKey2.toString()] || null);
+    }
   }
-}
 
 };
 
