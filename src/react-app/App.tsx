@@ -192,8 +192,8 @@ const handleStateSelect = (state: 'balance' | 'excess' | 'block') => {
 
 const startEmotionDialog = () => {
     if (wayData) {
-        setChakraNameSun(wayData.wayPeriodNakshatraName as ChakraName);
-        setChakraNameMoon(wayData.wayTodayNakshatraName as ChakraName);
+        setChakraNameSun(wayData.wayChakraPeriodName as ChakraName);
+        setChakraNameMoon(wayData.wayChakraDayName as ChakraName);
     }
 
     setShowEmotionDialog(true);
