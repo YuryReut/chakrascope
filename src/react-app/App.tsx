@@ -603,19 +603,8 @@ const generateQueryResult = (chakraIndex: number) => {
   marginBottom: "15px",
   textAlign: "left"
 }}>
-  <p>👁 : <strong>Сегодня</strong> {birthChakra.todayText} 
-    {" "}→{" "} 
-    <a
-      href={birthChakra.chakraDayLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: "inherit", textDecoration: "none" }}
-    >
-     {birthChakra.birth.lunarEmoji} Подробнее
-    </a>
-  </p>
   {wayData && (
-  <p>NEW - 👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
+  <p>👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
     <a
       href={wayData.wayChakraDayLink}
       target="_blank"
@@ -648,49 +637,27 @@ const generateQueryResult = (chakraIndex: number) => {
 </div>
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
-      <p><strong>Период по накшатре{" "}
-        <a
-          href={birthChakra.todayNakshatraLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-          {birthChakra.todayNakshatraName}
-        </a>
-      </strong><br />
-        {birthChakra.birth.sprint}
-        {" "}→{" "}
-        <a
-          href={birthChakra.chakraPeriodLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-         {birthChakra.birth.chakraEmoji} Подробнее 
-        </a>
-      </p>
       {wayData && (
-  <p><strong>NEW - Период по накшатре{" "}
-    <a
-      href={wayData.wayPeriodNakshatraLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: "inherit", textDecoration: "none" }}
-    >
-      {wayData.wayPeriodNakshatraName}
-    </a>
-  </strong><br />
-  {wayData.waySprint} →{" "}
-  <a
-    href={wayData.wayChakraPeriodLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ color: "inherit", textDecoration: "none" }}
-  >
-    {wayData.wayChakraPeriodEmoji} Подробнее
-  </a></p>
-)}
-
+        <p><strong>Период по накшатре{" "}
+          <a
+            href={wayData.wayPeriodNakshatraLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            {wayData.wayPeriodNakshatraName}
+          </a>
+        </strong><br />
+        {wayData.waySprint} →{" "}
+        <a
+          href={wayData.wayChakraPeriodLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          {wayData.wayChakraPeriodEmoji} Подробнее
+        </a></p>
+      )}
       <div style={{ textAlign: "center"}}>
       <button onClick={startEmotionDialog}>Твое восприятие сегодня</button>
       </div>
