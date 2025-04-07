@@ -602,7 +602,14 @@ const generateQueryResult = (chakraIndex: number) => {
     Подробнее
   </a>
   |    
-  
+   <a
+      href={wayData.wayChakraDaySetupLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: "inherit", textDecoration: "none", marginLeft: "8px" }}
+    >
+      Настроиться
+    </a>
 </p>
 
 <div style={{ textAlign: "right" }}>
@@ -624,6 +631,7 @@ const generateQueryResult = (chakraIndex: number) => {
     {showTodayDetails ? "Скрыть" : "Еще"}
   </a>
 </div>
+  }                
   {showTodayDetails && (
     <div style={{ marginTop: "10px" }}>
       {wayData && (
