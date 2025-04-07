@@ -169,7 +169,7 @@ export function getWayChakraToday() {
   const wayChakraPeriodLink = `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber]}/`;
   const wayChakraPeriodEmoji = chakraPeriod.emoji;
   const wayPeriodNakshatraName = nakshatraNames[sunNakshatraIndex];
-  const wayPeriodNakshatraLink = `https://www.instagram.com/p/${chakraPeriodPosts[solarChakraNumber]}/`;
+  const wayPeriodNakshatraLink = `https://www.instagram.com/p/${nakshatraPostIds[sunNakshatraIndex]}/`;
 
   return {
     wayTodayText,
