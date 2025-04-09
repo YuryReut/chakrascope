@@ -1123,7 +1123,8 @@ const generateQueryResult = (chakraIndex: number) => {
     marginTop: "20px",
     position: "relative"
   }}>
-    {birthChakra.birth.chakraEmoji} {" "}
+    {birthChakra.birth.chakraEmoji}
+    {" "}
       <a
       href="https://dzen.ru/a/Z-O8E97FOkrOn3na"
       target="_blank"
