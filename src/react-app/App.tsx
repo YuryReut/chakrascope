@@ -598,7 +598,7 @@ const generateQueryResult = (chakraIndex: number) => {
     href={wayData.wayChakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "inherit", textDecoration: "none" }}
+    style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
   >
     Подробнее
   </a>
@@ -607,7 +607,7 @@ const generateQueryResult = (chakraIndex: number) => {
       href={wayData.wayChakraDaySetupLink}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ color: "inherit", textDecoration: "none", marginLeft: "8px" }}
+      style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
     >
       Настроиться
     </a>
@@ -780,7 +780,8 @@ const generateQueryResult = (chakraIndex: number) => {
         right: "15px",
         fontSize: "12px",
         color: "#0077cc",
-        textDecoration: "underline"
+        textDecoration: "underline",
+        cursor: "pointer"
       }}
     >
       Подробнее
@@ -792,7 +793,8 @@ const generateQueryResult = (chakraIndex: number) => {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        fontWeight: "bold"
+        color: "#0077cc",
+        textDecoration: "underline"
       }}
     >
       сохранить навечно как настоящую любовь →
