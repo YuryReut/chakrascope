@@ -529,8 +529,8 @@ const generateQueryResult = (chakraIndex: number) => {
 }}>
   <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle}
   <br />
-  {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}>
-      {birthChakra.birth.chakraEmoji} Подробнее
+  {birthChakra.birth.outer} →  {birthChakra.birth.chakraEmoji} <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}>
+      Подробнее
   </a></p>
  <div style={{ textAlign: "right" }}>
    <a
@@ -570,13 +570,14 @@ const generateQueryResult = (chakraIndex: number) => {
         </a>
       </p>
       <p>🌙 : {birthChakra.birth.lunarDescription} →{" "}
+      {birthChakra.birth.lunarEmoji}
        <a
     href={birthChakra.birth.chakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
     style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
   >
-    {birthChakra.birth.lunarEmoji} Подробнее
+    Подробнее
   </a></p>
     </div>
   )}
@@ -646,13 +647,14 @@ const generateQueryResult = (chakraIndex: number) => {
           </a>
         </strong><br />
         {wayData.waySprint} →{" "}
-        <a
+         {wayData.wayChakraPeriodEmoji}
+          <a
           href={wayData.wayChakraPeriodLink}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
         >
-          {wayData.wayChakraPeriodEmoji} Подробнее
+          Подробнее
         </a></p>
       )}
       <div style={{ textAlign: "center"}}>
@@ -852,6 +854,10 @@ const generateQueryResult = (chakraIndex: number) => {
     href="/legal.html"
     target="_blank"
     rel="noopener noreferrer"
+    style={{
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
   >
     Пользовательское соглашение и политика конфиденциальности
   </a>
@@ -862,6 +868,10 @@ const generateQueryResult = (chakraIndex: number) => {
     href="https://dzen.ru/a/Z-C6rxkJ3HED4O81"
     target="_blank"
     rel="noopener noreferrer"
+    style={{
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
   >
     Юрий Реут
   </a>{' '}
@@ -870,6 +880,10 @@ const generateQueryResult = (chakraIndex: number) => {
     href="https://www.instagram.com/nowyoucanseelove/"
     target="_blank"
     rel="noopener noreferrer"
+    style={{
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
   >
     Now You Can See Love
   </a>{' '}
@@ -1127,7 +1141,8 @@ const generateQueryResult = (chakraIndex: number) => {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        fontWeight: "bold"
+        color: "#0077cc",
+        textDecoration: "underline"
       }}
     >
       сохранить навечно как настоящую любовь →
