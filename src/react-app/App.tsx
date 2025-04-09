@@ -595,7 +595,6 @@ const generateQueryResult = (chakraIndex: number) => {
   <p>
   👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
   {wayData.wayChakraDayEmoji}
-  {" "}
     <a
     href={wayData.wayChakraDayLink}
     target="_blank"
