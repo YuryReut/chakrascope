@@ -529,7 +529,7 @@ const generateQueryResult = (chakraIndex: number) => {
 }}>
   <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle}
   <br />
-  {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+  {birthChakra.birth.outer} →  <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}>
       {birthChakra.birth.chakraEmoji} Подробнее
   </a></p>
  <div style={{ textAlign: "right" }}>
@@ -564,7 +564,7 @@ const generateQueryResult = (chakraIndex: number) => {
           href={birthChakra.birth.nakshatraInstagram}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
+          style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
         >
           {birthChakra.birth.nakshatraName}
         </a>
@@ -574,7 +574,7 @@ const generateQueryResult = (chakraIndex: number) => {
     href={birthChakra.birth.chakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "inherit", textDecoration: "none" }}
+    style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
   >
     {birthChakra.birth.lunarEmoji} Подробнее
   </a></p>
@@ -650,7 +650,7 @@ const generateQueryResult = (chakraIndex: number) => {
           href={wayData.wayChakraPeriodLink}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
+          style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
         >
           {wayData.wayChakraPeriodEmoji} Подробнее
         </a></p>
@@ -710,7 +710,7 @@ const generateQueryResult = (chakraIndex: number) => {
       href={birthChakra.birth.lovelink}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ color: "inherit", textDecoration: "none" }}
+      style={{ color: "#0077cc", textDecoration: "underline", cursor: "pointer" }}
     >
       Подробнее
     </a>
@@ -776,7 +776,7 @@ const generateQueryResult = (chakraIndex: number) => {
         position: "absolute",
         top: "10px",
         right: "15px",
-        fontSize: "13px",
+        fontSize: "12px",
         color: "#0077cc",
         textDecoration: "underline"
       }}
@@ -836,6 +836,10 @@ const generateQueryResult = (chakraIndex: number) => {
     href="https://dzen.ru/a/Z-D7Rnsxljt7vFYY"
     target="_blank"
     rel="noopener noreferrer"
+    style={{
+        color: "#0077cc",
+        textDecoration: "underline"
+      }}
   >
     Подробнее на Дзене
   </a>
@@ -1109,7 +1113,7 @@ const generateQueryResult = (chakraIndex: number) => {
         position: "absolute",
         top: "10px",
         right: "15px",
-        fontSize: "13px",
+        fontSize: "12px",
         color: "#0077cc",
         textDecoration: "underline"
       }}
