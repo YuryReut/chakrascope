@@ -529,7 +529,7 @@ const generateQueryResult = (chakraIndex: number) => {
 }}>
   <p>🔆 : Твоя основная чакра: <strong>{birthChakra.birth.chakraName}</strong>, {birthChakra.birth.chakraNumber}-я чакра {birthChakra.birth.chakraTitle}
   <br />
-  {birthChakra.birth.outer} →  {birthChakra.birth.chakraEmoji} <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "#495579", textDecoration: "underline", cursor: "pointer" }}>
+  {birthChakra.birth.outer} →  {birthChakra.birth.chakraEmoji} <a href={birthChakra.birth.link} target="_blank" rel="noopener noreferrer" style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}>
       Подробнее
   </a></p>
  <div style={{ textAlign: "right" }}>
@@ -543,7 +543,7 @@ const generateQueryResult = (chakraIndex: number) => {
       display: "inline-block",
       marginTop: "10px",
       fontSize: "12px",
-      color: "#495579",
+      color: "#4A5A88",
       textDecoration: "underline",
       cursor: "pointer"
     }}
@@ -564,7 +564,7 @@ const generateQueryResult = (chakraIndex: number) => {
           href={birthChakra.birth.nakshatraInstagram}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#495579", textDecoration: "underline", cursor: "pointer" }}
+          style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}
         >
           {birthChakra.birth.nakshatraName}
         </a>
@@ -575,7 +575,7 @@ const generateQueryResult = (chakraIndex: number) => {
     href={birthChakra.birth.chakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "#495579", textDecoration: "underline", cursor: "pointer" }}
+    style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}
   >
     Подробнее
   </a></p>
@@ -599,7 +599,7 @@ const generateQueryResult = (chakraIndex: number) => {
     href={wayData.wayChakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "#495579", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
+    style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
   >
     Подробнее
   </a>
@@ -608,7 +608,7 @@ const generateQueryResult = (chakraIndex: number) => {
       href={wayData.wayChakraDaySetupLink}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ color: "#495579", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
+      style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer", marginLeft: "8px" }}
     >
       Настроиться
     </a>
@@ -624,7 +624,7 @@ const generateQueryResult = (chakraIndex: number) => {
     style={{
       display: "inline-block",
       fontSize: "12px",
-      color: "#495579",
+      color: "#4A5A88",
       marginTop: "10px",
       textDecoration: "underline",
       cursor: "pointer"
@@ -642,7 +642,7 @@ const generateQueryResult = (chakraIndex: number) => {
             href={wayData.wayPeriodNakshatraLink}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "inherit", textDecoration: "none" }}
+            style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}
           >
             {wayData.wayPeriodNakshatraName}
           </a>
@@ -654,7 +654,7 @@ const generateQueryResult = (chakraIndex: number) => {
           href={wayData.wayChakraPeriodLink}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#495579", textDecoration: "underline", cursor: "pointer" }}
+          style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}
         >
           Подробнее
         </a></p>
@@ -716,7 +716,7 @@ const generateQueryResult = (chakraIndex: number) => {
       href={birthChakra.birth.lovelink}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ color: "#495579", textDecoration: "underline", cursor: "pointer" }}
+      style={{ color: "#4A5A88", textDecoration: "underline", cursor: "pointer" }}
     >
       Подробнее
     </a>
@@ -783,7 +783,7 @@ const generateQueryResult = (chakraIndex: number) => {
         top: "10px",
         right: "15px",
         fontSize: "12px",
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline",
         cursor: "pointer"
       }}
@@ -797,7 +797,7 @@ const generateQueryResult = (chakraIndex: number) => {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
     >
@@ -843,7 +843,7 @@ const generateQueryResult = (chakraIndex: number) => {
     target="_blank"
     rel="noopener noreferrer"
     style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
   >
@@ -859,7 +859,7 @@ const generateQueryResult = (chakraIndex: number) => {
     target="_blank"
     rel="noopener noreferrer"
     style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
   >
@@ -873,7 +873,7 @@ const generateQueryResult = (chakraIndex: number) => {
     target="_blank"
     rel="noopener noreferrer"
     style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
   >
@@ -885,7 +885,7 @@ const generateQueryResult = (chakraIndex: number) => {
     target="_blank"
     rel="noopener noreferrer"
     style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
   >
@@ -1132,7 +1132,7 @@ const generateQueryResult = (chakraIndex: number) => {
         top: "10px",
         right: "15px",
         fontSize: "12px",
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
     >
@@ -1145,7 +1145,7 @@ const generateQueryResult = (chakraIndex: number) => {
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        color: "#495579",
+        color: "#4A5A88",
         textDecoration: "underline"
       }}
     >
