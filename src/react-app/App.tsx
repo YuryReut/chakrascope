@@ -594,7 +594,9 @@ const generateQueryResult = (chakraIndex: number) => {
 {wayData && (
   <p>
   👁 : <strong>Сегодня</strong> {wayData.wayTodayText} →{" "}
-  <a
+  {wayData.wayChakraDayEmoji}
+  {" "}
+    <a
     href={wayData.wayChakraDayLink}
     target="_blank"
     rel="noopener noreferrer"
@@ -648,6 +650,7 @@ const generateQueryResult = (chakraIndex: number) => {
         </strong><br />
         {wayData.waySprint} →{" "}
          {wayData.wayChakraPeriodEmoji}
+         {" "}
           <a
           href={wayData.wayChakraPeriodLink}
           target="_blank"
@@ -1120,6 +1123,7 @@ const generateQueryResult = (chakraIndex: number) => {
     marginTop: "20px",
     position: "relative"
   }}>
+    {birthChakra.birth.chakraEmoji} {" "}
       <a
       href="https://dzen.ru/a/Z-O8E97FOkrOn3na"
       target="_blank"
