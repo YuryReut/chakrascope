@@ -711,6 +711,8 @@ const generateQueryResult = (chakraIndex: number) => {
 }}>
   <p>
     ❤️ : {birthChakra.birth.relationship} →{" "}
+    {birthChakra.birth.chakraEmoji}
+    {" "}
     <a
       href={birthChakra.birth.lovelink}
       target="_blank"
@@ -806,26 +808,24 @@ const generateQueryResult = (chakraIndex: number) => {
     </p>
   </div>
       )}
-{dayAdvice && (
-  <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
-    <p><strong>💫 Взаимодействие сегодня:</strong></p>
-    <p><strong>Тебе с ним:</strong> {dayAdvice.toOther}</p>
-    <p><strong>Ему с тобой:</strong> {dayAdvice.fromOther}</p>
-  </div>
-)}
-      <div style={{ marginTop: "10px" }}>
-        <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
-        <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
-        <p><strong>Действия и цели</strong><br />{compatibilityText.chakra3?.how}<br />{compatibilityText.chakra3?.not}</p>
+    {dayAdvice && (
+      <div style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
+        <p><strong>💫 Взаимодействие сегодня:</strong></p>
+        <p><strong>Тебе с ним:</strong> {dayAdvice.toOther}</p>
+        <p><strong>Ему с тобой:</strong> {dayAdvice.fromOther}</p>
       </div>
-    </div>
-  )}
-</div>
-
-                  
-                </div>
-            )}
-            </div>
+    )}
+          <div style={{ marginTop: "10px" }}>
+            <p><strong>Стабильность и безопасность</strong><br />{compatibilityText.chakra1?.how}<br />{compatibilityText.chakra1?.not}</p>
+            <p><strong>Эмоции и чувственность</strong><br />{compatibilityText.chakra2?.how}<br />{compatibilityText.chakra2?.not}</p>
+            <p><strong>Действия и цели</strong><br />{compatibilityText.chakra3?.how}<br />{compatibilityText.chakra3?.not}</p>
+          </div>
+        </div>
+      )}
+       </div>
+      </div>
+     )}
+ </div>
   <div style={{
     marginTop: "20px",
     maxWidth: "700px",
@@ -1123,8 +1123,6 @@ const generateQueryResult = (chakraIndex: number) => {
     marginTop: "20px",
     position: "relative"
   }}>
-    {birthChakra.birth.chakraEmoji}
-    {" "}
       <a
       href="https://dzen.ru/a/Z-O8E97FOkrOn3na"
       target="_blank"
