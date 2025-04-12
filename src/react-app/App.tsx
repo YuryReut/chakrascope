@@ -247,12 +247,22 @@ const handleCalculateCompatibility = async () => {
 
  const promoCode = isExactMatch ? await generatePromoCode(birthDate, partnerBirthDate) : null;
 
-const dayChakraName = wayData.wayChakraDayName as ChakraName;
-const dayChakraNumber = day_EQ7.chakras[dayChakraName]?.chakraNumber;
+const chakraNameToNumber: Record<ChakraName, number> = {
+  Муладхара: 1,
+  Свадхистхана: 2,
+  Манипура: 3,
+  Анахата: 4,
+  Вишудха: 5,
+  Аджна: 6,
+  Сахасрара: 7
+};
+
+const dayChakraName = wayData?.wayChakraDayName as ChakraName;
+const dayChakraNumber = chakraNameToNumber[dayChakraName];
 const isPerceptionDay = [2, 4, 6].includes(dayChakraNumber);
 
-const chakraKey1 = isPerceptionDay ? yourLunarChakra : yourSolarChakra;
-const chakraKey2 = isPerceptionDay ? partnerLunarChakra : partnerSolarChakra;
+const chakraKey1 = isPerceptionDay ? birthChakra.birth.lunarNumber : birthChakra.birth.chakraNumber;
+const chakraKey2 = isPerceptionDay ? result.result.birth.lunarNumber : result.result.birth.chakraNumber;
 
   setCompatibilityText({
   summary,
