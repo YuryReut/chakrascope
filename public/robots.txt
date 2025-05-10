@@ -1,0 +1,22 @@
+# Разрешаем только доступ к публичному API для отдельных ботов
+User-agent: GPTBot
+Allow: /public-api/
+Disallow: /
+
+User-agent: Google-Extended
+Allow: /public-api/
+Disallow: /
+
+User-agent: Bytespider
+Allow: /public-api/
+Disallow: /
+
+# Полный запрет для остальных AI-ботов и сканеров
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: *
+Disallow: /
