@@ -1,80 +1,71 @@
-# React + Vite + Hono + Cloudflare Workers
+# Чакроскоп
 
-This template provides a minimal setup for building a React application with TypeScript and Vite, designed to run on Cloudflare Workers. It features hot module replacement, ESLint integration, and the flexibility of Workers deployments.
+**Чакроскоп** — это инструмент самонаблюдения и мягкой настройки на внутренние ритмы, который соединяет древнюю систему чакр с реальными астрономическими данными о движении Солнца и Луны.
 
-![React + TypeScript + Vite + Cloudflare Workers](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/fc7b4b62-442b-4769-641b-ad4422d74300/public)
+---
 
-<!-- dash-content-start -->
+## 🌞 Что делает Чакроскоп
 
-🚀 Supercharge your web development with this powerful stack:
+* Определяет **активные чакры** в момент запроса на основе положения Солнца и Луны.
+* Показывает, какие энергии ведут вас сегодня, на этой неделе или в этом году.
+* Помогает распознавать **внутренние состояния**, понимать фазы жизни и поддерживать контакт с собой.
+* Не даёт предсказаний — это **инструмент рефлексии**, а не гадания.
 
-- [**React**](https://react.dev/) - A modern UI library for building interactive interfaces
-- [**Vite**](https://vite.dev/) - Lightning-fast build tooling and development server
-- [**Hono**](https://hono.dev/) - Ultralight, modern backend framework
-- [**Cloudflare Workers**](https://developers.cloudflare.com/workers/) - Edge computing platform for global deployment
+---
 
-### ✨ Key Features
+## 🔧 Как это работает
 
-- 🔥 Hot Module Replacement (HMR) for rapid development
-- 📦 TypeScript support out of the box
-- 🛠️ ESLint configuration included
-- ⚡ Zero-config deployment to Cloudflare's global network
-- 🎯 API routes with Hono's elegant routing
-- 🔄 Full-stack development setup
+Чакроскоп использует:
 
-Get started in minutes with local development or deploy directly via the Cloudflare dashboard. Perfect for building modern, performant web applications at the edge.
+* Астрономические данные NASA для определения координат светил.
+* Геофизические данные NOAA (магнитные бури, солнечная активность).
+* Алгоритм соответствия чакр с угловым положением Солнца и Луны.
+* Простую визуализацию текущих состояний.
+* Поддержку временных интервалов (день, неделя, год, срез по жизни).
 
-<!-- dash-content-end -->
+---
 
-## Getting Started
+## 🎯 Для кого это
 
-To start a new project with this template, run:
+* Для тех, кто хочет мягко исследовать своё состояние без мистики и страха.
+* Для пар, желающих глубже понять свои энергетические ритмы (в интеграции с Web3Wed).
+* Для исследователей, практиков и наблюдателей, ищущих новый способ быть с собой.
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/chakrascope
-```
+---
 
-A live deployment of this template is available at:
-[https://react-vite-template.templates.workers.dev](https://react-vite-template.templates.workers.dev)
+## 🧠 Технологии
 
-## Development
+* Frontend: React/Vue
+* Backend: TypeScript (Edge Functions, Cloudflare Workers)
+* Хостинг: Cloudflare Pages
+* Астрономические данные: NASA
+* Геофизические данные: NOAA (США)
+* Локализация: поддержка \[ru/en], возможно расширение
 
-Install dependencies:
+---
 
-```bash
-npm install
-```
+## 🔒 Юридическая защита
 
-Start the development server with:
+Программа **«Чакроскоп»** официально зарегистрирована в **Роспатенте**.
+**Свидетельство № 2025661241** от **5 мая 2025 г.**
+Автор и правообладатель: **Юрий Реут (BY)**
 
-```bash
-npm run dev
-```
+Документ: [Скачать JPG свидетельства](./RosPatent2025661241_Chakrascope.jpg)
 
-Your application will be available at [http://localhost:5173](http://localhost:5173).
+---
 
-## Production
+## ⚠️ Дисклеймер
 
-Build your project for production:
+Чакроскоп не является медицинским, юридическим или психотерапевтическим инструментом. Все данные — для личного самонаблюдения и рефлексии.
 
-```bash
-npm run build
-```
+---
 
-Preview your build locally:
+## 📬 Контакты и лицензия
 
-```bash
-npm run preview
-```
+* Автор: [Юрий Реут](https://www.linkedin.com/in/yuryreut)
+* Email: \[[office@web3wed.io](mailto:office@web3wed.io)]
+* Проект разворачивается как non-profit R\&D в рамках исследовательской инициативы [NowYouCanSeeLove](https://nowyoucanseelove.com)
 
-Deploy your project to Cloudflare Workers:
+Лицензия: Custom / Closed — распространяется с разрешения автора.
 
-```bash
-npx wrangler deploy
-```
-
-## Additional Resources
-
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [React Documentation](https://reactjs.org/)
+---
