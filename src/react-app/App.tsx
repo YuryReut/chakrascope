@@ -877,6 +877,20 @@ const generateQueryResult = (chakraIndex: number) => {
   </a>
 </p>
 <p style={{ marginTop: "10px" }}>
+  Программа «Чакроскоп» зарегистрирована в Роспатенте. {' '}
+  <a
+    href="/RosPatent2025661241_Chakrascope.jpg"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+        color: "#4A5A88",
+        textDecoration: "underline"
+      }}
+  >
+    Свидетельство
+  </a>{' '} № 2025661241 от 05.05.2025.
+</p>
+<p style={{ marginTop: "10px" }}>
   2025 © Non Profit R&amp;D by{' '}
   <a
     href="https://dzen.ru/a/Z-C6rxkJ3HED4O81"
